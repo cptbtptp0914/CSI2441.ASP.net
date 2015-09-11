@@ -11,9 +11,11 @@ namespace MVC.Web.Tutorial.Controllers
         public ActionResult Index()
         {
             // can pass data dynamically with ViewData
-            ViewData["message"] = "Hello World!";
+            ViewData["helloWorld"] = "Hello World!";
             // experiment with ViewBag
             ViewBag.Message = "ViewBag say's hi!";
+            // note: don't shadow VieData and ViewBag names, ie "Message",
+            // will cause both to be updated
             return View();
         }
     }
