@@ -30,7 +30,14 @@ namespace MVC.Web.Tutorial
                 // which folder you want to be at URL,  "" == no folder
                 "",
                 // create new Test controller and the action to call
-                new{controller = "Test", action = "Index"}    
+                new {controller = "Test", action = "Index"}    
+            );
+
+            // route for TestForm
+            routes.MapRoute(
+                "TestPage",
+                "testpage",
+                new {controller = "TestPage", action = "TestForm"}
             );
         }
     }

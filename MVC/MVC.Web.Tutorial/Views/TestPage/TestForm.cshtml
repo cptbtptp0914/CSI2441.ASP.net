@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "TestForm";
+}
+
+<h2>TestForm</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.Label("Name")
+    @Html.TextBox("Name")<br/>
+
+    @Html.Label("Email")
+    @Html.TextBox("Email")<br/>
+
+    @Html.Label("Phone")
+    @Html.TextBox("Phone")<br/>
+
+    <button type="submit">Submit</button>
+}
