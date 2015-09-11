@@ -14,8 +14,21 @@ namespace MVC.Web.Tutorial
         {
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
-            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            // call own RegisterRoutes instead of static
+            RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+        }
+
+        public static void RegisterRoutes(RouteCollection routes)
+        {
+            routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            // create new route
+            routes.MapRoute(
+                "Home",
+                "",
+                new{controller = "Home", action = "Index"}    
+            );
         }
     }
 }
