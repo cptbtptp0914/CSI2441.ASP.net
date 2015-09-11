@@ -25,9 +25,12 @@ namespace MVC.Web.Tutorial
 
             // create new route
             routes.MapRoute(
-                "Home",
+                // the controller
+                "Test",
+                // which folder you want to be at URL,  "" == no folder
                 "",
-                new{controller = "Home", action = "Index"}    
+                // create new Test controller and the action to call
+                new{controller = "Test", action = "Index"}    
             );
         }
     }
