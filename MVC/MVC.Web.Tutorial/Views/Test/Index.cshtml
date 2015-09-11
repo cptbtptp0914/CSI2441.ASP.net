@@ -1,4 +1,7 @@
-﻿@{
+﻿@*Importing the model here*@
+@model MVC.Web.Tutorial.Models.TestModel
+
+@{
     ViewBag.Title = "Index";
 }
 
@@ -6,4 +9,6 @@
 <h2>@ViewData["helloWorld"]</h2>
 @*can also accept data from ViewBag, similar to ViewBag.Title above*@
 <p>@ViewBag.Message</p>
+@*passing message from the model here*@
+<p>@Model.ModelMessage</p>
 
