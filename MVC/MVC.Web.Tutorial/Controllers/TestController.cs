@@ -12,6 +12,8 @@ namespace MVC.Web.Tutorial.Controllers
         {
             // can pass data dynamically with ViewData
             ViewData["message"] = "Hello World!";
+            // experiment with ViewBag
+            ViewBag.Message = "ViewBag say's hi!";
             return View();
         }
     }
