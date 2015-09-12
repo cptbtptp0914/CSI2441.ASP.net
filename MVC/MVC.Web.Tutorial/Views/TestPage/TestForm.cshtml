@@ -1,4 +1,5 @@
-﻿
+﻿@*import model*@
+@model MVC.Web.Tutorial.Models.TestFormModel
 @{
     ViewBag.Title = "TestForm";
 }
@@ -7,17 +8,33 @@
 
 @using (Html.BeginForm())
 {
-    @Html.Label("Name")
-    @Html.TextBox("Name")
-    @Html.ValidationMessage("Name")<br/>
+@*    @Html.Label("Name")*@
+    @Html.LabelFor(model => model.Name)
 
-    @Html.Label("Email")
-    @Html.TextBox("Email")
-    @Html.ValidationMessage("Email")<br />
+    // to use jquery.validate.unobtrusive.js, import model, see above, then
+    // replace this line
+@*    @Html.TextBox("Name")*@
+    // with this
+    @Html.TextBoxFor(model => model.Name) // reference model variable with lambda expression
 
-    @Html.Label("Phone")
-    @Html.TextBox("Phone")
-    @Html.ValidationMessage("Phone")<br />
+@*    @Html.ValidationMessage("Name")<br/>*@
+    @Html.ValidationMessageFor(model => model.Name)<br/>
+
+@*    @Html.Label("Email")*@
+@*    @Html.TextBoxFor(model => model.Email)*@
+@*    @Html.ValidationMessage("Email")<br />*@
+
+    @Html.LabelFor(model => model.Email)
+    @Html.TextBoxFor(model => model.Email)
+    @Html.ValidationMessageFor(model => model.Email)<br/>
+
+@*    @Html.Label("Phone")*@
+@*    @Html.TextBoxFor(model => model.Phone)*@
+@*    @Html.ValidationMessage("Phone")<br />*@
+
+    @Html.LabelFor(model => model.Phone)
+    @Html.TextBoxFor(model => model.Phone)
+    @Html.ValidationMessageFor(model => model.Phone)<br/>
 
     <button type="submit">Submit</button>
 }
