@@ -20,5 +20,9 @@ namespace MVC.Web.Tutorial.Models
 
         [Required(ErrorMessage = "Required")]
         public string Phone { get; set; }
+
+        // can do regex here!
+//        [RegularExpression("regexPattern", ErrorMessage = "message")]
+        // some attribute
     }
 }
