@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,6 +18,9 @@ namespace MVC.Web.Tutorial
             // call own RegisterRoutes instead of static
             RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            // don't init database since it is existing
+            Database.SetInitializer<MVC.Web.Tutorial.Models.CourseTypeContext>(null);
         }
 
         public static void RegisterRoutes(RouteCollection routes)
