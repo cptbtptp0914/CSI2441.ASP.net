@@ -12,13 +12,13 @@ namespace MVC.Web.Tutorial.Models
     public class TestFormModel
     {
         // required tag used for validation client or server side
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public string Name { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Required")]
         public string Phone { get; set; }
     }
 }

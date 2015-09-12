@@ -8,13 +8,16 @@
 @using (Html.BeginForm())
 {
     @Html.Label("Name")
-    @Html.TextBox("Name")<br/>
+    @Html.TextBox("Name")
+    @Html.ValidationMessage("Name")<br/>
 
     @Html.Label("Email")
-    @Html.TextBox("Email")<br/>
+    @Html.TextBox("Email")
+    @Html.ValidationMessage("Email")<br />
 
     @Html.Label("Phone")
-    @Html.TextBox("Phone")<br/>
+    @Html.TextBox("Phone")
+    @Html.ValidationMessage("Phone")<br />
 
     <button type="submit">Submit</button>
 }
