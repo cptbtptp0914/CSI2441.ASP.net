@@ -22,13 +22,13 @@ namespace Exercises.WebForm {
         protected global::System.Web.UI.WebControls.TextBox ProductName;
         
         /// <summary>
-        /// ProductPrice control.
+        /// SupplierID control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox ProductPrice;
+        protected global::System.Web.UI.WebControls.DropDownList SupplierID;
         
         /// <summary>
         /// CategoryID control.
@@ -40,6 +40,24 @@ namespace Exercises.WebForm {
         protected global::System.Web.UI.WebControls.DropDownList CategoryID;
         
         /// <summary>
+        /// QuantityPerUnit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox QuantityPerUnit;
+        
+        /// <summary>
+        /// UnitPrice control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox UnitPrice;
+        
+        /// <summary>
         /// UnitsInStock control.
         /// </summary>
         /// <remarks>
@@ -47,6 +65,24 @@ namespace Exercises.WebForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox UnitsInStock;
+        
+        /// <summary>
+        /// UnitsOnOrder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox UnitsOnOrder;
+        
+        /// <summary>
+        /// ReorderLevel control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox ReorderLevel;
         
         /// <summary>
         /// Discontinued control.
@@ -67,6 +103,15 @@ namespace Exercises.WebForm {
         protected global::System.Web.UI.WebControls.Button ButtonAddProduct;
         
         /// <summary>
+        /// ProductGridView control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.GridView ProductGridView;
+        
+        /// <summary>
         /// CatListRecordset control.
         /// </summary>
         /// <remarks>
@@ -76,6 +121,15 @@ namespace Exercises.WebForm {
         protected global::System.Web.UI.WebControls.SqlDataSource CatListRecordset;
         
         /// <summary>
+        /// SupplierRecordset control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource SupplierRecordset;
+        
+        /// <summary>
         /// AddNewProductSQL control.
         /// </summary>
         /// <remarks>
@@ -83,5 +137,14 @@ namespace Exercises.WebForm {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource AddNewProductSQL;
+        
+        /// <summary>
+        /// ProductSQL control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource ProductSQL;
     }
 }
