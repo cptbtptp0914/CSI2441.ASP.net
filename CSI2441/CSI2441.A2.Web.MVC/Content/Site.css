@@ -27,8 +27,16 @@ textarea {
  * CUSTOM CSS *
  **************/
 
+/* Centers an image */
 img.center {
     display: block;
+    margin-top: auto;
+    margin-bottom: auto;
     margin-left: auto;
     margin-right: auto;
+}
+
+/* Override default jumbotron, add 30px top margin*/
+.jumbotron {
+    margin-top: 30px;
 }

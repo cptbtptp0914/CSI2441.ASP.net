@@ -1,7 +1,106 @@
-﻿
+﻿@model CSI2441.A2.Web.MVC.Models.ManageStudentViewModel
 @{
-    ViewBag.Title = "Manage Student Details";
+    ViewBag.Title = "Create New Student";
 }
 
 <h2>@ViewBag.Title</h2>
 
+@using (Html.BeginForm("Index", "ManageStudent", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <h4>Please enter student details below</h4>
+    <hr/>
+    @Html.ValidationSummary("", new {@class = "text-danger"})
+
+    @*Firstname*@
+
+    <div class="form-group">
+        @*Looks weird if i use @Html.LabelFor() here, hardcoding field labels instead*@
+        @Html.LabelFor(model => model.FirstName, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.FirstName, new { @class = "form-control", placeholder="Required" })
+        </div>
+    </div>
+
+    @*Surname*@
+
+    <div class="form-group">
+        @Html.Label("Surname", new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Surname, new { @class = "form-control", placeholder = "Required" })
+        </div>
+    </div>
+
+    @*Dob*@
+
+    <div class="form-group">
+        @Html.Label("Date of birth", new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Dob, new {@class = "form-control", placeholder = "DD/MM/YYYY" })
+        </div>
+    </div>
+
+    @*Landline*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Landline, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Landline, new {@class = "form-control", placeholder = "Required" })
+        </div>
+    </div>
+
+    @*Mobile*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Mobile, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Mobile, new {@class = "form-control", placeholder = "Required" })
+        </div>
+    </div>
+
+    @*Address*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Address, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Address, new {@class = "form-control", placeholder = "1 Example St."})
+        </div>
+    </div>
+
+    @*State*@
+    @*Not making dropdown, since Country is also designated. Else may remove country, or have dropdown update when
+      a different country is selected.*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.State, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.State, new { @class = "form-control", placeholder = "Required" })
+        </div>
+    </div>
+
+    @*Postcode*@
+    @*TODO: Make dropdown, connect to DB*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Postcode, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Postcode, new {@class = "form-control", placeholder = "Make dropdown"})
+        </div>
+    </div>
+
+    @*Country*@
+    @*TODO: Make dropdown, prepopulated with all countries, make Australia first if possible*@
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Country, new {@class = "col-md-2 control-label"})
+        <div class="col-md-10">
+            @Html.TextBoxFor(model => model.Country, new {@class = "form-control", placeholder = "May remove"})
+        </div>
+    </div>
+
+    @*Button*@
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Create New Student"/>
+        </div>
+    </div>
+}
