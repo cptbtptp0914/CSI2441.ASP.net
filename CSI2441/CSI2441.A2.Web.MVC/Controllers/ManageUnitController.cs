@@ -6,8 +6,9 @@ using System.Web.Mvc;
 
 namespace CSI2441.A2.Web.MVC.Controllers
 {
-    public class HomeController : Controller
+    public class ManageUnitController : Controller
     {
+        // GET: ManageUnit
         public ActionResult Index()
         {
             return View();
