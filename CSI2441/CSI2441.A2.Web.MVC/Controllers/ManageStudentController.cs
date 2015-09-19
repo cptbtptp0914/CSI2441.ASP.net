@@ -8,12 +8,26 @@ namespace CSI2441.A2.Web.MVC.Controllers
 {
     public class ManageStudentController : Controller
     {
-        [HttpGet]
+
+        // manage students menu
         public ActionResult Index()
         {
             return View();
         }
-        
-        // overload Index() for [HttpPost]
+
+        public ActionResult AddStudent()
+        {
+            return View();
+        }
+
+        public ActionResult EditStudent()
+        {
+            return View();
+        }
+
+        public ActionResult DeleteStudent()
+        {
+            return View();
+        }
     }
 }

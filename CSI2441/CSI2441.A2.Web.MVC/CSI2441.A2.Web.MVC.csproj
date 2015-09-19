@@ -187,8 +187,11 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\img\icons\add.png" />
     <Content Include="Content\img\icons\course.png" />
     <Content Include="Content\img\icons\cc.png" />
+    <Content Include="Content\img\icons\delete.png" />
+    <Content Include="Content\img\icons\edit.png" />
     <Content Include="Content\img\icons\result.png" />
     <Content Include="Content\img\icons\student.png" />
     <Content Include="Content\img\icons\unit.png" />
@@ -247,6 +250,9 @@
     <Content Include="Views\ManageCourse\Index.cshtml" />
     <Content Include="Views\ManageResults\Index.cshtml" />
     <Content Include="Views\ManageResult\Index.cshtml" />
+    <Content Include="Views\ManageStudent\AddStudent.cshtml" />
+    <Content Include="Views\ManageStudent\EditStudent.cshtml" />
+    <Content Include="Views\ManageStudent\DeleteStudent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
