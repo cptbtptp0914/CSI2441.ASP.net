@@ -253,6 +253,7 @@
     <Content Include="Views\ManageStudent\AddStudent.cshtml" />
     <Content Include="Views\ManageStudent\EditStudent.cshtml" />
     <Content Include="Views\ManageStudent\DeleteStudent.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DateTime.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
