@@ -12,5 +12,10 @@ namespace CSI2441.A2.Web.MVC.Controllers
         {
             return View();
         }
+
+        public ActionResult Success()
+        {
+            return View();
+        }
     }
 }
