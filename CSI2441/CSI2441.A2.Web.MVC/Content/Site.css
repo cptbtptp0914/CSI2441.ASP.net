@@ -41,12 +41,12 @@ img.center {
     margin-top: 30px;
 }
 
+/* Adjusting span padding for action/cancel buttons */
 .span-btn-action {
     padding-left: 15px;
     width: auto;
 }
 
-/* Adjusting span padding for cancel buttons */
 .span-btn-cancel {
     padding-left: 10px;
     width: auto;

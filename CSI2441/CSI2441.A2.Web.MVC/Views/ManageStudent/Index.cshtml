@@ -2,7 +2,7 @@
 @{
     ViewBag.Title = "Manage Students";
     ViewBag.AddStudent = "Add Student";
-    ViewBag.EditStudent = "Edit Student";
+    ViewBag.EditStudent = "Edit / Delete Student";
     ViewBag.DeleteStudent = "Delete Student";
 }
 
@@ -16,7 +16,7 @@
 @*Icon links*@
 
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <a href="@Url.Action("AddStudent", "ManageStudent")">
             <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/add.png")"/>
         </a>
@@ -24,7 +24,7 @@
             @ViewBag.AddStudent
         </h3>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-6">
         <a href="@Url.Action("EditStudent", "ManageStudent")">
             <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/edit.png")"/>
         </a>
@@ -32,12 +32,12 @@
             @ViewBag.EditStudent
         </h3>
     </div>
-    <div class="col-md-4">
-        <a href="@Url.Action("DeleteStudent", "ManageStudent")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/delete.png")" />
-        </a>
-        <h3 class="text-center">
-            @ViewBag.DeleteStudent
-        </h3>
-    </div>
+@*    <div class="col-md-4">*@
+@*        <a href="@Url.Action("DeleteStudent", "ManageStudent")">*@
+@*            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/delete.png")" />*@
+@*        </a>*@
+@*        <h3 class="text-center">*@
+@*            @ViewBag.DeleteStudent*@
+@*        </h3>*@
+@*    </div>*@
 </div>
