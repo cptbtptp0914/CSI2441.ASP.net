@@ -26,11 +26,6 @@ namespace CSI2441.A2.Web.MVC
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
-
-            // Adding datetimepicker
-            bundles.Add(new ScriptBundle("~/bundles/datetime").Include(
-                "~/Scripts/moment*",
-                "~/Scripts/bootstrap-datetimepicker*"));
         }
     }
 }

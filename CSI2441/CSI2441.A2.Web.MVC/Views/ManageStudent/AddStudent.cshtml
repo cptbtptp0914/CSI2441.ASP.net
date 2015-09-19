@@ -36,7 +36,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.Dob, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(model => model.Dob, new { @class = "form-control", placeholder = "DD/MM/YYYY" })
+            @Html.EditorFor(model => model.Dob, new { htmlAttributes = new { @class = "form-control" }})
         </div>
     </div>
 
@@ -67,7 +67,7 @@
         </div>
     </div>
 
-    @*State Dropdown, WA selected by default*@
+    @*State dropdown, hardcoded values*@
 
     <div class="form-group">
         @Html.LabelFor(model => model.State, new { @class = "col-md-2 control-label" })
