@@ -16,10 +16,10 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.FirstName, new { @class = "col-md-2 control-label" })
-        <div class="col-md-3">
+        <div class="col-md-4">
             @Html.TextBoxFor(model => model.FirstName, new {@class = "form-control", placeholder = "Required"})
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4">
             @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -28,10 +28,10 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Surname, new { @class = "col-md-2 control-label" })
-        <div class="col-md-3">
+        <div class="col-md-4">
             @Html.TextBoxFor(model => model.Surname, new {@class = "form-control", placeholder = "Required"})
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4">
             @Html.ValidationMessageFor(model => model.Surname, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -40,10 +40,10 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Dob, new { @class = "col-md-2 control-label" })
-        <div class="col-md-3">
+        <div class="col-md-4">
             @Html.EditorFor(model => model.Dob, new {htmlAttributes = new {@class = "form-control"}})
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4">
             @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -52,10 +52,10 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Landline, new { @class = "col-md-2 control-label" })
-        <div class="col-md-3">
+        <div class="col-md-4">
             @Html.TextBoxFor(model => model.Landline, new {@class = "form-control", placeholder = "Required"})
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4">
             @Html.ValidationMessageFor(model => model.Landline, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -64,10 +64,10 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Mobile, new { @class = "col-md-2 control-label" })
-        <div class="col-md-3">
+        <div class="col-md-4">
             @Html.TextBoxFor(model => model.Mobile, new {@class = "form-control", placeholder = "Required"})
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4">
             @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -76,20 +76,20 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Address, new {@class = "col-md-2 control-label"})
-        <div class="col-md-3">
+        <div class="col-md-4">
             @Html.TextBoxFor(model => model.Address, new {@class = "form-control", placeholder = "Required"})
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4">
             @Html.ValidationMessageFor(model => model.Address, "", new {@class = "text-danger"})
         </div>
     </div>
 
     <div class="form-group">
         @Html.LabelFor(model => model.City, new { @class = "col-md-2 control-label" })
-        <div class="col-md-3">
+        <div class="col-md-4">
             @Html.TextBoxFor(model => model.City, new { @class = "form-control", placeholder = "Required" })
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4">
             @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -98,7 +98,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.State, new { @class = "col-md-2 control-label" })
-        <div class="col-md-3">
+        <div class="col-md-4">
             @Html.DropDownListFor(model => model.State, new List<SelectListItem>
             {
                 new SelectListItem {Text = "ACT", Value = "ACT"},
@@ -111,7 +111,7 @@
                 new SelectListItem {Text = "WA", Value = "WA"}
             }, "Select State", new {@class = "form-control"})
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4">
             @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -120,27 +120,28 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Postcode, new { @class = "col-md-2 control-label" })
-        <div class="col-md-3">
+        <div class="col-md-4">
             @Html.TextBoxFor(model => model.Postcode, new {@class = "form-control", placeholder = "Required"})
         </div>
-        <div class="col-md-7">
+        <div class="col-md-4">
             @Html.ValidationMessageFor(model => model.Postcode, "", new { @class = "text-danger" })
         </div>
     </div>
 
-    @*Submit button*@
+    @*Submit/cancel buttons*@
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Add New Student"/>
+        <div class="col-md-offset-2 col-md-4">
+            <div class="row">
+                <span class="col-md-4">
+                    <input type="submit" class="btn btn-default" value="Add Student" />
+                </span>
+                <span class="col-md-4 cancel">
+                    <a class="btn btn-default" href="@Url.Action("Index", "ManageStudent")">Cancel</a>
+                </span>
+            </div>
+
+            
         </div>
     </div>
 }
-
-@*Cancel button, returns to ManageStudent Index*@
-
-<div class="row">
-    <div class="col-md-2">
-        <a class="btn btn-default pull-right" href="@Url.Action("Index", "ManageStudent")">Cancel</a>
-    </div>
-</div>
