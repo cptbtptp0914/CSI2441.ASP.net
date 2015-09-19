@@ -43,6 +43,10 @@ namespace CSI2441.A2.Web.MVC.Models
         public string Address { get; set; }
 
         [Required(ErrorMessage = "Required")]
+        [Display(Name = "City")]
+        public string City { get; set; }
+
+        [Required(ErrorMessage = "Required")]
         [Display(Name = "State")]
         public string State { get; set; }
 
