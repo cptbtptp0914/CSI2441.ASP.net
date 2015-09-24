@@ -1,7 +1,9 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using A2.University.Web.Business.Services;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Controllers
@@ -46,6 +48,12 @@ namespace A2.University.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                // select emails from db, convert to list
+                List<string> emaiList = db.Students
+                    .Select(e => e.email).ToList();
+                // pass to email generator who will return valid email
+//                EmailGenerator("student", );
+
                 db.Students.Add(student);
                 db.SaveChanges();
                 return RedirectToAction("Index");
