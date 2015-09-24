@@ -51,3 +51,9 @@ img.center {
     margin-left: 10px;
     width: auto;
 }
+
+/* Overriding Grid.Mvc filter icon position */
+table.grid-table .grid-filter {
+    margin-right: 10px !important;
+    float: left !important;
+}

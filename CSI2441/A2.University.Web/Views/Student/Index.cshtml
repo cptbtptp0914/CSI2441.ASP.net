@@ -1,8 +1,8 @@
 ﻿@model IEnumerable<A2.University.Web.Models.Entities.Student>
+@using GridMvc.Html
 
 @{
     ViewBag.Title = "Manage Students";
-    WebGrid grid = new WebGrid(Model);
 }
 
 <div class="jumbotron">
@@ -46,24 +46,24 @@
         <th>
             @Html.DisplayNameFor(model => model.email)
         </th>
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.ph_landline)*@
-@*        </th>*@
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.ph_mobile)*@
-@*        </th>*@
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.adrs)*@
-@*        </th>*@
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.adrs_city)*@
-@*        </th>*@
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.adrs_state)*@
-@*        </th>*@
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.adrs_postcode)*@
-@*        </th>*@
+        @*        <th>*@
+        @*            @Html.DisplayNameFor(model => model.ph_landline)*@
+        @*        </th>*@
+        @*        <th>*@
+        @*            @Html.DisplayNameFor(model => model.ph_mobile)*@
+        @*        </th>*@
+        @*        <th>*@
+        @*            @Html.DisplayNameFor(model => model.adrs)*@
+        @*        </th>*@
+        @*        <th>*@
+        @*            @Html.DisplayNameFor(model => model.adrs_city)*@
+        @*        </th>*@
+        @*        <th>*@
+        @*            @Html.DisplayNameFor(model => model.adrs_state)*@
+        @*        </th>*@
+        @*        <th>*@
+        @*            @Html.DisplayNameFor(model => model.adrs_postcode)*@
+        @*        </th>*@
         <th></th>
     </tr>
 
@@ -85,24 +85,24 @@
             <td>
                 @Html.DisplayFor(modelItem => item.email)
             </td>
-@*            <td>*@
-@*                @Html.DisplayFor(modelItem => item.ph_landline)*@
-@*            </td>*@
-@*            <td>*@
-@*                @Html.DisplayFor(modelItem => item.ph_mobile)*@
-@*            </td>*@
-@*            <td>*@
-@*                @Html.DisplayFor(modelItem => item.adrs)*@
-@*            </td>*@
-@*            <td>*@
-@*                @Html.DisplayFor(modelItem => item.adrs_city)*@
-@*            </td>*@
-@*            <td>*@
-@*                @Html.DisplayFor(modelItem => item.adrs_state)*@
-@*            </td>*@
-@*            <td>*@
-@*                @Html.DisplayFor(modelItem => item.adrs_postcode)*@
-@*            </td>*@
+            @*            <td>*@
+            @*                @Html.DisplayFor(modelItem => item.ph_landline)*@
+            @*            </td>*@
+            @*            <td>*@
+            @*                @Html.DisplayFor(modelItem => item.ph_mobile)*@
+            @*            </td>*@
+            @*            <td>*@
+            @*                @Html.DisplayFor(modelItem => item.adrs)*@
+            @*            </td>*@
+            @*            <td>*@
+            @*                @Html.DisplayFor(modelItem => item.adrs_city)*@
+            @*            </td>*@
+            @*            <td>*@
+            @*                @Html.DisplayFor(modelItem => item.adrs_state)*@
+            @*            </td>*@
+            @*            <td>*@
+            @*                @Html.DisplayFor(modelItem => item.adrs_postcode)*@
+            @*            </td>*@
             <td>
 
                 <a href="@Url.Action("Edit", "Student", new {id = item.student_id})" title="Edit Student">
@@ -121,12 +121,35 @@
         </tr>
     }
 
-    @grid.GetHtml(columns: new []
-    {
-        grid.Column("student_id"),
-        grid.Column("firstname"),
-        grid.Column("lastname"),
-        grid.Column("dob")
-    })
-
 </table>
+
+@*Using Grid.Mvc package to generate grid*@
+
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(data => data.student_id).Titled("Student ID").Filterable(true);
+    columns.Add(data => data.firstname).Titled("First name").Filterable(true).SetFilterWidgetType("System.String");
+    columns.Add(data => data.lastname).Titled("Surname").Filterable(true).SetFilterWidgetType("System.String");
+    columns.Add(data => data.dob).Titled("DOB").Format("{0:dd/MM/yyyy}").Filterable(true).SetFilterWidgetType("System.DateTime");
+    columns.Add(data => data.email).Titled("Email").Filterable(true).SetFilterWidgetType("System.String");
+    // view
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new {id = data.student_id}));
+    // edit
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.student_id }));
+    // delete
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.student_id }));
+}).WithPaging(20).Sortable(true)
+
+@*@Html.Grid(Model).AutoGenerateColumns().WithMultipleFilters().WithPaging(20)*@

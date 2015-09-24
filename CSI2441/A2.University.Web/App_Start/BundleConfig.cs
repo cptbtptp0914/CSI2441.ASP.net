@@ -26,6 +26,12 @@ namespace A2.University.Web
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css"));
+
+            // Grid.Mvc
+            bundles.Add(new ScriptBundle("~/bundles/gridmvc").Include(
+                "~/Scripts/gridmvc.js"));
+            bundles.Add(new StyleBundle("~/Content/gridmvc").Include(
+                "~/Content/Gridmvc.css"));
         }
     }
 }
