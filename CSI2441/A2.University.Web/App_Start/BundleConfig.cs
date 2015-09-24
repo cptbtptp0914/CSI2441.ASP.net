@@ -29,9 +29,11 @@ namespace A2.University.Web
 
             // Grid.Mvc
             bundles.Add(new ScriptBundle("~/bundles/gridmvc").Include(
-                "~/Scripts/gridmvc.js"));
+                "~/Scripts/gridmvc.js",
+                "~/Scripts/bootstrap-datepicker.js"));
             bundles.Add(new StyleBundle("~/Content/gridmvc").Include(
-                "~/Content/Gridmvc.css"));
+                "~/Content/Gridmvc.css",
+                "~/Content/Gridmvc.datepicker*"));
         }
     }
 }

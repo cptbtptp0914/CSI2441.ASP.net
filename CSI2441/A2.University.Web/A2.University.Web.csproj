@@ -223,6 +223,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\gridmvc.datepicker.css" />
+    <Content Include="Content\gridmvc.datepicker.min.css" />
     <Content Include="Content\img\icons\add.png" />
     <Content Include="Content\img\icons\back.png" />
     <Content Include="Content\img\icons\cc.png" />
@@ -265,6 +267,7 @@
       <DependentUpon>Students.edmx</DependentUpon>
       <LastGenOutput>Students.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\gridmvc.js" />
