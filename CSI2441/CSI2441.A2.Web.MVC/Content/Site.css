@@ -48,7 +48,7 @@ textarea {
 }
 
 .span-btn-cancel {
-    padding-left: 10px;
+    margin-left: 10px !important;
     width: auto;
 }
 

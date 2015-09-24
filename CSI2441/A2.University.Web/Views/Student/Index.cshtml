@@ -22,12 +22,15 @@
 <div class="row">
     <a href="@Url.Action("Create", "Student")">
         <img class="btn" src="@Url.Content("~/Content/img/icons/add.png")" width="50" />
-        New Student
+        Create New Student
     </a>
 </div>
 
 <table class="table small">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.student_id)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.firstname)
         </th>
@@ -46,24 +49,27 @@
         <th>
             @Html.DisplayNameFor(model => model.ph_mobile)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.adrs)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.adrs_city)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.adrs_state)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.adrs_postcode)
-        </th>
+@*        <th>*@
+@*            @Html.DisplayNameFor(model => model.adrs)*@
+@*        </th>*@
+@*        <th>*@
+@*            @Html.DisplayNameFor(model => model.adrs_city)*@
+@*        </th>*@
+@*        <th>*@
+@*            @Html.DisplayNameFor(model => model.adrs_state)*@
+@*        </th>*@
+@*        <th>*@
+@*            @Html.DisplayNameFor(model => model.adrs_postcode)*@
+@*        </th>*@
         <th></th>
     </tr>
 
     @foreach (var item in Model)
     {
         <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.student_id)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.firstname)
             </td>
@@ -82,32 +88,32 @@
             <td>
                 @Html.DisplayFor(modelItem => item.ph_mobile)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.adrs)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.adrs_city)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.adrs_state)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.adrs_postcode)
-            </td>
+@*            <td>*@
+@*                @Html.DisplayFor(modelItem => item.adrs)*@
+@*            </td>*@
+@*            <td>*@
+@*                @Html.DisplayFor(modelItem => item.adrs_city)*@
+@*            </td>*@
+@*            <td>*@
+@*                @Html.DisplayFor(modelItem => item.adrs_state)*@
+@*            </td>*@
+@*            <td>*@
+@*                @Html.DisplayFor(modelItem => item.adrs_postcode)*@
+@*            </td>*@
             <td>
 
-                <a href="@Url.Action("Edit", "Student", new { id = item.student_id })">
+                <a href="@Url.Action("Edit", "Student", new {id = item.student_id})">
                     <img class="btn-group-sm" src="@Url.Content("~/Content/img/icons/edit.png")" width="23"/>
                 </a>
-                <a href="@Url.Action("Details", "Student", new { id = item.student_id })">
+                <a href="@Url.Action("Details", "Student", new {id = item.student_id})">
                     <img class="btn-group-sm" src="@Url.Content("~/Content/img/icons/view.png")" width="23"/>
                 </a>
-                <a href="@Url.Action("Delete", "Student", new { id = item.student_id })">
+                <a href="@Url.Action("Delete", "Student", new {id = item.student_id})">
                     <img class="btn-group-sm" src="@Url.Content("~/Content/img/icons/delete.png")" width="23"/>
                 </a>
-@*                @Html.ActionLink("Edit", "Edit", new { id = item.student_id }) |*@
-@*                @Html.ActionLink("Details", "Details", new { id = item.student_id }) |*@
-@*                @Html.ActionLink("Delete", "Delete", new { id = item.student_id })*@
+                @*                @Html.ActionLink("Edit", "Edit", new { id = item.student_id }) |*@
+                @*                @Html.ActionLink("Details", "Details", new { id = item.student_id }) |*@
+                @*                @Html.ActionLink("Delete", "Delete", new { id = item.student_id })*@
             </td>
         </tr>
     }

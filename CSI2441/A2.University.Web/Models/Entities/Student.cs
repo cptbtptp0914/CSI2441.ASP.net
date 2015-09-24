@@ -16,6 +16,7 @@ namespace A2.University.Web.Models.Entities
     
     public partial class Student
     {
+        [Display(Name = "Student ID")]
         public long student_id { get; set; }
 
         [Display(Name = "First name")]
@@ -28,7 +29,7 @@ namespace A2.University.Web.Models.Entities
         [RegularExpression("(^[a-zA-Z]+$)", ErrorMessage = "Must be a name.")]
         public string lastname { get; set; }
 
-        [Display(Name = "Date of birth")]
+        [Display(Name = "DOB")]
         [DataType(DataType.Date, ErrorMessage = "Must be a date.")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime dob { get; set; }
