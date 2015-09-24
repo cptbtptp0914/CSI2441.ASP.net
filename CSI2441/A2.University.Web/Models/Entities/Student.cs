@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace A2.University.Web.Models.Entities
 {
     using System;
@@ -15,15 +17,50 @@ namespace A2.University.Web.Models.Entities
     public partial class Student
     {
         public long student_id { get; set; }
+
+        [Display(Name = "First name")]
+        [Required(ErrorMessage = "The First name field is required.")]
+        [RegularExpression("(^[a-zA-Z]+$)", ErrorMessage = "Must be a name.")]
         public string firstname { get; set; }
+
+        [Display(Name = "Surname")]
+        [Required(ErrorMessage = "The Surname field is required.")]
+        [RegularExpression("(^[a-zA-Z]+$)", ErrorMessage = "Must be a name.")]
         public string lastname { get; set; }
+
+        [Display(Name = "Date of birth")]
+        [DataType(DataType.Date, ErrorMessage = "Must be a date.")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime dob { get; set; }
+
         public string email { get; set; }
+
+        [Display(Name = "Landline")]
+        [Required(ErrorMessage = "The Landline field is required.")]
+        [RegularExpression("(\\+?\\(?[0-9]{2}\\)?[0-9 ]{10,})", ErrorMessage = "Must be a phone number.")]
         public string ph_landline { get; set; }
+
+        [Display(Name = "Mobile")]
+        [Required(ErrorMessage = "The Mobile field is required.")]
+        [RegularExpression("(\\+?\\(?[0-9]{2}\\)?[0-9 ]{10,})", ErrorMessage = "Must be a phone number.")]
         public string ph_mobile { get; set; }
+
+        [Display(Name = "Address")]
+        [Required(ErrorMessage = "The Address field is required.")]
         public string adrs { get; set; }
+
+        [Display(Name = "City")]
+        [Required(ErrorMessage = "The City field is required.")]
+        [RegularExpression("(^[a-zA-Z]+$)", ErrorMessage = "Must be a name.")]
         public string adrs_city { get; set; }
+
+        [Display(Name = "State")]
+        [Required(ErrorMessage = "The State field is required.")]
         public string adrs_state { get; set; }
+
+        [Display(Name = "Postcode")]
+        [Required(ErrorMessage = "The Postcode field is required.")]
+        [RegularExpression("(^[0-9]{4}$)", ErrorMessage = "Must be a valid postcode.")]
         public int adrs_postcode { get; set; }
     }
 }
