@@ -29,8 +29,8 @@ namespace A2.University.Web.Models.Entities
         public string lastname { get; set; }
 
         [Display(Name = "Date of birth")]
-//        [DataType(DataType.Date, ErrorMessage = "Must be a date.")]
-//        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Date, ErrorMessage = "Must be a date.")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime dob { get; set; }
 
         public string email { get; set; }
