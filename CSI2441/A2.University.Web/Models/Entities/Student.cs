@@ -33,16 +33,17 @@ namespace A2.University.Web.Models.Entities
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime dob { get; set; }
 
+        [Display(Name = "Email")]
         public string email { get; set; }
 
         [Display(Name = "Landline")]
         [Required(ErrorMessage = "The Landline field is required.")]
-        [RegularExpression("(\\+?\\(?[0-9]{2}\\)?[0-9 ]{10,})", ErrorMessage = "Must be a phone number.")]
+        [RegularExpression("(\\+?\\(?[0-9 ]{2}?\\)?[0-9 ]{8,})", ErrorMessage = "Must be a phone number.")]
         public string ph_landline { get; set; }
 
         [Display(Name = "Mobile")]
         [Required(ErrorMessage = "The Mobile field is required.")]
-        [RegularExpression("(\\+?\\(?[0-9]{2}\\)?[0-9 ]{10,})", ErrorMessage = "Must be a phone number.")]
+        [RegularExpression("(\\+?\\(?[0-9 ]{2}?\\)?[0-9 ]{8,})", ErrorMessage = "Must be a phone number.")]
         public string ph_mobile { get; set; }
 
         [Display(Name = "Address")]
@@ -51,7 +52,7 @@ namespace A2.University.Web.Models.Entities
 
         [Display(Name = "City")]
         [Required(ErrorMessage = "The City field is required.")]
-        [RegularExpression("(^[a-zA-Z]+$)", ErrorMessage = "Must be a name.")]
+        [RegularExpression("^([a-zA-Z]+\\s)*[a-zA-Z]+$", ErrorMessage = "Must be a name.")]
         public string adrs_city { get; set; }
 
         [Display(Name = "State")]

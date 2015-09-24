@@ -12,17 +12,21 @@
         <div class="col-md-10">
             <h2>@ViewBag.Title</h2>
             <p class="lead">
-                Add, edit or delete student details here.
+                Add, edit or delete student details.
             </p>
         </div>
     </div>
 
 </div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
+<div class="row">
+    <a href="@Url.Action("Create", "Student")">
+        <img class="btn" src="@Url.Content("~/Content/img/icons/add.png")" width="50" />
+        New Student
+    </a>
+</div>
+
+<table class="table small">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.firstname)
@@ -57,44 +61,55 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.firstname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.lastname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.dob)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ph_landline)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ph_mobile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.adrs)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.adrs_city)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.adrs_state)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.adrs_postcode)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.student_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.student_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.student_id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ph_landline)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ph_mobile)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adrs)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adrs_city)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adrs_state)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.adrs_postcode)
+            </td>
+            <td>
 
-</table>
+                <a href="@Url.Action("Edit", "Student")">
+                    <img class="btn-ui" src="@Url.Content("~/Content/img/icons/edit.png")" width="23"/>
+                </a>
+                <a href="@Url.Action("Details", "Student")">
+                    <img class="btn-ui" src="@Url.Content("~/Content/img/icons/view.png")" width="23"/>
+                </a>
+                <a href="@Url.Action("Delete", "Student")">
+                    <img class="btn-ui" src="@Url.Content("~/Content/img/icons/delete.png")" width="23"/>
+                </a>
+@*                @Html.ActionLink("Edit", "Edit", new { id = item.student_id }) |*@
+@*                @Html.ActionLink("Details", "Details", new { id = item.student_id }) |*@
+@*                @Html.ActionLink("Delete", "Delete", new { id = item.student_id })*@
+            </td>
+        </tr>
+    }
+
+    </table>
