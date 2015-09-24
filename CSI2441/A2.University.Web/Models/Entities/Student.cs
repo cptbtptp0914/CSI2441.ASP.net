@@ -39,7 +39,7 @@ namespace A2.University.Web.Models.Entities
 
         [Display(Name = "Landline")]
         [Required(ErrorMessage = "The Landline field is required.")]
-        [RegularExpression("(\\+?\\(?[0-9 ]{2}?\\)?[0-9 ]{8,})", ErrorMessage = "Must be a phone number.")]
+        [RegularExpression("(\\+?\\(?[0-9 ]{2}?\\)?[0-9 ]{6,})", ErrorMessage = "Must be a phone number.")]
         public string ph_landline { get; set; }
 
         [Display(Name = "Mobile")]
