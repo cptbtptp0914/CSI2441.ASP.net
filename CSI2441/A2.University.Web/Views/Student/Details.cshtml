@@ -1,0 +1,98 @@
+﻿@model A2.University.Web.Models.Entities.Student
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Student</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.lastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dob)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dob)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ph_landline)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ph_landline)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ph_mobile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ph_mobile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.adrs)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adrs)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.adrs_city)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adrs_city)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.adrs_state)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adrs_state)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.adrs_postcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.adrs_postcode)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.student_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

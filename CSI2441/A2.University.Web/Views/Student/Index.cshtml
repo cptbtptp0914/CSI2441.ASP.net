@@ -1,0 +1,87 @@
+﻿@model IEnumerable<A2.University.Web.Models.Entities.Student>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ph_landline)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ph_mobile)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adrs)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adrs_city)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adrs_state)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.adrs_postcode)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.lastname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dob)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ph_landline)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ph_mobile)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adrs)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adrs_city)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adrs_state)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.adrs_postcode)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.student_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.student_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.student_id })
+        </td>
+    </tr>
+}
+
+</table>
