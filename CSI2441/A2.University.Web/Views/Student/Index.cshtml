@@ -96,14 +96,14 @@
             </td>
             <td>
 
-                <a href="@Url.Action("Edit", "Student")">
-                    <img class="btn-ui" src="@Url.Content("~/Content/img/icons/edit.png")" width="23"/>
+                <a href="@Url.Action("Edit", "Student", new { id = item.student_id })">
+                    <img class="btn-group-sm" src="@Url.Content("~/Content/img/icons/edit.png")" width="23"/>
                 </a>
-                <a href="@Url.Action("Details", "Student")">
-                    <img class="btn-ui" src="@Url.Content("~/Content/img/icons/view.png")" width="23"/>
+                <a href="@Url.Action("Details", "Student", new { id = item.student_id })">
+                    <img class="btn-group-sm" src="@Url.Content("~/Content/img/icons/view.png")" width="23"/>
                 </a>
-                <a href="@Url.Action("Delete", "Student")">
-                    <img class="btn-ui" src="@Url.Content("~/Content/img/icons/delete.png")" width="23"/>
+                <a href="@Url.Action("Delete", "Student", new { id = item.student_id })">
+                    <img class="btn-group-sm" src="@Url.Content("~/Content/img/icons/delete.png")" width="23"/>
                 </a>
 @*                @Html.ActionLink("Edit", "Edit", new { id = item.student_id }) |*@
 @*                @Html.ActionLink("Details", "Details", new { id = item.student_id }) |*@

@@ -226,6 +226,7 @@
     <Content Include="Content\img\icons\result.png" />
     <Content Include="Content\img\icons\student.png" />
     <Content Include="Content\img\icons\unit.png" />
+    <Content Include="Content\img\icons\view.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
