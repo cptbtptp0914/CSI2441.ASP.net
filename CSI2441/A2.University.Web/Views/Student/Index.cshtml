@@ -17,113 +17,21 @@
             </p>
         </div>
     </div>
-
 </div>
 
-<div class="row">
-    <a href="@Url.Action("Create", "Student")" title="Create New Student">
-        <img class="btn" src="@Url.Content("~/Content/img/icons/add.png")" width="50"/>
-    </a>
-    <a href="@Url.Action("Create", "Student")" title="Create New Student">
-        Create New Student
-    </a>
+<div class="row vert-gap">
+    <div class="col-md-12">
+        <span>
+            <a href="@Url.Action("Create", "Student")">Create New Student</a>
+        </span>
+    </div>
 </div>
 
-<table class="table small">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.student_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.firstname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.lastname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.dob)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.email)
-        </th>
-        @*        <th>*@
-        @*            @Html.DisplayNameFor(model => model.ph_landline)*@
-        @*        </th>*@
-        @*        <th>*@
-        @*            @Html.DisplayNameFor(model => model.ph_mobile)*@
-        @*        </th>*@
-        @*        <th>*@
-        @*            @Html.DisplayNameFor(model => model.adrs)*@
-        @*        </th>*@
-        @*        <th>*@
-        @*            @Html.DisplayNameFor(model => model.adrs_city)*@
-        @*        </th>*@
-        @*        <th>*@
-        @*            @Html.DisplayNameFor(model => model.adrs_state)*@
-        @*        </th>*@
-        @*        <th>*@
-        @*            @Html.DisplayNameFor(model => model.adrs_postcode)*@
-        @*        </th>*@
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.student_id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.firstname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.lastname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.dob)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.email)
-            </td>
-            @*            <td>*@
-            @*                @Html.DisplayFor(modelItem => item.ph_landline)*@
-            @*            </td>*@
-            @*            <td>*@
-            @*                @Html.DisplayFor(modelItem => item.ph_mobile)*@
-            @*            </td>*@
-            @*            <td>*@
-            @*                @Html.DisplayFor(modelItem => item.adrs)*@
-            @*            </td>*@
-            @*            <td>*@
-            @*                @Html.DisplayFor(modelItem => item.adrs_city)*@
-            @*            </td>*@
-            @*            <td>*@
-            @*                @Html.DisplayFor(modelItem => item.adrs_state)*@
-            @*            </td>*@
-            @*            <td>*@
-            @*                @Html.DisplayFor(modelItem => item.adrs_postcode)*@
-            @*            </td>*@
-            <td>
-
-                <a href="@Url.Action("Edit", "Student", new {id = item.student_id})" title="Edit Student">
-                    <img src="@Url.Content("~/Content/img/icons/edit.png")" width="23"/>
-                </a>
-                <a href="@Url.Action("Details", "Student", new {id = item.student_id})" title="View Details">
-                    <img src="@Url.Content("~/Content/img/icons/view.png")" width="23"/>
-                </a>
-                <a href="@Url.Action("Delete", "Student", new {id = item.student_id})" title="Delete Student">
-                    <img src="@Url.Content("~/Content/img/icons/delete.png")" width="23"/>
-                </a>
-                @*                @Html.ActionLink("Edit", "Edit", new { id = item.student_id }) |*@
-                @*                @Html.ActionLink("Details", "Details", new { id = item.student_id }) |*@
-                @*                @Html.ActionLink("Delete", "Delete", new { id = item.student_id })*@
-            </td>
-        </tr>
-    }
-
-</table>
-
-@*Using Grid.Mvc package to generate grid*@
+@*
+    Grid.Mvc package generates the grid.
+    Provides filtering/sorting functions.
+    20 items per page.
+*@
 
 @Html.Grid(Model).Columns(columns =>
 {
@@ -151,5 +59,3 @@
         .SetWidth(30)
         .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.student_id }));
 }).WithPaging(20).Sortable(true)
-
-@*@Html.Grid(Model).AutoGenerateColumns().WithMultipleFilters().WithPaging(20)*@
