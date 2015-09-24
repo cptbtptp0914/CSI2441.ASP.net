@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Manage Students";
+    WebGrid grid = new WebGrid(Model);
 }
 
 <div class="jumbotron">
@@ -120,4 +121,12 @@
         </tr>
     }
 
-    </table>
+    @grid.GetHtml(columns: new []
+    {
+        grid.Column("student_id"),
+        grid.Column("firstname"),
+        grid.Column("lastname"),
+        grid.Column("dob")
+    })
+
+</table>
