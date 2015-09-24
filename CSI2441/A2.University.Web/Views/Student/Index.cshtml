@@ -20,8 +20,10 @@
 </div>
 
 <div class="row">
-    <a href="@Url.Action("Create", "Student")">
-        <img class="btn" src="@Url.Content("~/Content/img/icons/add.png")" width="50" />
+    <a href="@Url.Action("Create", "Student")" title="Create New Student">
+        <img class="btn" src="@Url.Content("~/Content/img/icons/add.png")" width="50"/>
+    </a>
+    <a href="@Url.Action("Create", "Student")" title="Create New Student">
         Create New Student
     </a>
 </div>
@@ -102,14 +104,14 @@
 @*            </td>*@
             <td>
 
-                <a href="@Url.Action("Edit", "Student", new {id = item.student_id})">
-                    <img class="btn-group-sm" src="@Url.Content("~/Content/img/icons/edit.png")" width="23"/>
+                <a href="@Url.Action("Edit", "Student", new {id = item.student_id})" title="Edit Student">
+                    <img src="@Url.Content("~/Content/img/icons/edit.png")" width="23"/>
                 </a>
-                <a href="@Url.Action("Details", "Student", new {id = item.student_id})">
-                    <img class="btn-group-sm" src="@Url.Content("~/Content/img/icons/view.png")" width="23"/>
+                <a href="@Url.Action("Details", "Student", new {id = item.student_id})" title="View Details">
+                    <img src="@Url.Content("~/Content/img/icons/view.png")" width="23"/>
                 </a>
-                <a href="@Url.Action("Delete", "Student", new {id = item.student_id})">
-                    <img class="btn-group-sm" src="@Url.Content("~/Content/img/icons/delete.png")" width="23"/>
+                <a href="@Url.Action("Delete", "Student", new {id = item.student_id})" title="Delete Student">
+                    <img src="@Url.Content("~/Content/img/icons/delete.png")" width="23"/>
                 </a>
                 @*                @Html.ActionLink("Edit", "Edit", new { id = item.student_id }) |*@
                 @*                @Html.ActionLink("Details", "Details", new { id = item.student_id }) |*@
