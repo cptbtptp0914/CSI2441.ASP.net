@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -46,13 +49,27 @@ namespace A2.University.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
         {
+            // if input passed validation
             if (ModelState.IsValid)
             {
-                // select emails from db, convert to list
-                List<string> emaiList = db.Students
-                    .Select(e => e.email).ToList();
-                // pass to email generator who will return valid email
-//                EmailGenerator("student", );
+                
+                /**
+                 * Generate email.
+                 */
+
+                // get target email string to search
+                string targetEmail = student.firstname[0] + student.lastname + EmailGenerator.StudentEmailSuffix;
+                // convert to lowercase
+                targetEmail.ToLower();
+                // get match tally
+                var matchTally = db.Students.Where(e => e.email == targetEmail).ToList().Count();
+                // generate email
+                student.email = EmailGenerator.GenerateEmail(
+                    "student", 
+                    matchTally, 
+                    student.firstname.ToLower(),
+                    student.lastname.ToLower()
+                );
 
                 db.Students.Add(student);
                 db.SaveChanges();

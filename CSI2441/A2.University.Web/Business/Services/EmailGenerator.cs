@@ -9,30 +9,62 @@ namespace A2.University.Web.Business.Services
 {
     public static class EmailGenerator
     {
-        private static List<string> emails { get; set; }
-        private static string firstname;
-        private static string surname;
+        public static string StudentEmailSuffix = "@our.ecu.edu.au";
+        public static string StaffEmailSuffix = "@ecu.edu.au";
 
-        private static string email;
-        private static string emailSuffix = "@our.ecu.edu.au";
 
-        public static void GenerateEmail(string emailType, List<string> emaiList, string firstname, string surname)
+        /// <summary>
+        /// This static function generates an email for a student or staff member.
+        /// It assumes that the database has already been searched for matching email addresses,
+        /// and the match tally must be passed as param.
+        /// 
+        /// If matchTally less than 1, return firstname.charAt[0] + lastname + email suffix.
+        /// If matchTally greater than 1, loop over first name til matchTally + lastname + email suffix.
+        /// Example: student, Martin Ponce, 2 matches, email = maponce@our.ecu.edu.au
+        /// </summary>
+        /// <param name="emailType">string - Either "student" or "staff"</param>
+        /// <param name="matchTally">int - Number of matches found</param>
+        /// <param name="firstname">string</param>
+        /// <param name="lastname">string</param>
+        /// <returns></returns>
+        public static string GenerateEmail(string emailType, int matchTally, string firstname, string lastname)
         {
-//            int matchIndex;
-            int matchTally = 0;
-            int i;
+            string email = "";
 
-            if (emailType == "student")
+            switch (emailType)
             {
-                emails = emaiList;
-                emails.Sort();
-                email = firstname[0] + surname;
-                i = emails.Count;
-            }
-        }
+                // student emails, format: nsurname@our.ecu.edu.au
+                case "student":
+                    if (matchTally == 0)
+                    {
+                        email += firstname[matchTally] + lastname + StudentEmailSuffix;
+                    }
+                    else
+                    {
+                        for (int i = 0; i <= matchTally; i++)
+                        {
+                            email += firstname[i];
+                        }
+                        email += lastname + StudentEmailSuffix;
+                    }
+                    break;
 
-        private static string BinarySearch (List<string> sortedEmails, string target)
-        {
+                // staff emails, format: n.surname@ecu.edu.au
+                case "staff":
+                    if (matchTally < 1)
+                    {
+                        email += firstname[0] + "." + lastname + StaffEmailSuffix;
+                    }
+                    else
+                    {
+                        for (int i = 0; i <= matchTally; i++)
+                        {
+                            email += firstname[i];
+                        }
+                        email += "." + lastname + StaffEmailSuffix;
+                    }
+                    break;
+            }
 
             return email;
         }
