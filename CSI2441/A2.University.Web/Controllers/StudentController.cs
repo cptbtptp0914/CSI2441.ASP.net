@@ -14,9 +14,9 @@ namespace A2.University.Web.Controllers
     public class StudentController : Controller
     {
         private UniversityEntities db = new UniversityEntities();
-        private int MatchTally;
-        private string Email;
-        private string TempEmail;
+        private int _emailMatchTally;
+        private string _email;
+        private string _tempEmail;
 
         // GET: Student
         public ActionResult Index()
@@ -56,7 +56,8 @@ namespace A2.University.Web.Controllers
             if (ModelState.IsValid)
             {
                 // generate email
-                SetEmail(student);
+                StartEmailRecursiveSearch(student);
+                student.email = _email;
 
                 db.Students.Add(student);
                 db.SaveChanges();
@@ -123,72 +124,62 @@ namespace A2.University.Web.Controllers
             return RedirectToAction("Index");
         }
 
-        private void SetEmail([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
+
+        /// <summary>
+        /// Function initiates recursive search of generated emails to ensure no duplicates exist.
+        /// Begins by reseting tallies and current email fields, generates first version of email, then passes to EmailRecursiveSearch.
+        /// </summary>
+        /// <param name="student">Student</param>
+        private void StartEmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
         {
-            // reset fields for new student instance
-            MatchTally = 0;
-            Email = "";
+            // reset fields for each new student instance
+            _emailMatchTally = 0;
+            _email = "";
 
-            // get target email string to search
+            // generate initial standard email
             string target = student.firstname[0] + student.lastname + EmailGenerator.StudentEmailSuffix;
-            // get match tally
-            var matchTally = db.Students.Where(e => e.email == target.ToLower()).ToList().Count();
-            var test = db.Students.Where(e => e.email == target.ToLower());
-
-            if (SearchEmail(target))
-            {
-                matchTally++;
-                target = EmailGenerator.GenerateEmail(
-                    "student"
-                    )
-            }
-
-            // need to recursively test new email until no matches found, then store
-            string tempEmail = EmailGenerator.GenerateEmail(
-                "student",
-                matchTally,
-                student.firstname.ToLower(),
-                student.lastname.ToLower()
-            );
-            // generate email
-            student.email = EmailGenerator.GenerateEmail(
-                "student",
-                matchTally,
-                student.firstname.ToLower(),
-                student.lastname.ToLower()
-            );
+            // use email as target for search
+            EmailRecursiveSearch(student, target.ToLower());
         }
 
-        private void GetEmail([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student, string target)
+
+        /// <summary>
+        /// Recursive function to search each version of generated email against existing emails to ensure no duplicates exist.
+        /// </summary>
+        /// <param name="student">Student</param>
+        /// <param name="target">string</param>
+        private void EmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student, string target)
         {
             // if current email is a match,
             if (SearchEmail(target))
             {
                 // increment tally
-                MatchTally++;
+                _emailMatchTally++;
                 // make new temp email based on tally
-                TempEmail = EmailGenerator.GenerateEmail(
+                _tempEmail = EmailGenerator.GenerateEmail(
                     "student",
-                    MatchTally,
+                    _emailMatchTally,
                     student.firstname.ToLower(),
                     student.lastname.ToLower()
                     );
-                // recursive call to search same email again
-                GetEmail(student, TempEmail);
+                // recursive call to search new version of generated email
+                EmailRecursiveSearch(student, _tempEmail);
             }
-            // end case, if no emails match
+            // exit case, generated email does not exist! let's use it
             else
             {
-                Email = TempEmail;
+                _email = _tempEmail;
             }
         }
 
-        private Boolean SearchEmail(string target)
+        /// <summary>
+        /// Function searches generated email against existing emails in database.
+        /// </summary>
+        /// <param name="target">string</param>
+        /// <returns>bool</returns>
+        private bool SearchEmail(string target)
         {
-            var test = (from e in db.Students
-                where e.email == target
-                select e.email).SingleOrDefault();
-            return Convert.ToBoolean(test);
+            return db.Students.Any(e => e.email == target);
         }
 
         protected override void Dispose(bool disposing)
