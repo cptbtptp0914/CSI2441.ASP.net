@@ -168,7 +168,7 @@ namespace A2.University.Web.Controllers
             // exit case, generated email does not exist! let's use it
             else
             {
-                _email = _tempEmail;
+                _email = target;
             }
         }
 
