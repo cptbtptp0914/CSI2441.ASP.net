@@ -14,6 +14,9 @@ namespace A2.University.Web.Controllers
     public class StudentController : Controller
     {
         private UniversityEntities db = new UniversityEntities();
+        private int MatchTally;
+        private string Email;
+        private string TempEmail;
 
         // GET: Student
         public ActionResult Index()
@@ -52,22 +55,8 @@ namespace A2.University.Web.Controllers
             // if input passed validation
             if (ModelState.IsValid)
             {
-                
-                /**
-                 * Generate email.
-                 */
-
-                // get target email string to search
-                string targetEmail = student.firstname[0] + student.lastname + EmailGenerator.StudentEmailSuffix;
-                // get match tally
-                var matchTally = db.Students.Where(e => e.email == targetEmail.ToLower()).ToList().Count();
                 // generate email
-                student.email = EmailGenerator.GenerateEmail(
-                    "student", 
-                    matchTally, 
-                    student.firstname.ToLower(),
-                    student.lastname.ToLower()
-                );
+                SetEmail(student);
 
                 db.Students.Add(student);
                 db.SaveChanges();
@@ -132,6 +121,74 @@ namespace A2.University.Web.Controllers
             db.Students.Remove(student);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        private void SetEmail([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
+        {
+            // reset fields for new student instance
+            MatchTally = 0;
+            Email = "";
+
+            // get target email string to search
+            string target = student.firstname[0] + student.lastname + EmailGenerator.StudentEmailSuffix;
+            // get match tally
+            var matchTally = db.Students.Where(e => e.email == target.ToLower()).ToList().Count();
+            var test = db.Students.Where(e => e.email == target.ToLower());
+
+            if (SearchEmail(target))
+            {
+                matchTally++;
+                target = EmailGenerator.GenerateEmail(
+                    "student"
+                    )
+            }
+
+            // need to recursively test new email until no matches found, then store
+            string tempEmail = EmailGenerator.GenerateEmail(
+                "student",
+                matchTally,
+                student.firstname.ToLower(),
+                student.lastname.ToLower()
+            );
+            // generate email
+            student.email = EmailGenerator.GenerateEmail(
+                "student",
+                matchTally,
+                student.firstname.ToLower(),
+                student.lastname.ToLower()
+            );
+        }
+
+        private void GetEmail([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student, string target)
+        {
+            // if current email is a match,
+            if (SearchEmail(target))
+            {
+                // increment tally
+                MatchTally++;
+                // make new temp email based on tally
+                TempEmail = EmailGenerator.GenerateEmail(
+                    "student",
+                    MatchTally,
+                    student.firstname.ToLower(),
+                    student.lastname.ToLower()
+                    );
+                // recursive call to search same email again
+                GetEmail(student, TempEmail);
+            }
+            // end case, if no emails match
+            else
+            {
+                Email = TempEmail;
+            }
+        }
+
+        private Boolean SearchEmail(string target)
+        {
+            var test = (from e in db.Students
+                where e.email == target
+                select e.email).SingleOrDefault();
+            return Convert.ToBoolean(test);
         }
 
         protected override void Dispose(bool disposing)
