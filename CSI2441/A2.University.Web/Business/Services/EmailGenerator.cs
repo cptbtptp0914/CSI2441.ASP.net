@@ -39,6 +39,12 @@ namespace A2.University.Web.Business.Services
                     {
                         email += firstname[matchTally] + lastname + StudentEmailSuffix;
                     }
+                    // if not enough letters in firstname to iterate,
+                    else if (matchTally > firstname.Count())
+                    {
+                        // just concat matchtally to email, ugly... but it does keep emails unique
+                        email += firstname[0] + lastname + matchTally + StudentEmailSuffix;
+                    }
                     else
                     {
                         for (int i = 0; i <= matchTally && i < firstname.Count(); i++)
@@ -54,6 +60,12 @@ namespace A2.University.Web.Business.Services
                     if (matchTally < 1)
                     {
                         email += firstname[0] + "." + lastname + StaffEmailSuffix;
+                    }
+                    // if not enough letters in firstname to iterate,
+                    else if (matchTally > firstname.Count())
+                    {
+                        // just concat matchtally to email, ugly... but it does keep emails unique
+                        email += firstname[0] + "." + lastname + matchTally + StaffEmailSuffix;
                     }
                     else
                     {
