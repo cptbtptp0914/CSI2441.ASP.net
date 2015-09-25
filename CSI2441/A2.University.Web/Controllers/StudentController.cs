@@ -59,10 +59,8 @@ namespace A2.University.Web.Controllers
 
                 // get target email string to search
                 string targetEmail = student.firstname[0] + student.lastname + EmailGenerator.StudentEmailSuffix;
-                // convert to lowercase
-                targetEmail.ToLower();
                 // get match tally
-                var matchTally = db.Students.Where(e => e.email == targetEmail).ToList().Count();
+                var matchTally = db.Students.Where(e => e.email == targetEmail.ToLower()).ToList().Count();
                 // generate email
                 student.email = EmailGenerator.GenerateEmail(
                     "student", 
