@@ -19,14 +19,14 @@ namespace A2.University.Web.Business.Services
         /// and the match tally must be passed as param.
         /// 
         /// If matchTally less than 1, return firstname.charAt[0] + lastname + email suffix.
-        /// If matchTally greater than 1, loop over first name til matchTally + lastname + email suffix.
+        /// Else if matchTally greater than 1, loop over first name til matchTally + lastname + email suffix.
         /// Example: student, Martin Ponce, 2 matches, email = maponce@our.ecu.edu.au
         /// </summary>
         /// <param name="emailType">string - Either "student" or "staff"</param>
         /// <param name="matchTally">int - Number of matches found</param>
         /// <param name="firstname">string</param>
         /// <param name="lastname">string</param>
-        /// <returns></returns>
+        /// <returns name="email">string</returns>
         public static string GenerateEmail(string emailType, int matchTally, string firstname, string lastname)
         {
             string email = "";
@@ -41,7 +41,7 @@ namespace A2.University.Web.Business.Services
                     }
                     else
                     {
-                        for (int i = 0; i <= matchTally; i++)
+                        for (int i = 0; i <= matchTally && i < firstname.Count(); i++)
                         {
                             email += firstname[i];
                         }
@@ -57,7 +57,7 @@ namespace A2.University.Web.Business.Services
                     }
                     else
                     {
-                        for (int i = 0; i <= matchTally; i++)
+                        for (int i = 0; i <= matchTally && i < firstname.Count(); i++)
                         {
                             email += firstname[i];
                         }
