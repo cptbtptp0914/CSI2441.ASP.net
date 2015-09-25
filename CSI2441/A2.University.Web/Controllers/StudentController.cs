@@ -91,6 +91,10 @@ namespace A2.University.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                // generate new email
+                StartEmailRecursiveSearch(student);
+                student.email = _email;
+
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
