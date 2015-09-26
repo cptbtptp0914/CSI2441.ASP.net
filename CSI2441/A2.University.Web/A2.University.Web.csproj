@@ -191,11 +191,13 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Entities\Staff.cs">
+      <DependentUpon>Units.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Student.cs">
       <DependentUpon>Students.tt</DependentUpon>
     </Compile>
@@ -231,6 +233,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Units.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\UnitType.cs">
+      <DependentUpon>Units.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -364,11 +369,6 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
-    <Content Include="Views\Unit\Create.cshtml" />
-    <Content Include="Views\Unit\Delete.cshtml" />
-    <Content Include="Views\Unit\Details.cshtml" />
-    <Content Include="Views\Unit\Edit.cshtml" />
-    <Content Include="Views\Unit\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\Entities\" />

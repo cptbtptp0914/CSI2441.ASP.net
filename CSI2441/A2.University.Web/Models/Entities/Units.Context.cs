@@ -25,6 +25,8 @@ namespace A2.University.Web.Models.Entities
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Staff> Staffs { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
+        public virtual DbSet<UnitType> UnitTypes { get; set; }
     }
 }

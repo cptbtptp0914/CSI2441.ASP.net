@@ -13,7 +13,7 @@ namespace A2.University.Web.Models.Entities
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class Unit
     {
         [Display(Name = "Unit ID")]

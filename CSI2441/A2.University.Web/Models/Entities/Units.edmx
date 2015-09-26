@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
       <Schema Namespace="UnitModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=E:\Documents\git\CSI2441.ASP.net\CSI2441\A2.University.Web\App_Data\University.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="staff_id" />
+          </Key>
+          <Property Name="staff_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="surname" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="Unit">
           <Key>
             <PropertyRef Name="unit_id" />
@@ -15,14 +24,65 @@
           <Property Name="credit_points" Type="int" Nullable="false" />
           <Property Name="unit_type_id" Type="integer" Nullable="false" />
         </EntityType>
+        <EntityType Name="UnitType">
+          <Key>
+            <PropertyRef Name="unit_type_id" />
+          </Key>
+          <Property Name="unit_type_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="title" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Unit_0_0">
+          <End Role="UnitType" Type="Self.UnitType" Multiplicity="1" />
+          <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitType">
+              <PropertyRef Name="unit_type_id" />
+            </Principal>
+            <Dependent Role="Unit">
+              <PropertyRef Name="unit_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unit_1_0">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="Unit">
+              <PropertyRef Name="coodinator_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="UnitModelStoreContainer">
+          <EntitySet Name="Staff" EntityType="Self.Staff" store:Type="Tables" />
           <EntitySet Name="Unit" EntityType="Self.Unit" store:Type="Tables" />
+          <EntitySet Name="UnitType" EntityType="Self.UnitType" store:Type="Tables" />
+          <AssociationSet Name="FK_Unit_0_0" Association="Self.FK_Unit_0_0">
+            <End Role="UnitType" EntitySet="UnitType" />
+            <End Role="Unit" EntitySet="Unit" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unit_1_0" Association="Self.FK_Unit_1_0">
+            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Unit" EntitySet="Unit" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="UnitModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Staff">
+          <Key>
+            <PropertyRef Name="staff_id" />
+          </Key>
+          <Property Name="staff_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="surname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Units" Relationship="Self.FK_Unit_1_0" FromRole="Staff" ToRole="Unit" />
+        </EntityType>
         <EntityType Name="Unit">
           <Key>
             <PropertyRef Name="unit_id" />
@@ -32,9 +92,53 @@
           <Property Name="coodinator_id" Type="Int64" Nullable="false" />
           <Property Name="credit_points" Type="Int32" Nullable="false" />
           <Property Name="unit_type_id" Type="Int64" Nullable="false" />
+          <NavigationProperty Name="Staff" Relationship="Self.FK_Unit_1_0" FromRole="Unit" ToRole="Staff" />
+          <NavigationProperty Name="UnitType" Relationship="Self.FK_Unit_0_0" FromRole="Unit" ToRole="UnitType" />
         </EntityType>
+        <EntityType Name="UnitType">
+          <Key>
+            <PropertyRef Name="unit_type_id" />
+          </Key>
+          <Property Name="unit_type_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="title" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Units" Relationship="Self.FK_Unit_0_0" FromRole="UnitType" ToRole="Unit" />
+        </EntityType>
+        <Association Name="FK_Unit_1_0">
+          <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
+          <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Staff">
+              <PropertyRef Name="staff_id" />
+            </Principal>
+            <Dependent Role="Unit">
+              <PropertyRef Name="coodinator_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Unit_0_0">
+          <End Role="UnitType" Type="Self.UnitType" Multiplicity="1" />
+          <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UnitType">
+              <PropertyRef Name="unit_type_id" />
+            </Principal>
+            <Dependent Role="Unit">
+              <PropertyRef Name="unit_type_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="UnitEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
           <EntitySet Name="Units" EntityType="Self.Unit" />
+          <EntitySet Name="UnitTypes" EntityType="Self.UnitType" />
+          <AssociationSet Name="FK_Unit_1_0" Association="Self.FK_Unit_1_0">
+            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Unit" EntitySet="Units" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Unit_0_0" Association="Self.FK_Unit_0_0">
+            <End Role="UnitType" EntitySet="UnitTypes" />
+            <End Role="Unit" EntitySet="Units" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:ConceptualModels>
@@ -42,6 +146,16 @@
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="UnitModelStoreContainer" CdmEntityContainer="UnitEntities">
+          <EntitySetMapping Name="Staffs">
+            <EntityTypeMapping TypeName="UnitModel.Staff">
+              <MappingFragment StoreEntitySet="Staff">
+                <ScalarProperty Name="staff_id" ColumnName="staff_id" />
+                <ScalarProperty Name="firstname" ColumnName="firstname" />
+                <ScalarProperty Name="surname" ColumnName="surname" />
+                <ScalarProperty Name="email" ColumnName="email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Units">
             <EntityTypeMapping TypeName="UnitModel.Unit">
               <MappingFragment StoreEntitySet="Unit">
@@ -50,6 +164,14 @@
                 <ScalarProperty Name="coodinator_id" ColumnName="coodinator_id" />
                 <ScalarProperty Name="credit_points" ColumnName="credit_points" />
                 <ScalarProperty Name="unit_type_id" ColumnName="unit_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UnitTypes">
+            <EntityTypeMapping TypeName="UnitModel.UnitType">
+              <MappingFragment StoreEntitySet="UnitType">
+                <ScalarProperty Name="unit_type_id" ColumnName="unit_type_id" />
+                <ScalarProperty Name="title" ColumnName="title" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
