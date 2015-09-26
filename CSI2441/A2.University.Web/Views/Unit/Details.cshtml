@@ -1,15 +1,22 @@
 ﻿@model A2.University.Web.Models.Entities.Unit
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Unit Details";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>Unit</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.unit_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.unit_id)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.title)
         </dt>
@@ -27,11 +34,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Staff.firstname)
+            @Html.DisplayNameFor(model => model.Staff.fullname)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Staff.firstname)
+            @Html.DisplayFor(model => model.Staff.fullname)
         </dd>
 
         <dt>
@@ -44,7 +51,7 @@
 
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.unit_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="form-actions no-color">
+    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Edit", "Unit", new { id = Model.unit_id })">Edit</a>
+    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Unit")">Cancel</a>
+</div>

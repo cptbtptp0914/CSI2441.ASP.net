@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace A2.University.Web.Models.Entities
 {
     using System;
@@ -27,6 +29,7 @@ namespace A2.University.Web.Models.Entities
         public string email { get; set; }
 
         // return full name for dropdownlist
+        [Display(Name = "Coordinator")]
         public string fullname
         {
             get { return firstname + " " + surname; }
