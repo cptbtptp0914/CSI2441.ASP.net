@@ -213,6 +213,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Students.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\Unit.cs">
+      <DependentUpon>Units.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Units.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Units.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Units.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Units.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Entities\Units.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Units.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -257,6 +275,13 @@
       <DependentUpon>Students.edmx</DependentUpon>
     </Content>
     <Content Include="Grid.mvc.readme" />
+    <EntityDeploy Include="Models\Entities\Units.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Units.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\Entities\Units.edmx.diagram">
+      <DependentUpon>Units.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Models\Entities\Students.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -267,6 +292,16 @@
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Students.edmx</DependentUpon>
       <LastGenOutput>Students.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Entities\Units.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Units.edmx</DependentUpon>
+      <LastGenOutput>Units.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\Entities\Units.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Units.edmx</DependentUpon>
+      <LastGenOutput>Units.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap-datepicker.js" />
     <Content Include="Scripts\bootstrap.js" />
