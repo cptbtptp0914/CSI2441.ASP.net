@@ -14,11 +14,21 @@
     <h1>@ViewBag.Title</h1>
     <p class="lead">
         This web application allows a user to manage university student, unit, and course records. It also allows the user to manage and monitor student results and progress.
-        Information is stored in a local Access database which is manipulated by the application. Written in C# ASP.NET MVC5 using Visual Studio 2015.
+        Information is stored in a local <a href="https://www.sqlite.org/">SQLite</a> database which is manipulated by the application.
     </p>
+    <p class="lead">
+        Written in C# ASP.NET MVC5 using Visual Studio 2015.
+    </p>
+
     <h5>
         @ViewBag.Author
     </h5>
+
+    <h2>Business case for <a href="https://www.sqlite.org/">SQLite</a></h2>
+    <p class="lead">
+        It is a portable database solution with no dependent software or SQL server connections required. The database is a single file, and the project is self contained, deployed with packaged .dll files.
+        Unlike Access databases, <a href="https://www.sqlite.org/">SQLite</a> is compatible with Entity Framework in .NET MVC, driving rapid development of CRUD grid views seen in this web application.
+    </p>
 </div>
 
 @*Icon links*@
