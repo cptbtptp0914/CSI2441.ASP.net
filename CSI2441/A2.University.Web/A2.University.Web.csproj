@@ -210,41 +210,11 @@
     <Compile Include="Models\Entities\Student.cs">
       <DependentUpon>University.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\Students.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Students.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Students.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Students.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Students.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Students.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\Entities\Unit.cs">
       <DependentUpon>University.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\UnitEnrolment.cs">
       <DependentUpon>University.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Units.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Units.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Units.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Units.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\Entities\Units.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Units.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\Entities\UnitType.cs">
       <DependentUpon>University.tt</DependentUpon>
@@ -300,21 +270,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
-    <EntityDeploy Include="Models\Entities\Students.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Students.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Entities\Students.edmx.diagram">
-      <DependentUpon>Students.edmx</DependentUpon>
-    </Content>
     <Content Include="Grid.mvc.readme" />
-    <EntityDeploy Include="Models\Entities\Units.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Units.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-    <Content Include="Models\Entities\Units.edmx.diagram">
-      <DependentUpon>Units.edmx</DependentUpon>
-    </Content>
     <EntityDeploy Include="Models\Entities\University.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>University.Designer.cs</LastGenOutput>
@@ -323,26 +279,6 @@
       <DependentUpon>University.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
-    <Content Include="Models\Entities\Students.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Students.edmx</DependentUpon>
-      <LastGenOutput>Students.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Entities\Students.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Students.edmx</DependentUpon>
-      <LastGenOutput>Students.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Entities\Units.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Units.edmx</DependentUpon>
-      <LastGenOutput>Units.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Models\Entities\Units.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>Units.edmx</DependentUpon>
-      <LastGenOutput>Units.cs</LastGenOutput>
-    </Content>
     <Content Include="Models\Entities\University.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>University.edmx</DependentUpon>
