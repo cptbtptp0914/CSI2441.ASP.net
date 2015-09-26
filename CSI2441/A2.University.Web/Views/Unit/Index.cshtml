@@ -1,0 +1,51 @@
+﻿@model IEnumerable<A2.University.Web.Models.Entities.Unit>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.coodinator_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.credit_points)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.unit_type_id)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coodinator_id)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.credit_points)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.unit_type_id)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.unit_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.unit_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.unit_id })
+        </td>
+    </tr>
+}
+
+</table>
