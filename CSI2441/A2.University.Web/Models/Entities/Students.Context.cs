@@ -13,10 +13,10 @@ namespace A2.University.Web.Models.Entities
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class UniversityEntities : DbContext
+    public partial class StudentEntities : DbContext
     {
-        public UniversityEntities()
-            : base("name=UniversityEntities")
+        public StudentEntities()
+            : base("name=StudentEntities")
         {
         }
     
