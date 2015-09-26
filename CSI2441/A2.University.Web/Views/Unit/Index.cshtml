@@ -44,10 +44,9 @@
         .Titled("Title")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
-    // coordinator TODO: Fix filter, doesn't work, because join?
-    columns.Add(data => data.coodinator_id)
+    // coordinator
+    columns.Add(data => data.Staff.fullname)
         .Titled("Coordinator")
-        .RenderValueAs(data => data.Staff.firstname + " " + data.Staff.surname)
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // credit points
