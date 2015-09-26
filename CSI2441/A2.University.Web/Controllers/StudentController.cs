@@ -13,7 +13,7 @@ namespace A2.University.Web.Controllers
 {
     public class StudentController : Controller
     {
-        private StudentEntities db = new StudentEntities();
+        private UniversityEntities db = new UniversityEntities();
         private int _emailMatchTally;
         private string _email;
         private string _tempEmail;

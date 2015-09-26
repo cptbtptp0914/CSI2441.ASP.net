@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="c3162432fd90464284ab0504ca6b6fa4" Name="Diagram1">
+        <EntityTypeShape EntityType="UniversityModel.Course" Width="1.5" PointX="3" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.CourseEnrolment" Width="1.5" PointX="8.25" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.CourseType" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Staff" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Student" Width="1.5" PointX="6" PointY="8.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Unit" Width="1.5" PointX="6" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.UnitEnrolment" Width="1.5" PointX="8.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.UnitType" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <AssociationConnector Association="UniversityModel.FK_Course_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_Course_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_CourseEnrolment_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_CourseEnrolment_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_Unit_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_UnitEnrolment_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_Unit_0_0" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_UnitEnrolment_0_0" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

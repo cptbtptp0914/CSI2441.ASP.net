@@ -12,23 +12,20 @@ namespace A2.University.Web.Models.Entities
     using System;
     using System.Collections.Generic;
     
-    public partial class Staff
+    public partial class CourseType
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Staff()
+        public CourseType()
         {
             this.Courses = new HashSet<Course>();
-            this.Units = new HashSet<Unit>();
         }
     
-        public long staff_id { get; set; }
-        public string firstname { get; set; }
-        public string surname { get; set; }
-        public string email { get; set; }
+        public long course_type_id { get; set; }
+        public string title { get; set; }
+        public int credit_points { get; set; }
+        public int duration { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course> Courses { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Unit> Units { get; set; }
     }
 }
