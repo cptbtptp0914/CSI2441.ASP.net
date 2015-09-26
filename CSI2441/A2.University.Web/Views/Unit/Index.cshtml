@@ -1,51 +1,61 @@
 ﻿@model IEnumerable<A2.University.Web.Models.Entities.Unit>
+@using GridMvc.Html
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Units";
 }
 
-<h2>Index</h2>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="@Url.Content("~/Content/img/icons/unit.png")" />
+        </div>
+        <div class="col-md-10">
+            <h2>@ViewBag.Title</h2>
+            <p class="lead">
+                Add, edit or delete units.
+            </p>
+        </div>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.coodinator_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.credit_points)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.unit_type_id)
-        </th>
-        <th></th>
-    </tr>
+<div class="row vert-gap">
+    <div class="col-md-12">
+        <span>
+            <a href="@Url.Action("Create", "Unit")">Create New Unit</a>
+        </span>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.coodinator_id)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.credit_points)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.unit_type_id)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.unit_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.unit_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.unit_id })
-        </td>
-    </tr>
-}
+@*
+    Grid.Mvc package generates the grid.
+    Provides filtering/sorting functions.
+    20 items per page.
+*@
 
-</table>
+@Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(data => data.unit_id).Titled("Student ID").Filterable(true);
+    columns.Add(data => data.firstname).Titled("First name").Filterable(true).SetFilterWidgetType("System.String");
+    columns.Add(data => data.lastname).Titled("Surname").Filterable(true).SetFilterWidgetType("System.String");
+    columns.Add(data => data.dob).Titled("DOB").Format("{0:dd/MM/yyyy}").Filterable(true).SetFilterWidgetType("System.DateTime");
+    columns.Add(data => data.email).Titled("Email").Filterable(true).SetFilterWidgetType("System.String");
+    // view
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new {id = data.student_id}));
+    // edit
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.student_id }));
+    // delete
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.student_id }));
+}).WithPaging(20).Sortable(true)
