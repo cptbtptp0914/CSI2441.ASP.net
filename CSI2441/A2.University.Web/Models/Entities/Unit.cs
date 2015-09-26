@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace A2.University.Web.Models.Entities
 {

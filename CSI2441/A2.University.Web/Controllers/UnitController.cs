@@ -39,7 +39,8 @@ namespace A2.University.Web.Controllers
         // GET: Unit/Create
         public ActionResult Create()
         {
-            ViewBag.coodinator_id = new SelectList(db.Staffs, "staff_id", "firstname");
+            // show full name in dropdownlist
+            ViewBag.coodinator_id = new SelectList(db.Staffs, "staff_id", "fullname");
             ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title");
             return View();
         }
