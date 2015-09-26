@@ -76,8 +76,8 @@ namespace A2.University.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.coodinator_id = new SelectList(db.Staff, "staff_id", "fullname");
-            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title");
+            ViewBag.coodinator_id = new SelectList(db.Staff, "staff_id", "fullname", unit.coodinator_id);
+            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
             return View(unit);
         }
 
