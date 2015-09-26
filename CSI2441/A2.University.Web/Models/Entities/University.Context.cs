@@ -28,7 +28,7 @@ namespace A2.University.Web.Models.Entities
         public virtual DbSet<Course> Courses { get; set; }
         public virtual DbSet<CourseEnrolment> CourseEnrolments { get; set; }
         public virtual DbSet<CourseType> CourseTypes { get; set; }
-        public virtual DbSet<Staff> Staffs { get; set; }
+        public virtual DbSet<Staff> Staff { get; set; }
         public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<UnitEnrolment> UnitEnrolments { get; set; }

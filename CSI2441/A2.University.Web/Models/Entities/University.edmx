@@ -422,7 +422,7 @@
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="CourseEnrolments" EntityType="Self.CourseEnrolment" />
           <EntitySet Name="CourseTypes" EntityType="Self.CourseType" />
-          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Units" EntityType="Self.Unit" />
           <EntitySet Name="UnitEnrolments" EntityType="Self.UnitEnrolment" />
@@ -432,7 +432,7 @@
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_1_0" Association="Self.FK_Course_1_0">
-            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Staff" EntitySet="Staff" />
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseEnrolment_0_0" Association="Self.FK_CourseEnrolment_0_0">
@@ -444,7 +444,7 @@
             <End Role="CourseEnrolment" EntitySet="CourseEnrolments" />
           </AssociationSet>
           <AssociationSet Name="FK_Unit_1_0" Association="Self.FK_Unit_1_0">
-            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Staff" EntitySet="Staff" />
             <End Role="Unit" EntitySet="Units" />
           </AssociationSet>
           <AssociationSet Name="FK_UnitEnrolment_1_0" Association="Self.FK_UnitEnrolment_1_0">
@@ -496,7 +496,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Staffs">
+          <EntitySetMapping Name="Staff">
             <EntityTypeMapping TypeName="UniversityModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
                 <ScalarProperty Name="staff_id" ColumnName="staff_id" />

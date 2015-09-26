@@ -40,7 +40,7 @@ namespace A2.University.Web.Controllers
         public ActionResult Create()
         {
             // show full name in dropdownlist
-            ViewBag.coodinator_id = new SelectList(db.Staffs, "staff_id", "fullname");
+            ViewBag.coodinator_id = new SelectList(db.Staff, "staff_id", "fullname");
             ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title");
             return View();
         }
@@ -59,7 +59,7 @@ namespace A2.University.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.coodinator_id = new SelectList(db.Staffs, "staff_id", "firstname", unit.coodinator_id);
+            ViewBag.coodinator_id = new SelectList(db.Staff, "staff_id", "fullname", unit.coodinator_id);
             ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
             return View(unit);
         }
@@ -76,8 +76,8 @@ namespace A2.University.Web.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.coodinator_id = new SelectList(db.Staffs, "staff_id", "firstname", unit.coodinator_id);
-            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
+            ViewBag.coodinator_id = new SelectList(db.Staff, "staff_id", "fullname");
+            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title");
             return View(unit);
         }
 
@@ -94,7 +94,7 @@ namespace A2.University.Web.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.coodinator_id = new SelectList(db.Staffs, "staff_id", "firstname", unit.coodinator_id);
+            ViewBag.coodinator_id = new SelectList(db.Staff, "staff_id", "fullname", unit.coodinator_id);
             ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
             return View(unit);
         }
