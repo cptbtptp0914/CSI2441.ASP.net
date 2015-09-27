@@ -6,109 +6,102 @@
 
 <h2>@ViewBag.Title</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.student_id)
-        </dt>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.student_id)
-        </dd>
+    <div class="form-horizontal">
+        <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.firstname)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.student_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.student_id)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.firstname)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.firstname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.firstname)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.lastname)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.lastname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.lastname)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.lastname)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.dob, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.dob)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dob)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.gender)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.dob)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.email)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.gender)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ph_landline, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.ph_landline)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.gender)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ph_mobile, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.ph_mobile)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.adrs, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.adrs)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.adrs_city, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.adrs_city)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ph_landline)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.adrs_state, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.adrs_state)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.ph_landline)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.adrs_postcode, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.adrs_postcode)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ph_mobile)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ph_mobile)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.adrs)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.adrs)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.adrs_city)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.adrs_city)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.adrs_state)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.adrs_state)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.adrs_postcode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.adrs_postcode)
-        </dd>
-
-    </dl>
-</div>
-
-<div class="form-actions no-color">
-    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Edit", "Student", new { id = Model.student_id })">Edit</a>
-    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Student")">Cancel</a>
-</div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 button-top-gap">
+                <a class="btn btn-default" href="@Url.Action("Edit", "Student", new { id = Model.student_id })">Edit</a>
+                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Student")">Cancel</a>
+            </div>
+        </div>
+    </div>
+}

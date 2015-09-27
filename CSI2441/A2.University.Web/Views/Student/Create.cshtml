@@ -23,7 +23,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.firstname, new {htmlAttributes = new { @class = "form-control", placeholder = "Required" }})     
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.firstname, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.lastname, new {htmlAttributes = new { @class = "form-control", placeholder ="Required" }})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.lastname, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -47,7 +47,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.dob, new {htmlAttributes = new {@class = "form-control"}})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.dob, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -63,7 +63,7 @@
                     new SelectListItem {Text = "F", Value = "F"}
                 }, "Select Gender", new { @class = "form-control" })
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -86,7 +86,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.ph_landline, new {htmlAttributes = new {@class = "form-control", placeholder = "Required"}})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.ph_landline, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -98,7 +98,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.ph_mobile, new {htmlAttributes = new {@class = "form-control", placeholder = "Required"}})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.ph_mobile, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -110,7 +110,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.adrs, new {htmlAttributes = new { @class = "form-control", placeholder = "Required" }})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.adrs, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -122,7 +122,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.adrs_city, new {htmlAttributes = new { @class = "form-control", placeholder = "Required" }})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.adrs_city, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -144,7 +144,7 @@
                     new SelectListItem {Text = "WA", Value = "WA"}
                 }, "Select State", new {@class = "form-control"})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.adrs_state, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -156,7 +156,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.adrs_postcode, new {htmlAttributes = new { @class = "form-control", placeholder = "Required" }})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.adrs_postcode, "", new { @class = "text-danger" })
             </div>
         </div>
