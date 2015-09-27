@@ -77,7 +77,13 @@ namespace A2.University.Web.Controllers
                 return HttpNotFound();
             }
             ViewBag.coodinator_id = new SelectList(db.Staff, "staff_id", "fullname", unit.coodinator_id);
+            // ViewBag.unit_type_id deprecated, see ViewData below
             ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
+
+            // ViewData replaces ViewBag for unit_type_id above, ensures default selection of value from db
+            List<UnitType> unitTypeList = new List<UnitType>(db.UnitTypes.ToList());
+            ViewData["unitTypeList"] = unitTypeList;
+
             return View(unit);
         }
 
