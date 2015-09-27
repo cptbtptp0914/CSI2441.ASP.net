@@ -63,6 +63,10 @@ table.grid-table .grid-filter {
     margin-bottom: 20px;
 }
 
+.button-top-gap {
+    margin-top: 20px;
+}
+
 .form-display {
     padding-top: 7px;
     margin-bottom: 0px !important;
