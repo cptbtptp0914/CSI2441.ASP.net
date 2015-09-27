@@ -54,6 +54,10 @@ namespace A2.University.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                // generate email
+                StartEmailRecursiveSearch(staff);
+                staff.email = _email;
+
                 db.Staff.Add(staff);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -86,6 +90,10 @@ namespace A2.University.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                // generate new email
+                StartEmailRecursiveSearch(staff);
+                staff.email = _email;
+
                 db.Entry(staff).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
