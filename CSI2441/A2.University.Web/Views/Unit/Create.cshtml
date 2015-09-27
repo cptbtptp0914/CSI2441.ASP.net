@@ -23,7 +23,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.unit_id, new {htmlAttributes = new {@class = "form-control", placeholder = "Example ABC1234"}})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.unit_id, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -35,7 +35,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.title, new {htmlAttributes = new {@class = "form-control", placeholder = "Required"}})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.title, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -47,7 +47,7 @@
             <div class="col-md-4">
                 @Html.DropDownListFor(model => model.coodinator_id, ViewBag.coordinator_id as SelectList, "Select Coordinator", htmlAttributes: new { @class = "form-control" })
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.coodinator_id, "", new {@class = "text-danger"})
             </div>
         </div>
@@ -65,7 +65,7 @@
                     new SelectListItem { Text = "60", Value = "60" }
                 }, "Select Credit Points", new {@class = "form-control"})
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.credit_points, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -77,7 +77,7 @@
             <div class="col-md-4">
                 @Html.DropDownListFor(model => model.unit_type_id, ViewBag.unit_type_id as SelectList, "Select Unit Type", htmlAttributes: new { @class = "form-control" })
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.unit_type_id, "", new { @class = "text-danger" })
             </div>
         </div>

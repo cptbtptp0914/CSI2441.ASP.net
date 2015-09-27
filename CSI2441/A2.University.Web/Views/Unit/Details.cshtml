@@ -6,52 +6,53 @@
 
 <h2>@ViewBag.Title</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.unit_id)
-        </dt>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.unit_id)
-        </dd>
+    <div class="form-horizontal">
+        <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.unit_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.unit_id)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.title)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.credit_points)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.credit_points, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.credit_points)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.credit_points)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Staff.fullname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.Staff.fullname)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Staff.fullname)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitType.title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.UnitType.title)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.Staff.fullname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UnitType.title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UnitType.title)
-        </dd>
-
-    </dl>
-</div>
-<div class="form-actions no-color">
-    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Edit", "Unit", new { id = Model.unit_id })">Edit</a>
-    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Unit")">Cancel</a>
-</div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 button-top-gap">
+                <a class="btn btn-default" href="@Url.Action("Edit", "Unit", new { id = Model.unit_id })">Edit</a>
+                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Unit")">Cancel</a>
+            </div>
+        </div>
+    </div>
+}

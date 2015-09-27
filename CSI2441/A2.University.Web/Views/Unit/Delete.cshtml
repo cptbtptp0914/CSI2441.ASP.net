@@ -5,58 +5,55 @@
 }
 
 <h2>@ViewBag.Title</h2>
-<div>
-    <h3>Are you sure you want to delete this unit?</h3>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.unit_id)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.unit_id)
-        </dd>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dt>
-            @Html.DisplayNameFor(model => model.title)
-        </dt>
+    <div class="form-horizontal">
+        <h3>Are you sure you want to delete this unit?</h3>
+        <hr />
 
-        <dd>
-            @Html.DisplayFor(model => model.title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.credit_points)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.credit_points)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Staff.fullname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Staff.fullname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UnitType.title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UnitType.title)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-danger" />
-            <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Unit")">Cancel</a>
+        <div class="form-group">
+            @Html.LabelFor(model => model.unit_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.unit_id)</p>
+            </div>
         </div>
-    }
-</div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.title)</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.credit_points, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.credit_points)</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Staff.fullname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.Staff.fullname)</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitType.title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.UnitType.title)</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 button-top-gap">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Unit")">Cancel</a>
+            </div>
+        </div>
+    </div>
+}
