@@ -49,6 +49,7 @@
           <Property Name="firstname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="lastname" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="dob" Type="datetime" Nullable="false" />
+          <Property Name="gender" Type="char" MaxLength="2147483647" Nullable="false" />
           <Property Name="email" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="ph_landline" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="ph_mobile" Type="varchar" MaxLength="20" Nullable="false" />
@@ -279,6 +280,7 @@
           <Property Name="firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="dob" Type="DateTime" Nullable="false" />
+          <Property Name="gender" Type="String" MaxLength="2147483647" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ph_landline" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="ph_mobile" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
@@ -422,7 +424,7 @@
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="CourseEnrolments" EntityType="Self.CourseEnrolment" />
           <EntitySet Name="CourseTypes" EntityType="Self.CourseType" />
-          <EntitySet Name="Staff" EntityType="Self.Staff" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Units" EntityType="Self.Unit" />
           <EntitySet Name="UnitEnrolments" EntityType="Self.UnitEnrolment" />
@@ -432,7 +434,7 @@
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_1_0" Association="Self.FK_Course_1_0">
-            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Staff" EntitySet="Staffs" />
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseEnrolment_0_0" Association="Self.FK_CourseEnrolment_0_0">
@@ -444,7 +446,7 @@
             <End Role="CourseEnrolment" EntitySet="CourseEnrolments" />
           </AssociationSet>
           <AssociationSet Name="FK_Unit_1_0" Association="Self.FK_Unit_1_0">
-            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Staff" EntitySet="Staffs" />
             <End Role="Unit" EntitySet="Units" />
           </AssociationSet>
           <AssociationSet Name="FK_UnitEnrolment_1_0" Association="Self.FK_UnitEnrolment_1_0">
@@ -496,7 +498,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Staff">
+          <EntitySetMapping Name="Staffs">
             <EntityTypeMapping TypeName="UniversityModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
                 <ScalarProperty Name="staff_id" ColumnName="staff_id" />
@@ -513,6 +515,7 @@
                 <ScalarProperty Name="firstname" ColumnName="firstname" />
                 <ScalarProperty Name="lastname" ColumnName="lastname" />
                 <ScalarProperty Name="dob" ColumnName="dob" />
+                <ScalarProperty Name="gender" ColumnName="gender" />
                 <ScalarProperty Name="email" ColumnName="email" />
                 <ScalarProperty Name="ph_landline" ColumnName="ph_landline" />
                 <ScalarProperty Name="ph_mobile" ColumnName="ph_mobile" />
