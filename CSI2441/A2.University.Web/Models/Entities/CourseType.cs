@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace A2.University.Web.Models.Entities
 {
     using System;
@@ -21,8 +23,14 @@ namespace A2.University.Web.Models.Entities
         }
     
         public long course_type_id { get; set; }
+
+        [Display(Name = "Course Type")]
         public string title { get; set; }
+
+        [Display(Name = "Credit Points")]
         public int credit_points { get; set; }
+
+        [Display(Name = "Duration (months)")]
         public int duration { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
