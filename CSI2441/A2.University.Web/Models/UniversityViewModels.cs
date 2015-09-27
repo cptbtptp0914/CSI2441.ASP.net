@@ -21,10 +21,27 @@ namespace A2.University.Web.Models
             this.CourseEnrolments = new HashSet<CourseEnrolment>();
         }
 
+        [Display(Name = "Course ID")]
+        [Required(ErrorMessage = "The Course ID field is required.")]
+        [RegularExpression("([A-Z]{1}[0-9]{2})", ErrorMessage = "Must be a valid Unit ID.")]
         public string course_id { get; set; }
+
+        [Display(Name = "Title")]
+        [Required(ErrorMessage = "The Title field is required.")]
+        [RegularExpression("(^[a-zA-Z0-9\\.\\,\\#\\/\\(\\) ]{5,}$)", ErrorMessage = "Must be a valid Title.")]
         public string title { get; set; }
+
+        [Display(Name = "Coordinator")]
+        [Required(ErrorMessage = "The Coordinator field is required.")]
         public long coordinator_id { get; set; }
+
+        [Display(Name = "Course Type")]
+        [Required(ErrorMessage = "The Course Type field is required.")]
         public long course_type_id { get; set; }
+
+        // SelectListItems used for ViewData, see Controller
+        public IEnumerable<SelectListItem> Coordinators { get; set; }
+        public IEnumerable<SelectListItem> CourseTypes { get; set; }
 
         public virtual CourseType CourseType { get; set; }
         public virtual Staff Staff { get; set; }
@@ -52,8 +69,14 @@ namespace A2.University.Web.Models
         }
 
         public long course_type_id { get; set; }
+
+        [Display(Name = "Course Type")]
         public string title { get; set; }
+
+        [Display(Name = "Credit Points")]
         public int credit_points { get; set; }
+
+        [Display(Name = "Duration (months)")]
         public int duration { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -176,10 +199,12 @@ namespace A2.University.Web.Models
         [Key]
         [Display(Name = "Unit ID")]
         [Required(ErrorMessage = "The Unit ID field is required.")]
+        [RegularExpression("([A-Z]{3}[0-9]{4})", ErrorMessage = "Must be a valid Unit ID.")]
         public string unit_id { get; set; }
 
         [Display(Name = "Title")]
         [Required(ErrorMessage = "The Title field is required.")]
+        [RegularExpression("(^[a-zA-Z0-9\\.\\,\\# ]{5,}$)", ErrorMessage = "Must be a valid Title.")]
         public string title { get; set; }
 
         [Display(Name = "Coordinator")]
