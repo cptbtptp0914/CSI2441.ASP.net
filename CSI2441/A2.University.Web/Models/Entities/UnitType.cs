@@ -22,6 +22,7 @@ namespace A2.University.Web.Models.Entities
             this.Units = new HashSet<Unit>();
         }
     
+        [Key]
         public long unit_type_id { get; set; }
 
         [Display(Name = "Unit Type")]

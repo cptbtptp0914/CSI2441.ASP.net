@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Web.Mvc;
 
 namespace A2.University.Web.Models.Entities
@@ -47,7 +48,10 @@ namespace A2.University.Web.Models.Entities
         public long unit_type_id { get; set; }
 
         public virtual Staff Staff { get; set; }
+
+        [ForeignKey("unit_type_id")]
         public virtual UnitType UnitType { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UnitEnrolment> UnitEnrolments { get; set; }
     }
