@@ -50,7 +50,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
+        public ActionResult Create([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
         {
             // if input passed validation
             if (ModelState.IsValid)
@@ -87,7 +87,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
+        public ActionResult Edit([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -134,7 +134,7 @@ namespace A2.University.Web.Controllers
         /// Begins by reseting tallies and current email fields, generates first version of email, then passes to EmailRecursiveSearch.
         /// </summary>
         /// <param name="student">Student</param>
-        private void StartEmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
+        private void StartEmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
         {
             // reset fields for each new student instance
             _emailMatchTally = 0;
@@ -152,7 +152,7 @@ namespace A2.University.Web.Controllers
         /// </summary>
         /// <param name="student">Student</param>
         /// <param name="target">string</param>
-        private void EmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student, string target)
+        private void EmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student, string target)
         {
             // if current email is a match,
             if (SearchEmail(target))
