@@ -62,3 +62,8 @@ table.grid-table .grid-filter {
 .vert-gap {
     margin-bottom: 20px;
 }
+
+.form-display {
+    padding-top: 7px;
+    margin-bottom: 0px !important;
+}
