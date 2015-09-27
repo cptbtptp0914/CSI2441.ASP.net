@@ -7,6 +7,8 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System.ComponentModel.DataAnnotations;
+
 namespace A2.University.Web.Models.Entities
 {
     using System;
@@ -20,6 +22,8 @@ namespace A2.University.Web.Models.Entities
             this.CourseEnrolments = new HashSet<CourseEnrolment>();
         }
     
+        [Display(Name = "Course ID")]
+        [Required(ErrorMessage = "The Course ID field is required.")]
         public string course_id { get; set; }
         public string title { get; set; }
         public long coordinator_id { get; set; }

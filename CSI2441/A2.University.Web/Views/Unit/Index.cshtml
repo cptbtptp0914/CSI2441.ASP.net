@@ -13,7 +13,7 @@
         <div class="col-md-10">
             <h2>@ViewBag.Title</h2>
             <p class="lead">
-                Add, edit or delete units.
+                Add, edit or delete units
             </p>
         </div>
     </div>
@@ -78,47 +78,3 @@
         .SetWidth(30)
         .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.unit_id }));
 }).WithPaging(20).Sortable(true)
-
-@*<p>*@
-@*    @Html.ActionLink("Create New", "Create")*@
-@*</p>*@
-@*<table class="table">*@
-@*    <tr>*@
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.title)*@
-@*        </th>*@
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.credit_points)*@
-@*        </th>*@
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.Staff.firstname)*@
-@*        </th>*@
-@*        <th>*@
-@*            @Html.DisplayNameFor(model => model.UnitType.title)*@
-@*        </th>*@
-@*        <th></th>*@
-@*    </tr>*@
-@**@
-@*@foreach (var item in Model) {*@
-@*    <tr>*@
-@*        <td>*@
-@*            @Html.DisplayFor(modelItem => item.title)*@
-@*        </td>*@
-@*        <td>*@
-@*            @Html.DisplayFor(modelItem => item.credit_points)*@
-@*        </td>*@
-@*        <td>*@
-@*            @Html.DisplayFor(modelItem => item.Staff.firstname)*@
-@*        </td>*@
-@*        <td>*@
-@*            @Html.DisplayFor(modelItem => item.UnitType.title)*@
-@*        </td>*@
-@*        <td>*@
-@*            @Html.ActionLink("Edit", "Edit", new { id=item.unit_id }) |*@
-@*            @Html.ActionLink("Details", "Details", new { id=item.unit_id }) |*@
-@*            @Html.ActionLink("Delete", "Delete", new { id=item.unit_id })*@
-@*        </td>*@
-@*    </tr>*@
-@*}*@
-@**@
-@*</table>*@

@@ -1,45 +1,39 @@
 ﻿@model IEnumerable<A2.University.Web.Models.Entities.Course>
+@using GridMvc.Html
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Courses";
 }
 
-<h2>Index</h2>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="@Url.Content("~/Content/img/icons/course.png")"/>
+        </div>
+        <div class="col-md-10">
+            <h2>@ViewBag.Title</h2>
+            <p class="lead">
+                Add, edit or delete courses
+            </p>
+        </div>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CourseType.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Staff.firstname)
-        </th>
-        <th></th>
-    </tr>
+<div class="row vert-gap">
+    <div class="col-md-12">
+        <span>
+            <a href="@Url.Action("Create", "Course")">Create New Course</a>
+        </span>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CourseType.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Staff.firstname)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.course_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.course_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.course_id })
-        </td>
-    </tr>
-}
+@*
+    Grid.Mvc package generates the grid.
+    Provides filtering/sorting functions.
+    20 items per page.
+*@
 
-</table>
+@Html.Grid(Model).Columns(columns =>
+{
+    
+})
