@@ -43,7 +43,7 @@ namespace A2.University.Web.Models.Entities
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime dob { get; set; }
 
-        [Display(Name = "gender")]
+        [Display(Name = "Gender")]
         [Required(ErrorMessage = "The Gender field is required.")]
         [RegularExpression("(M|F)", ErrorMessage = "Must be a valid gender.")]
         public char gender { get; set; }
