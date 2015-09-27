@@ -6,45 +6,46 @@
 
 <h2>@ViewBag.Title</h2>
 
-<div>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.staff_id)
-        </dt>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.staff_id)
-        </dd>
+    <div class="form-horizontal">
+        <hr />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.firstname)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.staff_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.staff_id)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.firstname)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.firstname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.firstname)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.surname)
-        </dt>
+        <div class="form-group">
+            @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.surname)</p>
+            </div>
+        </div>
 
-        <dd>
-            @Html.DisplayFor(model => model.surname)
-        </dd>
+        <div class="form-group">
+            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.email)</p>
+            </div>
+        </div>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-    </dl>
-</div>
-
-<div class="form-actions no-color">
-    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Edit", "Staff", new { id = Model.staff_id })">Edit</a>
-    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Staff")">Cancel</a>
-</div>
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 button-top-gap">
+                <a class="btn btn-default" href="@Url.Action("Edit", "Staff", new { id = Model.staff_id })">Edit</a>
+                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Staff")">Cancel</a>
+            </div>
+        </div>
+    </div>
+}
