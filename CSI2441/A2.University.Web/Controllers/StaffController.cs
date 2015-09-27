@@ -118,8 +118,7 @@ namespace A2.University.Web.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
         }
-
-
+        
         /// <summary>
         /// Function initiates recursive search of generated emails to ensure no duplicates exist.
         /// Begins by reseting tallies and current email fields, generates first version of email, then passes to EmailRecursiveSearch.
@@ -137,8 +136,7 @@ namespace A2.University.Web.Controllers
             // us email as target for search
             EmailRecursiveSearch(staff, target.ToLower());
         }
-
-
+        
         /// <summary>
         /// Recursive function to search each version of generated email against existing emails to ensure no duplicates exist.
         /// </summary>
@@ -166,7 +164,6 @@ namespace A2.University.Web.Controllers
                 _email = target;
             }
         }
-
 
         /// <summary>
         /// Function searches generated email against existing emails in database.

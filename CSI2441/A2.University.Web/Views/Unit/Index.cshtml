@@ -38,7 +38,8 @@
     // unit id
     columns.Add(data => data.unit_id)
         .Titled("Unit ID")
-        .Filterable(true);
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
     // unit title
     columns.Add(data => data.title)
         .Titled("Title")

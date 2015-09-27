@@ -13,7 +13,7 @@
         <div class="col-md-10">
             <h2>@ViewBag.Title</h2>
             <p class="lead">
-                Add, edit or delete student details.
+                Add, edit or delete students
             </p>
         </div>
     </div>
@@ -35,12 +35,37 @@
 
 @Html.Grid(Model).Columns(columns =>
 {
-    columns.Add(data => data.student_id).Titled("Student ID").Filterable(true);
-    columns.Add(data => data.firstname).Titled("First name").Filterable(true).SetFilterWidgetType("System.String");
-    columns.Add(data => data.lastname).Titled("Surname").Filterable(true).SetFilterWidgetType("System.String");
-    columns.Add(data => data.dob).Titled("DOB").Format("{0:dd/MM/yyyy}").Filterable(true).SetFilterWidgetType("System.DateTime");
-    columns.Add(data => data.gender).Titled("Gender").Filterable(true).SetFilterWidgetType("System.String");
-    columns.Add(data => data.email).Titled("Email").Filterable(true).SetFilterWidgetType("System.String");
+    // student id
+    columns.Add(data => data.student_id)
+        .Titled("Student ID")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // first name
+    columns.Add(data => data.firstname)
+        .Titled("First name")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // surname
+    columns.Add(data => data.lastname)
+        .Titled("Surname")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // dob
+    columns.Add(data => data.dob)
+        .Titled("DOB")
+        .Format("{0:dd/MM/yyyy}")
+        .Filterable(true)
+        .SetFilterWidgetType("System.DateTime");
+    // gender
+    columns.Add(data => data.gender)
+        .Titled("Gender")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // email
+    columns.Add(data => data.email)
+        .Titled("Email")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
     // view
     columns.Add()
         .Encoded(false)
