@@ -1,57 +1,79 @@
 ﻿@model A2.University.Web.Models.Entities.Course
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Course";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
-        <h4>Course</h4>
+        <h4>Edit course details</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.course_id)
+
+        @*Course ID*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.course_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.course_id, new { htmlAttributes = new { @class = "form-control", placeholder = "Example A12" } })
+            </div>
+            <div class="col-md-4">
+                @Html.ValidationMessageFor(model => model.course_id, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*Title*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control" } })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control", placeholder = "Required" } })
+            </div>
+            <div class="col-md-4">
                 @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        @*Coordinator*@
+
         <div class="form-group">
-            @Html.LabelFor(model => model.coordinator_id, "coordinator_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("coordinator_id", null, htmlAttributes: new { @class = "form-control" })
+            @Html.LabelFor(model => model.coordinator_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.coordinator_id, ViewData["coordinatorList"] as SelectList, "Select Coordinator", htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
                 @Html.ValidationMessageFor(model => model.coordinator_id, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        @*Course Type*@
+
         <div class="form-group">
-            @Html.LabelFor(model => model.course_type_id, "course_type_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("course_type_id", null, htmlAttributes: new { @class = "form-control" })
+            @Html.LabelFor(model => model.course_type_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.course_type_id, ViewData["courseTypesList"] as SelectList, "Select Course Type", htmlAttributes: new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
                 @Html.ValidationMessageFor(model => model.course_type_id, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        @*Buttons*@
+
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <input type="submit" value="Create" class="btn btn-default" />
+                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Course")">Cancel</a>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

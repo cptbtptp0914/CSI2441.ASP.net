@@ -8,6 +8,7 @@
 //------------------------------------------------------------------------------
 
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace A2.University.Web.Models.Entities
 {
@@ -39,7 +40,11 @@ namespace A2.University.Web.Models.Entities
         [Display(Name = "Course Type")]
         [Required(ErrorMessage = "The Course Type field is required.")]
         public long course_type_id { get; set; }
-    
+
+        // SelectListItems used for ViewData, see Controller
+        public IEnumerable<SelectListItem> Coordinators { get; set; }
+        public IEnumerable<SelectListItem> CourseTypes { get; set; }
+
         public virtual CourseType CourseType { get; set; }
         public virtual Staff Staff { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

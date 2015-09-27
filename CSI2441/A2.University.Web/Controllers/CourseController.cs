@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
+using System.Web.DynamicData;
 using System.Web.Mvc;
 using A2.University.Web.Models.Entities;
 
@@ -75,8 +76,16 @@ namespace A2.University.Web.Controllers
             {
                 return HttpNotFound();
             }
+
             ViewBag.course_type_id = new SelectList(db.CourseTypes, "course_type_id", "title", course.course_type_id);
-            ViewBag.coordinator_id = new SelectList(db.Staff, "staff_id", "firstname", course.coordinator_id);
+            ViewBag.coordinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", course.coordinator_id);
+
+            // ViewData in conjunction with ViewBag above, guarantees default selection value from db
+            List<Staff> coordinatorsList = new List<Staff>(db.Staff.OrderBy(s => s.firstname).ToList());
+            ViewData["coordinatorsList"] = coordinatorsList;
+            List<CourseType> courseTypesList = new List<CourseType>(db.CourseTypes.ToList());
+            ViewData["courseTypesList"] = courseTypesList;
+
             return View(course);
         }
 
