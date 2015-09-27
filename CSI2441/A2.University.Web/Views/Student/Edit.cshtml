@@ -44,7 +44,7 @@
         @*DOB*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.dob, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.dob, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 @*Trying to get the dob from model here, so user doesn't have to input manually again. Works fine in IE, Chrome always omits date because it renders datepicker*@
                 @*TODO: Need to fix, this doesn't work*@
@@ -54,6 +54,22 @@
                     @Value = Model.dob.ToString("d"),
                     htmlAttributes = new {@class = "form-control"}
                 })
+            </div>
+            <div class="col-md-4">
+                @Html.ValidationMessageFor(model => model.dob, "", new {@class = "text-danger"})
+            </div>
+        </div>
+
+        @*Gender, dropdown, hardcoded values*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.gender, new List<SelectListItem>
+                {
+                    new SelectListItem {Text = "M", Value = "M"},
+                    new SelectListItem {Text = "F", Value = "F"}
+                }, "Select Gender", new { @class = "form-control" })
             </div>
             <div class="col-md-4">
                 @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })

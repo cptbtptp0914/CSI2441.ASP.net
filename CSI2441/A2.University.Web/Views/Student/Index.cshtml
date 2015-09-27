@@ -39,6 +39,7 @@
     columns.Add(data => data.firstname).Titled("First name").Filterable(true).SetFilterWidgetType("System.String");
     columns.Add(data => data.lastname).Titled("Surname").Filterable(true).SetFilterWidgetType("System.String");
     columns.Add(data => data.dob).Titled("DOB").Format("{0:dd/MM/yyyy}").Filterable(true).SetFilterWidgetType("System.DateTime");
+    columns.Add(data => data.gender).Titled("Gender").Filterable(true).SetFilterWidgetType("System.String");
     columns.Add(data => data.email).Titled("Email").Filterable(true).SetFilterWidgetType("System.String");
     // view
     columns.Add()
