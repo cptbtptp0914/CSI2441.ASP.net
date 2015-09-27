@@ -36,7 +36,8 @@ namespace A2.University.Web.Models.Entities
         [Required(ErrorMessage = "The Coordinator field is required.")]
         public long coordinator_id { get; set; }
 
-        // need join here
+        [Display(Name = "Course Type")]
+        [Required(ErrorMessage = "The Course Type field is required.")]
         public long course_type_id { get; set; }
     
         public virtual CourseType CourseType { get; set; }

@@ -40,7 +40,7 @@ namespace A2.University.Web.Controllers
         public ActionResult Create()
         {
             ViewBag.course_type_id = new SelectList(db.CourseTypes, "course_type_id", "title");
-            ViewBag.coordinator_id = new SelectList(db.Staff, "staff_id", "firstname");
+            ViewBag.coordinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
             return View();
         }
 
@@ -59,7 +59,7 @@ namespace A2.University.Web.Controllers
             }
 
             ViewBag.course_type_id = new SelectList(db.CourseTypes, "course_type_id", "title", course.course_type_id);
-            ViewBag.coordinator_id = new SelectList(db.Staff, "staff_id", "firstname", course.coordinator_id);
+            ViewBag.coordinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", course.coordinator_id);
             return View(course);
         }
 
