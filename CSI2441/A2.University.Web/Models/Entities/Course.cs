@@ -30,7 +30,7 @@ namespace A2.University.Web.Models.Entities
 
         [Display(Name = "Title")]
         [Required(ErrorMessage = "The Title field is required.")]
-        [RegularExpression("(^[a-zA-Z0-9\\.\\,\\# ]{5,}$)", ErrorMessage = "Must be a valid Title.")]
+        [RegularExpression("(^[a-zA-Z0-9\\.\\,\\#\\/\\(\\) ]{5,}$)", ErrorMessage = "Must be a valid Title.")]
         public string title { get; set; }
 
         [Display(Name = "Coordinator")]
