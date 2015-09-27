@@ -1,21 +1,36 @@
 ﻿@model A2.University.Web.Models.Entities.Course
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Course Details";
 }
 
-<h2>Details</h2>
+<h2>@ViewBag.Title</h2>
 
 <div>
-    <h4>Course</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.course_id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course_id)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.title)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Staff.fullname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff.fullname)
         </dd>
 
         <dt>
@@ -27,16 +42,23 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Staff.firstname)
+            @Html.DisplayNameFor(model => model.CourseType.credit_points)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Staff.firstname)
+            @Html.DisplayFor(model => model.CourseType.credit_points)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseType.duration)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseType.duration)
+        </dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.course_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<div class="form-actions no-color">
+    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Edit", "Course", new { id = Model.course_id })">Edit</a>
+    <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Course")">Cancel</a>
+</div>
