@@ -35,5 +35,52 @@
 
 @Html.Grid(Model).Columns(columns =>
 {
-    
-})
+    // course id
+    columns.Add(data => data.course_id)
+        .Titled("Course ID")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // title
+    columns.Add(data => data.title)
+        .Titled("Title")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // coordinator
+    columns.Add(data => data.Staff.fullname)
+        .Titled("Coordinator")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // course type
+    columns.Add(data => data.CourseType.title)
+        .Titled("Course Type")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // credit points
+    columns.Add(data => data.CourseType.credit_points)
+        .Titled("CP")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // duration
+    columns.Add(data => data.CourseType.duration)
+        .Titled("Duration (months)")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // view
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.course_id }));
+    // edit
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.course_id }));
+    // delete
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.course_id }));
+}).WithPaging(20).Sortable(true)
