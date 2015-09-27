@@ -71,12 +71,12 @@
         </div>
 
         @*Unit type*@
-        @*TODO: Fix value not being passed to dropdownlist, debug shows value is being pulled, but does not appear in view*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.unit_type_id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.UnitType.unit_type_id, ViewBag.unit_type_id as SelectList, "Select Unit Type", htmlAttributes: new { @class = "form-control" })
+                @*Selecting value from db only works if referring to model => model.UnitType.unit_type_id in lamba expression*@
+                @Html.DropDownListFor(model => model.unit_type_id, ViewBag.unit_type_id as SelectList, "Select Unit Type", htmlAttributes: new {@class = "form-control"})
             </div>
             <div class="col-md-4">
                 @Html.ValidationMessageFor(model => model.unit_type_id, "", new { @class = "text-danger" })
