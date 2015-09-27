@@ -27,8 +27,8 @@
             <div class="col-md-4">
                 <p class="form-display">@Html.DisplayFor(model => model.course_id)</p>
             </div>
-            <div class="col-md-4">
-                @Html.ValidationMessageFor(model => model.course_id, "", new { @class = "text-danger" })
+            <div class="col-md-6">
+                <p class="text-danger form-display">Unable to edit Course ID, please delete record if modification required.</p>
             </div>
         </div>
 
@@ -39,7 +39,7 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.title, new { htmlAttributes = new { @class = "form-control", placeholder = "Required" } })
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.title, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -51,7 +51,7 @@
             <div class="col-md-4">
                 @Html.DropDownListFor(model => model.coordinator_id, ViewData["coordinatorList"] as SelectList, "Select Coordinator", htmlAttributes: new { @class = "form-control" })
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.coordinator_id, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -63,7 +63,7 @@
             <div class="col-md-4">
                 @Html.DropDownListFor(model => model.course_type_id, ViewData["courseTypesList"] as SelectList, "Select Course Type", htmlAttributes: new { @class = "form-control" })
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.course_type_id, "", new { @class = "text-danger" })
             </div>
         </div>
