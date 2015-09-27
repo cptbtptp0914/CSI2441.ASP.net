@@ -1,0 +1,42 @@
+﻿@model A2.University.Web.Models.Entities.Course
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Course</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CourseType.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CourseType.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Staff.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Staff.firstname)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.course_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
