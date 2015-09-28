@@ -284,6 +284,8 @@
     <Content Include="Models\Entities\University.edmx.diagram">
       <DependentUpon>University.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\csi2441 - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\csi2441 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.1.4.intellisense.js" />
     <Content Include="Models\Entities\University.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
