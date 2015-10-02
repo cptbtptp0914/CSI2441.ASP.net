@@ -172,22 +172,34 @@ namespace A2.University.Web.Controllers
             viewModel.unit_type_title = GetUnitTypeTitle(entityModel.unit_type_id);
         }
 
-        private string GetCoordinatorFullName(long id)
+
+        /// <summary>
+        /// SQL statement returns coordinator's full name.
+        /// </summary>
+        /// <param name="staff_id">long</param>
+        /// <returns>string</returns>
+        private string GetCoordinatorFullName(long staff_id)
         {
             var query = (
                 from c in db.Staff
-                where c.staff_id == id
+                where c.staff_id == staff_id
                 select c.firstname + " " + c.surname
             ).FirstOrDefault();
 
             return query;
         }
 
-        private string GetUnitTypeTitle(long id)
+
+        /// <summary>
+        /// SQL statement returns unit type title.
+        /// </summary>
+        /// <param name="unit_type_id">long</param>
+        /// <returns>string</returns>
+        private string GetUnitTypeTitle(long unit_type_id)
         {
             var query = (
                 from ut in db.UnitTypes
-                where ut.unit_type_id == id
+                where ut.unit_type_id == unit_type_id
                 select ut.title
             ).FirstOrDefault();
 
