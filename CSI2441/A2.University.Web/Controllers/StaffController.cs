@@ -135,12 +135,20 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = db.Staff.Find(id);
-            if (staff == null)
+
+            // create entity model, match id
+            Staff staffEntityModel = db.Staff.Find(id);
+            // create viewmodel, pass values from entitymodel
+            StaffDeleteViewModel staffViewModel = new StaffDeleteViewModel();
+            SetStaffViewModel(staffViewModel, staffEntityModel);
+
+            if (staffEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(staff);
+
+            // render view using viewmodel
+            return View(staffViewModel);
         }
 
         // POST: Staff/Delete/5

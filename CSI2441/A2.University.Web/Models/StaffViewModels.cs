@@ -46,4 +46,9 @@ namespace A2.University.Web.Models
     {
         // No custom fields required
     }
+
+    public class StaffDeleteViewModel : StaffBaseViewModel
+    {
+        // No custom fields required
+    }
 }
