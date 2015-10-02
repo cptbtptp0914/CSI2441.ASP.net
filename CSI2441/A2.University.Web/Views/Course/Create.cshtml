@@ -1,4 +1,4 @@
-﻿@model A2.University.Web.Models.Entities.Course
+﻿@model A2.University.Web.Models.CourseCreateViewModel
 
 @{
     ViewBag.Title = "Create New Course";
@@ -45,7 +45,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.coordinator_id, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.coordinator_id, ViewBag.coordinator_id as SelectList, "Select Coordinator", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.coordinator_id, Model.CoordinatorDropDownList, "Select Coordinator", htmlAttributes: new { @class = "form-control" })
             </div>
             <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.coordinator_id, "", new { @class = "text-danger" })
@@ -57,7 +57,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.course_type_id, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.course_type_id, ViewBag.course_type_id as SelectList, "Select Course Type", htmlAttributes: new {@class = "form-control"})
+                @Html.DropDownListFor(model => model.course_type_id, Model.CourseTypeTitleDropDownList, "Select Course Type", htmlAttributes: new {@class = "form-control"})
             </div>
             <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.course_type_id, "", new {@class = "text-danger"})

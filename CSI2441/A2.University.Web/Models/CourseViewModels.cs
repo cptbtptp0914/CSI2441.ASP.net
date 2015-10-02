@@ -49,6 +49,11 @@ namespace A2.University.Web.Models
 
     public class CourseDetailsViewModel : CourseBaseViewModel
     {
-        
+        // No custom fields required
+    }
+
+    public class CourseCreateViewModel : CourseDropDownListViewModel
+    {
+        // No custom fields required
     }
 }

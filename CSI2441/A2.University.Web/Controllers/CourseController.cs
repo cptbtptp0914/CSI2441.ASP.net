@@ -41,15 +41,23 @@ namespace A2.University.Web.Controllers
             {
                 return HttpNotFound();
             }
+
+            // render view using viewmodel
             return View(courseViewModel);
         }
 
         // GET: Course/Create
         public ActionResult Create()
         {
-            ViewBag.course_type_id = new SelectList(db.CourseTypes, "course_type_id", "title");
-            ViewBag.coordinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
-            return View();
+            // crate viewmodel
+            CourseCreateViewModel courseViewModel = new CourseCreateViewModel();
+            // populate dropdownlists
+            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
+            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title");
+
+//            ViewBag.course_type_id = new SelectList(db.CourseTypes, "course_type_id", "title");
+//            ViewBag.coordinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
+            return View(courseViewModel);
         }
 
         // POST: Course/Create
@@ -57,18 +65,27 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "course_id,title,coordinator_id,course_type_id")] Course course)
+        public ActionResult Create([Bind(Include = "course_id,title,coordinator_id,course_type_id")] CourseCreateViewModel courseViewModel)
         {
+            // if input passes validation
             if (ModelState.IsValid)
             {
-                db.Courses.Add(course);
+                // create entity model, pass values from viewmodel
+                Course courseEntityModel = new Course();
+                SetCourseEntityModel(courseViewModel, courseEntityModel);
+
+                // update db using entitymodel
+                db.Courses.Add(courseEntityModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.course_type_id = new SelectList(db.CourseTypes, "course_type_id", "title", course.course_type_id);
-            ViewBag.coordinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", course.coordinator_id);
-            return View(course);
+            // populate dropdownlists
+            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", courseViewModel.course_type_id);
+            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title", courseViewModel.course_type_id);
+
+            // render view using viewmodel
+            return View(courseViewModel);
         }
 
         // GET: Course/Edit/5
