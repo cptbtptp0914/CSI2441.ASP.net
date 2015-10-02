@@ -18,16 +18,12 @@
         @Html.HiddenFor(model => model.unit_id)
 
         @*Unit ID*@
-        @*Primary key! Cannot be modified by user, static text shown instead of textbox*@
-        @*If user wants to edit, delete record and start from scratch.*@
-        @*PK cannot be modified using Entity Framework, see: http://stackoverflow.com/questions/1367751/update-primary-key-value-using-entity-framework*@
+        @*Is PK, read only*@
+
         <div class="form-group">
             @Html.LabelFor(model => model.unit_id, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.unit_id)</p>
-            </div>
-            <div class="col-md-6">
-                <p class="text-danger form-display">Unable to edit Unit ID, please delete record if modification required.</p>
+                @Html.EditorFor(model => model.unit_id, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             </div>
         </div>
 
