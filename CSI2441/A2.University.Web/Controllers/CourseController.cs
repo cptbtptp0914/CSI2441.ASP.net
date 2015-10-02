@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.DynamicData;
 using System.Web.Mvc;
+using A2.University.Web.Models;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Controllers
@@ -29,12 +30,18 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+
+            // create entitymodel, match id
+            Course courseEntityModel = db.Courses.Find(id);
+            // create viewmodel, pass values from entitymodel
+            CourseDetailsViewModel courseViewModel = new CourseDetailsViewModel();
+            SetCourseViewModel(courseViewModel, courseEntityModel);
+
+            if (courseEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(courseViewModel);
         }
 
         // GET: Course/Create
@@ -131,6 +138,101 @@ namespace A2.University.Web.Controllers
             db.Courses.Remove(course);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Passes data from the view model to the entity model.
+        /// </summary>
+        /// <param name="viewModel">UnitBaseViewModel</param>
+        /// <param name="entityModel">Unit</param>
+        private void SetCourseEntityModel(CourseBaseViewModel viewModel, Course entityModel)
+        {
+            entityModel.course_id = viewModel.course_id;
+            entityModel.title = viewModel.title;
+            entityModel.coordinator_id = viewModel.coordinator_id;
+            entityModel.course_type_id = viewModel.course_type_id;
+        }
+
+        /// <summary>
+        /// Passes data from the entity model to the view model.
+        /// </summary>
+        /// <param name="viewModel">UnitBaseViewModel</param>
+        /// <param name="entityModel">Unit</param>
+        private void SetCourseViewModel(CourseBaseViewModel viewModel, Course entityModel)
+        {
+            viewModel.course_id = entityModel.course_id;
+            viewModel.title = entityModel.title;
+            viewModel.coordinator_id = entityModel.coordinator_id;
+            viewModel.course_type_id = entityModel.course_type_id;
+
+            viewModel.coordinator_name = GetCoordinatorFullName(entityModel.coordinator_id);
+            viewModel.course_type_title = GetCourseTypeTitle(entityModel.course_type_id);
+            viewModel.credit_points = GetCourseCreditPoints(entityModel.course_type_id);
+            viewModel.duration = GetCourseDuration(entityModel.course_type_id);
+        }
+
+        /// <summary>
+        /// SQL statement returns coordinator's full name.
+        /// </summary>
+        /// <param name="staff_id">long</param>
+        /// <returns>string</returns>
+        private string GetCoordinatorFullName(long staff_id)
+        {
+            var query = (
+                from c in db.Staff
+                where c.staff_id == staff_id
+                select c.firstname + " " + c.surname
+            ).FirstOrDefault();
+
+            return query;
+        }
+
+        /// <summary>
+        /// SQL statement returns course type title.
+        /// </summary>
+        /// <param name="course_type_id">long</param>
+        /// <returns>string</returns>
+        private string GetCourseTypeTitle(long course_type_id)
+        {
+            var query = (
+                from ct in db.CourseTypes
+                where ct.course_type_id == course_type_id
+                select ct.title
+            ).FirstOrDefault();
+
+            return query;
+        }
+
+        /// <summary>
+        /// SQL statement returns course credit points.
+        /// </summary>
+        /// <param name="course_type_id">long</param>
+        /// <returns>string</returns>
+        private int GetCourseCreditPoints(long course_type_id)
+        {
+            var query = (
+                from ct in db.CourseTypes
+                where ct.course_type_id == course_type_id
+                select ct.credit_points
+            ).FirstOrDefault();
+
+            return query;
+        }
+
+        /// <summary>
+        /// SQL statement returns course duration.
+        /// </summary>
+        /// <param name="course_type_id">long</param>
+        /// <returns>string</returns>
+        private int GetCourseDuration(long course_type_id)
+        {
+            var query = (
+                from ct in db.CourseTypes
+                where ct.course_type_id == course_type_id
+                select ct.duration
+            ).FirstOrDefault();
+
+            return query;
         }
 
         protected override void Dispose(bool disposing)

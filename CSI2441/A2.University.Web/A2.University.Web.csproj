@@ -198,6 +198,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CourseViewModels.cs" />
     <Compile Include="Models\Entities\Course.cs">
       <DependentUpon>University.tt</DependentUpon>
     </Compile>
