@@ -6,7 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using A2.University.Web.Models;
 using A2.University.Web.Models.Entities;
+using Microsoft.Ajax.Utilities;
 
 namespace A2.University.Web.Controllers
 {
@@ -28,12 +30,20 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Unit unit = db.Units.Find(id);
-            if (unit == null)
+
+            // create entitymodel, match id
+            Unit unitEntityModel = db.Units.Find(id);
+            // create viewmodel, pass values from entitymodel
+            UnitDetailsViewModel unitViewModel = new UnitDetailsViewModel();
+            SetUnitViewModel(unitViewModel, unitEntityModel);
+
+            if (unitEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(unit);
+
+            // render view using viewmodel
+            return View(unitViewModel);
         }
 
         // GET: Unit/Create
@@ -129,6 +139,59 @@ namespace A2.University.Web.Controllers
             db.Units.Remove(unit);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Passes data from the view model to the entity model.
+        /// </summary>
+        /// <param name="viewModel">UnitBaseViewModel</param>
+        /// <param name="entityModel">Unit</param>
+        private void SetUnitEntityModel(UnitBaseViewModel viewModel, Unit entityModel)
+        {
+            entityModel.unit_id = viewModel.unit_id;
+            entityModel.title = viewModel.title;
+            entityModel.coodinator_id = viewModel.coodinator_id;
+            entityModel.credit_points = viewModel.credit_points;
+            entityModel.unit_type_id = viewModel.unit_type_id;
+        }
+
+        /// <summary>
+        /// Passes data from the entity model to the view model.
+        /// </summary>
+        /// <param name="viewModel">UnitBaseViewModel</param>
+        /// <param name="entityModel">Unit</param>
+        private void SetUnitViewModel(UnitBaseViewModel viewModel, Unit entityModel)
+        {
+            viewModel.unit_id = entityModel.unit_id;
+            viewModel.title = entityModel.title;
+            viewModel.coodinator_id = entityModel.coodinator_id;
+            viewModel.credit_points = entityModel.credit_points;
+            viewModel.unit_type_id = entityModel.unit_type_id;
+
+            viewModel.coordinator_name = GetCoordinatorFullName(entityModel.coodinator_id);
+            viewModel.unit_type_title = GetUnitTypeTitle(entityModel.unit_type_id);
+        }
+
+        private string GetCoordinatorFullName(long id)
+        {
+            var query = (
+                from c in db.Staff
+                where c.staff_id == id
+                select c.firstname + " " + c.surname
+            ).FirstOrDefault();
+
+            return query;
+        }
+
+        private string GetUnitTypeTitle(long id)
+        {
+            var query = (
+                from ut in db.UnitTypes
+                where ut.unit_type_id == id
+                select ut.title
+            ).FirstOrDefault();
+
+            return query;
         }
 
         protected override void Dispose(bool disposing)
