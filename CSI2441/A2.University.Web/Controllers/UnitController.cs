@@ -69,12 +69,13 @@ namespace A2.University.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "unit_id,title,coodinator_id,credit_points,unit_type_id")] UnitCreateViewModel unitViewModel)
         {
+
             // if input passes validation
             if (ModelState.IsValid)
             {
                 // create entity model, pass values from viewmodel
                 Unit unitEntityModel = new Unit();
-                SetUnitViewModel(unitViewModel, unitEntityModel);
+                SetUnitEntityModel(unitViewModel, unitEntityModel);
 
                 // update db using entitymodel
                 db.Units.Add(unitEntityModel);
@@ -82,13 +83,11 @@ namespace A2.University.Web.Controllers
                 return RedirectToAction("Index");
             }
 
-//            ViewBag.coodinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", unit.coodinator_id);
-//            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
-
             // populate dropdownlists
             unitViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
             unitViewModel.UnitTypeTitleDropDownList = new SelectList(db.UnitTypes, "unit_type_id", "title");
 
+            // render view using viewmodel
             return View(unitViewModel);
         }
 
