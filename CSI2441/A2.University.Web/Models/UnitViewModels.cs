@@ -40,14 +40,28 @@ namespace A2.University.Web.Models
         public string unit_type_title { get; set; }
     }
 
+    public class UnitDropDownListViewModel : UnitBaseViewModel
+    {
+        // to be populated by db
+        public IEnumerable<SelectListItem> CoordinatorDropDownList { get; set; }
+        public IEnumerable<SelectListItem> UnitTypeTitleDropDownList { get; set; }
+
+        // credit points
+        public IEnumerable<SelectListItem> CreditPointsDropDownList = new List<SelectListItem>
+        {
+            new SelectListItem {Value = "15", Text = "15"},
+            new SelectListItem {Value = "20", Text = "20"},
+            new SelectListItem {Value = "60", Text = "60"}
+        };
+    }
+
     public class UnitDetailsViewModel : UnitBaseViewModel
     {
         // No custom fields required
     }
 
-    public class UnitCreateViewModel : UnitBaseViewModel
+    public class UnitCreateViewModel : UnitDropDownListViewModel
     {
-        public IEnumerable<SelectListItem> CoordinatorDropDownList { get; set; }
-        public IEnumerable<SelectListItem> UnitTypeTitleDropDownList { get; set; } 
+
     }
 }

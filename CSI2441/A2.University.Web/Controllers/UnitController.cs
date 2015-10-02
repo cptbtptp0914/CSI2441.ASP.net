@@ -53,10 +53,13 @@ namespace A2.University.Web.Controllers
             ViewBag.coodinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
             ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title");
             
-            // TODO: finish this refactor!
+            // create viewmodel
             UnitCreateViewModel unitViewModel = new UnitCreateViewModel();
+            unitViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
+            unitViewModel.UnitTypeTitleDropDownList = new SelectList(db.UnitTypes, "unit_type_id", "title");
            
-            return View();
+            // render view using viewmodel
+            return View(unitViewModel);
         }
 
         // POST: Unit/Create
@@ -64,18 +67,29 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "unit_id,title,coodinator_id,credit_points,unit_type_id")] Unit unit)
+        public ActionResult Create([Bind(Include = "unit_id,title,coodinator_id,credit_points,unit_type_id")] UnitCreateViewModel unitViewModel)
         {
+            // if input passes validation
             if (ModelState.IsValid)
             {
-                db.Units.Add(unit);
+                // create entity model, pass values from viewmodel
+                Unit unitEntityModel = new Unit();
+                SetUnitViewModel(unitViewModel, unitEntityModel);
+
+                // update db using entitymodel
+                db.Units.Add(unitEntityModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.coodinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", unit.coodinator_id);
-            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
-            return View(unit);
+//            ViewBag.coodinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", unit.coodinator_id);
+//            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
+
+            // populate dropdownlists
+            unitViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
+            unitViewModel.UnitTypeTitleDropDownList = new SelectList(db.UnitTypes, "unit_type_id", "title");
+
+            return View(unitViewModel);
         }
 
         // GET: Unit/Edit/5
