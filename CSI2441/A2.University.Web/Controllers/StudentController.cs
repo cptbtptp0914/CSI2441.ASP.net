@@ -172,7 +172,7 @@ namespace A2.University.Web.Controllers
             entityModel.ph_landline = viewModel.ph_landline;
             entityModel.ph_mobile = viewModel.ph_mobile;
             entityModel.adrs = viewModel.adrs;
-            entityModel.adrs_city = viewModel.adrs_city;
+            entityModel.adrs_city = viewModel.adrs_city.ToUpper();
             entityModel.adrs_state = viewModel.adrs_state;
             // cast postcode string to int
             entityModel.adrs_postcode = int.Parse(viewModel.adrs_postcode);
@@ -195,7 +195,7 @@ namespace A2.University.Web.Controllers
             viewModel.ph_landline = entityModel.ph_landline;
             viewModel.ph_mobile = entityModel.ph_mobile;
             viewModel.adrs = entityModel.adrs;
-            viewModel.adrs_city = entityModel.adrs_city;
+            viewModel.adrs_city = entityModel.adrs_city.ToUpper();
             viewModel.adrs_state = entityModel.adrs_state;
             // cast postcode int to string
             viewModel.adrs_postcode = entityModel.adrs_postcode.ToString();
