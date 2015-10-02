@@ -97,4 +97,9 @@ namespace A2.University.Web.Models
     {
         // inherits StudentDropDownListViewModel, no custom fields required
     }
+
+    public class StudentEditViewModel : StudentDropDownListViewModel
+    {
+        // No custom fields required
+    }
 }
