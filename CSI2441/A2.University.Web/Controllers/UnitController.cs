@@ -146,7 +146,7 @@ namespace A2.University.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // create entitymode, match id
+            // create entitymodel, match id
             Unit unitEntityModel = db.Units.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitDeleteViewModel unitViewModel = new UnitDeleteViewModel();
@@ -201,7 +201,6 @@ namespace A2.University.Web.Controllers
             viewModel.unit_type_title = GetUnitTypeTitle(entityModel.unit_type_id);
         }
 
-
         /// <summary>
         /// SQL statement returns coordinator's full name.
         /// </summary>
@@ -217,7 +216,6 @@ namespace A2.University.Web.Controllers
 
             return query;
         }
-
 
         /// <summary>
         /// SQL statement returns unit type title.
