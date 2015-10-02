@@ -60,16 +60,12 @@
             </div>
         </div>
 
-        @*Gender, dropdown, hardcoded values*@
+        @*Gender*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.gender, new List<SelectListItem>
-                {
-                    new SelectListItem {Text = "M", Value = "M"},
-                    new SelectListItem {Text = "F", Value = "F"}
-                }, "Select Gender", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.gender, Model.GenderDropDownList, "Select Gender", new { @class = "form-control" })
             </div>
             <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.gender, "", new { @class = "text-danger" })
@@ -133,22 +129,12 @@
             </div>
         </div>
 
-        @*State, dropdown, hardcoded values*@
+        @*State*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.adrs_state, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.adrs_state, new List<SelectListItem>
-                {
-                    new SelectListItem {Text = "ACT", Value = "ACT"},
-                    new SelectListItem {Text = "NSW", Value = "NSW"},
-                    new SelectListItem {Text = "NT", Value = "NT"},
-                    new SelectListItem {Text = "QLD", Value = "QLD"},
-                    new SelectListItem {Text = "SA", Value = "SA"},
-                    new SelectListItem {Text = "TAS", Value = "TAS"},
-                    new SelectListItem {Text = "VIC", Value = "VIC"},
-                    new SelectListItem {Text = "WA", Value = "WA"}
-                }, "Select State", new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.adrs_state, Model.StateDropDownList, "Select State", new { @class = "form-control" })
             </div>
             <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.adrs_state, "", new { @class = "text-danger" })
