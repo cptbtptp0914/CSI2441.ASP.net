@@ -67,6 +67,11 @@ namespace A2.University.Web.Models
 
     public class UnitEditViewModel : UnitDropDownListViewModel
     {
-        
+        // Inherits UnitDropDownListViewModel, no custom fields required
+    }
+
+    public class UnitDeleteViewModel : UnitBaseViewModel
+    {
+        // No custom fields required
     }
 }

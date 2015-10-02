@@ -149,12 +149,18 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Unit unit = db.Units.Find(id);
-            if (unit == null)
+
+            // create entitymode, match id
+            Unit unitEntityModel = db.Units.Find(id);
+            // create viewmodel, pass values from entitymodel
+            UnitDeleteViewModel unitViewModel = new UnitDeleteViewModel();
+            SetUnitViewModel(unitViewModel, unitEntityModel);
+
+            if (unitEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(unit);
+            return View(unitViewModel);
         }
 
         // POST: Unit/Delete/5
