@@ -33,36 +33,40 @@ namespace A2.University.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            // create entity model, match id
-            Student studentModel = db.Students.Find(id);
-            // create new viewmodel, assign values from entity model
+            // create entitymodel, match id
+            Student studentEntityModel = db.Students.Find(id);
+            // create new viewmodel, pass values from entitymodel
             StudentDetailsViewModel studentViewModel = new StudentDetailsViewModel
             {
-                student_id = studentModel.student_id,
-                firstname = studentModel.firstname,
-                lastname = studentModel.lastname,
-                dob = studentModel.dob,
-                gender = studentModel.gender,
-                email = studentModel.email,
-                ph_landline = studentModel.ph_landline,
-                ph_mobile = studentModel.ph_mobile,
-                adrs = studentModel.adrs,
-                adrs_city = studentModel.adrs_city,
-                adrs_state = studentModel.adrs_state,
-                adrs_postcode = studentModel.adrs_postcode
+                student_id = studentEntityModel.student_id,
+                firstname = studentEntityModel.firstname,
+                lastname = studentEntityModel.lastname,
+                dob = studentEntityModel.dob,
+                gender = studentEntityModel.gender,
+                email = studentEntityModel.email,
+                ph_landline = studentEntityModel.ph_landline,
+                ph_mobile = studentEntityModel.ph_mobile,
+                adrs = studentEntityModel.adrs,
+                adrs_city = studentEntityModel.adrs_city,
+                adrs_state = studentEntityModel.adrs_state,
+                // cast postcode int to string
+                adrs_postcode = studentEntityModel.adrs_postcode.ToString()
             };
 
-            if (studentModel == null)
+            if (studentEntityModel == null)
             {
                 return HttpNotFound();
             }
+
+            // show view using viewmodel
             return View(studentViewModel);
         }
 
         // GET: Student/Create
         public ActionResult Create()
         {
-            return View();
+            // create new viewmodel
+            return View(new StudentCreateViewModel());
         }
 
         // POST: Student/Create
@@ -70,21 +74,40 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
+        public ActionResult Create([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] StudentCreateViewModel studentViewModel)
         {
             // if input passed validation
             if (ModelState.IsValid)
             {
                 // generate email
-                StartEmailRecursiveSearch(student);
-                student.email = _email;
+                StartEmailRecursiveSearch((StudentBaseViewModel)studentViewModel);
 
-                db.Students.Add(student);
+                // pass data from viewmodel to entitymodel
+                Student studentEntityModel = new Student
+                {
+                    student_id = studentViewModel.student_id,
+                    firstname = studentViewModel.firstname,
+                    lastname = studentViewModel.lastname,
+                    dob = studentViewModel.dob,
+                    gender = studentViewModel.SelectedGender,
+                    // use generated email
+                    email = _email,
+                    ph_landline = studentViewModel.ph_landline,
+                    ph_mobile = studentViewModel.ph_mobile,
+                    adrs = studentViewModel.adrs,
+                    adrs_city = studentViewModel.adrs_city,
+                    adrs_state = studentViewModel.adrs_state,
+                    // cast postcode string to int
+                    adrs_postcode = int.Parse(studentViewModel.adrs_postcode)
+                };
+
+                // update db using entitymodel
+                db.Students.Add(studentEntityModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(student);
+            return View(studentViewModel);
         }
 
         // GET: Student/Edit/5
@@ -112,8 +135,8 @@ namespace A2.University.Web.Controllers
             if (ModelState.IsValid)
             {
                 // generate new email
-                StartEmailRecursiveSearch(student);
-                student.email = _email;
+//                StartEmailRecursiveSearch(student);
+//                student.email = _email;
 
                 db.Entry(student).State = EntityState.Modified;
                 db.SaveChanges();
@@ -154,7 +177,7 @@ namespace A2.University.Web.Controllers
         /// Begins by reseting tallies and current email fields, generates first version of email, then passes to EmailRecursiveSearch.
         /// </summary>
         /// <param name="student">Student</param>
-        private void StartEmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student)
+        private void StartEmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] StudentBaseViewModel student)
         {
             // reset fields for each new student instance
             _emailMatchTally = 0;
@@ -172,7 +195,7 @@ namespace A2.University.Web.Controllers
         /// </summary>
         /// <param name="student">Student</param>
         /// <param name="target">string</param>
-        private void EmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student student, string target)
+        private void EmailRecursiveSearch([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] StudentBaseViewModel student, string target)
         {
             // if current email is a match,
             if (SearchEmail(target))

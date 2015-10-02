@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 
 namespace A2.University.Web.Models
 {
@@ -58,16 +59,48 @@ namespace A2.University.Web.Models
         [Display(Name = "Postcode")]
         [Required(ErrorMessage = "The Postcode field is required.")]
         [RegularExpression("(^[0-9]{4}$)", ErrorMessage = "Must be a valid postcode.")]
-        public int adrs_postcode { get; set; }
+        // made string instead of int, else displays 0 as prefilled default for some reason
+        public string adrs_postcode { get; set; }
+    }
+
+    public class StudentDropDownListViewModel : StudentBaseViewModel
+    {
+        // gender dropdownlist
+        public List<SelectListItem> GenderDropDownList = new List<SelectListItem>
+        {
+            new SelectListItem { Value = "M", Text = "Male" },
+            new SelectListItem { Value = "F", Text = "Female" }
+        };
+
+        [Display(Name = "Gender")]
+        [Required(ErrorMessage = "The Gender field is required.")]
+        public string SelectedGender { get; set; }
+
+        // state dropdownlist
+        public List<SelectListItem> StateDropDownList = new List<SelectListItem>
+        {
+            new SelectListItem {Text = "ACT", Value = "ACT"},
+            new SelectListItem {Text = "NSW", Value = "NSW"},
+            new SelectListItem {Text = "NT", Value = "NT"},
+            new SelectListItem {Text = "QLD", Value = "QLD"},
+            new SelectListItem {Text = "SA", Value = "SA"},
+            new SelectListItem {Text = "TAS", Value = "TAS"},
+            new SelectListItem {Text = "VIC", Value = "VIC"},
+            new SelectListItem {Text = "WA", Value = "WA"}
+        };
+
+        [Display(Name = "State")]
+        [Required(ErrorMessage = "The State field is required.")]
+        public string SelectedState { get; set; }
     }
 
     public class StudentDetailsViewModel : StudentBaseViewModel
     {
-        // TODO: add custom fields here
+        // No custom fields required
     }
 
-    public class StudentCreateViewModel : StudentBaseViewModel
+    public class StudentCreateViewModel : StudentDropDownListViewModel
     {
-        
+        // inherits StudentDropDownListViewModel, no custom fields required
     }
 }
