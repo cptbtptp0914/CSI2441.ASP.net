@@ -79,8 +79,8 @@ namespace A2.University.Web.Controllers
             }
 
             // populate dropdownlists
-            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", courseViewModel.course_type_id);
-            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title", courseViewModel.course_type_id);
+            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
+            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title");
 
             // render view using viewmodel
             return View(courseViewModel);
@@ -93,22 +93,24 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+
+            // create entitymodel, match id
+            Course courseEntityModel = db.Courses.Find(id);
+            // create viewmodel, pass values from entitymodel
+            CourseEditViewModel courseViewModel =  new CourseEditViewModel();
+            SetCourseViewModel(courseViewModel, courseEntityModel);
+
+            // populate dropdownlists
+            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
+            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title");
+
+            if (courseEntityModel == null)
             {
                 return HttpNotFound();
             }
 
-            ViewBag.course_type_id = new SelectList(db.CourseTypes, "course_type_id", "title", course.course_type_id);
-            ViewBag.coordinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", course.coordinator_id);
-
-            // ViewData in conjunction with ViewBag above, guarantees default selection value from db
-            List<Staff> coordinatorsList = new List<Staff>(db.Staff.OrderBy(s => s.firstname).ToList());
-            ViewData["coordinatorsList"] = coordinatorsList;
-            List<CourseType> courseTypesList = new List<CourseType>(db.CourseTypes.ToList());
-            ViewData["courseTypesList"] = courseTypesList;
-
-            return View(course);
+            // render view using viewmodel
+            return View(courseViewModel);
         }
 
         // POST: Course/Edit/5
@@ -116,17 +118,24 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "course_id,title,coordinator_id,course_type_id")] Course course)
+        public ActionResult Edit([Bind(Include = "course_id,title,coordinator_id,course_type_id")] Course courseEntityModel)
         {
+            CourseEditViewModel courseViewModel = new CourseEditViewModel();
+            SetCourseViewModel(courseViewModel, courseEntityModel);
+
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
+                db.Entry(courseEntityModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.course_type_id = new SelectList(db.CourseTypes, "course_type_id", "title", course.course_type_id);
-            ViewBag.coordinator_id = new SelectList(db.Staff, "staff_id", "firstname", course.coordinator_id);
-            return View(course);
+
+            // populate dropdownlists
+            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
+            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title");
+
+            // render view using viewmodel
+            return View(courseViewModel);
         }
 
         // GET: Course/Delete/5

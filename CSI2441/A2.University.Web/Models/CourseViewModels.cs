@@ -54,6 +54,11 @@ namespace A2.University.Web.Models
 
     public class CourseCreateViewModel : CourseDropDownListViewModel
     {
-        // No custom fields required
+        // Inherits CourseDropDownListViewModel, no custom fields required
+    }
+
+    public class CourseEditViewModel : CourseDropDownListViewModel
+    {
+        // Inherits CourseDropDownListViewModel, no custom fields required
     }
 }
