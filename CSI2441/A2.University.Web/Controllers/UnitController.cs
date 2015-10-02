@@ -98,20 +98,24 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Unit unit = db.Units.Find(id);
-            if (unit == null)
+
+            // create entitymodel, match id
+            Unit unitEntityModel = db.Units.Find(id);
+            // create viewmodel, pass values from entitymodel
+            UnitEditViewModel unitViewModel = new UnitEditViewModel();
+            SetUnitViewModel(unitViewModel, unitEntityModel);
+
+            // populate dropdownlists
+            unitViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
+            unitViewModel.UnitTypeTitleDropDownList = new SelectList(db.UnitTypes, "unit_type_id", "title");
+
+            if (unitEntityModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.coodinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", unit.coodinator_id);
-            // ViewBag.unit_type_id deprecated, see ViewData below
-            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
 
-            // ViewData replaces ViewBag for unit_type_id above, ensures default selection of value from db
-            List<UnitType> unitTypeList = new List<UnitType>(db.UnitTypes.ToList());
-            ViewData["unitTypeList"] = unitTypeList;
-
-            return View(unit);
+            // render view using viewmodel
+            return View(unitViewModel);
         }
 
         // POST: Unit/Edit/5
@@ -119,17 +123,23 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "unit_id,title,coodinator_id,credit_points,unit_type_id")] Unit unit)
+        public ActionResult Edit([Bind(Include = "unit_id,title,coodinator_id,credit_points,unit_type_id")] Unit unitEntityModel)
         {
+            UnitEditViewModel unitViewModel = new UnitEditViewModel();
+            SetUnitViewModel(unitViewModel, unitEntityModel);
+
             if (ModelState.IsValid)
             {
-                db.Entry(unit).State = EntityState.Modified;
+                db.Entry(unitEntityModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.coodinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname", unit.coodinator_id);
-            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title", unit.unit_type_id);
-            return View(unit);
+
+            // populate dropdownlists
+            unitViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
+            unitViewModel.UnitTypeTitleDropDownList = new SelectList(db.UnitTypes, "unit_type_id", "title");
+
+            return View(unitViewModel);
         }
 
         // GET: Unit/Delete/5
