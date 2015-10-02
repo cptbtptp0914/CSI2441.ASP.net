@@ -6,7 +6,7 @@ using System.Web;
 
 namespace A2.University.Web.Models
 {
-    public class StudentDetailsViewModel
+    public class StudentBaseViewModel
     {
         [Key]
         [Display(Name = "Student ID")]
@@ -59,5 +59,15 @@ namespace A2.University.Web.Models
         [Required(ErrorMessage = "The Postcode field is required.")]
         [RegularExpression("(^[0-9]{4}$)", ErrorMessage = "Must be a valid postcode.")]
         public int adrs_postcode { get; set; }
+    }
+
+    public class StudentDetailsViewModel : StudentBaseViewModel
+    {
+        // TODO: add custom fields here
+    }
+
+    public class StudentCreateViewModel : StudentBaseViewModel
+    {
+        
     }
 }
