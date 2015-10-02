@@ -7,6 +7,7 @@ using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using A2.University.Web.Business.Services;
+using A2.University.Web.Models;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Controllers
@@ -31,12 +32,31 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+
+            // create entity model, match id
+            Student studentModel = db.Students.Find(id);
+            // create new viewmodel, assign values from entity model
+            StudentDetailsViewModel studentViewModel = new StudentDetailsViewModel
+            {
+                student_id = studentModel.student_id,
+                firstname = studentModel.firstname,
+                lastname = studentModel.lastname,
+                dob = studentModel.dob,
+                gender = studentModel.gender,
+                email = studentModel.email,
+                ph_landline = studentModel.ph_landline,
+                ph_mobile = studentModel.ph_mobile,
+                adrs = studentModel.adrs,
+                adrs_city = studentModel.adrs_city,
+                adrs_state = studentModel.adrs_state,
+                adrs_postcode = studentModel.adrs_postcode
+            };
+
+            if (studentModel == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+            return View(studentViewModel);
         }
 
         // GET: Student/Create
