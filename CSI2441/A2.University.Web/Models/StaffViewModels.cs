@@ -34,11 +34,11 @@ namespace A2.University.Web.Models
 
     public class StaffDetailsViewModel : StaffBaseViewModel
     {
-        
+        // No custom fields required
     }
 
-    public class StaffCreateViewModel
+    public class StaffCreateViewModel : StaffBaseViewModel
     {
-        
+        // No custom fields required
     }
 }

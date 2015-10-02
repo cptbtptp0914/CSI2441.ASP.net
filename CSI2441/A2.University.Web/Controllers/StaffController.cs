@@ -51,7 +51,8 @@ namespace A2.University.Web.Controllers
         // GET: Staff/Create
         public ActionResult Create()
         {
-            return View();
+            // render view using viewmodel
+            return View(new StaffCreateViewModel());
         }
 
         // POST: Staff/Create
@@ -59,20 +60,25 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "staff_id,firstname,surname,email")] Staff staff)
+        public ActionResult Create([Bind(Include = "staff_id,firstname,surname,email")] StaffCreateViewModel staffViewModel)
         {
+            // if input passes validation
             if (ModelState.IsValid)
             {
                 // generate email
-                StartEmailRecursiveSearch(staff);
-                staff.email = _email;
+                StartEmailRecursiveSearch(staffViewModel);
+                
+                // create entitymodel, pass values from viewmodel
+                Staff staffEntityModel = new Staff();
+                SetStaffEntityModel(staffViewModel, staffEntityModel);
 
-                db.Staff.Add(staff);
+                // update db using entitymodel
+                db.Staff.Add(staffEntityModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(staff);
+            return View(staffViewModel);
         }
 
         // GET: Staff/Edit/5
@@ -100,8 +106,8 @@ namespace A2.University.Web.Controllers
             if (ModelState.IsValid)
             {
                 // generate new email
-                StartEmailRecursiveSearch(staff);
-                staff.email = _email;
+//                StartEmailRecursiveSearch(staff);
+//                staff.email = _email;
 
                 db.Entry(staff).State = EntityState.Modified;
                 db.SaveChanges();
@@ -170,7 +176,7 @@ namespace A2.University.Web.Controllers
         /// TODO: Try to implement this in GenerateEmail class, code duplication between Student/UnitControllers
         /// </summary>
         /// <param name="staff">Staff</param>
-        private void StartEmailRecursiveSearch([Bind(Include = "staff_id,firstname,surname,email")] Staff staff)
+        private void StartEmailRecursiveSearch([Bind(Include = "staff_id,firstname,surname,email")] StaffBaseViewModel staff)
         {
             // reset fields for each new student instance
             _emailMatchTally = 0;
@@ -187,7 +193,7 @@ namespace A2.University.Web.Controllers
         /// </summary>
         /// <param name="staff">Staff</param>
         /// <param name="target">string</param>
-        private void EmailRecursiveSearch([Bind(Include = "staff_id,firstname,surname,email")] Staff staff,
+        private void EmailRecursiveSearch([Bind(Include = "staff_id,firstname,surname,email")] StaffBaseViewModel staff,
             string target)
         {
             if (SearchEmail(target))
