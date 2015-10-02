@@ -88,12 +88,20 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Staff staff = db.Staff.Find(id);
-            if (staff == null)
+
+            // create entitymodel, match id
+            Staff staffEntityModel = db.Staff.Find(id);
+            // create viewmodel, pass values from entity model
+            StaffEditViewModel staffViewModel = new StaffEditViewModel();
+            SetStaffViewModel(staffViewModel, staffEntityModel);
+
+            if (staffEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(staff);
+
+            // render view using viewmodel
+            return View(staffViewModel);
         }
 
         // POST: Staff/Edit/5
@@ -101,19 +109,23 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "staff_id,firstname,surname,email")] Staff staff)
+        public ActionResult Edit([Bind(Include = "staff_id,firstname,surname,email")] Staff staffEntityModel)
         {
+            StaffEditViewModel staffViewModel = new StaffEditViewModel();
+            SetStaffViewModel(staffViewModel, staffEntityModel);
+
             if (ModelState.IsValid)
             {
                 // generate new email
-//                StartEmailRecursiveSearch(staff);
-//                staff.email = _email;
+                StartEmailRecursiveSearch(staffViewModel);
+                staffEntityModel.email = _email;
 
-                db.Entry(staff).State = EntityState.Modified;
+                // update db using entitymodel
+                db.Entry(staffEntityModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(staff);
+            return View(staffViewModel);
         }
 
         // GET: Staff/Delete/5
