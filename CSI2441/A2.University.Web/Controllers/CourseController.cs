@@ -145,12 +145,18 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
-            if (course == null)
+
+            // create entitymodel, match id
+            Course courseEntityModel = db.Courses.Find(id);
+            // create viewmodel, pass values from entitymodel
+            CourseDeleteViewModel courseViewModel = new CourseDeleteViewModel();
+            SetCourseViewModel(courseViewModel, courseEntityModel);
+
+            if (courseEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+            return View(courseViewModel);
         }
 
         // POST: Course/Delete/5
