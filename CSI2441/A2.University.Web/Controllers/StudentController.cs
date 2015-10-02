@@ -80,16 +80,16 @@ namespace A2.University.Web.Controllers
             if (ModelState.IsValid)
             {
                 // generate email
-                StartEmailRecursiveSearch((StudentBaseViewModel)studentViewModel);
+                StartEmailRecursiveSearch(studentViewModel);
 
                 // pass data from viewmodel to entitymodel
                 Student studentEntityModel = new Student
                 {
-                    student_id = studentViewModel.student_id,
+//                    student_id = studentViewModel.student_id,
                     firstname = studentViewModel.firstname,
                     lastname = studentViewModel.lastname,
                     dob = studentViewModel.dob,
-                    gender = studentViewModel.SelectedGender,
+                    gender = studentViewModel.gender,
                     // use generated email
                     email = _email,
                     ph_landline = studentViewModel.ph_landline,

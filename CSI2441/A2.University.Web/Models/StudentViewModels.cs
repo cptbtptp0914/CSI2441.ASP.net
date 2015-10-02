@@ -66,18 +66,16 @@ namespace A2.University.Web.Models
     public class StudentDropDownListViewModel : StudentBaseViewModel
     {
         // gender dropdownlist
-        public List<SelectListItem> GenderDropDownList = new List<SelectListItem>
+        // view sets selected value to model, see base class
+        public IEnumerable<SelectListItem> GenderDropDownList = new List<SelectListItem>
         {
             new SelectListItem { Value = "M", Text = "Male" },
             new SelectListItem { Value = "F", Text = "Female" }
         };
 
-        [Display(Name = "Gender")]
-        [Required(ErrorMessage = "The Gender field is required.")]
-        public string SelectedGender { get; set; }
-
         // state dropdownlist
-        public List<SelectListItem> StateDropDownList = new List<SelectListItem>
+        // view sets selected value to model, see base class
+        public IEnumerable<SelectListItem> StateDropDownList = new List<SelectListItem>
         {
             new SelectListItem {Text = "ACT", Value = "ACT"},
             new SelectListItem {Text = "NSW", Value = "NSW"},
@@ -88,10 +86,6 @@ namespace A2.University.Web.Models
             new SelectListItem {Text = "VIC", Value = "VIC"},
             new SelectListItem {Text = "WA", Value = "WA"}
         };
-
-        [Display(Name = "State")]
-        [Required(ErrorMessage = "The State field is required.")]
-        public string SelectedState { get; set; }
     }
 
     public class StudentDetailsViewModel : StudentBaseViewModel
