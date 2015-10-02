@@ -135,12 +135,20 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Student student = db.Students.Find(id);
-            if (student == null)
+
+            // create entity model, match id
+            Student studentEntityModel = db.Students.Find(id);
+            // create viewmodel, pass values from entitymodel
+            StudentDeleteViewModel studentViewModel = new StudentDeleteViewModel();
+            SetStudentViewModel(studentViewModel, studentEntityModel);
+
+            if (studentEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(student);
+
+            // show view using viewmodel
+            return View(studentViewModel);
         }
 
         // POST: Student/Delete/5

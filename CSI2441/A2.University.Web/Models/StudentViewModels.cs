@@ -60,6 +60,7 @@ namespace A2.University.Web.Models
         [Required(ErrorMessage = "The Postcode field is required.")]
         [RegularExpression("(^[0-9]{4}$)", ErrorMessage = "Must be a valid postcode.")]
         // made string instead of int, else displays 0 as prefilled default for some reason
+        // cast to int when updating db
         public string adrs_postcode { get; set; }
     }
 
@@ -95,10 +96,15 @@ namespace A2.University.Web.Models
 
     public class StudentCreateViewModel : StudentDropDownListViewModel
     {
-        // inherits StudentDropDownListViewModel, no custom fields required
+        // Inherits StudentDropDownListViewModel, no custom fields required
     }
 
     public class StudentEditViewModel : StudentDropDownListViewModel
+    {
+        // Inherits StudentDropDownListViewModel, no custom fields required
+    }
+
+    public class StudentDeleteViewModel : StudentBaseViewModel
     {
         // No custom fields required
     }
