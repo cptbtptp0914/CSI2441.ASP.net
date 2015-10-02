@@ -36,7 +36,7 @@ namespace A2.University.Web.Models.Entities
 
         [Display(Name = "Coordinator")]
         [Required(ErrorMessage = "The Coordinator field is required.")]
-        public long coodinator_id { get; set; }
+        public long coordinator_id { get; set; }
 
         [Display(Name = "Credit Points")]
         [Required(ErrorMessage = "The Credit Points field is required.")]

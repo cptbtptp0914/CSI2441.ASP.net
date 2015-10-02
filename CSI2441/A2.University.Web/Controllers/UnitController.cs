@@ -48,11 +48,7 @@ namespace A2.University.Web.Controllers
 
         // GET: Unit/Create
         public ActionResult Create()
-        {
-            // show full name in dropdownlist
-            ViewBag.coodinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
-            ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title");
-            
+        {   
             // create viewmodel
             UnitCreateViewModel unitViewModel = new UnitCreateViewModel();
             unitViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
@@ -67,7 +63,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "unit_id,title,coodinator_id,credit_points,unit_type_id")] UnitCreateViewModel unitViewModel)
+        public ActionResult Create([Bind(Include = "unit_id,title,coordinator_id,credit_points,unit_type_id")] UnitCreateViewModel unitViewModel)
         {
 
             // if input passes validation
@@ -123,7 +119,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "unit_id,title,coodinator_id,credit_points,unit_type_id")] Unit unitEntityModel)
+        public ActionResult Edit([Bind(Include = "unit_id,title,coordinator_id,credit_points,unit_type_id")] Unit unitEntityModel)
         {
             UnitEditViewModel unitViewModel = new UnitEditViewModel();
             SetUnitViewModel(unitViewModel, unitEntityModel);
@@ -183,7 +179,7 @@ namespace A2.University.Web.Controllers
         {
             entityModel.unit_id = viewModel.unit_id;
             entityModel.title = viewModel.title;
-            entityModel.coodinator_id = viewModel.coodinator_id;
+            entityModel.coordinator_id = viewModel.coordinator_id;
             entityModel.credit_points = viewModel.credit_points;
             entityModel.unit_type_id = viewModel.unit_type_id;
         }
@@ -197,11 +193,11 @@ namespace A2.University.Web.Controllers
         {
             viewModel.unit_id = entityModel.unit_id;
             viewModel.title = entityModel.title;
-            viewModel.coodinator_id = entityModel.coodinator_id;
+            viewModel.coordinator_id = entityModel.coordinator_id;
             viewModel.credit_points = entityModel.credit_points;
             viewModel.unit_type_id = entityModel.unit_type_id;
 
-            viewModel.coordinator_name = GetCoordinatorFullName(entityModel.coodinator_id);
+            viewModel.coordinator_name = GetCoordinatorFullName(entityModel.coordinator_id);
             viewModel.unit_type_title = GetUnitTypeTitle(entityModel.unit_type_id);
         }
 
