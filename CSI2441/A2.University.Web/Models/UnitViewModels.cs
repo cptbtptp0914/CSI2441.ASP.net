@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Models
@@ -42,5 +43,11 @@ namespace A2.University.Web.Models
     public class UnitDetailsViewModel : UnitBaseViewModel
     {
         // No custom fields required
+    }
+
+    public class UnitCreateViewModel : UnitBaseViewModel
+    {
+        public IEnumerable<SelectListItem> CoordinatorDropDownList { get; set; }
+        public IEnumerable<SelectListItem> UnitTypeTitleDropDownList { get; set; } 
     }
 }

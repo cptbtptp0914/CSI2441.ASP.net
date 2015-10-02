@@ -52,6 +52,10 @@ namespace A2.University.Web.Controllers
             // show full name in dropdownlist
             ViewBag.coodinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
             ViewBag.unit_type_id = new SelectList(db.UnitTypes, "unit_type_id", "title");
+            
+            // TODO: finish this refactor!
+            UnitCreateViewModel unitViewModel = new UnitCreateViewModel();
+           
             return View();
         }
 
