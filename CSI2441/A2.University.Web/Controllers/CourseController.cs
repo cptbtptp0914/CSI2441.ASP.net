@@ -55,8 +55,6 @@ namespace A2.University.Web.Controllers
             courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
             courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title");
 
-//            ViewBag.course_type_id = new SelectList(db.CourseTypes, "course_type_id", "title");
-//            ViewBag.coordinator_id = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
             return View(courseViewModel);
         }
 
