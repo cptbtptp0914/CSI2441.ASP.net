@@ -1,0 +1,50 @@
+﻿@model A2.University.Web.Models.Entities.UnitEnrolment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>UnitEnrolment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.year_sem)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.year_sem)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.mark)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.mark)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Unit.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Unit.title)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.unit_enrolment_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
