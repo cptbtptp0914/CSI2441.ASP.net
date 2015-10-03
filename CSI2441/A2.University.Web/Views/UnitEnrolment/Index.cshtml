@@ -1,51 +1,91 @@
-﻿@model IEnumerable<A2.University.Web.Models.Entities.UnitEnrolment>
+﻿@using GridMvc.Html
+@model IEnumerable<A2.University.Web.Models.Entities.UnitEnrolment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Unit Enrolments";
 }
 
-<h2>Index</h2>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="@Url.Content("~/Content/img/icons/unitEnrol.png")" />
+        </div>
+        <div class="col-md-10">
+            <h2>@ViewBag.Title</h2>
+            <p class="lead">
+                Add, edit or delete unit enrolments
+            </p>
+        </div>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.year_sem)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.mark)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Student.firstname)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Unit.title)
-        </th>
-        <th></th>
-    </tr>
+<div class="row vert-gap">
+    <div class="col-md-12">
+        <span>
+            <a href="@Url.Action("Create", "UnitEnrolment")">Create New Unit Enrolment</a>
+        </span>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.year_sem)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.mark)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Student.firstname)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Unit.title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.unit_enrolment_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.unit_enrolment_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.unit_enrolment_id })
-        </td>
-    </tr>
-}
+@*
+    Grid.Mvc package generates the grid.
+    Provides filtering/sorting functions.
+    20 items per page.
+*@
 
-</table>
+@Html.Grid(Model).Columns(columns =>
+{
+    // student id
+    columns.Add(data => data.Student.student_id)
+        .Titled("Student ID")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // student firstname
+    columns.Add(data => data.Student.firstname)
+        .Titled("First name")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // student surname
+    columns.Add(data => data.Student.lastname)
+        .Titled("Surname")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // unit id
+    columns.Add(data => data.unit_id)
+        .Titled("Unit ID")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // unit title
+    columns.Add(data => data.Unit.title)
+        .Titled("Title")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // year/sem
+    columns.Add(data => data.year_sem)
+        .Titled("Year/Sem")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // mark
+    columns.Add(data => data.mark)
+        .Titled("Mark")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // view
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.unit_id }));
+    // edit
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.unit_id }));
+    // delete
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.unit_id }));
+}).WithPaging(20).Sortable(true)

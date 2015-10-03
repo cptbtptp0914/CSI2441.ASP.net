@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using A2.University.Web.Models;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Controllers
@@ -17,8 +18,11 @@ namespace A2.University.Web.Controllers
         // GET: UnitEnrolments
         public ActionResult Index()
         {
-            var unitEnrolments = db.UnitEnrolments.Include(u => u.Student).Include(u => u.Unit);
-            return View(unitEnrolments.ToList());
+            UnitEnrolmentIndexViewModel unitEnrolmentViewModel = new UnitEnrolmentIndexViewModel();
+            unitEnrolmentViewModel.UnitEnrolments =
+                db.UnitEnrolments.Include(u => u.Student).Include(u => u.Unit).ToList();
+
+            return View(unitEnrolmentViewModel.UnitEnrolments);
         }
 
         // GET: UnitEnrolments/Details/5
