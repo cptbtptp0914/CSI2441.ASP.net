@@ -22,7 +22,10 @@ namespace A2.University.Web.Controllers
         // GET: Student
         public ActionResult Index()
         {
-            return View(db.Students.ToList());
+            StudentIndexViewModel studentViewModel = new StudentIndexViewModel();
+            studentViewModel.Students = db.Students.ToList();
+
+            return View(studentViewModel.Students);
         }
 
         // GET: Student/Details/5
