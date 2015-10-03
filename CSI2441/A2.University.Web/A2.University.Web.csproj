@@ -251,6 +251,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\StaffViewModels.cs" />
     <Compile Include="Models\StudentViewModels.cs" />
+    <Compile Include="Models\UnitEnrolmentViewModels.cs" />
     <Compile Include="Models\UnitViewModels.cs" />
     <Compile Include="Models\UniversityViewModels.cs" />
     <Compile Include="Models\ValidatorModels.cs" />

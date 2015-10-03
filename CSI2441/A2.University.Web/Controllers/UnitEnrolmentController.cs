@@ -32,12 +32,18 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UnitEnrolment unitEnrolment = db.UnitEnrolments.Find(id);
-            if (unitEnrolment == null)
+
+            // create entitymodel, match id
+            UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
+            // create viewmodel, pass values from entitymodel
+            UnitEnrolmentDetailsViewModel unitEnrolmentViewModel = new UnitEnrolmentDetailsViewModel();
+            SetUnitViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+
+            if (unitEnrolmentEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(unitEnrolment);
+            return View(unitEnrolmentViewModel);
         }
 
         // GET: UnitEnrolments/Create
@@ -126,6 +132,36 @@ namespace A2.University.Web.Controllers
             db.UnitEnrolments.Remove(unitEnrolment);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Passes data from the view model to the entity model.
+        /// </summary>
+        /// <param name="viewModel">UnitBaseViewModel</param>
+        /// <param name="entityModel">Unit</param>
+        private void SetUnitEnrolmentEntityModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
+        {
+            entityModel.student_id = viewModel.student_id;
+            entityModel.unit_id = viewModel.unit_id;
+            entityModel.year_sem = viewModel.year_sem;
+            entityModel.mark = viewModel.mark;
+        }
+
+        /// <summary>
+        /// Passes data from the entity model to the view model.
+        /// </summary>
+        /// <param name="viewModel">UnitBaseViewModel</param>
+        /// <param name="entityModel">Unit</param>
+        private void SetUnitViewModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
+        {
+            viewModel.student_id = entityModel.student_id;
+            viewModel.unit_id = entityModel.unit_id;
+            viewModel.year_sem = entityModel.year_sem;
+            viewModel.mark = entityModel.mark;
+
+            viewModel.firstname = entityModel.Student.firstname;
+            viewModel.lastname = entityModel.Student.lastname;
+            viewModel.title = entityModel.Unit.title;
         }
 
         protected override void Dispose(bool disposing)
