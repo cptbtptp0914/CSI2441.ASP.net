@@ -1,65 +1,80 @@
-﻿@model A2.University.Web.Models.Entities.UnitEnrolment
+﻿@model A2.University.Web.Models.UnitEnrolmentEditViewModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Edit Unit Enrolment";
 }
 
-<h2>Edit</h2>
+<h2>@ViewBag.Title</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>UnitEnrolment</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.unit_enrolment_id)
 
+        @*Student ID*@
+
         <div class="form-group">
-            @Html.LabelFor(model => model.student_id, "student_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("student_id", null, htmlAttributes: new { @class = "form-control" })
+            @Html.LabelFor(model => model.student_id, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.student_id, Model.StudentDropDownList, "Select Student", new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
                 @Html.ValidationMessageFor(model => model.student_id, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        @*Unit ID*@
+
         <div class="form-group">
-            @Html.LabelFor(model => model.unit_id, "unit_id", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("unit_id", null, htmlAttributes: new { @class = "form-control" })
+            @Html.LabelFor(model => model.unit_id, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.DropDownListFor(model => model.unit_id, Model.UnitDropDownList, "Select Unit", new { @class = "form-control" })
+            </div>
+            <div class="col-md-4">
                 @Html.ValidationMessageFor(model => model.unit_id, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        @*Year/Sem*@
+
         <div class="form-group">
-            @Html.LabelFor(model => model.year_sem, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.year_sem, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.LabelFor(model => model.year_sem, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.year_sem, new { htmlAttributes = new { @class = "form-control", placeholder = "Example 152" } })
+            </div>
+            <div class="col-md-4">
                 @Html.ValidationMessageFor(model => model.year_sem, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        @*Mark*@
+
         <div class="form-group">
-            @Html.LabelFor(model => model.mark, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.mark, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.mark, "", new { @class = "text-danger" })
+            @Html.LabelFor(model => model.mark, new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                @Html.EditorFor(model => model.mark, new {htmlAttributes = new {@class = "form-control", placeholder = "Between 0 and 100"}})
+            </div>
+            <div class="col-md-4">
+                @Html.ValidationMessageFor(model => model.mark, "", new {@class = "text-danger"})
             </div>
         </div>
+
+        @*Buttons*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
+                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "UnitEnrolment")">Cancel</a>
             </div>
         </div>
     </div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

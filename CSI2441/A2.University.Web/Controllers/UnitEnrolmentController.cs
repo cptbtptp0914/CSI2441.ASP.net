@@ -38,7 +38,7 @@ namespace A2.University.Web.Controllers
             UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitEnrolmentDetailsViewModel unitEnrolmentViewModel = new UnitEnrolmentDetailsViewModel();
-            SetUnitViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+            SetUnitEnrolmentViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
             if (unitEnrolmentEntityModel == null)
             {
@@ -92,14 +92,24 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UnitEnrolment unitEnrolment = db.UnitEnrolments.Find(id);
-            if (unitEnrolment == null)
+
+            // create entitymodel, match id
+            UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
+            // create viewmodel, pass values from entitymodel
+            UnitEnrolmentEditViewModel unitEnrolmentViewModel = new UnitEnrolmentEditViewModel();
+            SetUnitEnrolmentViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+
+            // populate dropdownlists
+            unitEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
+            unitEnrolmentViewModel.UnitDropDownList = new SelectList(db.Units.OrderBy(u => u.unit_id), "unit_id", "unit_id_title");
+
+            if (unitEnrolmentEntityModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.student_id = new SelectList(db.Students, "student_id", "firstname", unitEnrolment.student_id);
-            ViewBag.unit_id = new SelectList(db.Units, "unit_id", "title", unitEnrolment.unit_id);
-            return View(unitEnrolment);
+
+            // render view using viewmodel
+            return View(unitEnrolmentViewModel);
         }
 
         // POST: UnitEnrolments/Edit/5
@@ -165,7 +175,7 @@ namespace A2.University.Web.Controllers
         /// </summary>
         /// <param name="viewModel">UnitBaseViewModel</param>
         /// <param name="entityModel">Unit</param>
-        private void SetUnitViewModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
+        private void SetUnitEnrolmentViewModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
         {
             viewModel.unit_enrolment_id = entityModel.unit_enrolment_id;
             viewModel.student_id = entityModel.student_id;
