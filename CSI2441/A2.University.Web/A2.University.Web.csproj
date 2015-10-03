@@ -194,7 +194,6 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Business\Services\EmailGenerator.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -207,6 +206,8 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Business\BusinessRulesModels.cs" />
+    <Compile Include="Models\Business\Services\EmailGenerator.cs" />
     <Compile Include="Models\CourseViewModels.cs" />
     <Compile Include="Models\Entities\Course.cs">
       <DependentUpon>University.tt</DependentUpon>

@@ -4,8 +4,8 @@ namespace A2.University.Web.Models.Business.Services
 {
     public static class EmailGenerator
     {
-        private const string StudentEmailSuffix = "@our.ecu.edu.au";
-        private const string StaffEmailSuffix = "@ecu.edu.au";
+        public const string StudentEmailSuffix = "@our.ecu.edu.au";
+        public const string StaffEmailSuffix = "@ecu.edu.au";
 
         /// <summary>
         /// This static function generates an email for a student or staff member.
