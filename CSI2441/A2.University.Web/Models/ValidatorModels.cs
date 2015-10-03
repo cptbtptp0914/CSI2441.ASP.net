@@ -14,11 +14,13 @@ namespace A2.University.Web.Models
             // firstname
             RuleFor(field => field.firstname)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid name");
+                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid name")
+                .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // lastname
             RuleFor(field => field.lastname)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid name");
+                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid name")
+                .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // dob
             RuleFor(field => field.dob)
                 .NotEmpty().WithMessage("* Required")
@@ -31,19 +33,23 @@ namespace A2.University.Web.Models
             RuleFor(field => field.ph_landline)
                 .NotEmpty().WithMessage("* Required")
                 .Matches(@"\+?\(?[0-9]{2}\)?[0-9 ]{6,}")
-                .WithMessage("* Must be a valid phone number");
+                .WithMessage("* Must be a valid phone number")
+                .Length(8, 20).WithMessage("* Must be between 8 and 20 characters");
             // mobile
             RuleFor(field => field.ph_mobile)
                 .NotEmpty().WithMessage("* Required")
                 .Matches(@"\+?\(?[0-9]{2}\)?[0-9 ]{6,}")
-                .WithMessage("* Must be a valid phone number");
+                .WithMessage("* Must be a valid phone number")
+                .Length(10, 20).WithMessage("* Must be between 10 and 20 characters");
             // adrs
             RuleFor(field => field.adrs)
-                .NotEmpty().WithMessage("* Required");
+                .NotEmpty().WithMessage("* Required")
+                .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // city
             RuleFor(field => field.adrs_city)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid city");
+                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid city")
+                .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // state
             RuleFor(field => field.adrs_state)
                 .NotEmpty().WithMessage("* Required");
@@ -62,6 +68,21 @@ namespace A2.University.Web.Models
                 return true;
             }
             return false;
+        }
+    }
+
+    public class StaffBaseViewModelValidator : AbstractValidator<StaffBaseViewModel>
+    {
+        public StaffBaseViewModelValidator()
+        {
+            // firstname
+            RuleFor(field => field.firstname)
+                .NotEmpty().WithMessage("* Required")
+                .Matches(@"^[a-zA-Z ]+$").WithMessage("* Must be a valid name");
+            // lastname
+            RuleFor(field => field.surname)
+                .NotEmpty().WithMessage("* Required")
+                .Matches(@"^[a-zA-Z ]+$").WithMessage("* Must be a valid name");
         }
     }
 }
