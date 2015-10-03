@@ -8,6 +8,12 @@ using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Models
 {
+    public class UnitIndexViewModel
+    {
+        public List<Unit> Units { get; set; }
+        public List<string> CoordinatorNames { get; set; }
+    }
+
     public class UnitBaseViewModel
     {
         [Key]

@@ -18,9 +18,11 @@ namespace A2.University.Web.Controllers
 
         // GET: Unit
         public ActionResult Index()
-        {
-            var units = db.Units.Include(u => u.Staff).Include(u => u.UnitType);
-            return View(units.ToList());
+        {          
+            UnitIndexViewModel unitViewModel = new UnitIndexViewModel();
+            unitViewModel.Units = db.Units.Include(u => u.Staff).Include(u => u.UnitType).ToList();
+
+            return View(unitViewModel.Units);
         }
 
         // GET: Unit/Details/5
