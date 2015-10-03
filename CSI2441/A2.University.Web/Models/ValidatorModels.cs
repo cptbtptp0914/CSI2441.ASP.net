@@ -79,12 +79,13 @@ namespace A2.University.Web.Models
             // firstname
             RuleFor(field => field.firstname)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-zA-Z ]+$").WithMessage("* Must be a valid name")
+                .Matches(@"^[a-zA-Z]+(\s+[a-zA-Z]+)*$").WithMessage("* Must be a valid name")
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // lastname
             RuleFor(field => field.surname)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-zA-Z ]+$").WithMessage("* Must be a valid name");
+                .Matches(@"^[a-zA-Z]+(\s+[a-zA-Z]+)*$").WithMessage("* Must be a valid name")
+                .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
         }
     }
 }
