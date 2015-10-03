@@ -28,17 +28,14 @@ namespace A2.University.Web.Models
                 .NotEmpty().WithMessage("* Required")
                 .Matches(@"M|F").WithMessage("* Must be a valid gender");
             // landline
-            // regex from http://ilikekillnerds.com/2014/08/regular-expression-for-validating-australian-phone-numbers-including-landline-and-mobile/
             RuleFor(field => field.ph_landline)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(
-                    @"/^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/")
+                .Matches(@"\+?\(?[0-9]{2}\)?[0-9 ]{6,}")
                 .WithMessage("* Must be a valid phone number");
             // mobile
             RuleFor(field => field.ph_mobile)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(
-                    @"/^\({0,1}((0|\+61)(2|4|3|7|8)){0,1}\){0,1}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{2}(\ |-){0,1}[0-9]{1}(\ |-){0,1}[0-9]{3}$/")
+                .Matches(@"\+?\(?[0-9]{2}\)?[0-9 ]{6,}")
                 .WithMessage("* Must be a valid phone number");
             // adrs
             RuleFor(field => field.adrs)

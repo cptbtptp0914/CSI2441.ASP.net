@@ -5,6 +5,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using A2.University.Web.Models.Entities;
+using FluentValidation;
+using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
@@ -13,6 +15,7 @@ namespace A2.University.Web.Models
         public List<Student> Students { get; set; } 
     }
 
+    [Validator(typeof(StudentBaseViewModelValidator))]
     public class StudentBaseViewModel
     {
         [Key]
@@ -26,7 +29,7 @@ namespace A2.University.Web.Models
         public string lastname { get; set; }
 
         [Display(Name = "DOB")]
-        [DataType(DataType.Date]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime dob { get; set; }
 
