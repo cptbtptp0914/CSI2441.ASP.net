@@ -100,10 +100,27 @@ namespace A2.University.Web.Models
             // create instance of db context to validate unit id uniqueness
             UniversityEntities db = new UniversityEntities();
 
-            // unit id
+            // unit id, general
             RuleFor(field => field.unit_id)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"[A-Z]{3}[0-9]{4}").WithMessage("* Must be a valid Unit ID");
+                .Matches(@"[A-Z]{3}[0-6]{1}[0-9]{3}").WithMessage("* Must be a valid Unit ID");
+
+            // unit id, undergrad
+            When(field => field.unit_type_id == 1, () =>
+            {
+                RuleFor(field => field.unit_id)
+                    .NotEmpty().WithMessage("* Required")
+                    .Matches(@"[A-Z]{3}[0-4]{1}[0-9]{3}").WithMessage("* Must be a valid Undergraduate Unit ID");
+            });
+
+            // unit id, postgrad
+            When(field => field.unit_type_id == 2, () =>
+            {
+                RuleFor(field => field.unit_id)
+                    .NotEmpty().WithMessage("* Required")
+                    .Matches(@"[A-Z]{3}[5-6]{1}[0-9]{3}").WithMessage("* Must be a valid Postgraduate Unit ID");
+            });
+
             // title
             RuleFor(field => field.title)
                 .NotEmpty().WithMessage("* Required")
