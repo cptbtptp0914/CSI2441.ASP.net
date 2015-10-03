@@ -22,10 +22,10 @@ namespace A2.University.Web.Controllers
         // GET: Staff
         public ActionResult Index()
         {
-            StaffIndexViewModel staffIndexViewModel = new StaffIndexViewModel();
-            staffIndexViewModel.StaffList = db.Staff.ToList();
+            StaffIndexViewModel staffViewModel = new StaffIndexViewModel();
+            staffViewModel.StaffList = db.Staff.ToList();
 
-            return View(staffIndexViewModel.StaffList);
+            return View(staffViewModel.StaffList);
         }
 
         // GET: Staff/Details/5
