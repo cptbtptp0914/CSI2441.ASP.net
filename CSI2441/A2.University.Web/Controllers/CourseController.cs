@@ -19,8 +19,10 @@ namespace A2.University.Web.Controllers
         // GET: Course
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.CourseType).Include(c => c.Staff);
-            return View(courses.ToList());
+            CourseIndexViewModel courseViewModel = new CourseIndexViewModel();
+            courseViewModel.Courses = db.Courses.Include(c => c.CourseType).Include(c => c.Staff).ToList();
+
+            return View(courseViewModel.Courses);
         }
 
         // GET: Course/Details/5

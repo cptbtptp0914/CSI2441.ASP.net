@@ -4,9 +4,15 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Models
 {
+    public class CourseIndexViewModel
+    {
+        public List<Course> Courses { get; set; } 
+    }
+
     public class CourseBaseViewModel
     {
         [Display(Name = "Course ID")]
