@@ -53,7 +53,7 @@ namespace A2.University.Web.Models
             RuleFor(field => field.adrs_city)
                 .NotEmpty().WithMessage("* Required")
                 .Matches(@"^[a-zA-Z]+(\s+[a-zA-Z]+)*$").WithMessage("* Must be a valid city")
-                .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
+                .Length(2, 100).WithMessage("* Must be between 2 and 100 characters");
             // state
             RuleFor(field => field.adrs_state)
                 .NotEmpty().WithMessage("* Required");
