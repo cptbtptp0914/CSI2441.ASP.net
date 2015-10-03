@@ -6,8 +6,8 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using A2.University.Web.Business.Services;
 using A2.University.Web.Models;
+using A2.University.Web.Models.Business.Services;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Controllers

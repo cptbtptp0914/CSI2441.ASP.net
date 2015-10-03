@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using A2.University.Web.Models.Entities;
-using Microsoft.Ajax.Utilities;
+﻿using System.Linq;
 
-namespace A2.University.Web.Business.Services
+namespace A2.University.Web.Models.Business.Services
 {
     public static class EmailGenerator
     {

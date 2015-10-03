@@ -38,6 +38,18 @@ namespace A2.University.Web.Models
 
         [Display(Name = "Title")]
         public string title { get; set; }
+
+        [Display(Name = "Student name")]
+        public string fullname
+        {
+            get { return firstname + " " + lastname; }
+        }
+
+        [Display(Name = "Grade")]
+        public string grade
+        {
+            get { return }
+        }
     }
 
     public class UnitEnrolmentDropDownListViewModel : UnitEnrolmentBaseViewModel
