@@ -14,11 +14,11 @@ namespace A2.University.Web.Models
             // firstname
             RuleFor(field => field.firstname)
                 .NotEmpty().WithMessage("* Required")
-                .Matches("(^[a-zA-Z]+$)").WithMessage("* Must be a valid name");
+                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid name");
             // lastname
             RuleFor(field => field.lastname)
                 .NotEmpty().WithMessage("* Required")
-                .Matches("(^[a-zA-Z]+$)").WithMessage("* Must be a valid name");
+                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid name");
             // dob
             RuleFor(field => field.dob)
                 .NotEmpty().WithMessage("* Required")
@@ -26,7 +26,7 @@ namespace A2.University.Web.Models
             // gender
             RuleFor(field => field.gender)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"(M|F)").WithMessage("* Must be a valid gender");
+                .Matches(@"M|F").WithMessage("* Must be a valid gender");
             // landline
             // regex from http://ilikekillnerds.com/2014/08/regular-expression-for-validating-australian-phone-numbers-including-landline-and-mobile/
             RuleFor(field => field.ph_landline)
@@ -46,14 +46,14 @@ namespace A2.University.Web.Models
             // city
             RuleFor(field => field.adrs_city)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"(^[a-zA-Z ] +$)").WithMessage("* Must be a valid city");
+                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid city");
             // state
             RuleFor(field => field.adrs_state)
                 .NotEmpty().WithMessage("* Required");
             // postcode
             RuleFor(field => field.adrs_postcode)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"(^[0-9]{4}$)").WithMessage("* Must be a valid postcode");
+                .Matches(@"^[0-9]{4}$").WithMessage("* Must be a valid postcode");
         }
 
         private bool IsValidDate(DateTime date)
