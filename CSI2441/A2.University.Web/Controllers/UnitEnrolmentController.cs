@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using A2.University.Web.Models;
+using A2.University.Web.Models.Business;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Controllers
@@ -171,6 +172,10 @@ namespace A2.University.Web.Controllers
             viewModel.unit_id = entityModel.unit_id;
             viewModel.year_sem = entityModel.year_sem.ToString();
             viewModel.mark = entityModel.mark.ToString();
+
+            viewModel.fullname = entityModel.Student.firstname + " " + entityModel.Student.lastname;
+            viewModel.title = entityModel.Unit.title;
+            viewModel.grade = Grade.GetGrade(entityModel.mark);
         }
 
         protected override void Dispose(bool disposing)

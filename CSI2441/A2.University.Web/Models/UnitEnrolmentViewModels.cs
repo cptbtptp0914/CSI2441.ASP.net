@@ -43,11 +43,11 @@ namespace A2.University.Web.Models
         [Display(Name = "Surname")]
         public string lastname { get; set; }
 
-        [Display(Name = "Title")]
+        [Display(Name = "Unit title")]
         public string title { get; set; }
 
         [Display(Name = "Student name")]
-        public string fullname => firstname + " " + lastname;
+        public string fullname { get; set; }
 
         [Display(Name = "Grade")]
         public string grade { get; set; }

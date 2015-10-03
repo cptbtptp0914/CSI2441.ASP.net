@@ -75,17 +75,17 @@
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.unit_id }));
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.unit_enrolment_id }));
     // edit
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.unit_id }));
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.unit_enrolment_id }));
     // delete
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.unit_id }));
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.unit_enrolment_id }));
 }).WithPaging(20).Sortable(true)
