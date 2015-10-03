@@ -23,8 +23,8 @@ namespace A2.University.Web.Models
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // dob
             RuleFor(field => field.dob)
-                .NotEmpty().WithMessage("* Required")
-                .Must(IsValidDate).WithMessage("* Must be a valid date");
+                .NotEmpty().WithMessage("* Required");
+//                .Must(IsValidDate).WithMessage("* Must be a valid date");
             // gender
             RuleFor(field => field.gender)
                 .NotEmpty().WithMessage("* Required")
@@ -86,6 +86,32 @@ namespace A2.University.Web.Models
                 .NotEmpty().WithMessage("* Required")
                 .Matches(@"^[a-zA-Z]+(\s+[a-zA-Z]+)*$").WithMessage("* Must be a valid name")
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
+        }
+    }
+
+    public class UnitBaseViewModelValidator : AbstractValidator<UnitBaseViewModel>
+    {
+        public UnitBaseViewModelValidator()
+        {
+            // unit id
+            RuleFor(field => field.unit_id)
+                .NotEmpty().WithMessage("* Required")
+                .Matches(@"[A-Z]{3}[0-9]{4}").WithMessage("* Must be a valid Unit ID");
+            // title
+            RuleFor(field => field.title)
+                .NotEmpty().WithMessage("* Required")
+                // fwd/back slash causes crash in title, removed from regex
+                .Matches(@"^[-a-zA-Z0-9.#]+(\s+[-a-zA-Z0-9.#]+)*$").WithMessage("* Must be a valid Title")
+                .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
+            // coordinator
+            RuleFor(field => field.coordinator_id)
+                .NotEmpty().WithMessage("* Required");
+            // credit points
+            RuleFor(field => field.credit_points)
+                .NotEmpty().WithMessage("* Required");
+            // unit type
+            RuleFor(field => field.unit_type_id)
+                .NotEmpty().WithMessage("* Required");
         }
     }
 }
