@@ -46,7 +46,11 @@ namespace A2.University.Web.Models.Entities
         [Required(ErrorMessage = "The Unit Type field is required.")]
         public long unit_type_id { get; set; }
 
-        public IEnumerable<SelectListItem> UnitTypes { get; set; }
+        // dropdown list displays unit id + title
+        public string unit_id_title
+        {
+            get { return unit_id + " " + title; }
+        }
 
         public virtual Staff Staff { get; set; }
         public virtual UnitType UnitType { get; set; }
