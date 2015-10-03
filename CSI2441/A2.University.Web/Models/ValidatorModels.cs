@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using A2.University.Web.Models.Entities;
 using FluentValidation;
+using FluentValidation.Results;
 
 namespace A2.University.Web.Models
 {
@@ -95,6 +97,9 @@ namespace A2.University.Web.Models
     {
         public UnitBaseViewModelValidator()
         {
+            // create instance of db context to validate unit id uniqueness
+            UniversityEntities db = new UniversityEntities();
+
             // unit id
             RuleFor(field => field.unit_id)
                 .NotEmpty().WithMessage("* Required")
@@ -114,6 +119,17 @@ namespace A2.University.Web.Models
             // unit type
             RuleFor(field => field.unit_type_id)
                 .NotEmpty().WithMessage("* Required");
+
+            // validate unit id uniqueness
+            Custom(field =>
+            {
+                var unitID = db.Units.FirstOrDefault(u => u.unit_id == field.unit_id);
+                if (unitID != null)
+                {
+                    return new ValidationFailure("unit_id", "* Unit ID already exists");
+                }
+                return null;
+            });
         }
     }
 }
