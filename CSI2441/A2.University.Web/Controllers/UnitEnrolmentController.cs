@@ -141,6 +141,7 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void SetUnitEnrolmentEntityModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
         {
+            entityModel.unit_enrolment_id = viewModel.unit_enrolment_id;
             entityModel.student_id = viewModel.student_id;
             entityModel.unit_id = viewModel.unit_id;
             entityModel.year_sem = viewModel.year_sem;
@@ -154,6 +155,7 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void SetUnitViewModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
         {
+            viewModel.unit_enrolment_id = entityModel.unit_enrolment_id;
             viewModel.student_id = entityModel.student_id;
             viewModel.unit_id = entityModel.unit_id;
             viewModel.year_sem = entityModel.year_sem;

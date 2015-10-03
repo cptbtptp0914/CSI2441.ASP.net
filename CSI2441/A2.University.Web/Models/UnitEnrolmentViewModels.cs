@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using A2.University.Web.Models.Business;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Models
@@ -15,6 +16,11 @@ namespace A2.University.Web.Models
 
     public class UnitEnrolmentBaseViewModel
     {
+        // core fields
+
+        // hidden from user
+        public long unit_enrolment_id { get; set; }
+
         [Display(Name = "Student ID")]
         public long student_id { get; set; }
 
@@ -27,8 +33,7 @@ namespace A2.University.Web.Models
         [Display(Name = "Mark")]
         public int mark { get; set; }
 
-        [Display(Name = "Grade")]
-        public string grade { get; set; }
+        // derived fields
 
         [Display(Name = "First name")]
         public string firstname { get; set; }
@@ -40,16 +45,10 @@ namespace A2.University.Web.Models
         public string title { get; set; }
 
         [Display(Name = "Student name")]
-        public string fullname
-        {
-            get { return firstname + " " + lastname; }
-        }
+        public string fullname => firstname + " " + lastname;
 
         [Display(Name = "Grade")]
-        public string grade
-        {
-            get { return }
-        }
+        public string grade => Grade.GetGrade(mark);
     }
 
     public class UnitEnrolmentDropDownListViewModel : UnitEnrolmentBaseViewModel
