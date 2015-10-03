@@ -3,9 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
+using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Models
 {
+    public class StaffIndexViewModel
+    {
+        public List<Staff> StaffList { get; set; }
+    }
+
     public class StaffBaseViewModel
     {
         [Display(Name = "Staff ID")]
