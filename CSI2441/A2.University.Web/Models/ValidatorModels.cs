@@ -100,7 +100,7 @@ namespace A2.University.Web.Models
             // create instance of db context to validate unit id uniqueness
             UniversityEntities db = new UniversityEntities();
 
-            // unit id, general
+            // unit id, pre post
             RuleFor(field => field.unit_id)
                 .NotEmpty().WithMessage("* Required")
                 .Matches(@"[A-Z]{3}[0-6]{1}[0-9]{3}").WithMessage("* Must be a valid Unit ID");
@@ -144,6 +144,54 @@ namespace A2.University.Web.Models
                 if (unitID != null)
                 {
                     return new ValidationFailure("unit_id", "* Unit ID already exists");
+                }
+                return null;
+            });
+        }
+    }
+
+    public class CourseBaseViewModelValidator : AbstractValidator<CourseBaseViewModel>
+    {
+        public CourseBaseViewModelValidator()
+        {
+            // create instance of db context to validate course id
+            UniversityEntities db = new UniversityEntities();
+
+            // course id
+            RuleFor(field => field.course_id)
+                .NotEmpty().WithMessage("* Required")
+                .Matches(@"[A-Z]{1}[0-9]{2}").WithMessage("* Must be a valid Course ID");
+            // title
+            RuleFor(field => field.title)
+                .NotEmpty().WithMessage("* Required")
+                // fwd/back slash causes crash in title, removed from regex
+                .Matches(@"^[-a-zA-Z0-9.,#\(\)]+(\s+[-a-zA-Z0-9.,#\(\)]+)*$").WithMessage("* Must be a valid Title")
+                .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
+            // coordinator
+            RuleFor(field => field.coordinator_id)
+                .NotEmpty().WithMessage("* Required");
+            // unit type
+            RuleFor(field => field.course_type_id)
+                .NotEmpty().WithMessage("* Required");
+
+            // validate course id uniqueness
+            Custom(field =>
+            {
+                var courseID = db.Courses.FirstOrDefault(c => c.course_id == field.course_id);
+                if (courseID != null)
+                {
+                    return new ValidationFailure("course_id", "* Course ID already exists");
+                }
+                return null;
+            });
+
+            // validate title uniqueness
+            Custom(field =>
+            {
+                var title = db.Courses.FirstOrDefault(c => c.title == field.title);
+                if (title != null)
+                {
+                    return new ValidationFailure("title", "* Title already exists");
                 }
                 return null;
             });

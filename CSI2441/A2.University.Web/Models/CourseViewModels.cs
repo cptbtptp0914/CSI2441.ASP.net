@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using A2.University.Web.Models.Entities;
+using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
@@ -13,24 +14,19 @@ namespace A2.University.Web.Models
         public List<Course> Courses { get; set; } 
     }
 
+    [Validator(typeof(CourseBaseViewModelValidator))]
     public class CourseBaseViewModel
     {
         [Display(Name = "Course ID")]
-        [Required(ErrorMessage = "The Course ID field is required.")]
-        [RegularExpression("([A-Z]{1}[0-9]{2})", ErrorMessage = "Must be a valid Unit ID.")]
         public string course_id { get; set; }
 
         [Display(Name = "Title")]
-        [Required(ErrorMessage = "The Title field is required.")]
-        [RegularExpression("(^[a-zA-Z0-9\\.\\,\\#\\/\\(\\) ]{5,}$)", ErrorMessage = "Must be a valid Title.")]
         public string title { get; set; }
 
         [Display(Name = "Coordinator")]
-        [Required(ErrorMessage = "The Coordinator field is required.")]
         public long coordinator_id { get; set; }
 
         [Display(Name = "Course Type")]
-        [Required(ErrorMessage = "The Course Type field is required.")]
         public long course_type_id { get; set; }
 
         [Display(Name = "Coordinator")]
