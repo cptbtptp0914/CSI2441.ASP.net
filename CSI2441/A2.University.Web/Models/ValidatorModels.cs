@@ -14,12 +14,12 @@ namespace A2.University.Web.Models
             // firstname
             RuleFor(field => field.firstname)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid name")
+                .Matches(@"^[a-zA-Z]+(\s+[a-zA-Z]+)*$").WithMessage("* Must be a valid name")
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // lastname
             RuleFor(field => field.lastname)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid name")
+                .Matches(@"^[a-zA-Z]+(\s+[a-zA-Z]+)*$").WithMessage("* Must be a valid name")
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // dob
             RuleFor(field => field.dob)
@@ -44,11 +44,12 @@ namespace A2.University.Web.Models
             // adrs
             RuleFor(field => field.adrs)
                 .NotEmpty().WithMessage("* Required")
+                .Matches(@"^[-a-zA-Z0-9.\\/#]+(\s+[-a-zA-Z0-9.\\/#]+)*$").WithMessage("* Must be a valid address")
                 .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // city
             RuleFor(field => field.adrs_city)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-z A-Z]+$").WithMessage("* Must be a valid city")
+                .Matches(@"^[a-zA-Z]+(\s+[a-zA-Z]+)*$").WithMessage("* Must be a valid city")
                 .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // state
             RuleFor(field => field.adrs_state)
@@ -78,7 +79,8 @@ namespace A2.University.Web.Models
             // firstname
             RuleFor(field => field.firstname)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-zA-Z ]+$").WithMessage("* Must be a valid name");
+                .Matches(@"^[a-zA-Z ]+$").WithMessage("* Must be a valid name")
+                .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // lastname
             RuleFor(field => field.surname)
                 .NotEmpty().WithMessage("* Required")
