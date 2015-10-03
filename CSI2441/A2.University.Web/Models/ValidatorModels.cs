@@ -24,7 +24,8 @@ namespace A2.University.Web.Models
             // dob
             RuleFor(field => field.dob)
                 .NotEmpty().WithMessage("* Required");
-//                .Must(IsValidDate).WithMessage("* Must be a valid date");
+            // TODO: Resolve this with proper datepicker instead, do not just rely on Chrome datepicker
+            //.Must(IsValidDate).WithMessage("* Must be a valid date");
             // gender
             RuleFor(field => field.gender)
                 .NotEmpty().WithMessage("* Required")
@@ -60,6 +61,7 @@ namespace A2.University.Web.Models
                 .Matches(@"^[0-9]{4}$").WithMessage("* Must be a valid postcode");
         }
 
+        // see comment for dob above, to be deprecated
         private bool IsValidDate(DateTime date)
         {
             Regex regex = new Regex(@"(^(((0[1-9]|[12][0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)");
