@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.EnterpriseServices;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -195,6 +196,44 @@ namespace A2.University.Web.Models
                 }
                 return null;
             });
+        }
+    }
+
+    public class UnitEnrolmentBaseViewModelValidator : AbstractValidator<UnitEnrolmentBaseViewModel>
+    {
+        public UnitEnrolmentBaseViewModelValidator()
+        {
+            // create instance of db context to perform post validation
+            UniversityEntities db = new UniversityEntities();
+
+            // student
+            RuleFor(field => field.student_id)
+                .NotEmpty().WithMessage("* Required");
+            // unit
+            RuleFor(field => field.unit_id)
+                .NotEmpty().WithMessage("* Required");
+            // year/sem
+            RuleFor(field => field.year_sem)
+                .NotEmpty().WithMessage("* Required")
+                .Matches(@"[0-9]{2}[1|2]").WithMessage("* Must be a valid Year/Sem");
+            // mark, required
+            RuleFor(field => field.mark)
+                .NotEmpty().WithMessage("* Required");
+            // mark, range
+            Custom(field =>
+            {
+                int result = int.Parse(field.mark);
+                if (result < 0 || result > 100)
+                {
+                    return new ValidationFailure("mark", "* Must be within valid range");
+                }
+                return null;
+            });
+
+            // TODO: implement post db validation
+            // max 3 unit attempts total
+            // unit cannot be passed more than once
+            // same semester unit uniqueness
         }
     }
 }

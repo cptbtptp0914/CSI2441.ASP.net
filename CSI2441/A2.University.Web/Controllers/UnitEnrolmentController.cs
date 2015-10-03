@@ -49,9 +49,12 @@ namespace A2.University.Web.Controllers
         // GET: UnitEnrolments/Create
         public ActionResult Create()
         {
-            ViewBag.student_id = new SelectList(db.Students, "student_id", "firstname");
-            ViewBag.unit_id = new SelectList(db.Units, "unit_id", "title");
-            return View();
+            // create viewmodel
+            UnitEnrolmentCreateViewModel unitEnrolmentViewModel = new UnitEnrolmentCreateViewModel();
+            unitEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "fullname");
+            unitEnrolmentViewModel.UnitDropDownList = new SelectList(db.Units.OrderBy(u => u.unit_id), "unit_id", "unit_id_title");
+
+            return View(unitEnrolmentViewModel);
         }
 
         // POST: UnitEnrolments/Create
@@ -59,18 +62,26 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "unit_enrolment_id,student_id,unit_id,year_sem,mark")] UnitEnrolment unitEnrolment)
+        public ActionResult Create([Bind(Include = "unit_enrolment_id,student_id,unit_id,year_sem,mark")] UnitEnrolmentCreateViewModel unitEnrolmentViewModel)
         {
+            // if input passes validation
             if (ModelState.IsValid)
             {
-                db.UnitEnrolments.Add(unitEnrolment);
+                // create entitymodel, pass values from viewmodel
+                UnitEnrolment unitEnrolmentEntityModel = new UnitEnrolment();
+                SetUnitEnrolmentEntityModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+
+                // update db using entitymodel
+                db.UnitEnrolments.Add(unitEnrolmentEntityModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.student_id = new SelectList(db.Students, "student_id", "firstname", unitEnrolment.student_id);
-            ViewBag.unit_id = new SelectList(db.Units, "unit_id", "title", unitEnrolment.unit_id);
-            return View(unitEnrolment);
+            // populate dropdownlists
+            unitEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "fullname");
+            unitEnrolmentViewModel.UnitDropDownList = new SelectList(db.Units.OrderBy(u => u.unit_id), "unit_id", "unit_id_title");
+
+            return View(unitEnrolmentViewModel);
         }
 
         // GET: UnitEnrolments/Edit/5
@@ -144,8 +155,8 @@ namespace A2.University.Web.Controllers
             entityModel.unit_enrolment_id = viewModel.unit_enrolment_id;
             entityModel.student_id = viewModel.student_id;
             entityModel.unit_id = viewModel.unit_id;
-            entityModel.year_sem = viewModel.year_sem;
-            entityModel.mark = viewModel.mark;
+            entityModel.year_sem = int.Parse(viewModel.year_sem);
+            entityModel.mark = int.Parse(viewModel.mark);
         }
 
         /// <summary>
@@ -158,12 +169,8 @@ namespace A2.University.Web.Controllers
             viewModel.unit_enrolment_id = entityModel.unit_enrolment_id;
             viewModel.student_id = entityModel.student_id;
             viewModel.unit_id = entityModel.unit_id;
-            viewModel.year_sem = entityModel.year_sem;
-            viewModel.mark = entityModel.mark;
-
-            viewModel.firstname = entityModel.Student.firstname;
-            viewModel.lastname = entityModel.Student.lastname;
-            viewModel.title = entityModel.Unit.title;
+            viewModel.year_sem = entityModel.year_sem.ToString();
+            viewModel.mark = entityModel.mark.ToString();
         }
 
         protected override void Dispose(bool disposing)

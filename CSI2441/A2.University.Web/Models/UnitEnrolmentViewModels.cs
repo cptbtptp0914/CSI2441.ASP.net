@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using A2.University.Web.Models.Business;
 using A2.University.Web.Models.Entities;
+using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
@@ -14,6 +15,7 @@ namespace A2.University.Web.Models
         public List<UnitEnrolment> UnitEnrolments { get; set; }
     }
 
+    [Validator(typeof(UnitEnrolmentBaseViewModelValidator))]
     public class UnitEnrolmentBaseViewModel
     {
         // core fields
@@ -21,17 +23,17 @@ namespace A2.University.Web.Models
         // hidden from user
         public long unit_enrolment_id { get; set; }
 
-        [Display(Name = "Student ID")]
+        [Display(Name = "Student")]
         public long student_id { get; set; }
 
-        [Display(Name = "Unit ID")]
+        [Display(Name = "Unit")]
         public string unit_id { get; set; }
 
         [Display(Name = "Year/Sem")]
-        public int year_sem { get; set; }
+        public string year_sem { get; set; }
 
         [Display(Name = "Mark")]
-        public int mark { get; set; }
+        public string mark { get; set; }
 
         // derived fields
 
@@ -48,16 +50,14 @@ namespace A2.University.Web.Models
         public string fullname => firstname + " " + lastname;
 
         [Display(Name = "Grade")]
-        public string grade => Grade.GetGrade(mark);
+        public string grade { get; set; }
     }
 
     public class UnitEnrolmentDropDownListViewModel : UnitEnrolmentBaseViewModel
     {
         // to be populated by db
-        public IEnumerable<SelectListItem> StudentNameDropDownList { get; set; }
-        public IEnumerable<SelectListItem> StudentIDDropDownList { get; set; }
-        public IEnumerable<SelectListItem> UnitTitleDropDownList { get; set; }
-        public IEnumerable<SelectListItem> UnitIDDropDownList { get; set; } 
+        public IEnumerable<SelectListItem> StudentDropDownList { get; set; }
+        public IEnumerable<SelectListItem> UnitDropDownList { get; set; }
     }
 
     public class UnitEnrolmentDetailsViewModel : UnitEnrolmentBaseViewModel
@@ -65,8 +65,8 @@ namespace A2.University.Web.Models
         // No custom fields required
     }
 
-    public class UnitEnrolmentCreateViewModel : UnitEnrolmentBaseViewModel
+    public class UnitEnrolmentCreateViewModel : UnitEnrolmentDropDownListViewModel
     {
-        
+        // Inherits UnitEnrolmentDropDownListViewModel, no custom fields required
     }
 }
