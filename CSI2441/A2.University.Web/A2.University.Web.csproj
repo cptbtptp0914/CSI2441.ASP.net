@@ -202,7 +202,7 @@
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
-    <Compile Include="Controllers\UnitEnrolmentsController.cs" />
+    <Compile Include="Controllers\UnitEnrolmentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -388,11 +388,11 @@
     <Content Include="Views\Course\Details.cshtml" />
     <Content Include="Views\Course\Edit.cshtml" />
     <Content Include="Views\Course\Index.cshtml" />
-    <Content Include="Views\UnitEnrolments\Create.cshtml" />
-    <Content Include="Views\UnitEnrolments\Delete.cshtml" />
-    <Content Include="Views\UnitEnrolments\Details.cshtml" />
-    <Content Include="Views\UnitEnrolments\Edit.cshtml" />
-    <Content Include="Views\UnitEnrolments\Index.cshtml" />
+    <Content Include="Views\UnitEnrolment\Create.cshtml" />
+    <Content Include="Views\UnitEnrolment\Delete.cshtml" />
+    <Content Include="Views\UnitEnrolment\Details.cshtml" />
+    <Content Include="Views\UnitEnrolment\Edit.cshtml" />
+    <Content Include="Views\UnitEnrolment\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
