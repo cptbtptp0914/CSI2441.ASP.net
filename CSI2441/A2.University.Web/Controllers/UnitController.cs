@@ -199,12 +199,13 @@ namespace A2.University.Web.Controllers
             viewModel.credit_points = entityModel.credit_points;
             viewModel.unit_type_id = entityModel.unit_type_id;
 
-            viewModel.coordinator_name = GetCoordinatorFullName(entityModel.coordinator_id);
-            viewModel.unit_type_title = GetUnitTypeTitle(entityModel.unit_type_id);
+            viewModel.coordinator_name = entityModel.Staff.firstname + " " + entityModel.Staff.surname;
+            viewModel.unit_type_title = entityModel.UnitType.title;
         }
 
         /// <summary>
         /// SQL statement returns coordinator's full name.
+        /// Deprecated, leaving as example, may require similar function.
         /// </summary>
         /// <param name="staff_id">long</param>
         /// <returns>string</returns>
@@ -214,22 +215,6 @@ namespace A2.University.Web.Controllers
                 from c in db.Staff
                 where c.staff_id == staff_id
                 select c.firstname + " " + c.surname
-            ).FirstOrDefault();
-
-            return query;
-        }
-
-        /// <summary>
-        /// SQL statement returns unit type title.
-        /// </summary>
-        /// <param name="unit_type_id">long</param>
-        /// <returns>string</returns>
-        private string GetUnitTypeTitle(long unit_type_id)
-        {
-            var query = (
-                from ut in db.UnitTypes
-                where ut.unit_type_id == unit_type_id
-                select ut.title
             ).FirstOrDefault();
 
             return query;

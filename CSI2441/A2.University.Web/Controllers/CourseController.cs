@@ -197,74 +197,10 @@ namespace A2.University.Web.Controllers
             viewModel.coordinator_id = entityModel.coordinator_id;
             viewModel.course_type_id = entityModel.course_type_id;
 
-            viewModel.coordinator_name = GetCoordinatorFullName(entityModel.coordinator_id);
-            viewModel.course_type_title = GetCourseTypeTitle(entityModel.course_type_id);
-            viewModel.credit_points = GetCourseCreditPoints(entityModel.course_type_id);
-            viewModel.duration = GetCourseDuration(entityModel.course_type_id);
-        }
-
-        /// <summary>
-        /// SQL statement returns coordinator's full name.
-        /// </summary>
-        /// <param name="staff_id">long</param>
-        /// <returns>string</returns>
-        private string GetCoordinatorFullName(long staff_id)
-        {
-            var query = (
-                from c in db.Staff
-                where c.staff_id == staff_id
-                select c.firstname + " " + c.surname
-            ).FirstOrDefault();
-
-            return query;
-        }
-
-        /// <summary>
-        /// SQL statement returns course type title.
-        /// </summary>
-        /// <param name="course_type_id">long</param>
-        /// <returns>string</returns>
-        private string GetCourseTypeTitle(long course_type_id)
-        {
-            var query = (
-                from ct in db.CourseTypes
-                where ct.course_type_id == course_type_id
-                select ct.title
-            ).FirstOrDefault();
-
-            return query;
-        }
-
-        /// <summary>
-        /// SQL statement returns course credit points.
-        /// </summary>
-        /// <param name="course_type_id">long</param>
-        /// <returns>string</returns>
-        private int GetCourseCreditPoints(long course_type_id)
-        {
-            var query = (
-                from ct in db.CourseTypes
-                where ct.course_type_id == course_type_id
-                select ct.credit_points
-            ).FirstOrDefault();
-
-            return query;
-        }
-
-        /// <summary>
-        /// SQL statement returns course duration.
-        /// </summary>
-        /// <param name="course_type_id">long</param>
-        /// <returns>string</returns>
-        private int GetCourseDuration(long course_type_id)
-        {
-            var query = (
-                from ct in db.CourseTypes
-                where ct.course_type_id == course_type_id
-                select ct.duration
-            ).FirstOrDefault();
-
-            return query;
+            viewModel.coordinator_name = entityModel.Staff.firstname + " " + entityModel.Staff.surname;
+            viewModel.course_type_title = entityModel.CourseType.title;
+            viewModel.credit_points = entityModel.CourseType.credit_points;
+            viewModel.duration = entityModel.CourseType.duration;
         }
 
         protected override void Dispose(bool disposing)
