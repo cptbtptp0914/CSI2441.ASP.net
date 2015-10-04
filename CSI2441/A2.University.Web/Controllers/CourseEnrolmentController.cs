@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using A2.University.Web.Models;
+using A2.University.Web.Models.Business;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Controllers
@@ -14,6 +15,7 @@ namespace A2.University.Web.Controllers
     public class CourseEnrolmentController : Controller
     {
         private UniversityEntities db = new UniversityEntities();
+        private CourseRules courseRules = new CourseRules();
 
         // GET: CourseEnrolment
         public ActionResult Index()
@@ -72,6 +74,7 @@ namespace A2.University.Web.Controllers
 
                 // TODO: add logic to check if student ENROLLED in another course, if so, make previous course DISCONTIN
                 // create static class in Business.BusinessRulesModels
+                DiscontinuePrevEnrolments(courseEnrolmentEntityModel.student_id);
 
                 // update db using entitymodel
                 db.CourseEnrolments.Add(courseEnrolmentEntityModel);
@@ -193,6 +196,31 @@ namespace A2.University.Web.Controllers
 
             viewModel.fullname = entityModel.Student.firstname + " " + entityModel.Student.lastname;
             viewModel.title = entityModel.Course.title;
+        }
+
+        /// <summary>
+        /// Sets previously ENROLLED units to DISCONTIN.
+        /// </summary>
+        /// <param name="studentId">long</param>
+        private void DiscontinuePrevEnrolments (long studentId)
+        {
+            // if enrolled course for student not unique,
+            if (courseRules.IsNotUniqueEnrolled(studentId))
+            {
+                // get list of student's course in ENROLLED status
+                var enrolledCourses = (from ce in db.CourseEnrolments
+                                       where ce.student_id == studentId &&
+                                       ce.course_status == "ENROLLED"
+                                       select ce).ToList();
+
+                // set each course status to DISCONTIN
+                foreach (var enrolled in enrolledCourses)
+                {
+                    enrolled.course_status = "DISCONTIN";
+                    db.Entry(enrolled).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+            }
         }
 
         protected override void Dispose(bool disposing)

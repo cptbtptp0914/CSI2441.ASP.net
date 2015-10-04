@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq;
 using A2.University.Web.Models.Entities;
 
@@ -85,10 +86,35 @@ namespace A2.University.Web.Models.Business
         {
             var query =
                 (from ue in db.UnitEnrolments
-                    where ue.student_id == studentId && ue.unit_id == unitId
+                    where ue.student_id == studentId &&
+                    ue.unit_id == unitId
                     select ue).Count();
 
             return query >= MaxAttempts;
+        }
+    }
+
+    public class CourseRules
+    {
+        private readonly UniversityEntities db;
+
+        public CourseRules()
+        {
+            db = new UniversityEntities();
+        }
+
+        /// <summary>
+        /// Checks ENROLLED course uniqueness.
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
+        public bool IsNotUniqueEnrolled(long studentId)
+        {
+            var course = db.CourseEnrolments.FirstOrDefault(
+                ce => ce.student_id == studentId &&
+                      ce.course_status == "ENROLLED");
+
+            return course != null;
         }
     }
 }
