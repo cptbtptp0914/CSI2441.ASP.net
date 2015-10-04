@@ -112,11 +112,8 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student studentEntityModel)
+        public ActionResult Edit([Bind(Include = "student_id,firstname,lastname,dob,gender,email,ph_landline,ph_mobile,adrs,adrs_city,adrs_state,adrs_postcode")] Student studentEntityModel, StudentEditViewModel studentViewModel)
         {
-            StudentEditViewModel studentViewModel = new StudentEditViewModel();
-            SetStudentViewModel(studentViewModel, studentEntityModel);
-
             if (ModelState.IsValid)
             {
                 // generate new email
