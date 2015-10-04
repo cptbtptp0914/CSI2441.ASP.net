@@ -209,6 +209,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Business\BusinessRulesModels.cs" />
     <Compile Include="Models\Business\Services\EmailGenerator.cs" />
+    <Compile Include="Models\CourseEnrolmentViewModels.cs" />
     <Compile Include="Models\CourseViewModels.cs" />
     <Compile Include="Models\Entities\Course.cs">
       <DependentUpon>University.tt</DependentUpon>
@@ -216,7 +217,6 @@
     <Compile Include="Models\Entities\CourseEnrolment.cs">
       <DependentUpon>University.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Entities\CourseEnrolmentViewModels.cs" />
     <Compile Include="Models\Entities\CourseType.cs">
       <DependentUpon>University.tt</DependentUpon>
     </Compile>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using A2.University.Web.Models;
 using A2.University.Web.Models.Entities;
 
 namespace A2.University.Web.Controllers
@@ -30,12 +31,18 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseEnrolment courseEnrolment = db.CourseEnrolments.Find(id);
-            if (courseEnrolment == null)
+
+            // create entitymodel, match id
+            CourseEnrolment courseEnrolmentEntityModel = db.CourseEnrolments.Find(id);
+            // create viewmodel, pass values from entitymodel
+            CourseEnrolmentDetailsViewModel courseEnrolmentViewModel = new CourseEnrolmentDetailsViewModel();
+            SetCourseEnrolmentViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
+
+            if (courseEnrolmentEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(courseEnrolment);
+            return View(courseEnrolmentViewModel);
         }
 
         // GET: CourseEnrolment/Create
@@ -124,6 +131,35 @@ namespace A2.University.Web.Controllers
             db.CourseEnrolments.Remove(courseEnrolment);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        /// <summary>
+        /// Passes data from the view model to the entity model.
+        /// </summary>
+        /// <param name="viewModel">UnitBaseViewModel</param>
+        /// <param name="entityModel">Unit</param>
+        private void SetCourseEnrolmentEntityModel(CourseEnrolmentBaseViewModel viewModel, CourseEnrolment entityModel)
+        {
+            entityModel.course_enrolment_id = viewModel.course_enrolment_id;
+            entityModel.student_id = viewModel.student_id;
+            entityModel.course_id = viewModel.course_id;
+            entityModel.course_status = viewModel.course_status;
+        }
+
+        /// <summary>
+        /// Passes data from the entity model to the view model.
+        /// </summary>
+        /// <param name="viewModel">UnitBaseViewModel</param>
+        /// <param name="entityModel">Unit</param>
+        private void SetCourseEnrolmentViewModel(CourseEnrolmentBaseViewModel viewModel, CourseEnrolment entityModel)
+        {
+            viewModel.course_enrolment_id = entityModel.course_enrolment_id;
+            viewModel.student_id = entityModel.student_id;
+            viewModel.course_id = entityModel.course_id;
+            viewModel.course_status = entityModel.course_status;
+
+            viewModel.fullname = entityModel.Student.firstname + " " + entityModel.Student.lastname;
+            viewModel.title = entityModel.Course.title;
         }
 
         protected override void Dispose(bool disposing)
