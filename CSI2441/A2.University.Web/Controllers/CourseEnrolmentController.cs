@@ -17,8 +17,10 @@ namespace A2.University.Web.Controllers
         // GET: CourseEnrolment
         public ActionResult Index()
         {
-            var courseEnrolments = db.CourseEnrolments.Include(c => c.Course).Include(c => c.Student);
-            return View(courseEnrolments.ToList());
+            CourseEnrolmentIndexViewModel courseEnrolmentViewModel = new CourseEnrolmentIndexViewModel();
+            courseEnrolmentViewModel.CourseEnrolments = db.CourseEnrolments.Include(c => c.Course).Include(c => c.Student).ToList();
+
+            return View(courseEnrolmentViewModel.CourseEnrolments);
         }
 
         // GET: CourseEnrolment/Details/5
