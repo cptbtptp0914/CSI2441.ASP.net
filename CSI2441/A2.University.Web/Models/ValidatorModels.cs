@@ -301,13 +301,10 @@ namespace A2.University.Web.Models
                 return null;
             });
 
-            // TODO: implement post db validation
-            // max 3 unit attempts total
-
-            // unit cannot be passed more than once
+            // unit pass uniqueness
             Custom(field =>
             {
-                if (unitRules.IsPassedMoreThanOnce(field.student_id, field.unit_id, int.Parse(field.mark)))
+                if (unitRules.IsUniquePass(field.student_id, field.unit_id, int.Parse(field.mark)))
                 {
                     return new ValidationFailure("unit_id", "* Student has already passed this Unit");
                 }
@@ -320,6 +317,16 @@ namespace A2.University.Web.Models
                 if (unitRules.IsUniqueInSem(field.student_id, field.unit_id, int.Parse(field.year_sem)))
                 {
                     return new ValidationFailure("unit_id", "* Enrolment already exists in semester");
+                }
+                return null;
+            });
+
+            // unit max attempts
+            Custom(field =>
+            {
+                if (unitRules.IsMaxAttempts(field.student_id, field.unit_id))
+                {
+                    return new ValidationFailure("unit_id", "* Student has reached max attempts for Unit");
                 }
                 return null;
             });

@@ -34,6 +34,7 @@ namespace A2.University.Web.Models.Business
     {
         private readonly UniversityEntities db;
         private const int Pass = 50;
+        private const int MaxAttempts = 3;
 
         public UnitRules()
         {
@@ -72,6 +73,22 @@ namespace A2.University.Web.Models.Business
                     ue.year_sem == yearSem);
 
             return unit != null;
+        }
+        
+        /// <summary>
+        /// Checks max unit attempts.
+        /// </summary>
+        /// <param name="studentId">long</param>
+        /// <param name="unitId">string</param>
+        /// <returns>bool</returns>
+        public bool IsMaxAttempts(long studentId, string unitId)
+        {
+            var query =
+                (from ue in db.UnitEnrolments
+                    where ue.student_id == studentId && ue.unit_id == unitId
+                    select ue).Count();
+
+            return query >= MaxAttempts;
         }
     }
 }
