@@ -19,10 +19,10 @@ namespace A2.University.Web.Models
         // hidden from user
         public long course_enrolment_id { get; set; }
 
-        [Display(Name = "Student")]
+        [Display(Name = "Student ID")]
         public long student_id { get; set; }
 
-        [Display(Name = "Course")]
+        [Display(Name = "Course ID")]
         public string course_id { get; set; }
 
         [Display(Name = "Status")]
@@ -69,6 +69,11 @@ namespace A2.University.Web.Models
     [Validator(typeof(CourseEnrolmentEditViewModelValidator))]
     public class CourseEnrolmentEditViewModel : CourseEnrolmentDropDownListViewModel
     {
-        // Inherits CourseEnrolmentDropDownListViewModel, no custom fields required
+        // Uses own validator where status is required
+    }
+
+    public class CourseEnrolmentDeleteViewModel : CourseEnrolmentBaseViewModel
+    {
+        // No custom fields required
     }
 }
