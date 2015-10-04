@@ -4,6 +4,7 @@ using System.EnterpriseServices;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using A2.University.Web.Models.Business;
 using A2.University.Web.Models.Entities;
 using FluentValidation;
 using FluentValidation.Results;
@@ -273,6 +274,8 @@ namespace A2.University.Web.Models
         {
             // create instance of db context to serverside validation
             UniversityEntities db = new UniversityEntities();
+            // create instance of unit rules model
+            UnitRules unitRules = new UnitRules();
 
             // student
             RuleFor(field => field.student_id)
@@ -300,8 +303,26 @@ namespace A2.University.Web.Models
 
             // TODO: implement post db validation
             // max 3 unit attempts total
+
             // unit cannot be passed more than once
-            // same semester unit uniqueness
+            Custom(field =>
+            {
+                if (unitRules.IsPassedMoreThanOnce(field.student_id, field.unit_id, int.Parse(field.mark)))
+                {
+                    return new ValidationFailure("unit_id", "* Student has already passed this Unit");
+                }
+                return null;
+            });
+
+            // unit uniqueness per semester
+            Custom(field =>
+            {
+                if (unitRules.IsUniqueInSem(field.student_id, field.unit_id, int.Parse(field.year_sem)))
+                {
+                    return new ValidationFailure("unit_id", "* Enrolment already exists in semester");
+                }
+                return null;
+            });
         }
     }
 

@@ -1,3 +1,6 @@
+using System.Linq;
+using A2.University.Web.Models.Entities;
+
 namespace A2.University.Web.Models.Business
 {
     public static class GradeRules
@@ -24,7 +27,51 @@ namespace A2.University.Web.Models.Business
             {
                 return "N";
             }
+        }
+    }
 
+    public class UnitRules
+    {
+        private readonly UniversityEntities db;
+        private const int Pass = 50;
+
+        public UnitRules()
+        {
+            db = new UniversityEntities();
+        }
+
+        /// <summary>
+        /// Checks passed unit uniqueness.
+        /// </summary>
+        /// <param name="studentId">long</param>
+        /// <param name="unitId">string</param>
+        /// <param name="mark">int</param>
+        /// <returns>bool</returns>
+        public bool IsUniquePass(long studentId, string unitId, int mark)
+        {
+            var passes = db.UnitEnrolments.FirstOrDefault(
+                ue => ue.student_id == studentId && 
+                ue.unit_id == unitId 
+                && ue.mark >= Pass);
+
+            return passes != null;
+        }
+
+        /// <summary>
+        /// Checks unit uniqueness per semester.
+        /// </summary>
+        /// <param name="studentId">long</param>
+        /// <param name="unitId">string</param>
+        /// <param name="yearSem">int</param>
+        /// <returns>bool</returns>
+        public bool IsUniqueInSem(long studentId, string unitId, int yearSem)
+        {
+            var unit = db.UnitEnrolments.FirstOrDefault(
+                    ue => ue.student_id == studentId && 
+                    ue.unit_id == unitId && 
+                    ue.year_sem == yearSem);
+
+            return unit != null;
         }
     }
 }
