@@ -216,6 +216,7 @@
     <Compile Include="Models\Entities\CourseEnrolment.cs">
       <DependentUpon>University.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\CourseEnrolmentViewModels.cs" />
     <Compile Include="Models\Entities\CourseType.cs">
       <DependentUpon>University.tt</DependentUpon>
     </Compile>

@@ -1,45 +1,86 @@
-﻿@model IEnumerable<A2.University.Web.Models.Entities.CourseEnrolment>
+﻿@using GridMvc.Html
+@model IEnumerable<A2.University.Web.Models.Entities.CourseEnrolment>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manage Course Enrolments";
 }
 
-<h2>Index</h2>
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="@Url.Content("~/Content/img/icons/courseEnrol.png")" />
+        </div>
+        <div class="col-md-10">
+            <h2>@ViewBag.Title</h2>
+            <p class="lead">
+                Add, edit or delete course enrolments
+            </p>
+        </div>
+    </div>
+</div>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.course_status)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Course.title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Student.firstname)
-        </th>
-        <th></th>
-    </tr>
+<div class="row vert-gap">
+    <div class="col-md-12">
+        <span>
+            <a href="@Url.Action("Create", "CourseEnrolment")">Create New Course Enrolment</a>
+        </span>
+    </div>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.course_status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Course.title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Student.firstname)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.course_enrolment_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.course_enrolment_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.course_enrolment_id })
-        </td>
-    </tr>
-}
+@*
+    Grid.Mvc package generates the grid.
+    Provides filtering/sorting functions.
+    20 items per page.
+*@
 
-</table>
+@Html.Grid(Model).Columns(columns =>
+{
+    // student id
+    columns.Add(data => data.Student.student_id)
+        .Titled("Student ID")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // student firstname
+    columns.Add(data => data.Student.firstname)
+        .Titled("First name")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // student surname
+    columns.Add(data => data.Student.lastname)
+        .Titled("Surname")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // course id
+    columns.Add(data => data.course_id)
+        .Titled("Unit ID")
+        .Filterable(true)
+        .SetFilterWidgetType("System.Int32");
+    // course title
+    columns.Add(data => data.Course.title)
+        .Titled("Title")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // course status
+    columns.Add(data => data.course_status)
+        .Titled("Course status")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
+    // view
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.course_enrolment_id }));
+    // edit
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.course_enrolment_id }));
+    // delete
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.course_enrolment_id }));
+}).WithPaging(20).Sortable(true)
