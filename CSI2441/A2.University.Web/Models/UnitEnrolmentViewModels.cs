@@ -37,12 +37,6 @@ namespace A2.University.Web.Models
 
         // derived fields
 
-//        [Display(Name = "First name")]
-//        public string firstname { get; set; }
-//
-//        [Display(Name = "Surname")]
-//        public string lastname { get; set; }
-
         [Display(Name = "Unit title")]
         public string title { get; set; }
 
