@@ -250,12 +250,14 @@ namespace A2.University.Web.Models
             {
                 var title = db.Courses.FirstOrDefault(c => c.title == field.title);
 
+                // get count of matches
                 var query =
                     (from t in db.Courses
                         where t.title == field.title
                         select t).ToList();
                 var count = query.Count;
 
+                // only return error if new title is not unique, else allow current title
                 if (title != null && count > 1)
                 {
                     return new ValidationFailure("title", "* Title already exists");
