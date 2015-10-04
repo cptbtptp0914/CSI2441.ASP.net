@@ -93,14 +93,23 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            CourseEnrolment courseEnrolment = db.CourseEnrolments.Find(id);
-            if (courseEnrolment == null)
+
+            // create entitymodel, match id
+            CourseEnrolment courseEnrolmentEntityModel = db.CourseEnrolments.Find(id);
+            // create viewmodel, pass values from entitymodel
+            CourseEnrolmentEditViewModel courseEnrolmentViewModel = new CourseEnrolmentEditViewModel();
+            SetCourseEnrolmentViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
+
+            // populate dropdownlists
+            courseEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
+            courseEnrolmentViewModel.CourseDropDownList = new SelectList(db.Courses.OrderBy(c => c.course_id), "course_id", "course_id_title");
+
+            if (courseEnrolmentEntityModel == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.course_id = new SelectList(db.Courses, "course_id", "title", courseEnrolment.course_id);
-            ViewBag.student_id = new SelectList(db.Students, "student_id", "firstname", courseEnrolment.student_id);
-            return View(courseEnrolment);
+
+            return View(courseEnrolmentViewModel);
         }
 
         // POST: CourseEnrolment/Edit/5
@@ -108,17 +117,20 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "course_enrolment_id,student_id,course_id,course_status")] CourseEnrolment courseEnrolment)
+        public ActionResult Edit([Bind(Include = "course_enrolment_id,student_id,course_id,course_status")] CourseEnrolment courseEnrolmentEntityModel, CourseEnrolmentEditViewModel courseEnrolmentViewModel)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(courseEnrolment).State = EntityState.Modified;
+                db.Entry(courseEnrolmentEntityModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.course_id = new SelectList(db.Courses, "course_id", "title", courseEnrolment.course_id);
-            ViewBag.student_id = new SelectList(db.Students, "student_id", "firstname", courseEnrolment.student_id);
-            return View(courseEnrolment);
+
+            // populate dropdownlists
+            courseEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
+            courseEnrolmentViewModel.CourseDropDownList = new SelectList(db.Courses.OrderBy(c => c.course_id), "course_id", "course_id_title");
+
+            return View(courseEnrolmentViewModel);
         }
 
         // GET: CourseEnrolment/Delete/5
