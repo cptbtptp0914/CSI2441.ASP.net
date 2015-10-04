@@ -112,7 +112,7 @@ namespace A2.University.Web.Models.Business
         {
             var course = db.CourseEnrolments.FirstOrDefault(
                 ce => ce.student_id == studentId &&
-                      ce.course_status == "ENROLLED");
+                      ce.course_status == "ENROLLED"); // TODO: make dictionary for states
 
             return course != null;
         }
