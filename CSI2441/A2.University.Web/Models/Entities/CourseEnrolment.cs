@@ -14,6 +14,12 @@ namespace A2.University.Web.Models.Entities
     
     public partial class CourseEnrolment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public CourseEnrolment()
+        {
+            this.course_status = "ENROLLED";
+        }
+    
         public long course_enrolment_id { get; set; }
         public long student_id { get; set; }
         public string course_id { get; set; }

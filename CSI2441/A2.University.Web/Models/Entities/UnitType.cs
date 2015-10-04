@@ -7,8 +7,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace A2.University.Web.Models.Entities
 {
     using System;
@@ -21,12 +19,10 @@ namespace A2.University.Web.Models.Entities
         {
             this.Units = new HashSet<Unit>();
         }
-
+    
         public long unit_type_id { get; set; }
-
-        [Display(Name = "Unit Type")]
         public string title { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Unit> Units { get; set; }
     }
