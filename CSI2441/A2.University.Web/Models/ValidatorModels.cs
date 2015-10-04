@@ -151,6 +151,30 @@ namespace A2.University.Web.Models
         }
     }
 
+    public class UnitEditViewModelValidator : AbstractValidator<UnitBaseViewModel>
+    {
+        public UnitEditViewModelValidator()
+        {
+            // user cannot edit unit id, not validating
+
+            // title
+            RuleFor(field => field.title)
+                .NotEmpty().WithMessage("* Required")
+                // fwd/back slash causes crash in title, removed from regex
+                .Matches(@"^[-a-zA-Z0-9.#]+(\s+[-a-zA-Z0-9.#]+)*$").WithMessage("* Must be a valid Title")
+                .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
+            // coordinator
+            RuleFor(field => field.coordinator_id)
+                .NotEmpty().WithMessage("* Required");
+            // credit points
+            RuleFor(field => field.credit_points)
+                .NotEmpty().WithMessage("* Required");
+            // unit type
+            RuleFor(field => field.unit_type_id)
+                .NotEmpty().WithMessage("* Required");
+        }
+    }
+
     public class CourseBaseViewModelValidator : AbstractValidator<CourseBaseViewModel>
     {
         public CourseBaseViewModelValidator()

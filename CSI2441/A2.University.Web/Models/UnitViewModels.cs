@@ -65,9 +65,10 @@ namespace A2.University.Web.Models
         // Inherits UnitDropDownListViewModel, no custom fields required
     }
 
+    [Validator(typeof(UnitEditViewModelValidator))]
     public class UnitEditViewModel : UnitDropDownListViewModel
     {
-        // Inherits UnitDropDownListViewModel, no custom fields required
+        // Uses own validator, ignores unit id for validation since user cannot edit
     }
 
     public class UnitDeleteViewModel : UnitBaseViewModel
