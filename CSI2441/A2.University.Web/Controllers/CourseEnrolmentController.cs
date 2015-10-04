@@ -223,6 +223,12 @@ namespace A2.University.Web.Controllers
             }
         }
 
+        private void EnrolLatestCourse(long studentId)
+        {
+            // TODO: implement auto re-enrol latest course when deleting course enrolment
+            // ie. course enrolment with highest id
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
