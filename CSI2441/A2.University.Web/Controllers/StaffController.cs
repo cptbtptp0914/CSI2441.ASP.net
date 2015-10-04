@@ -112,11 +112,8 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "staff_id,firstname,surname,email")] Staff staffEntityModel)
+        public ActionResult Edit([Bind(Include = "staff_id,firstname,surname,email")] Staff staffEntityModel, StaffEditViewModel staffViewModel)
         {
-            StaffEditViewModel staffViewModel = new StaffEditViewModel();
-            SetStaffViewModel(staffViewModel, staffEntityModel);
-
             if (ModelState.IsValid)
             {
                 // generate new email
