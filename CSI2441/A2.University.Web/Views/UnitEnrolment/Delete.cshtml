@@ -1,56 +1,87 @@
-﻿@model A2.University.Web.Models.Entities.UnitEnrolment
+﻿@model A2.University.Web.Models.UnitEnrolmentDeleteViewModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Delete Unit Enrolment";
 }
 
-<h2>Delete</h2>
+<h2>@ViewBag.Title</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>UnitEnrolment</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.year_sem)
-        </dt>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
 
-        <dd>
-            @Html.DisplayFor(model => model.year_sem)
-        </dd>
+    <div class="form-horizontal">
+        <h3>Are you sure you want to delete this unit enrolment?</h3>
+        <hr/>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.mark)
-        </dt>
+        @*Student ID*@
 
-        <dd>
-            @Html.DisplayFor(model => model.mark)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Student.firstname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Student.firstname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Unit.title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Unit.title)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+        <div class="form-group">
+            @Html.LabelFor(model => model.student_id, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.student_id)</p>
+            </div>
         </div>
-    }
-</div>
+
+        @*Student full name*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.fullname, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.fullname)</p>
+            </div>
+        </div>
+
+        @*Unit ID*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.unit_id, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.unit_id)</p>
+            </div>
+        </div>
+
+        @*Unit title*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.title, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.title)</p>
+            </div>
+        </div>
+
+        @*Year/sem*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.year_sem, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.year_sem)</p>
+            </div>
+        </div>
+
+        @*Mark*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.mark, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.mark)</p>
+            </div>
+        </div>
+
+        @*Grade*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.grade, htmlAttributes: new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.grade)</p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10 button-top-gap">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "UnitEnrolment")">Cancel</a>
+            </div>
+        </div>
+    </div>
+}

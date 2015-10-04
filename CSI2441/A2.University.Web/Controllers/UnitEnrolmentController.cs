@@ -139,12 +139,18 @@ namespace A2.University.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            UnitEnrolment unitEnrolment = db.UnitEnrolments.Find(id);
-            if (unitEnrolment == null)
+
+            // create entitymodel, match id
+            UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
+            // create viewmodel, pass values from entitymodel
+            UnitEnrolmentDeleteViewModel unitEnrolmentViewModel = new UnitEnrolmentDeleteViewModel();
+            SetUnitEnrolmentViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+
+            if (unitEnrolmentEntityModel == null)
             {
                 return HttpNotFound();
             }
-            return View(unitEnrolment);
+            return View(unitEnrolmentViewModel);
         }
 
         // POST: UnitEnrolments/Delete/5
