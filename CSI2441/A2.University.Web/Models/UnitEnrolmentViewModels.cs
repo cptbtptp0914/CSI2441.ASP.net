@@ -23,10 +23,10 @@ namespace A2.University.Web.Models
         // hidden from user
         public long unit_enrolment_id { get; set; }
 
-        [Display(Name = "Student")]
+        [Display(Name = "Student ID")]
         public long student_id { get; set; }
 
-        [Display(Name = "Unit")]
+        [Display(Name = "Unit ID")]
         public string unit_id { get; set; }
 
         [Display(Name = "Year/Sem")]
@@ -37,11 +37,11 @@ namespace A2.University.Web.Models
 
         // derived fields
 
-        [Display(Name = "First name")]
-        public string firstname { get; set; }
-
-        [Display(Name = "Surname")]
-        public string lastname { get; set; }
+//        [Display(Name = "First name")]
+//        public string firstname { get; set; }
+//
+//        [Display(Name = "Surname")]
+//        public string lastname { get; set; }
 
         [Display(Name = "Unit title")]
         public string title { get; set; }
