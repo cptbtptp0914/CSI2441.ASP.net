@@ -1,0 +1,45 @@
+﻿@model IEnumerable<A2.University.Web.Models.Entities.CourseEnrolment>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.course_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Course.title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Student.firstname)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.course_status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Course.title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Student.firstname)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.course_enrolment_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.course_enrolment_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.course_enrolment_id })
+        </td>
+    </tr>
+}
+
+</table>

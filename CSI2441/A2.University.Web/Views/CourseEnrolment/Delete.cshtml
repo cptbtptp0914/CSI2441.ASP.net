@@ -1,0 +1,48 @@
+﻿@model A2.University.Web.Models.Entities.CourseEnrolment
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>CourseEnrolment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.course_status)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.course_status)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Course.title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Student.firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Student.firstname)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>
