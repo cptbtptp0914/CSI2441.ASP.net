@@ -193,7 +193,7 @@ namespace A2.University.Web.Controllers
 
             viewModel.fullname = entityModel.Student.firstname + " " + entityModel.Student.lastname;
             viewModel.title = entityModel.Unit.title;
-            viewModel.grade = Grade.GetGrade(entityModel.mark);
+            viewModel.grade = GradeRules.GetGrade(entityModel.mark);
         }
 
         protected override void Dispose(bool disposing)

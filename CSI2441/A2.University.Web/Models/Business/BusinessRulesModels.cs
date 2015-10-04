@@ -1,6 +1,6 @@
 namespace A2.University.Web.Models.Business
 {
-    public static class Grade
+    public static class GradeRules
     {
         public static string GetGrade(int mark)
         {
