@@ -120,11 +120,8 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "course_id,title,coordinator_id,course_type_id")] Course courseEntityModel)
+        public ActionResult Edit([Bind(Include = "course_id,title,coordinator_id,course_type_id")] Course courseEntityModel, CourseEditViewModel courseViewModel)
         {
-            CourseEditViewModel courseViewModel = new CourseEditViewModel();
-            SetCourseViewModel(courseViewModel, courseEntityModel);
-
             if (ModelState.IsValid)
             {
                 db.Entry(courseEntityModel).State = EntityState.Modified;

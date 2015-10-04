@@ -151,7 +151,7 @@ namespace A2.University.Web.Models
         }
     }
 
-    public class UnitEditViewModelValidator : AbstractValidator<UnitBaseViewModel>
+    public class UnitEditViewModelValidator : AbstractValidator<UnitEditViewModel>
     {
         public UnitEditViewModelValidator()
         {
@@ -221,6 +221,48 @@ namespace A2.University.Web.Models
                 return null;
             });
         }
+    }
+
+    public class CourseEditViewModelValidator : AbstractValidator<CourseEditViewModel>
+    {
+        public CourseEditViewModelValidator()
+        {
+            // create instance of db context to validate title
+            UniversityEntities db = new UniversityEntities();
+
+            // user cannot edit course id, not validating
+
+            // title
+            RuleFor(field => field.title)
+                .NotEmpty().WithMessage("* Required")
+                // fwd/back slash causes crash in title, removed from regex
+                .Matches(@"^[-a-zA-Z0-9.,#\(\)]+(\s+[-a-zA-Z0-9.,#\(\)]+)*$").WithMessage("* Must be a valid Title")
+                .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
+            // coordinator
+            RuleFor(field => field.coordinator_id)
+                .NotEmpty().WithMessage("* Required");
+            // unit type
+            RuleFor(field => field.course_type_id)
+                .NotEmpty().WithMessage("* Required");
+
+            // validate title uniqueness
+            Custom(field =>
+            {
+                var title = db.Courses.FirstOrDefault(c => c.title == field.title);
+
+                var query =
+                    (from t in db.Courses
+                        where t.title == field.title
+                        select t).ToList();
+                var count = query.Count;
+
+                if (title != null && count > 1)
+                {
+                    return new ValidationFailure("title", "* Title already exists");
+                }
+                return null;
+            });
+        }    
     }
 
     public class UnitEnrolmentBaseViewModelValidator : AbstractValidator<UnitEnrolmentBaseViewModel>
