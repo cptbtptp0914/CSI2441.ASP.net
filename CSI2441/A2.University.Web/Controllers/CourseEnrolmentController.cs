@@ -157,7 +157,8 @@ namespace A2.University.Web.Controllers
             entityModel.course_enrolment_id = viewModel.course_enrolment_id;
             entityModel.student_id = viewModel.student_id;
             entityModel.course_id = viewModel.course_id;
-            //entityModel.course_status = "ENROLLED"; //viewModel.course_status;
+            // TODO: call function that determines course_status here
+            //entityModel.course_status = "ENROLLED" is default
         }
 
         /// <summary>
