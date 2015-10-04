@@ -48,6 +48,11 @@ namespace A2.University.Web.Controllers
         // GET: CourseEnrolment/Create
         public ActionResult Create()
         {
+            // create viewmodel
+            CourseEnrolmentCreateViewModel courseEnrolmentViewModel = new CourseEnrolmentCreateViewModel();
+            courseEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
+            courseEnrolmentViewModel.CourseDropDownList = new SelectList(db.Courses.OrderBy(c => c.course_id), "course_id", "course_id_title");
+
             ViewBag.course_id = new SelectList(db.Courses, "course_id", "title");
             ViewBag.student_id = new SelectList(db.Students, "student_id", "firstname");
             return View();

@@ -41,6 +41,12 @@ namespace A2.University.Web.Models.Entities
         [Required(ErrorMessage = "The Course Type field is required.")]
         public long course_type_id { get; set; }
 
+        // dropdownlist displays course id + title
+        public string course_id_title
+        {
+            get { return course_id + " " + title; }
+        }
+
         // SelectListItems used for ViewData, see Controller
         public IEnumerable<SelectListItem> Coordinators { get; set; }
         public IEnumerable<SelectListItem> CourseTypes { get; set; }
