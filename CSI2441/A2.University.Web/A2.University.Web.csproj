@@ -276,6 +276,7 @@
     <Content Include="Content\img\icons\courseEnrol.png" />
     <Content Include="Content\img\icons\delete.png" />
     <Content Include="Content\img\icons\edit.png" />
+    <Content Include="Content\img\icons\results.png" />
     <Content Include="Content\img\icons\unitEnrol.png" />
     <Content Include="Content\img\icons\staff.png" />
     <Content Include="Content\img\icons\student.png" />
