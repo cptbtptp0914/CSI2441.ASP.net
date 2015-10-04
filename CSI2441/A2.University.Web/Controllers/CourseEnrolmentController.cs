@@ -53,9 +53,7 @@ namespace A2.University.Web.Controllers
             courseEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
             courseEnrolmentViewModel.CourseDropDownList = new SelectList(db.Courses.OrderBy(c => c.course_id), "course_id", "course_id_title");
 
-            ViewBag.course_id = new SelectList(db.Courses, "course_id", "title");
-            ViewBag.student_id = new SelectList(db.Students, "student_id", "firstname");
-            return View();
+            return View(courseEnrolmentViewModel);
         }
 
         // POST: CourseEnrolment/Create
@@ -63,18 +61,29 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "course_enrolment_id,student_id,course_id,course_status")] CourseEnrolment courseEnrolment)
+        public ActionResult Create([Bind(Include = "course_enrolment_id,student_id,course_id,course_status")] CourseEnrolmentCreateViewModel courseEnrolmentViewModel)
         {
+            // if input passes validation
             if (ModelState.IsValid)
             {
-                db.CourseEnrolments.Add(courseEnrolment);
+                // create entitymodel, pass values from viewmodel
+                CourseEnrolment courseEnrolmentEntityModel = new CourseEnrolment();
+                SetCourseEnrolmentEntityModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
+
+                // TODO: add logic to check if student ENROLLED in another course, if so, make previous course DISCONTIN
+                // create static class in Business.BusinessRulesModels
+
+                // update db using entitymodel
+                db.CourseEnrolments.Add(courseEnrolmentEntityModel);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.course_id = new SelectList(db.Courses, "course_id", "title", courseEnrolment.course_id);
-            ViewBag.student_id = new SelectList(db.Students, "student_id", "firstname", courseEnrolment.student_id);
-            return View(courseEnrolment);
+            // populate dropdownlists
+            courseEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
+            courseEnrolmentViewModel.CourseDropDownList = new SelectList(db.Courses.OrderBy(c => c.course_id), "course_id", "course_id_title");
+
+            return View(courseEnrolmentViewModel);
         }
 
         // GET: CourseEnrolment/Edit/5
@@ -148,7 +157,7 @@ namespace A2.University.Web.Controllers
             entityModel.course_enrolment_id = viewModel.course_enrolment_id;
             entityModel.student_id = viewModel.student_id;
             entityModel.course_id = viewModel.course_id;
-            entityModel.course_status = viewModel.course_status;
+            //entityModel.course_status = "ENROLLED"; //viewModel.course_status;
         }
 
         /// <summary>

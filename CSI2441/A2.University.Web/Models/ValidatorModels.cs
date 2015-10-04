@@ -98,7 +98,7 @@ namespace A2.University.Web.Models
     {
         public UnitBaseViewModelValidator()
         {
-            // create instance of db context to validate unit id uniqueness
+            // create instance of db context to perform serverside validation
             UniversityEntities db = new UniversityEntities();
 
             // unit id, pre post
@@ -179,7 +179,7 @@ namespace A2.University.Web.Models
     {
         public CourseBaseViewModelValidator()
         {
-            // create instance of db context to validate course id
+            // create instance of db context to perform serverside validation
             UniversityEntities db = new UniversityEntities();
 
             // course id
@@ -227,7 +227,7 @@ namespace A2.University.Web.Models
     {
         public CourseEditViewModelValidator()
         {
-            // create instance of db context to validate title
+            // create instance of db context to perform serverside validation
             UniversityEntities db = new UniversityEntities();
 
             // user cannot edit course id, not validating
@@ -271,7 +271,7 @@ namespace A2.University.Web.Models
     {
         public UnitEnrolmentBaseViewModelValidator()
         {
-            // create instance of db context to perform post validation
+            // create instance of db context to serverside validation
             UniversityEntities db = new UniversityEntities();
 
             // student
@@ -302,6 +302,22 @@ namespace A2.University.Web.Models
             // max 3 unit attempts total
             // unit cannot be passed more than once
             // same semester unit uniqueness
+        }
+    }
+
+    public class CourseEnrolmentBaseViewModelValidator : AbstractValidator<CourseEnrolmentBaseViewModel>
+    {
+        public CourseEnrolmentBaseViewModelValidator()
+        {
+            // create instance of db context to perform serverside validation
+            UniversityEntities db = new UniversityEntities();
+
+            // student
+            RuleFor(field => field.student_id)
+                .NotEmpty().WithMessage("* Required");
+            // course
+            RuleFor(field => field.course_id)
+                .NotEmpty().WithMessage("* Required");
         }
     }
 }
