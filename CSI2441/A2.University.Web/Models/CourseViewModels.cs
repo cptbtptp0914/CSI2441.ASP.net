@@ -9,11 +9,6 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
-    public class CourseIndexViewModel
-    {
-        public List<Course> Courses { get; set; } 
-    }
-
     [Validator(typeof(CourseBaseViewModelValidator))]
     public class CourseBaseViewModel
     {
@@ -40,6 +35,11 @@ namespace A2.University.Web.Models
 
         [Display(Name = "Duration (months)")]
         public int duration { get; set; }
+    }
+
+    public class CourseIndexViewModel : CourseBaseViewModel
+    {
+        public List<CourseIndexViewModel> Courses = new List<CourseIndexViewModel>();
     }
 
     public class CourseDropDownListViewModel : CourseBaseViewModel

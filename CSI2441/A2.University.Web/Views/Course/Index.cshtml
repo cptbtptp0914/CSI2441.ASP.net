@@ -1,4 +1,4 @@
-﻿@model IEnumerable<A2.University.Web.Models.Entities.Course>
+﻿@model IEnumerable<A2.University.Web.Models.CourseIndexViewModel>
 @using GridMvc.Html
 
 @{
@@ -46,22 +46,22 @@
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // coordinator
-    columns.Add(data => data.Staff.fullname)
+    columns.Add(data => data.coordinator_name)
         .Titled("Coordinator")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // course type
-    columns.Add(data => data.CourseType.title)
+    columns.Add(data => data.course_type_title)
         .Titled("Course Type")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // credit points
-    columns.Add(data => data.CourseType.credit_points)
+    columns.Add(data => data.credit_points)
         .Titled("CP")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
     // duration
-    columns.Add(data => data.CourseType.duration)
+    columns.Add(data => data.duration)
         .Titled("Duration (months)")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");

@@ -20,7 +20,25 @@ namespace A2.University.Web.Controllers
         public ActionResult Index()
         {
             CourseIndexViewModel courseViewModel = new CourseIndexViewModel();
-            courseViewModel.Courses = db.Courses.Include(c => c.CourseType).Include(c => c.Staff).ToList();
+            var coursesEntity = db.Courses.Include(c => c.CourseType).Include(c => c.Staff).ToList();
+
+            // transfer entity list to viewmodel list
+            foreach (Course course in coursesEntity)
+            {
+                courseViewModel.Courses.Add(new CourseIndexViewModel
+                {
+                    // core fields
+                    course_id = course.course_id,
+                    title = course.title,
+                    coordinator_id = course.coordinator_id,
+                    course_type_id = course.course_type_id,
+                    // derived fields
+                    coordinator_name = course.Staff.firstname + " " + course.Staff.surname,
+                    course_type_title = course.CourseType.title,
+                    credit_points = course.CourseType.credit_points,
+                    duration = course.CourseType.duration
+                });
+            }
 
             return View(courseViewModel.Courses);
         }
