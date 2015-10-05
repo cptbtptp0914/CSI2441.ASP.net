@@ -300,10 +300,15 @@ namespace A2.University.Web.Models
             RuleFor(field => field.YearSem)
                 .NotEmpty().WithMessage("* Required")
                 .Matches(@"[0-9]{2}[1|2]").WithMessage("* Must be a valid Year/Sem");
-            // Mark, required
+            // mark, required
             RuleFor(field => field.Mark)
                 .NotEmpty().WithMessage("* Required");
-            // Mark, range
+
+            /**************************
+             * SERVER SIDE VALIDATION *
+             **************************/
+
+            // mark, range
             Custom(field =>
             {
                 int result = int.Parse(field.Mark);
@@ -313,10 +318,6 @@ namespace A2.University.Web.Models
                 }
                 return null;
             });
-
-            /**************************
-             * SERVER SIDE VALIDATION *
-             **************************/
 
             // student enrolled to course
             Custom(field =>
@@ -366,6 +367,8 @@ namespace A2.University.Web.Models
         {
             // create instance of db context to perform serverside validation
             UniversityEntities db = new UniversityEntities();
+            // create instance of course rules model
+            CourseRules courseRules = new CourseRules();
 
             // student
             RuleFor(field => field.StudentId)
@@ -373,6 +376,20 @@ namespace A2.University.Web.Models
             // course
             RuleFor(field => field.CourseId)
                 .NotEmpty().WithMessage("* Required");
+
+            /**************************
+             * SERVER SIDE VALIDATION *
+             **************************/
+            
+            // course uniqueness
+            Custom(field =>
+            {
+                if (courseRules.IsNotUniqueCourse(field.StudentId, field.CourseId))
+                {
+                    return new ValidationFailure("CourseId", "* Enrolment already exists for Student");
+                }
+                return null;
+            });
         }
     }
 }

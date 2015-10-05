@@ -116,7 +116,7 @@ namespace A2.University.Web.Models.Business
         /// <summary>
         /// Checks ENROLLED course uniqueness.
         /// </summary>
-        /// <param name="studentId"></param>
+        /// <param name="studentId">long</param>
         /// <returns></returns>
         public bool IsNotUniqueEnrolled(long studentId)
         {
@@ -131,10 +131,10 @@ namespace A2.University.Web.Models.Business
         }
 
         /// <summary>
-        /// Checks if student is enrolled in a course.
-        /// Student must be enrolled in course first before enrolling in any units.
+        /// Checks if student is ENROLLED in a course.
+        /// Student must be ENROLLED in a course first before enrolling in any units.
         /// </summary>
-        /// <param name="studentId"></param>
+        /// <param name="studentId">long</param>
         /// <returns></returns>
         public bool IsStudentCourseEnrolled(long studentId)
         {
@@ -147,6 +147,21 @@ namespace A2.University.Web.Models.Business
                           ce.course_status == state);
 
             return courseEnrolment != null;
+        }
+
+        /// <summary>
+        /// Checks course enrolment uniqueness per Student.
+        /// </summary>
+        /// <param name="studentId">long</param>
+        /// <param name="courseId">string</param>
+        /// <returns></returns>
+        public bool IsNotUniqueCourse(long studentId, string courseId)
+        {
+            var course = db.CourseEnrolments.FirstOrDefault(
+                    ce => ce.student_id == studentId &&
+                    ce.course_id == courseId);
+
+            return course != null;
         }
     }
 }
