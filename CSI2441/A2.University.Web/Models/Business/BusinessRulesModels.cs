@@ -98,9 +98,17 @@ namespace A2.University.Web.Models.Business
     {
         private readonly UniversityEntities db;
 
+        public Dictionary<string, string> CourseStates;
+
         public CourseRules()
         {
             db = new UniversityEntities();
+
+            CourseStates = new Dictionary<string, string>
+            {
+                {"Enrolled", "ENROLLED"},
+                { "Discontinued", "DISCONTIN"}
+            };
         }
 
         /// <summary>
@@ -112,7 +120,7 @@ namespace A2.University.Web.Models.Business
         {
             var course = db.CourseEnrolments.FirstOrDefault(
                 ce => ce.student_id == studentId &&
-                      ce.course_status == "ENROLLED"); // TODO: make dictionary for states
+                      ce.course_status == CourseStates["Enrolled"]);
 
             return course != null;
         }

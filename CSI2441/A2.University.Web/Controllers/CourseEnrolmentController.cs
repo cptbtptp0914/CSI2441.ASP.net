@@ -210,13 +210,13 @@ namespace A2.University.Web.Controllers
                 // get list of student's course in ENROLLED status
                 var enrolledCourses = (from ce in db.CourseEnrolments
                                        where ce.student_id == studentId &&
-                                       ce.course_status == "ENROLLED" // TODO: make dictionary for states
+                                       ce.course_status == courseRules.CourseStates["Enrolled"] // TODO: make dictionary for states
                                        select ce).ToList();
 
                 // set each course status to DISCONTIN
                 foreach (var enrolled in enrolledCourses)
                 {
-                    enrolled.course_status = "DISCONTIN";
+                    enrolled.course_status = courseRules.CourseStates["Discontinued"];
                     db.Entry(enrolled).State = EntityState.Modified;
                     db.SaveChanges();
                 }
