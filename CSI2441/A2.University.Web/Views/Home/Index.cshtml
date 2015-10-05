@@ -48,14 +48,6 @@
         </h3>
     </div>
     <div class="col-md-3">
-        <a href="@Url.Action("Index", "Unit")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/unit.png")"/>
-        </a>
-        <h3 class="text-center">
-            @ViewBag.ManageUnits
-        </h3>
-    </div>
-    <div class="col-md-3">
         <a href="@Url.Action("Index", "Course")">
             <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/course.png")" />
         </a>
@@ -63,9 +55,25 @@
             @ViewBag.ManageCourses
         </h3>
     </div>
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Unit")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/unit.png")"/>
+        </a>
+        <h3 class="text-center">
+            @ViewBag.ManageUnits
+        </h3>
+    </div>
 </div>
 
 <div class="row">
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "CourseEnrolment")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/courseEnrol.png")" />
+        </a>
+        <h3 class="text-center">
+            @ViewBag.CourseEnroment
+        </h3>
+    </div>
     <div class="col-md-3">
         <a href="@Url.Action("Index", "UnitEnrolment")">
             <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/unitEnrol.png")"/>
@@ -75,16 +83,8 @@
         </h3>
     </div>
     <div class="col-md-3">
-        <a href="@Url.Action("Index", "CourseEnrolment")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/courseEnrol.png")"/>
-        </a>
-        <h3 class="text-center">
-            @ViewBag.CourseEnroment
-        </h3>
-    </div>
-    <div class="col-md-3">
         <a href="@Url.Action("Index", "Results")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/results.png")" />
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/results.png")"/>
         </a>
         <h3 class="text-center">
             @ViewBag.Results
