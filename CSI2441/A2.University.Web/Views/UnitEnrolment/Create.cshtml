@@ -13,6 +13,7 @@
     
     <div class="form-horizontal">
         <h4>Enter new unit enrolment details</h4>
+        <p class="text-danger">Please enrol Student in a Course before enrolling in a Unit</p>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.CourseEnrolmentId)
