@@ -288,7 +288,7 @@ namespace A2.University.Web.Controllers
         /// Sets last DISCONTIN course to ENROLLED.
         /// Used when ActionResult Delete() called.
         /// </summary>
-        /// <param name="studentId"></param>
+        /// <param name="studentId">long</param>
         private void ReEnrolLastCourse(long studentId)
         {
             // can't use dict in linq, substitute with string
