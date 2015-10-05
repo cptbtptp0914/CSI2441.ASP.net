@@ -40,19 +40,27 @@ namespace A2.University.Web.Models
 
         [Display(Name = "Grade")]
         public string grade { get; set; }
+
+        // student
+        public string firstname { get; set; }
+        public string lastname { get; set; }
     }
 
     public class UnitEnrolmentIndexViewModel : UnitEnrolmentBaseViewModel
     {
         public List<UnitEnrolmentIndexViewModel> UnitEnrolments = new List<UnitEnrolmentIndexViewModel>();
-
-        public string firstname { get; set; }
-        public string lastname { get; set; }
     }
 
     public class UnitEnrolmentDropDownListViewModel : UnitEnrolmentBaseViewModel
     {
-        // to be populated by db
+        // store lists of students/units, will extract data for dropdownlists
+        public List<UnitEnrolmentDropDownListViewModel> Students = new List<UnitEnrolmentDropDownListViewModel>();
+        public List<UnitEnrolmentDropDownListViewModel> Units = new List<UnitEnrolmentDropDownListViewModel>(); 
+        // store derived items for dropdownlist
+        public string student_id_fullname { get; set; }
+        public string unit_id_title { get; set; }
+
+        // to be populated by controller
         public IEnumerable<SelectListItem> StudentDropDownList { get; set; }
         public IEnumerable<SelectListItem> UnitDropDownList { get; set; }
     }

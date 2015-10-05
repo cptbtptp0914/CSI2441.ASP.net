@@ -55,7 +55,7 @@ namespace A2.University.Web.Controllers
             UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitEnrolmentDetailsViewModel unitEnrolmentViewModel = new UnitEnrolmentDetailsViewModel();
-            SetUnitEnrolmentViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+            PopulateViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
             if (unitEnrolmentEntityModel == null)
             {
@@ -69,8 +69,8 @@ namespace A2.University.Web.Controllers
         {
             // create viewmodel
             UnitEnrolmentCreateViewModel unitEnrolmentViewModel = new UnitEnrolmentCreateViewModel();
-            unitEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            unitEnrolmentViewModel.UnitDropDownList = new SelectList(db.Units.OrderBy(u => u.unit_id), "unit_id", "unit_id_title");
+            // populate dropdownlists
+            PopulateDropDownLists(unitEnrolmentViewModel);
 
             return View(unitEnrolmentViewModel);
         }
@@ -87,7 +87,7 @@ namespace A2.University.Web.Controllers
             {
                 // create entitymodel, pass values from viewmodel
                 UnitEnrolment unitEnrolmentEntityModel = new UnitEnrolment();
-                SetUnitEnrolmentEntityModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+                PopulateEntityModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
                 // update db using entitymodel
                 db.UnitEnrolments.Add(unitEnrolmentEntityModel);
@@ -96,8 +96,7 @@ namespace A2.University.Web.Controllers
             }
 
             // populate dropdownlists
-            unitEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            unitEnrolmentViewModel.UnitDropDownList = new SelectList(db.Units.OrderBy(u => u.unit_id), "unit_id", "unit_id_title");
+            PopulateDropDownLists(unitEnrolmentViewModel);
 
             return View(unitEnrolmentViewModel);
         }
@@ -114,11 +113,10 @@ namespace A2.University.Web.Controllers
             UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitEnrolmentEditViewModel unitEnrolmentViewModel = new UnitEnrolmentEditViewModel();
-            SetUnitEnrolmentViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+            PopulateViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
             // populate dropdownlists
-            unitEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            unitEnrolmentViewModel.UnitDropDownList = new SelectList(db.Units.OrderBy(u => u.unit_id), "unit_id", "unit_id_title");
+            PopulateDropDownLists(unitEnrolmentViewModel);
 
             if (unitEnrolmentEntityModel == null)
             {
@@ -143,8 +141,7 @@ namespace A2.University.Web.Controllers
                 return RedirectToAction("Index");
             }
             // populate dropdownlists
-            unitEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            unitEnrolmentViewModel.UnitDropDownList = new SelectList(db.Units.OrderBy(u => u.unit_id), "unit_id", "unit_id_title");
+            PopulateDropDownLists(unitEnrolmentViewModel);
 
             return View(unitEnrolmentViewModel);
         }
@@ -161,7 +158,7 @@ namespace A2.University.Web.Controllers
             UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitEnrolmentDeleteViewModel unitEnrolmentViewModel = new UnitEnrolmentDeleteViewModel();
-            SetUnitEnrolmentViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+            PopulateViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
             if (unitEnrolmentEntityModel == null)
             {
@@ -182,11 +179,47 @@ namespace A2.University.Web.Controllers
         }
 
         /// <summary>
+        /// Populates dropdownlists for unit enrolment view.
+        /// </summary>
+        /// <param name="viewModel">UnitEnrolmentDropDownListViewModel</param>
+        private void PopulateDropDownLists(UnitEnrolmentDropDownListViewModel viewModel)
+        {
+            // get list of students/units from db
+            var studentsEntity = (from student in db.Students
+                select student).ToList();
+            var unitsEntity = (from units in db.Units
+                select units).ToList();
+
+            // transfer relevant elements to viewmodel list
+            foreach (Student student in studentsEntity)
+            {
+                viewModel.Students.Add(new UnitEnrolmentDropDownListViewModel
+                {
+                    student_id = student.student_id,
+                    student_id_fullname = student.student_id + " "  + student.firstname + " " + student.lastname
+                });
+            }
+
+            foreach (Unit unit in unitsEntity)
+            {
+                viewModel.Units.Add(new UnitEnrolmentDropDownListViewModel
+                {
+                    unit_id = unit.unit_id,
+                    unit_id_title = unit.unit_id + " " + unit.title
+                });
+            }
+
+            // populate dropdownlist from viewmodel list
+            viewModel.StudentDropDownList = new SelectList(viewModel.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
+            viewModel.UnitDropDownList = new SelectList(viewModel.Units.OrderBy(u => u.unit_id), "unit_id", "unit_id_title");
+        }
+
+        /// <summary>
         /// Passes data from the view model to the entity model.
         /// </summary>
         /// <param name="viewModel">UnitBaseViewModel</param>
         /// <param name="entityModel">Unit</param>
-        private void SetUnitEnrolmentEntityModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
+        private void PopulateEntityModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
         {
             entityModel.unit_enrolment_id = viewModel.unit_enrolment_id;
             entityModel.student_id = viewModel.student_id;
@@ -200,7 +233,7 @@ namespace A2.University.Web.Controllers
         /// </summary>
         /// <param name="viewModel">UnitBaseViewModel</param>
         /// <param name="entityModel">Unit</param>
-        private void SetUnitEnrolmentViewModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
+        private void PopulateViewModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
         {
             viewModel.unit_enrolment_id = entityModel.unit_enrolment_id;
             viewModel.student_id = entityModel.student_id;
