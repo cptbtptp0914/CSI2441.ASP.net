@@ -46,7 +46,6 @@ namespace A2.University.Web.Models
         public List<UnitDropDownListViewModel> Coordinators = new List<UnitDropDownListViewModel>();
         public List<UnitDropDownListViewModel> UnitTypes = new List<UnitDropDownListViewModel>();
         // store derived items for dropdownlist
-
         public string staff_id_fullname { get; set; }
 
         // to be populated by controller

@@ -44,7 +44,13 @@ namespace A2.University.Web.Models
 
     public class CourseDropDownListViewModel : CourseBaseViewModel
     {
-        // to be populated by db
+        // store lists of coordinators/course types, will extract data for dropdownlists
+        public List<CourseDropDownListViewModel> Coordinators = new List<CourseDropDownListViewModel>();
+        public List<CourseDropDownListViewModel> CourseTypes = new List<CourseDropDownListViewModel>();
+        // store derived items for dropdownlist
+        public string staff_id_fullname { get; set; }
+             
+        // to be populated by controller
         public IEnumerable<SelectListItem> CoordinatorDropDownList { get; set; }
         public IEnumerable<SelectListItem> CourseTypeTitleDropDownList { get; set; }
     }

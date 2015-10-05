@@ -55,7 +55,7 @@ namespace A2.University.Web.Controllers
             Course courseEntityModel = db.Courses.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseDetailsViewModel courseViewModel = new CourseDetailsViewModel();
-            SetCourseViewModel(courseViewModel, courseEntityModel);
+            PopulateViewModel(courseViewModel, courseEntityModel);
 
             if (courseEntityModel == null)
             {
@@ -72,8 +72,7 @@ namespace A2.University.Web.Controllers
             // crate viewmodel
             CourseCreateViewModel courseViewModel = new CourseCreateViewModel();
             // populate dropdownlists
-            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
-            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title");
+            PopulateDropDownLists(courseViewModel);
 
             return View(courseViewModel);
         }
@@ -90,7 +89,7 @@ namespace A2.University.Web.Controllers
             {
                 // create entity model, pass values from viewmodel
                 Course courseEntityModel = new Course();
-                SetCourseEntityModel(courseViewModel, courseEntityModel);
+                PopulateEntityModel(courseViewModel, courseEntityModel);
 
                 // update db using entitymodel
                 db.Courses.Add(courseEntityModel);
@@ -99,8 +98,7 @@ namespace A2.University.Web.Controllers
             }
 
             // populate dropdownlists
-            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
-            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title");
+            PopulateDropDownLists(courseViewModel);
 
             // render view using viewmodel
             return View(courseViewModel);
@@ -118,11 +116,10 @@ namespace A2.University.Web.Controllers
             Course courseEntityModel = db.Courses.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseEditViewModel courseViewModel =  new CourseEditViewModel();
-            SetCourseViewModel(courseViewModel, courseEntityModel);
+            PopulateViewModel(courseViewModel, courseEntityModel);
 
             // populate dropdownlists
-            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
-            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title");
+            PopulateDropDownLists(courseViewModel);
 
             if (courseEntityModel == null)
             {
@@ -148,8 +145,7 @@ namespace A2.University.Web.Controllers
             }
 
             // populate dropdownlists
-            courseViewModel.CoordinatorDropDownList = new SelectList(db.Staff.OrderBy(s => s.firstname), "staff_id", "fullname");
-            courseViewModel.CourseTypeTitleDropDownList = new SelectList(db.CourseTypes, "course_type_id", "title");
+            PopulateDropDownLists(courseViewModel);
 
             // render view using viewmodel
             return View(courseViewModel);
@@ -167,7 +163,7 @@ namespace A2.University.Web.Controllers
             Course courseEntityModel = db.Courses.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseDeleteViewModel courseViewModel = new CourseDeleteViewModel();
-            SetCourseViewModel(courseViewModel, courseEntityModel);
+            PopulateViewModel(courseViewModel, courseEntityModel);
 
             if (courseEntityModel == null)
             {
@@ -188,11 +184,47 @@ namespace A2.University.Web.Controllers
         }
 
         /// <summary>
+        /// Populates dropdownlists for course view.
+        /// </summary>
+        /// <param name="viewModel">CourseDropDownListViewModel</param>
+        private void PopulateDropDownLists(CourseDropDownListViewModel viewModel)
+        {
+            // get list of students/units from db
+            var staffEntity = (from staff in db.Staff
+                               select staff).ToList();
+            var courseTypesEntity = (from courseType in db.CourseTypes
+                                   select courseType).ToList();
+
+            // transfer relevant elements to viewmodel list
+            foreach (Staff staff in staffEntity)
+            {
+                viewModel.Coordinators.Add(new CourseDropDownListViewModel
+                {
+                    coordinator_id = staff.staff_id,
+                    staff_id_fullname = staff.staff_id + " " + staff.firstname + " " + staff.surname
+                });
+            }
+
+            foreach (CourseType type in courseTypesEntity)
+            {
+                viewModel.CourseTypes.Add(new CourseDropDownListViewModel
+                {
+                    course_type_id = type.course_type_id,
+                    course_type_title = type.title
+                });
+            }
+
+            // populate dropdownlist from viewmodel list
+            viewModel.CoordinatorDropDownList = new SelectList(viewModel.Coordinators.OrderBy(s => s.coordinator_id), "coordinator_id", "staff_id_fullname");
+            viewModel.CourseTypeTitleDropDownList = new SelectList(viewModel.CourseTypes.OrderBy(u => u.course_type_id), "course_type_id", "course_type_title");
+        }
+
+        /// <summary>
         /// Passes data from the view model to the entity model.
         /// </summary>
         /// <param name="viewModel">UnitBaseViewModel</param>
         /// <param name="entityModel">Unit</param>
-        private void SetCourseEntityModel(CourseBaseViewModel viewModel, Course entityModel)
+        private void PopulateEntityModel(CourseBaseViewModel viewModel, Course entityModel)
         {
             entityModel.course_id = viewModel.course_id;
             entityModel.title = viewModel.title;
@@ -205,7 +237,7 @@ namespace A2.University.Web.Controllers
         /// </summary>
         /// <param name="viewModel">UnitBaseViewModel</param>
         /// <param name="entityModel">Unit</param>
-        private void SetCourseViewModel(CourseBaseViewModel viewModel, Course entityModel)
+        private void PopulateViewModel(CourseBaseViewModel viewModel, Course entityModel)
         {
             viewModel.course_id = entityModel.course_id;
             viewModel.title = entityModel.title;
