@@ -33,7 +33,7 @@ namespace A2.University.Web.Models.Entities
         public string adrs_city { get; set; }
         public string adrs_state { get; set; }
         public int adrs_postcode { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CourseEnrolment> CourseEnrolments { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

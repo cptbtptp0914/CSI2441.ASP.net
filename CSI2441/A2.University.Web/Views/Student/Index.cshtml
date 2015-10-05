@@ -36,33 +36,33 @@
 @Html.Grid(Model).Columns(columns =>
 {
     // student id
-    columns.Add(data => data.student_id)
+    columns.Add(data => data.StudentId)
         .Titled("Student ID")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
     // first name
-    columns.Add(data => data.firstname)
+    columns.Add(data => data.FirstName)
         .Titled("First name")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
-    // surname
-    columns.Add(data => data.lastname)
+    // LastName
+    columns.Add(data => data.LastName)
         .Titled("Surname")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
-    // dob
-    columns.Add(data => data.dob)
+    // Dob
+    columns.Add(data => data.Dob)
         .Titled("DOB")
         .Format("{0:dd/MM/yyyy}")
         .Filterable(true)
         .SetFilterWidgetType("System.DateTime");
-    // gender
-    columns.Add(data => data.gender)
+    // Gender
+    columns.Add(data => data.Gender)
         .Titled("Gender")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
-    // email
-    columns.Add(data => data.email)
+    // Email
+    columns.Add(data => data.Email)
         .Titled("Email")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
@@ -71,17 +71,17 @@
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("View", "Details", new {id = data.student_id}));
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new {id = data.StudentId}));
     // edit
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.student_id }));
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.StudentId }));
     // delete
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.student_id }));
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.StudentId }));
 }).WithPaging(20).Sortable(true)

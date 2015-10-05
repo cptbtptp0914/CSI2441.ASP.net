@@ -11,20 +11,20 @@ namespace A2.University.Web.Models
     public class StaffBaseViewModel
     {
         [Display(Name = "Staff ID")]
-        public long staff_id { get; set; }
+        public long StaffId { get; set; }
 
         [Display(Name = "First name")]
-        public string firstname { get; set; }
+        public string FirstName { get; set; }
 
         [Display(Name = "Surname")]
-        public string surname { get; set; }
+        public string LastName { get; set; }
 
         [Display(Name = "Email")]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         // return full name for dropdownlist
         [Display(Name = "Coordinator")]
-        public string fullname { get; set; }
+        public string FullName { get; set; }
     }
 
     public class StaffIndexViewModel : StaffBaseViewModel

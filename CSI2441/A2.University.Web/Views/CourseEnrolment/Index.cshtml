@@ -36,27 +36,27 @@
 @Html.Grid(Model).Columns(columns =>
 {
     // student id
-    columns.Add(data => data.student_id)
+    columns.Add(data => data.StudentId)
         .Titled("Student ID")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
-    // student surname
-    columns.Add(data => data.lastname)
+    // student LastName
+    columns.Add(data => data.StudentLastName)
         .Titled("Surname")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // course id
-    columns.Add(data => data.course_id)
+    columns.Add(data => data.CourseId)
         .Titled("Course ID")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
-    // course title
-    columns.Add(data => data.title)
+    // course Title
+    columns.Add(data => data.Title)
         .Titled("Title")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // course status
-    columns.Add(data => data.course_status)
+    columns.Add(data => data.CourseStatus)
         .Titled("Course status")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
@@ -65,17 +65,17 @@
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.course_enrolment_id }));
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.CourseEnrolmentId }));
     // edit
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.course_enrolment_id }));
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.CourseEnrolmentId }));
     // delete
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.course_enrolment_id }));
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.CourseEnrolmentId }));
 }).WithPaging(20).Sortable(true)

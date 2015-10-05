@@ -16,45 +16,45 @@
         @*Student ID*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.student_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StudentId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.student_id)</p>
+                <p class="form-display">@Html.DisplayFor(model => model.StudentId)</p>
             </div>
         </div>
 
         @*Student full name*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.fullname, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StudentFullName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.fullname)</p>
+                <p class="form-display">@Html.DisplayFor(model => model.StudentFullName)</p>
             </div>
         </div>
 
         @*Course ID*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.course_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CourseId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.course_id)</p>
+                <p class="form-display">@Html.DisplayFor(model => model.CourseId)</p>
             </div>
         </div>
 
-        @*Course title*@
+        @*Course Title*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.title, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.title)</p>
+                <p class="form-display">@Html.DisplayFor(model => model.Title)</p>
             </div>
         </div>
 
         @*Status*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.course_status, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CourseStatus, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.course_status)</p>
+                <p class="form-display">@Html.DisplayFor(model => model.CourseStatus)</p>
             </div>
         </div>
 
@@ -62,7 +62,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10 button-top-gap">
-                <a class="btn btn-default" href="@Url.Action("Edit", "CourseEnrolment", new { id = Model.course_enrolment_id })">Edit</a>
+                <a class="btn btn-default" href="@Url.Action("Edit", "CourseEnrolment", new { id = Model.CourseEnrolmentId })">Edit</a>
                 <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "CourseEnrolment")">Cancel</a>
             </div>
         </div>

@@ -17,7 +17,7 @@ namespace A2.University.Web.Models.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CourseEnrolment()
         {
-            this.course_status = "ENROLLED";
+            this.UnitEnrolments = new HashSet<UnitEnrolment>();
         }
     
         public long course_enrolment_id { get; set; }
@@ -27,5 +27,7 @@ namespace A2.University.Web.Models.Entities
     
         public virtual Course Course { get; set; }
         public virtual Student Student { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UnitEnrolment> UnitEnrolments { get; set; }
     }
 }

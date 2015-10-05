@@ -151,7 +151,7 @@ namespace A2.University.Web.Models
 
         [Display(Name = "Gender")]
         [Required(ErrorMessage = "The Gender field is required.")]
-        [RegularExpression("(M|F)", ErrorMessage = "Must be a valid gender.")]
+        [RegularExpression("(M|F)", ErrorMessage = "Must be a valid Gender.")]
         public string gender { get; set; }
 
         [Display(Name = "Email")]

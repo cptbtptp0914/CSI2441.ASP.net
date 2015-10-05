@@ -36,37 +36,37 @@
 @Html.Grid(Model).Columns(columns =>
 {
     // student id
-    columns.Add(data => data.student_id)
+    columns.Add(data => data.StudentId)
         .Titled("Student ID")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
-    // student surname
-    columns.Add(data => data.lastname)
+    // student LastName
+    columns.Add(data => data.StudentLastName)
         .Titled("Surname")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // unit id
-    columns.Add(data => data.unit_id)
+    columns.Add(data => data.UnitId)
         .Titled("Unit ID")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
-    // unit title
-    columns.Add(data => data.title)
+    // unit Title
+    columns.Add(data => data.Title)
         .Titled("Title")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // year/sem
-    columns.Add(data => data.year_sem)
+    columns.Add(data => data.YearSem)
         .Titled("Year/Sem")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
-    // mark
-    columns.Add(data => data.mark)
+    // Mark
+    columns.Add(data => data.Mark)
         .Titled("Mark")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
-    // grade
-    columns.Add(data => data.grade)
+    // Grade
+    columns.Add(data => data.Grade)
         .Titled("Grade")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
@@ -75,17 +75,17 @@
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.unit_enrolment_id }));
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.UnitEnrolmentId }));
     // edit
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.unit_enrolment_id }));
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.UnitEnrolmentId }));
     // delete
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.unit_enrolment_id }));
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.UnitEnrolmentId }));
 }).WithPaging(20).Sortable(true)

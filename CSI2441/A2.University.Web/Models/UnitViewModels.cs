@@ -14,25 +14,25 @@ namespace A2.University.Web.Models
     {
         [Key]
         [Display(Name = "Unit ID")]
-        public string unit_id { get; set; }
+        public string UnitId { get; set; }
 
         [Display(Name = "Title")]
-        public string title { get; set; }
+        public string Title { get; set; }
 
         [Display(Name = "Coordinator")]
-        public long coordinator_id { get; set; }
+        public long CoordinatorId { get; set; }
 
         [Display(Name = "Credit Points")]
-        public int credit_points { get; set; }
+        public int CreditPoints { get; set; }
 
         [Display(Name = "Unit Type")]
-        public long unit_type_id { get; set; }
+        public long UnitTypeId { get; set; }
 
         [Display(Name = "Coordinator")]
-        public string staff_fullname { get; set; }
+        public string StaffFullName { get; set; }
 
         [Display(Name = "Unit Type")]
-        public string unit_type_title { get; set; }
+        public string UnitTypeTitle { get; set; }
     }
 
     public class UnitIndexViewModel : UnitBaseViewModel
@@ -46,7 +46,7 @@ namespace A2.University.Web.Models
         public List<UnitDropDownListViewModel> Coordinators = new List<UnitDropDownListViewModel>();
         public List<UnitDropDownListViewModel> UnitTypes = new List<UnitDropDownListViewModel>();
         // store derived items for dropdownlist
-        public string staff_id_fullname { get; set; }
+        public string StaffIdFullName { get; set; }
 
         // to be populated by controller
         public IEnumerable<SelectListItem> CoordinatorDropDownList { get; set; }

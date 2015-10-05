@@ -28,13 +28,13 @@ namespace A2.University.Web.Controllers
             {
                 courseEnrolmentViewModel.CourseEnrolments.Add(new CourseEnrolmentIndexViewModel
                 {
-                    course_enrolment_id = courseEnrolment.course_enrolment_id,
-                    student_id = courseEnrolment.student_id,
-                    firstname = courseEnrolment.Student.firstname,
-                    lastname = courseEnrolment.Student.lastname,
-                    course_id = courseEnrolment.course_id,
-                    title = courseEnrolment.Course.title,
-                    course_status = courseEnrolment.course_status
+                    CourseEnrolmentId = courseEnrolment.course_enrolment_id,
+                    StudentId = courseEnrolment.student_id,
+                    StudentFirstName = courseEnrolment.Student.firstname,
+                    StudentLastName = courseEnrolment.Student.lastname,
+                    CourseId = courseEnrolment.course_id,
+                    Title = courseEnrolment.Course.title,
+                    CourseStatus = courseEnrolment.course_status
                 });
             }
 
@@ -78,7 +78,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "course_enrolment_id,student_id,course_id,course_status")] CourseEnrolmentCreateViewModel courseEnrolmentViewModel)
+        public ActionResult Create([Bind(Include = "CourseEnrolmentId,StudentId,CourseId,CourseStatus")] CourseEnrolmentCreateViewModel courseEnrolmentViewModel)
         {
             // if input passes validation
             if (ModelState.IsValid)
@@ -133,7 +133,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "course_enrolment_id,student_id,course_id,course_status")] CourseEnrolment courseEnrolmentEntityModel, CourseEnrolmentEditViewModel courseEnrolmentViewModel)
+        public ActionResult Edit([Bind(Include = "CourseEnrolmentId,StudentId,CourseId,CourseStatus")] CourseEnrolment courseEnrolmentEntityModel, CourseEnrolmentEditViewModel courseEnrolmentViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -197,8 +197,8 @@ namespace A2.University.Web.Controllers
             {
                 viewModel.Students.Add(new CourseEnrolmentDropDownListViewModel
                 {
-                    student_id = student.student_id,
-                    student_id_fullname = student.student_id + " " + student.firstname + " " + student.lastname
+                    StudentId = student.student_id,
+                    StudentIdFullname = student.student_id + " " + student.firstname + " " + student.lastname
                 });
             }
 
@@ -206,14 +206,14 @@ namespace A2.University.Web.Controllers
             {
                 viewModel.Courses.Add(new CourseEnrolmentDropDownListViewModel
                 {
-                    course_id = course.course_id,
-                    course_id_title = course.course_id + " " + course.title
+                    CourseId = course.course_id,
+                    CourseIdTitle = course.course_id + " " + course.title
                 });
             }
 
             // populate dropdownlist from viewmodel list
-            viewModel.StudentDropDownList = new SelectList(viewModel.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            viewModel.CourseDropDownList = new SelectList(viewModel.Courses.OrderBy(u => u.course_id), "course_id", "course_id_title");
+            viewModel.StudentDropDownList = new SelectList(viewModel.Students.OrderBy(s => s.StudentId), "StudentId", "StudentIdFullName");
+            viewModel.CourseDropDownList = new SelectList(viewModel.Courses.OrderBy(u => u.CourseId), "CourseId", "CourseIdTitle");
         }
 
         /// <summary>
@@ -223,11 +223,11 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void PopulateEntityModel(CourseEnrolmentBaseViewModel viewModel, CourseEnrolment entityModel)
         {
-            entityModel.course_enrolment_id = viewModel.course_enrolment_id;
-            entityModel.student_id = viewModel.student_id;
-            entityModel.course_id = viewModel.course_id;
-            // entityModel.course_status = "ENROLLED" is default
-            // create and edit calls function to set course_status
+            entityModel.course_enrolment_id = viewModel.CourseEnrolmentId;
+            entityModel.student_id = viewModel.StudentId;
+            entityModel.course_id = viewModel.CourseId;
+            // entityModel.CourseStatus = "ENROLLED" is default
+            // create and edit calls function to set CourseStatus
         }
 
         /// <summary>
@@ -237,13 +237,13 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void PopulateViewModel(CourseEnrolmentBaseViewModel viewModel, CourseEnrolment entityModel)
         {
-            viewModel.course_enrolment_id = entityModel.course_enrolment_id;
-            viewModel.student_id = entityModel.student_id;
-            viewModel.course_id = entityModel.course_id;
-            viewModel.course_status = entityModel.course_status;
+            viewModel.CourseEnrolmentId = entityModel.course_enrolment_id;
+            viewModel.StudentId = entityModel.student_id;
+            viewModel.CourseId = entityModel.course_id;
+            viewModel.CourseStatus = entityModel.course_status;
 
-            viewModel.fullname = entityModel.Student.firstname + " " + entityModel.Student.lastname;
-            viewModel.title = entityModel.Course.title;
+            viewModel.StudentFullName = entityModel.Student.firstname + " " + entityModel.Student.lastname;
+            viewModel.Title = entityModel.Course.title;
         }
 
         /// <summary>

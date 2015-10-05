@@ -19,48 +19,48 @@
         @*Student ID*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.student_id, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.StudentId, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.student_id, Model.StudentDropDownList, "Select Student", new {@class = "form-control"})
+                @Html.DropDownListFor(model => model.StudentId, Model.StudentDropDownList, "Select Student", new {@class = "form-control"})
             </div>
             <div class="col-md-4">
-                @Html.ValidationMessageFor(model => model.student_id, "", new {@class = "text-danger"})
+                @Html.ValidationMessageFor(model => model.StudentId, "", new {@class = "text-danger"})
             </div>
         </div>
 
         @*Unit ID*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.unit_id, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.UnitId, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.unit_id, Model.UnitDropDownList, "Select Unit", new {@class = "form-control"})
+                @Html.DropDownListFor(model => model.UnitId, Model.UnitDropDownList, "Select Unit", new {@class = "form-control"})
             </div>
             <div class="col-md-4">
-                @Html.ValidationMessageFor(model => model.unit_id, "", new {@class = "text-danger"})
+                @Html.ValidationMessageFor(model => model.UnitId, "", new {@class = "text-danger"})
             </div>
         </div>
 
         @*Year/Sem*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.year_sem, new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.YearSem, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
-                @Html.EditorFor(model => model.year_sem, new {htmlAttributes = new {@class = "form-control", placeholder = "Example 152"}})
+                @Html.EditorFor(model => model.YearSem, new {htmlAttributes = new {@class = "form-control", placeholder = "Example 152"}})
             </div>
             <div class="col-md-4">
-                @Html.ValidationMessageFor(model => model.year_sem, "", new {@class = "text-danger"})
+                @Html.ValidationMessageFor(model => model.YearSem, "", new {@class = "text-danger"})
             </div>
         </div>
 
         @*Mark*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.mark, new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Mark, new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.EditorFor(model => model.mark, new {htmlAttributes = new {@class = "form-control", placeholder = "Between 0 and 100"}})
+                @Html.EditorFor(model => model.Mark, new {htmlAttributes = new {@class = "form-control", placeholder = "Between 0 and 100"}})
             </div>
             <div class="col-md-4">
-                @Html.ValidationMessageFor(model => model.mark, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.Mark, "", new { @class = "text-danger" })
             </div>
         </div>
 

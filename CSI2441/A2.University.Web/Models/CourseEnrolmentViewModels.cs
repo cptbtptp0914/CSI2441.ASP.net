@@ -12,28 +12,28 @@ namespace A2.University.Web.Models
         // core fields
 
         // hidden from user
-        public long course_enrolment_id { get; set; }
+        public long CourseEnrolmentId { get; set; }
 
         [Display(Name = "Student ID")]
-        public long student_id { get; set; }
+        public long StudentId { get; set; }
 
         [Display(Name = "Course ID")]
-        public string course_id { get; set; }
+        public string CourseId { get; set; }
 
         [Display(Name = "Status")]
-        public string course_status { get; set; }
+        public string CourseStatus { get; set; }
 
         // derived fields
 
-        [Display(Name = "Course title")]
-        public string title { get; set; }
+        [Display(Name = "Course Title")]
+        public string Title { get; set; }
 
         [Display(Name = "Student name")]
-        public string fullname { get; set; }
+        public string StudentFullName { get; set; }
 
         // student
-        public string firstname { get; set; }
-        public string lastname { get; set; }
+        public string StudentFirstName { get; set; }
+        public string StudentLastName { get; set; }
     }
 
     public class CourseEnrolmentIndexViewModel : CourseEnrolmentBaseViewModel
@@ -47,8 +47,8 @@ namespace A2.University.Web.Models
         public List<CourseEnrolmentDropDownListViewModel> Students = new List<CourseEnrolmentDropDownListViewModel>();
         public List<CourseEnrolmentDropDownListViewModel> Courses = new List<CourseEnrolmentDropDownListViewModel>();
         // store derived items for dropdownlist
-        public string student_id_fullname { get; set; }
-        public string course_id_title { get; set; }
+        public string StudentIdFullname { get; set; }
+        public string CourseIdTitle { get; set; }
 
         // to be populated by controller
         public IEnumerable<SelectListItem> StudentDropDownList { get; set; }

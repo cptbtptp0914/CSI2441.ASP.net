@@ -16,34 +16,34 @@ namespace A2.University.Web.Models
         // core fields
 
         // hidden from user
-        public long unit_enrolment_id { get; set; }
+        public long UnitEnrolmentId { get; set; }
 
         [Display(Name = "Student ID")]
-        public long student_id { get; set; }
+        public long StudentId { get; set; }
 
         [Display(Name = "Unit ID")]
-        public string unit_id { get; set; }
+        public string UnitId { get; set; }
 
         [Display(Name = "Year/Sem")]
-        public string year_sem { get; set; }
+        public string YearSem { get; set; }
 
         [Display(Name = "Mark")]
-        public string mark { get; set; }
+        public string Mark { get; set; }
 
         // derived fields
 
-        [Display(Name = "Unit title")]
-        public string title { get; set; }
+        [Display(Name = "Unit Title")]
+        public string Title { get; set; }
 
         [Display(Name = "Student name")]
-        public string fullname { get; set; }
+        public string StudentFullName { get; set; }
 
         [Display(Name = "Grade")]
-        public string grade { get; set; }
+        public string Grade { get; set; }
 
         // student
-        public string firstname { get; set; }
-        public string lastname { get; set; }
+        public string StudentFirstName { get; set; }
+        public string StudentLastName { get; set; }
     }
 
     public class UnitEnrolmentIndexViewModel : UnitEnrolmentBaseViewModel
@@ -57,8 +57,8 @@ namespace A2.University.Web.Models
         public List<UnitEnrolmentDropDownListViewModel> Students = new List<UnitEnrolmentDropDownListViewModel>();
         public List<UnitEnrolmentDropDownListViewModel> Units = new List<UnitEnrolmentDropDownListViewModel>(); 
         // store derived items for dropdownlist
-        public string student_id_fullname { get; set; }
-        public string unit_id_title { get; set; }
+        public string StudentIdFullName { get; set; }
+        public string UnitIdTitle { get; set; }
 
         // to be populated by controller
         public IEnumerable<SelectListItem> StudentDropDownList { get; set; }

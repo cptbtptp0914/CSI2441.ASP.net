@@ -14,36 +14,36 @@
         <hr />
 
         <div class="form-group">
-            @Html.LabelFor(model => model.staff_id, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StaffId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.staff_id)</p>
+                <p class="form-display">@Html.DisplayFor(model => model.StaffId)</p>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.firstname, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.firstname)</p>
+                <p class="form-display">@Html.DisplayFor(model => model.FirstName)</p>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.surname, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.surname)</p>
+                <p class="form-display">@Html.DisplayFor(model => model.LastName)</p>
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.email, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                <p class="form-display">@Html.DisplayFor(model => model.email)</p>
+                <p class="form-display">@Html.DisplayFor(model => model.Email)</p>
             </div>
         </div>
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10 button-top-gap">
-                <a class="btn btn-default" href="@Url.Action("Edit", "Staff", new { id = Model.staff_id })">Edit</a>
+                <a class="btn btn-default" href="@Url.Action("Edit", "Staff", new { id = Model.StaffId })">Edit</a>
                 <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Staff")">Cancel</a>
             </div>
         </div>

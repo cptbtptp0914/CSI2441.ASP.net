@@ -27,15 +27,15 @@ namespace A2.University.Web.Controllers
             {
                 unitEnrolmentViewModel.UnitEnrolments.Add(new UnitEnrolmentIndexViewModel
                 {
-                    unit_enrolment_id = unitEnrolment.unit_enrolment_id,
-                    student_id = unitEnrolment.student_id,
-                    firstname = unitEnrolment.Student.firstname,
-                    lastname = unitEnrolment.Student.lastname,
-                    unit_id = unitEnrolment.unit_id,
-                    title = unitEnrolment.Unit.title,
-                    year_sem = unitEnrolment.year_sem.ToString(),
-                    mark = unitEnrolment.mark.ToString(),
-                    grade = GradeRules.GetGrade(unitEnrolment.mark)
+                    UnitEnrolmentId = unitEnrolment.unit_enrolment_id,
+                    StudentId = unitEnrolment.student_id,
+                    StudentFirstName = unitEnrolment.Student.firstname,
+                    StudentLastName = unitEnrolment.Student.lastname,
+                    UnitId = unitEnrolment.unit_id,
+                    Title = unitEnrolment.Unit.title,
+                    YearSem = unitEnrolment.year_sem.ToString(),
+                    Mark = unitEnrolment.mark.ToString(),
+                    Grade = GradeRules.GetGrade(unitEnrolment.mark)
                 });
             }
 
@@ -80,7 +80,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "unit_enrolment_id,student_id,unit_id,year_sem,mark")] UnitEnrolmentCreateViewModel unitEnrolmentViewModel)
+        public ActionResult Create([Bind(Include = "UnitEnrolmentId,StudentId,UnitId,YearSem,Mark")] UnitEnrolmentCreateViewModel unitEnrolmentViewModel)
         {
             // if input passes validation
             if (ModelState.IsValid)
@@ -132,7 +132,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "unit_enrolment_id,student_id,unit_id,year_sem,mark")] UnitEnrolment unitEnrolmentEntityModel, UnitEnrolmentEditViewModel unitEnrolmentViewModel)
+        public ActionResult Edit([Bind(Include = "UnitEnrolmentId,StudentId,UnitId,YearSem,Mark")] UnitEnrolment unitEnrolmentEntityModel, UnitEnrolmentEditViewModel unitEnrolmentViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -195,8 +195,8 @@ namespace A2.University.Web.Controllers
             {
                 viewModel.Students.Add(new UnitEnrolmentDropDownListViewModel
                 {
-                    student_id = student.student_id,
-                    student_id_fullname = student.student_id + " "  + student.firstname + " " + student.lastname
+                    StudentId = student.student_id,
+                    StudentIdFullName = student.student_id + " "  + student.firstname + " " + student.lastname
                 });
             }
 
@@ -204,14 +204,14 @@ namespace A2.University.Web.Controllers
             {
                 viewModel.Units.Add(new UnitEnrolmentDropDownListViewModel
                 {
-                    unit_id = unit.unit_id,
-                    unit_id_title = unit.unit_id + " " + unit.title
+                    UnitId = unit.unit_id,
+                    UnitIdTitle = unit.unit_id + " " + unit.title
                 });
             }
 
             // populate dropdownlist from viewmodel list
-            viewModel.StudentDropDownList = new SelectList(viewModel.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            viewModel.UnitDropDownList = new SelectList(viewModel.Units.OrderBy(u => u.unit_id), "unit_id", "unit_id_title");
+            viewModel.StudentDropDownList = new SelectList(viewModel.Students.OrderBy(s => s.StudentId), "StudentId", "StudentIdFullName");
+            viewModel.UnitDropDownList = new SelectList(viewModel.Units.OrderBy(u => u.UnitId), "UnitId", "UnitIdTitle");
         }
 
         /// <summary>
@@ -221,11 +221,11 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void PopulateEntityModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
         {
-            entityModel.unit_enrolment_id = viewModel.unit_enrolment_id;
-            entityModel.student_id = viewModel.student_id;
-            entityModel.unit_id = viewModel.unit_id;
-            entityModel.year_sem = int.Parse(viewModel.year_sem);
-            entityModel.mark = int.Parse(viewModel.mark);
+            entityModel.unit_enrolment_id = viewModel.UnitEnrolmentId;
+            entityModel.student_id = viewModel.StudentId;
+            entityModel.unit_id = viewModel.UnitId;
+            entityModel.year_sem = int.Parse(viewModel.YearSem);
+            entityModel.mark = int.Parse(viewModel.Mark);
         }
 
         /// <summary>
@@ -235,15 +235,15 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void PopulateViewModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
         {
-            viewModel.unit_enrolment_id = entityModel.unit_enrolment_id;
-            viewModel.student_id = entityModel.student_id;
-            viewModel.unit_id = entityModel.unit_id;
-            viewModel.year_sem = entityModel.year_sem.ToString();
-            viewModel.mark = entityModel.mark.ToString();
+            viewModel.UnitEnrolmentId = entityModel.unit_enrolment_id;
+            viewModel.StudentId = entityModel.student_id;
+            viewModel.UnitId = entityModel.unit_id;
+            viewModel.YearSem = entityModel.year_sem.ToString();
+            viewModel.Mark = entityModel.mark.ToString();
 
-            viewModel.fullname = entityModel.Student.firstname + " " + entityModel.Student.lastname;
-            viewModel.title = entityModel.Unit.title;
-            viewModel.grade = GradeRules.GetGrade(entityModel.mark);
+            viewModel.StudentFullName = entityModel.Student.firstname + " " + entityModel.Student.lastname;
+            viewModel.Title = entityModel.Unit.title;
+            viewModel.Grade = GradeRules.GetGrade(entityModel.mark);
         }
 
         protected override void Dispose(bool disposing)

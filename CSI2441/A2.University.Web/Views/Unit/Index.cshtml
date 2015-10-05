@@ -36,26 +36,26 @@
 @Html.Grid(Model).Columns(columns =>
 {
     // unit id
-    columns.Add(data => data.unit_id)
+    columns.Add(data => data.UnitId)
         .Titled("Unit ID")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
-    // unit title
-    columns.Add(data => data.title)
+    // unit Title
+    columns.Add(data => data.Title)
         .Titled("Title")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // coordinator
-    columns.Add(data => data.staff_fullname)
+    columns.Add(data => data.StaffFullName)
         .Titled("Coordinator")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // credit points
-    columns.Add(data => data.credit_points)
+    columns.Add(data => data.CreditPoints)
         .Titled("CP").Filterable(true)
         .SetFilterWidgetType("System.Int32");
     // unit type
-    columns.Add(data => data.unit_type_title)
+    columns.Add(data => data.UnitTypeTitle)
         .Titled("Unit Type")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
@@ -64,17 +64,17 @@
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.unit_id }));
+        .RenderValueAs(data => Html.ActionLink("View", "Details", new { id = data.UnitId }));
     // edit
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.unit_id }));
+        .RenderValueAs(data => Html.ActionLink("Edit", "Edit", new { id = data.UnitId }));
     // delete
     columns.Add()
         .Encoded(false)
         .Sanitized(false)
         .SetWidth(30)
-        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.unit_id }));
+        .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.UnitId }));
 }).WithPaging(20).Sortable(true)

@@ -28,14 +28,14 @@ namespace A2.University.Web.Controllers
                 unitViewModel.Units.Add(new UnitIndexViewModel
                 {
                     // core fields
-                    unit_id = unit.unit_id,
-                    title = unit.title,
-                    coordinator_id = unit.coordinator_id,
-                    credit_points = unit.credit_points,
-                    unit_type_id = unit.unit_type_id,
+                    UnitId = unit.unit_id,
+                    Title = unit.title,
+                    CoordinatorId = unit.coordinator_id,
+                    CreditPoints = unit.credit_points,
+                    UnitTypeId = unit.unit_type_id,
                     // derived fields
-                    staff_fullname = unit.Staff.firstname + " " + unit.Staff.surname,
-                    unit_type_title = unit.UnitType.title
+                    StaffFullName = unit.Staff.firstname + " " + unit.Staff.surname,
+                    UnitTypeTitle = unit.UnitType.title
                 });
             }
 
@@ -82,7 +82,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "unit_id,title,coordinator_id,credit_points,unit_type_id")] UnitCreateViewModel unitViewModel)
+        public ActionResult Create([Bind(Include = "UnitId,Title,CoordinatorId,CreditPoints,UnitTypeId")] UnitCreateViewModel unitViewModel)
         {
 
             // if input passes validation
@@ -136,7 +136,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "unit_id,title,coordinator_id,credit_points,unit_type_id")] Unit unitEntityModel, UnitEditViewModel unitViewModel)
+        public ActionResult Edit([Bind(Include = "UnitId,Title,CoordinatorId,CreditPoints,UnitTypeId")] Unit unitEntityModel, UnitEditViewModel unitViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -200,8 +200,8 @@ namespace A2.University.Web.Controllers
             {
                 viewModel.Coordinators.Add(new UnitDropDownListViewModel
                 {
-                    coordinator_id = staff.staff_id,
-                    staff_id_fullname = staff.staff_id + " " + staff.firstname + " " + staff.surname
+                    CoordinatorId = staff.staff_id,
+                    StaffIdFullName = staff.staff_id + " " + staff.firstname + " " + staff.surname
                 });
             }
 
@@ -209,14 +209,14 @@ namespace A2.University.Web.Controllers
             {
                 viewModel.UnitTypes.Add(new UnitDropDownListViewModel
                 {
-                    unit_type_id = type.unit_type_id,
-                    unit_type_title = type.title
+                    UnitTypeId = type.unit_type_id,
+                    UnitTypeTitle = type.title
                 });
             }
 
             // populate dropdownlist from viewmodel list
-            viewModel.CoordinatorDropDownList = new SelectList(viewModel.Coordinators.OrderBy(s => s.coordinator_id), "coordinator_id", "staff_id_fullname");
-            viewModel.UnitTypeTitleDropDownList = new SelectList(viewModel.UnitTypes.OrderBy(u => u.unit_type_id), "unit_type_id", "unit_type_title");
+            viewModel.CoordinatorDropDownList = new SelectList(viewModel.Coordinators.OrderBy(s => s.CoordinatorId), "CoordinatorId", "StaffIdFullName");
+            viewModel.UnitTypeTitleDropDownList = new SelectList(viewModel.UnitTypes.OrderBy(u => u.UnitTypeId), "UnitTypeId", "UnitTypeTitle");
         }
 
 
@@ -227,11 +227,11 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void PopulateEntityModel(UnitBaseViewModel viewModel, Unit entityModel)
         {
-            entityModel.unit_id = viewModel.unit_id;
-            entityModel.title = viewModel.title;
-            entityModel.coordinator_id = viewModel.coordinator_id;
-            entityModel.credit_points = viewModel.credit_points;
-            entityModel.unit_type_id = viewModel.unit_type_id;
+            entityModel.unit_id = viewModel.UnitId;
+            entityModel.title = viewModel.Title;
+            entityModel.coordinator_id = viewModel.CoordinatorId;
+            entityModel.credit_points = viewModel.CreditPoints;
+            entityModel.unit_type_id = viewModel.UnitTypeId;
         }
 
         /// <summary>
@@ -241,14 +241,14 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void PopulateViewModel(UnitBaseViewModel viewModel, Unit entityModel)
         {
-            viewModel.unit_id = entityModel.unit_id;
-            viewModel.title = entityModel.title;
-            viewModel.coordinator_id = entityModel.coordinator_id;
-            viewModel.credit_points = entityModel.credit_points;
-            viewModel.unit_type_id = entityModel.unit_type_id;
+            viewModel.UnitId = entityModel.unit_id;
+            viewModel.Title = entityModel.title;
+            viewModel.CoordinatorId = entityModel.coordinator_id;
+            viewModel.CreditPoints = entityModel.credit_points;
+            viewModel.UnitTypeId = entityModel.unit_type_id;
 
-            viewModel.staff_fullname = entityModel.Staff.firstname + " " + entityModel.Staff.surname;
-            viewModel.unit_type_title = entityModel.UnitType.title;
+            viewModel.StaffFullName = entityModel.Staff.firstname + " " + entityModel.Staff.surname;
+            viewModel.UnitTypeTitle = entityModel.UnitType.title;
         }
 
         /// <summary>

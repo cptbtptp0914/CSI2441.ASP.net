@@ -14,44 +14,44 @@ namespace A2.University.Web.Models
     {
         [Key]
         [Display(Name = "Student ID")]
-        public long student_id { get; set; }
+        public long StudentId { get; set; }
 
         [Display(Name = "First name")]
-        public string firstname { get; set; }
+        public string FirstName { get; set; }
 
         [Display(Name = "Surname")]
-        public string lastname { get; set; }
+        public string LastName { get; set; }
 
         [Display(Name = "DOB")]
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public System.DateTime dob { get; set; }
+        public System.DateTime Dob { get; set; }
 
         [Display(Name = "Gender")]
-        public string gender { get; set; }
+        public string Gender { get; set; }
 
         [Display(Name = "Email")]
-        public string email { get; set; }
+        public string Email { get; set; }
 
         [Display(Name = "Landline")]
-        public string ph_landline { get; set; }
+        public string LandLine { get; set; }
 
         [Display(Name = "Mobile")]
-        public string ph_mobile { get; set; }
+        public string Mobile { get; set; }
 
         [Display(Name = "Address")]
-        public string adrs { get; set; }
+        public string Adrs { get; set; }
 
         [Display(Name = "City")]
-        public string adrs_city { get; set; }
+        public string AdrsCity { get; set; }
 
         [Display(Name = "State")]
-        public string adrs_state { get; set; }
+        public string AdrsState { get; set; }
 
         // made string instead of int, else displays 0 as prefilled default for some reason
         // cast to int when updating db
         [Display(Name = "Postcode")]
-        public string adrs_postcode { get; set; }
+        public string AdrsPostcode { get; set; }
     }
 
     public class StudentIndexViewModel : StudentBaseViewModel
@@ -61,7 +61,7 @@ namespace A2.University.Web.Models
 
     public class StudentDropDownListViewModel : StudentBaseViewModel
     {
-        // gender dropdownlist
+        // Gender dropdownlist
         // view sets selected value to model, see base class
         public IEnumerable<SelectListItem> GenderDropDownList = new List<SelectListItem>
         {

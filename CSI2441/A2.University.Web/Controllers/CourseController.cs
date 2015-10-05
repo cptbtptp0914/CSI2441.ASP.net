@@ -28,15 +28,15 @@ namespace A2.University.Web.Controllers
                 courseViewModel.Courses.Add(new CourseIndexViewModel
                 {
                     // core fields
-                    course_id = course.course_id,
-                    title = course.title,
-                    coordinator_id = course.coordinator_id,
-                    course_type_id = course.course_type_id,
+                    CourseId = course.course_id,
+                    Title = course.title,
+                    CoordinatorId = course.coordinator_id,
+                    CourseTypeId = course.course_type_id,
                     // derived fields
-                    coordinator_name = course.Staff.firstname + " " + course.Staff.surname,
-                    course_type_title = course.CourseType.title,
-                    credit_points = course.CourseType.credit_points,
-                    duration = course.CourseType.duration
+                    StaffFullName = course.Staff.firstname + " " + course.Staff.surname,
+                    CourseTypeTitle = course.CourseType.title,
+                    CreditPoints = course.CourseType.credit_points,
+                    Duration = course.CourseType.duration
                 });
             }
 
@@ -82,7 +82,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "course_id,title,coordinator_id,course_type_id")] CourseCreateViewModel courseViewModel)
+        public ActionResult Create([Bind(Include = "CourseId,Title,CoordinatorId,CourseTypeId")] CourseCreateViewModel courseViewModel)
         {
             // if input passes validation
             if (ModelState.IsValid)
@@ -135,7 +135,7 @@ namespace A2.University.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "course_id,title,coordinator_id,course_type_id")] Course courseEntityModel, CourseEditViewModel courseViewModel)
+        public ActionResult Edit([Bind(Include = "CourseId,Title,CoordinatorId,CourseTypeId")] Course courseEntityModel, CourseEditViewModel courseViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -200,8 +200,8 @@ namespace A2.University.Web.Controllers
             {
                 viewModel.Coordinators.Add(new CourseDropDownListViewModel
                 {
-                    coordinator_id = staff.staff_id,
-                    staff_id_fullname = staff.staff_id + " " + staff.firstname + " " + staff.surname
+                    CoordinatorId = staff.staff_id,
+                    StaffIdFullName = staff.staff_id + " " + staff.firstname + " " + staff.surname
                 });
             }
 
@@ -209,14 +209,14 @@ namespace A2.University.Web.Controllers
             {
                 viewModel.CourseTypes.Add(new CourseDropDownListViewModel
                 {
-                    course_type_id = type.course_type_id,
-                    course_type_title = type.title
+                    CourseTypeId = type.course_type_id,
+                    CourseTypeTitle = type.title
                 });
             }
 
             // populate dropdownlist from viewmodel list
-            viewModel.CoordinatorDropDownList = new SelectList(viewModel.Coordinators.OrderBy(s => s.coordinator_id), "coordinator_id", "staff_id_fullname");
-            viewModel.CourseTypeTitleDropDownList = new SelectList(viewModel.CourseTypes.OrderBy(u => u.course_type_id), "course_type_id", "course_type_title");
+            viewModel.CoordinatorDropDownList = new SelectList(viewModel.Coordinators.OrderBy(s => s.CoordinatorId), "CoordinatorId", "StaffIdFullName");
+            viewModel.CourseTypeTitleDropDownList = new SelectList(viewModel.CourseTypes.OrderBy(u => u.CourseTypeId), "CourseTypeId", "CourseTypeTitle");
         }
 
         /// <summary>
@@ -226,10 +226,10 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void PopulateEntityModel(CourseBaseViewModel viewModel, Course entityModel)
         {
-            entityModel.course_id = viewModel.course_id;
-            entityModel.title = viewModel.title;
-            entityModel.coordinator_id = viewModel.coordinator_id;
-            entityModel.course_type_id = viewModel.course_type_id;
+            entityModel.course_id = viewModel.CourseId;
+            entityModel.title = viewModel.Title;
+            entityModel.coordinator_id = viewModel.CoordinatorId;
+            entityModel.course_type_id = viewModel.CourseTypeId;
         }
 
         /// <summary>
@@ -239,15 +239,15 @@ namespace A2.University.Web.Controllers
         /// <param name="entityModel">Unit</param>
         private void PopulateViewModel(CourseBaseViewModel viewModel, Course entityModel)
         {
-            viewModel.course_id = entityModel.course_id;
-            viewModel.title = entityModel.title;
-            viewModel.coordinator_id = entityModel.coordinator_id;
-            viewModel.course_type_id = entityModel.course_type_id;
+            viewModel.CourseId = entityModel.course_id;
+            viewModel.Title = entityModel.title;
+            viewModel.CoordinatorId = entityModel.coordinator_id;
+            viewModel.CourseTypeId = entityModel.course_type_id;
 
-            viewModel.coordinator_name = entityModel.Staff.firstname + " " + entityModel.Staff.surname;
-            viewModel.course_type_title = entityModel.CourseType.title;
-            viewModel.credit_points = entityModel.CourseType.credit_points;
-            viewModel.duration = entityModel.CourseType.duration;
+            viewModel.StaffFullName = entityModel.Staff.firstname + " " + entityModel.Staff.surname;
+            viewModel.CourseTypeTitle = entityModel.CourseType.title;
+            viewModel.CreditPoints = entityModel.CourseType.credit_points;
+            viewModel.Duration = entityModel.CourseType.duration;
         }
 
         protected override void Dispose(bool disposing)

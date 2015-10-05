@@ -73,6 +73,7 @@
             <PropertyRef Name="unit_enrolment_id" />
           </Key>
           <Property Name="unit_enrolment_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="course_enrolment_id" Type="integer" Nullable="false" />
           <Property Name="student_id" Type="integer" Nullable="false" />
           <Property Name="unit_id" Type="varchar" MaxLength="7" Nullable="false" />
           <Property Name="year_sem" Type="int" Nullable="false" />
@@ -181,6 +182,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UnitEnrolment_2_0">
+          <End Role="CourseEnrolment" Type="Self.CourseEnrolment" Multiplicity="1" />
+          <End Role="UnitEnrolment" Type="Self.UnitEnrolment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseEnrolment">
+              <PropertyRef Name="course_enrolment_id" />
+            </Principal>
+            <Dependent Role="UnitEnrolment">
+              <PropertyRef Name="course_enrolment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="UniversityModelStoreContainer">
           <EntitySet Name="Course" EntityType="Self.Course" store:Type="Tables" />
           <EntitySet Name="CourseEnrolment" EntityType="Self.CourseEnrolment" store:Type="Tables" />
@@ -222,6 +235,10 @@
             <End Role="Student" EntitySet="Student" />
             <End Role="UnitEnrolment" EntitySet="UnitEnrolment" />
           </AssociationSet>
+          <AssociationSet Name="FK_UnitEnrolment_2_0" Association="Self.FK_UnitEnrolment_2_0">
+            <End Role="CourseEnrolment" EntitySet="CourseEnrolment" />
+            <End Role="UnitEnrolment" EntitySet="UnitEnrolment" />
+          </AssociationSet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
@@ -247,9 +264,10 @@
           <Property Name="course_enrolment_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="student_id" Type="Int64" Nullable="false" />
           <Property Name="course_id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="course_status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" DefaultValue="ENROLLED" />
+          <Property Name="course_status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Course" Relationship="Self.FK_CourseEnrolment_0_0" FromRole="CourseEnrolment" ToRole="Course" />
           <NavigationProperty Name="Student" Relationship="Self.FK_CourseEnrolment_1_0" FromRole="CourseEnrolment" ToRole="Student" />
+          <NavigationProperty Name="UnitEnrolments" Relationship="Self.FK_UnitEnrolment_2_0" FromRole="CourseEnrolment" ToRole="UnitEnrolment" />
         </EntityType>
         <EntityType Name="CourseType">
           <Key>
@@ -309,10 +327,12 @@
             <PropertyRef Name="unit_enrolment_id" />
           </Key>
           <Property Name="unit_enrolment_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="course_enrolment_id" Type="Int64" Nullable="false" />
           <Property Name="student_id" Type="Int64" Nullable="false" />
           <Property Name="unit_id" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="year_sem" Type="Int32" Nullable="false" />
           <Property Name="mark" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="CourseEnrolment" Relationship="Self.FK_UnitEnrolment_2_0" FromRole="UnitEnrolment" ToRole="CourseEnrolment" />
           <NavigationProperty Name="Student" Relationship="Self.FK_UnitEnrolment_1_0" FromRole="UnitEnrolment" ToRole="Student" />
           <NavigationProperty Name="Unit" Relationship="Self.FK_UnitEnrolment_0_0" FromRole="UnitEnrolment" ToRole="Unit" />
         </EntityType>
@@ -372,6 +392,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UnitEnrolment_2_0">
+          <End Role="CourseEnrolment" Type="Self.CourseEnrolment" Multiplicity="1" />
+          <End Role="UnitEnrolment" Type="Self.UnitEnrolment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CourseEnrolment">
+              <PropertyRef Name="course_enrolment_id" />
+            </Principal>
+            <Dependent Role="UnitEnrolment">
+              <PropertyRef Name="course_enrolment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Unit_1_0">
           <End Role="Staff" Type="Self.Staff" Multiplicity="1" />
           <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
@@ -424,7 +456,7 @@
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="CourseEnrolments" EntityType="Self.CourseEnrolment" />
           <EntitySet Name="CourseTypes" EntityType="Self.CourseType" />
-          <EntitySet Name="Staff" EntityType="Self.Staff" />
+          <EntitySet Name="Staffs" EntityType="Self.Staff" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Units" EntityType="Self.Unit" />
           <EntitySet Name="UnitEnrolments" EntityType="Self.UnitEnrolment" />
@@ -434,7 +466,7 @@
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_1_0" Association="Self.FK_Course_1_0">
-            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Staff" EntitySet="Staffs" />
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseEnrolment_0_0" Association="Self.FK_CourseEnrolment_0_0">
@@ -445,8 +477,12 @@
             <End Role="Student" EntitySet="Students" />
             <End Role="CourseEnrolment" EntitySet="CourseEnrolments" />
           </AssociationSet>
+          <AssociationSet Name="FK_UnitEnrolment_2_0" Association="Self.FK_UnitEnrolment_2_0">
+            <End Role="CourseEnrolment" EntitySet="CourseEnrolments" />
+            <End Role="UnitEnrolment" EntitySet="UnitEnrolments" />
+          </AssociationSet>
           <AssociationSet Name="FK_Unit_1_0" Association="Self.FK_Unit_1_0">
-            <End Role="Staff" EntitySet="Staff" />
+            <End Role="Staff" EntitySet="Staffs" />
             <End Role="Unit" EntitySet="Units" />
           </AssociationSet>
           <AssociationSet Name="FK_UnitEnrolment_1_0" Association="Self.FK_UnitEnrolment_1_0">
@@ -498,7 +534,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Staff">
+          <EntitySetMapping Name="Staffs">
             <EntityTypeMapping TypeName="UniversityModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
                 <ScalarProperty Name="staff_id" ColumnName="staff_id" />
@@ -541,6 +577,7 @@
             <EntityTypeMapping TypeName="UniversityModel.UnitEnrolment">
               <MappingFragment StoreEntitySet="UnitEnrolment">
                 <ScalarProperty Name="unit_enrolment_id" ColumnName="unit_enrolment_id" />
+                <ScalarProperty Name="course_enrolment_id" ColumnName="course_enrolment_id" />
                 <ScalarProperty Name="student_id" ColumnName="student_id" />
                 <ScalarProperty Name="unit_id" ColumnName="unit_id" />
                 <ScalarProperty Name="year_sem" ColumnName="year_sem" />

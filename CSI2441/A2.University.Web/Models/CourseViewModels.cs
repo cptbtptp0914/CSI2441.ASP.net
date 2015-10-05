@@ -13,28 +13,28 @@ namespace A2.University.Web.Models
     public class CourseBaseViewModel
     {
         [Display(Name = "Course ID")]
-        public string course_id { get; set; }
+        public string CourseId { get; set; }
 
         [Display(Name = "Title")]
-        public string title { get; set; }
+        public string Title { get; set; }
 
         [Display(Name = "Coordinator")]
-        public long coordinator_id { get; set; }
+        public long CoordinatorId { get; set; }
 
         [Display(Name = "Course Type")]
-        public long course_type_id { get; set; }
+        public long CourseTypeId { get; set; }
 
         [Display(Name = "Coordinator")]
-        public string coordinator_name { get; set; }
+        public string StaffFullName { get; set; }
 
         [Display(Name = "Course Type")]
-        public string course_type_title { get; set; }
+        public string CourseTypeTitle { get; set; }
 
         [Display(Name = "Credit Points")]
-        public int credit_points { get; set; }
+        public int CreditPoints { get; set; }
 
         [Display(Name = "Duration (months)")]
-        public int duration { get; set; }
+        public int Duration { get; set; }
     }
 
     public class CourseIndexViewModel : CourseBaseViewModel
@@ -48,7 +48,7 @@ namespace A2.University.Web.Models
         public List<CourseDropDownListViewModel> Coordinators = new List<CourseDropDownListViewModel>();
         public List<CourseDropDownListViewModel> CourseTypes = new List<CourseDropDownListViewModel>();
         // store derived items for dropdownlist
-        public string staff_id_fullname { get; set; }
+        public string StaffIdFullName { get; set; }
              
         // to be populated by controller
         public IEnumerable<SelectListItem> CoordinatorDropDownList { get; set; }

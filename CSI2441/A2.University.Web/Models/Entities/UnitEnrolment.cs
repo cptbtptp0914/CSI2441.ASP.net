@@ -15,11 +15,13 @@ namespace A2.University.Web.Models.Entities
     public partial class UnitEnrolment
     {
         public long unit_enrolment_id { get; set; }
+        public long course_enrolment_id { get; set; }
         public long student_id { get; set; }
         public string unit_id { get; set; }
         public int year_sem { get; set; }
         public int mark { get; set; }
     
+        public virtual CourseEnrolment CourseEnrolment { get; set; }
         public virtual Student Student { get; set; }
         public virtual Unit Unit { get; set; }
     }
