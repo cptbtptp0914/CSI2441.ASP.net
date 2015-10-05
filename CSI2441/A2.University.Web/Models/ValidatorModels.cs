@@ -375,14 +375,4 @@ namespace A2.University.Web.Models
                 .NotEmpty().WithMessage("* Required");
         }
     }
-
-    public class CourseEnrolmentEditViewModelValidator : CourseEnrolmentBaseViewModelValidator
-    {
-        public CourseEnrolmentEditViewModelValidator()
-        {
-            // status dropdownlist
-            RuleFor(field => field.CourseStatus)
-                .NotEmpty().WithMessage("* Required");
-        }
-    }
 }

@@ -77,10 +77,9 @@ namespace A2.University.Web.Models
         // Inherits CourseEnrolmentDropDownListViewModel, no custom fields required
     }
 
-    [Validator(typeof(CourseEnrolmentEditViewModelValidator))]
     public class CourseEnrolmentEditViewModel : CourseEnrolmentDropDownListViewModel
     {
-        // Uses own validator where status is required
+        // Inherits CourseEnrolmentDropDownListViewModel, no custom fields required
     }
 
     public class CourseEnrolmentDeleteViewModel : CourseEnrolmentBaseViewModel
