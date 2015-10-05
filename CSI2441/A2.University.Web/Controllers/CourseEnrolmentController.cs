@@ -21,7 +21,22 @@ namespace A2.University.Web.Controllers
         public ActionResult Index()
         {
             CourseEnrolmentIndexViewModel courseEnrolmentViewModel = new CourseEnrolmentIndexViewModel();
-            courseEnrolmentViewModel.CourseEnrolments = db.CourseEnrolments.Include(c => c.Course).Include(c => c.Student).ToList();
+            var courseEnrolmentsEntity = db.CourseEnrolments.Include(c => c.Course).Include(c => c.Student).ToList();
+            
+            // transfer entity list to viewmodel list
+            foreach (CourseEnrolment courseEnrolment in courseEnrolmentsEntity)
+            {
+                courseEnrolmentViewModel.CourseEnrolments.Add(new CourseEnrolmentIndexViewModel
+                {
+                    course_enrolment_id = courseEnrolment.course_enrolment_id,
+                    student_id = courseEnrolment.student_id,
+                    firstname = courseEnrolment.Student.firstname,
+                    lastname = courseEnrolment.Student.lastname,
+                    course_id = courseEnrolment.course_id,
+                    title = courseEnrolment.Course.title,
+                    course_status = courseEnrolment.course_status
+                });
+            }
 
             return View(courseEnrolmentViewModel.CourseEnrolments);
         }

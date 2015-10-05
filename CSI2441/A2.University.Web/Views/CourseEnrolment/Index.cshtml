@@ -1,5 +1,5 @@
 ﻿@using GridMvc.Html
-@model IEnumerable<A2.University.Web.Models.Entities.CourseEnrolment>
+@model IEnumerable<A2.University.Web.Models.CourseEnrolmentIndexViewModel>
 
 @{
     ViewBag.Title = "Manage Course Enrolments";
@@ -36,17 +36,17 @@
 @Html.Grid(Model).Columns(columns =>
 {
     // student id
-    columns.Add(data => data.Student.student_id)
+    columns.Add(data => data.student_id)
         .Titled("Student ID")
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
     // student firstname
-    columns.Add(data => data.Student.firstname)
+    columns.Add(data => data.firstname)
         .Titled("First name")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // student surname
-    columns.Add(data => data.Student.lastname)
+    columns.Add(data => data.lastname)
         .Titled("Surname")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
@@ -56,7 +56,7 @@
         .Filterable(true)
         .SetFilterWidgetType("System.Int32");
     // course title
-    columns.Add(data => data.Course.title)
+    columns.Add(data => data.title)
         .Titled("Title")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
