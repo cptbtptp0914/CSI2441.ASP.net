@@ -25,12 +25,6 @@ namespace A2.University.Web.Models.Entities
         public long coordinator_id { get; set; }
         public long course_type_id { get; set; }
 
-        // derived
-        public string course_id_title
-        {
-            get { return course_id + " " + title; }
-        }
-
         public virtual CourseType CourseType { get; set; }
         public virtual Staff Staff { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

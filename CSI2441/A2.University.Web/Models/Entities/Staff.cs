@@ -26,12 +26,6 @@ namespace A2.University.Web.Models.Entities
         public string surname { get; set; }
         public string email { get; set; }
 
-        // derived
-        public string fullname
-        {
-            get { return firstname + " " + surname; }
-        }
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Course> Courses { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

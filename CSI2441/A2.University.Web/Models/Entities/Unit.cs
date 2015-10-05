@@ -26,12 +26,6 @@ namespace A2.University.Web.Models.Entities
         public int credit_points { get; set; }
         public long unit_type_id { get; set; }
 
-        // derived
-        public string unit_id_title
-        {
-            get { return unit_id + " " + title; }
-        }
-
         public virtual Staff Staff { get; set; }
         public virtual UnitType UnitType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
