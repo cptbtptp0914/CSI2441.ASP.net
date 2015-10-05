@@ -27,6 +27,7 @@ namespace A2.University.Web.Controllers
             {
                 unitEnrolmentViewModel.UnitEnrolments.Add(new UnitEnrolmentIndexViewModel
                 {
+                    unit_enrolment_id = unitEnrolment.unit_enrolment_id,
                     student_id = unitEnrolment.student_id,
                     firstname = unitEnrolment.Student.firstname,
                     lastname = unitEnrolment.Student.lastname,
