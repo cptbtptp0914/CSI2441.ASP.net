@@ -256,7 +256,7 @@ namespace A2.University.Web.Controllers
         }
 
         /// <summary>
-        /// Sets previously ENROLLED units to DISCONTIN.
+        /// Sets previously ENROLLED course to DISCONTIN.
         /// </summary>
         /// <param name="studentId">long</param>
         private void DiscontinuePrevEnrolments (long studentId)
@@ -284,6 +284,11 @@ namespace A2.University.Web.Controllers
             }
         }
 
+        /// <summary>
+        /// Sets last DISCONTIN course to ENROLLED.
+        /// Used when ActionResult Delete() called.
+        /// </summary>
+        /// <param name="studentId"></param>
         private void ReEnrolLastCourse(long studentId)
         {
             // can't use dict in linq, substitute with string
