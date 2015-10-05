@@ -264,7 +264,7 @@
           <Property Name="course_enrolment_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="student_id" Type="Int64" Nullable="false" />
           <Property Name="course_id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="course_status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" DefaultValue="ENROLLED" />
+          <Property Name="course_status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Course" Relationship="Self.FK_CourseEnrolment_0_0" FromRole="CourseEnrolment" ToRole="Course" />
           <NavigationProperty Name="Student" Relationship="Self.FK_CourseEnrolment_1_0" FromRole="CourseEnrolment" ToRole="Student" />
           <NavigationProperty Name="UnitEnrolments" Relationship="Self.FK_UnitEnrolment_2_0" FromRole="CourseEnrolment" ToRole="UnitEnrolment" />

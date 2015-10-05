@@ -74,7 +74,11 @@ namespace A2.University.Web.Models
 
     public class CourseEnrolmentCreateViewModel : CourseEnrolmentDropDownListViewModel
     {
-        // Inherits CourseEnrolmentDropDownListViewModel, no custom fields required
+        // default value when creating new course enrolment
+        public CourseEnrolmentCreateViewModel()
+        {
+            this.CourseStatus = "ENROLLED";
+        }
     }
 
     public class CourseEnrolmentEditViewModel : CourseEnrolmentDropDownListViewModel
