@@ -29,7 +29,7 @@ namespace A2.University.Web.Models
         public long unit_type_id { get; set; }
 
         [Display(Name = "Coordinator")]
-        public string coordinator_name { get; set; }
+        public string staff_fullname { get; set; }
 
         [Display(Name = "Unit Type")]
         public string unit_type_title { get; set; }
@@ -42,7 +42,14 @@ namespace A2.University.Web.Models
 
     public class UnitDropDownListViewModel : UnitBaseViewModel
     {
-        // to be populated by db
+        // store lists of coordinators/unit types, will extract data for dropdownlists
+        public List<UnitDropDownListViewModel> Coordinators = new List<UnitDropDownListViewModel>();
+        public List<UnitDropDownListViewModel> UnitTypes = new List<UnitDropDownListViewModel>();
+        // store derived items for dropdownlist
+
+        public string staff_id_fullname { get; set; }
+
+        // to be populated by controller
         public IEnumerable<SelectListItem> CoordinatorDropDownList { get; set; }
         public IEnumerable<SelectListItem> UnitTypeTitleDropDownList { get; set; }
 
