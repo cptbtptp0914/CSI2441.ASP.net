@@ -10,11 +10,6 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
-    public class UnitEnrolmentIndexViewModel
-    {
-        public List<UnitEnrolment> UnitEnrolments { get; set; }
-    }
-
     [Validator(typeof(UnitEnrolmentBaseViewModelValidator))]
     public class UnitEnrolmentBaseViewModel
     {
@@ -45,6 +40,14 @@ namespace A2.University.Web.Models
 
         [Display(Name = "Grade")]
         public string grade { get; set; }
+    }
+
+    public class UnitEnrolmentIndexViewModel : UnitEnrolmentBaseViewModel
+    {
+        public List<UnitEnrolmentIndexViewModel> UnitEnrolments = new List<UnitEnrolmentIndexViewModel>();
+
+        public string firstname { get; set; }
+        public string lastname { get; set; }
     }
 
     public class UnitEnrolmentDropDownListViewModel : UnitEnrolmentBaseViewModel

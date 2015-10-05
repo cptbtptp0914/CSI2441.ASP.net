@@ -20,9 +20,25 @@ namespace A2.University.Web.Controllers
         public ActionResult Index()
         {
             UnitEnrolmentIndexViewModel unitEnrolmentViewModel = new UnitEnrolmentIndexViewModel();
-            unitEnrolmentViewModel.UnitEnrolments =
-                db.UnitEnrolments.Include(u => u.Student).Include(u => u.Unit).ToList();
+            var unitEnrolmentsEntity = db.UnitEnrolments.Include(u => u.Student).Include(u => u.Unit).ToList();
 
+            // transfer entity list to viewmodel list
+            foreach (UnitEnrolment unitEnrolment in unitEnrolmentsEntity)
+            {
+                unitEnrolmentViewModel.UnitEnrolments.Add(new UnitEnrolmentIndexViewModel
+                {
+                    student_id = unitEnrolment.student_id,
+                    firstname = unitEnrolment.Student.firstname,
+                    lastname = unitEnrolment.Student.lastname,
+                    unit_id = unitEnrolment.unit_id,
+                    title = unitEnrolment.Unit.title,
+                    year_sem = unitEnrolment.year_sem.ToString(),
+                    mark = unitEnrolment.mark.ToString(),
+                    grade = GradeRules.GetGrade(unitEnrolment.mark)
+                });
+            }
+
+            // render view using viewmodel list
             return View(unitEnrolmentViewModel.UnitEnrolments);
         }
 
