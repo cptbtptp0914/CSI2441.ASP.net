@@ -118,11 +118,33 @@ namespace A2.University.Web.Models.Business
         /// <returns></returns>
         public bool IsNotUniqueEnrolled(long studentId)
         {
+            // can't use dict in linq, substitute with string
+            string state = CourseStates["Enrolled"];
+
             var course = db.CourseEnrolments.FirstOrDefault(
                 ce => ce.student_id == studentId &&
-                      ce.course_status == CourseStates["Enrolled"]);
+                      ce.course_status == state);
 
             return course != null;
+        }
+
+        /// <summary>
+        /// Checks if student is enrolled in a course.
+        /// Student must be enrolled in course first before enrolling in any units.
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
+        public bool IsStudentCourseEnrolled(long studentId)
+        {
+            // can't use dict in linq, substitute with string
+            string state = CourseStates["Enrolled"];
+
+            var courseEnrolment =
+                db.CourseEnrolments.FirstOrDefault(
+                    ce => ce.student_id == studentId &&
+                          ce.course_status == state);
+
+            return courseEnrolment != null;
         }
     }
 }

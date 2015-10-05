@@ -139,11 +139,15 @@ namespace A2.University.Web.Models
             RuleFor(field => field.UnitTypeId)
                 .NotEmpty().WithMessage("* Required");
 
+            /**************************
+             * SERVER SIDE VALIDATION *
+             **************************/
+
             // validate unit id uniqueness
             Custom(field =>
             {
-                var unitID = db.Units.FirstOrDefault(u => u.unit_id == field.UnitId);
-                if (unitID != null)
+                var unitId = db.Units.FirstOrDefault(u => u.unit_id == field.UnitId);
+                if (unitId != null)
                 {
                     return new ValidationFailure("UnitId", "* Unit ID already exists");
                 }
@@ -200,11 +204,15 @@ namespace A2.University.Web.Models
             RuleFor(field => field.CourseTypeId)
                 .NotEmpty().WithMessage("* Required");
 
+            /**************************
+             * SERVER SIDE VALIDATION *
+             **************************/
+
             // validate course id uniqueness
             Custom(field =>
             {
-                var courseID = db.Courses.FirstOrDefault(c => c.course_id == field.CourseId);
-                if (courseID != null)
+                var courseId = db.Courses.FirstOrDefault(c => c.course_id == field.CourseId);
+                if (courseId != null)
                 {
                     return new ValidationFailure("CourseId", "* Course ID already exists");
                 }
@@ -246,6 +254,10 @@ namespace A2.University.Web.Models
             RuleFor(field => field.CourseTypeId)
                 .NotEmpty().WithMessage("* Required");
 
+            /**************************
+             * SERVER SIDE VALIDATION *
+             **************************/
+
             // validate Title uniqueness
             Custom(field =>
             {
@@ -274,8 +286,9 @@ namespace A2.University.Web.Models
         {
             // create instance of db context to serverside validation
             UniversityEntities db = new UniversityEntities();
-            // create instance of unit rules model
+            // create instance of unit/course rules model
             UnitRules unitRules = new UnitRules();
+            CourseRules courseRules = new CourseRules();
 
             // student
             RuleFor(field => field.StudentId)
@@ -301,6 +314,20 @@ namespace A2.University.Web.Models
                 return null;
             });
 
+            /**************************
+             * SERVER SIDE VALIDATION *
+             **************************/
+
+            // student enrolled to course
+            Custom(field =>
+            {
+                if (!courseRules.IsStudentCourseEnrolled(field.StudentId))
+                {
+                    return new ValidationFailure("CourseEnrolmentId", "* Student must be enrolled in Course first");
+                }
+                return null;
+            });
+
             // unit pass uniqueness
             Custom(field =>
             {
@@ -316,7 +343,7 @@ namespace A2.University.Web.Models
             {
                 if (unitRules.IsUniqueInSem(field.StudentId, field.UnitId, int.Parse(field.YearSem)))
                 {
-                    return new ValidationFailure("UnitId", "* Enrolment already exists in semester");
+                    return new ValidationFailure("UnitId", "* Enrolment already exists in Semester");
                 }
                 return null;
             });
@@ -353,7 +380,7 @@ namespace A2.University.Web.Models
     {
         public CourseEnrolmentEditViewModelValidator()
         {
-            // Status dropdownlist
+            // status dropdownlist
             RuleFor(field => field.CourseStatus)
                 .NotEmpty().WithMessage("* Required");
         }

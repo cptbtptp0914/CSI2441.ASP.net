@@ -17,6 +17,7 @@ namespace A2.University.Web.Models
 
         // hidden from user
         public long UnitEnrolmentId { get; set; }
+        public long CourseEnrolmentId { get; set; }
 
         [Display(Name = "Student ID")]
         public long StudentId { get; set; }
@@ -55,7 +56,8 @@ namespace A2.University.Web.Models
     {
         // store lists of students/units, will extract data for dropdownlists
         public List<UnitEnrolmentDropDownListViewModel> Students = new List<UnitEnrolmentDropDownListViewModel>();
-        public List<UnitEnrolmentDropDownListViewModel> Units = new List<UnitEnrolmentDropDownListViewModel>(); 
+        public List<UnitEnrolmentDropDownListViewModel> Units = new List<UnitEnrolmentDropDownListViewModel>();
+         
         // store derived items for dropdownlist
         public string StudentIdFullName { get; set; }
         public string UnitIdTitle { get; set; }

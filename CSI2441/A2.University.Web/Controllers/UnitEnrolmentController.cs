@@ -226,6 +226,22 @@ namespace A2.University.Web.Controllers
             entityModel.unit_id = viewModel.UnitId;
             entityModel.year_sem = int.Parse(viewModel.YearSem);
             entityModel.mark = int.Parse(viewModel.Mark);
+
+            // can't use dict in linq, substitute with string
+            string state = new CourseRules().CourseStates["Enrolled"];
+
+            // select course_enrolment_id where StudentId is match, and is ENROLLED
+            var query = 
+                (from ce in db.CourseEnrolments
+                where ce.student_id == viewModel.StudentId &&
+                      ce.course_status == state
+                select new { ce.course_enrolment_id }).Single();
+
+            // pass value to viewModel, might need it
+            viewModel.CourseEnrolmentId = query.course_enrolment_id;
+
+            // pass value to entitymodel
+            entityModel.course_enrolment_id = viewModel.CourseEnrolmentId;
         }
 
         /// <summary>
@@ -236,6 +252,7 @@ namespace A2.University.Web.Controllers
         private void PopulateViewModel(UnitEnrolmentBaseViewModel viewModel, UnitEnrolment entityModel)
         {
             viewModel.UnitEnrolmentId = entityModel.unit_enrolment_id;
+
             viewModel.StudentId = entityModel.student_id;
             viewModel.UnitId = entityModel.unit_id;
             viewModel.YearSem = entityModel.year_sem.ToString();

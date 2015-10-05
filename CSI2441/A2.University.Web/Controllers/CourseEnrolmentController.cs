@@ -255,6 +255,9 @@ namespace A2.University.Web.Controllers
             // if enrolled course for student not unique,
             if (courseRules.IsNotUniqueEnrolled(studentId))
             {
+                // can't use dict in linq, substitute with string
+                string state = new CourseRules().CourseStates["Enrolled"];
+
                 // get list of student's course in ENROLLED status
                 var enrolledCourses = (from ce in db.CourseEnrolments
                                        where ce.student_id == studentId &&
