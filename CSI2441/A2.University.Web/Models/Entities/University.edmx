@@ -264,7 +264,7 @@
           <Property Name="course_enrolment_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="student_id" Type="Int64" Nullable="false" />
           <Property Name="course_id" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="course_status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="course_status" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" DefaultValue="ENROLLED" />
           <NavigationProperty Name="Course" Relationship="Self.FK_CourseEnrolment_0_0" FromRole="CourseEnrolment" ToRole="Course" />
           <NavigationProperty Name="Student" Relationship="Self.FK_CourseEnrolment_1_0" FromRole="CourseEnrolment" ToRole="Student" />
           <NavigationProperty Name="UnitEnrolments" Relationship="Self.FK_UnitEnrolment_2_0" FromRole="CourseEnrolment" ToRole="UnitEnrolment" />
@@ -456,7 +456,7 @@
           <EntitySet Name="Courses" EntityType="Self.Course" />
           <EntitySet Name="CourseEnrolments" EntityType="Self.CourseEnrolment" />
           <EntitySet Name="CourseTypes" EntityType="Self.CourseType" />
-          <EntitySet Name="Staffs" EntityType="Self.Staff" />
+          <EntitySet Name="Staff" EntityType="Self.Staff" />
           <EntitySet Name="Students" EntityType="Self.Student" />
           <EntitySet Name="Units" EntityType="Self.Unit" />
           <EntitySet Name="UnitEnrolments" EntityType="Self.UnitEnrolment" />
@@ -466,7 +466,7 @@
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_Course_1_0" Association="Self.FK_Course_1_0">
-            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Staff" EntitySet="Staff" />
             <End Role="Course" EntitySet="Courses" />
           </AssociationSet>
           <AssociationSet Name="FK_CourseEnrolment_0_0" Association="Self.FK_CourseEnrolment_0_0">
@@ -482,7 +482,7 @@
             <End Role="UnitEnrolment" EntitySet="UnitEnrolments" />
           </AssociationSet>
           <AssociationSet Name="FK_Unit_1_0" Association="Self.FK_Unit_1_0">
-            <End Role="Staff" EntitySet="Staffs" />
+            <End Role="Staff" EntitySet="Staff" />
             <End Role="Unit" EntitySet="Units" />
           </AssociationSet>
           <AssociationSet Name="FK_UnitEnrolment_1_0" Association="Self.FK_UnitEnrolment_1_0">
@@ -534,7 +534,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Staffs">
+          <EntitySetMapping Name="Staff">
             <EntityTypeMapping TypeName="UniversityModel.Staff">
               <MappingFragment StoreEntitySet="Staff">
                 <ScalarProperty Name="staff_id" ColumnName="staff_id" />

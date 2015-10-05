@@ -176,6 +176,10 @@ namespace A2.University.Web.Controllers
         {
             CourseEnrolment courseEnrolment = db.CourseEnrolments.Find(id);
             db.CourseEnrolments.Remove(courseEnrolment);
+
+            // re-enrol last course
+            ReEnrolLastCourse(courseEnrolment.student_id);
+
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -258,11 +262,12 @@ namespace A2.University.Web.Controllers
                 // can't use dict in linq, substitute with string
                 string state = new CourseRules().CourseStates["Enrolled"];
 
-                // get list of student's course in ENROLLED status
-                var enrolledCourses = (from ce in db.CourseEnrolments
-                                       where ce.student_id == studentId &&
-                                       ce.course_status == state
-                                       select ce).ToList();
+                // get list of student's courses in ENROLLED status
+                var enrolledCourses = (
+                    from ce in db.CourseEnrolments
+                    where ce.student_id == studentId &&
+                        ce.course_status == state
+                    select ce).ToList();
 
                 // set each course status to DISCONTIN
                 foreach (var enrolled in enrolledCourses)
@@ -274,10 +279,22 @@ namespace A2.University.Web.Controllers
             }
         }
 
-        private void EnrolLatestCourse(long studentId)
+        private void ReEnrolLastCourse(long studentId)
         {
-            // TODO: implement auto re-enrol latest course when deleting course enrolment
-            // ie. course enrolment with highest id
+            // can't use dict in linq, substitute with string
+            string state = new CourseRules().CourseStates["Discontinued"];
+
+            // get list of student's courses in DISCONTIN status
+            var discontinCourses = (
+                from ce in db.CourseEnrolments
+                where ce.student_id == studentId &&
+                      ce.course_status == state
+                select ce).ToList();
+
+            // set last DISCONTIN (most recent) course to ENROLLED
+            discontinCourses.Last().course_status = courseRules.CourseStates["Enrolled"];
+            db.Entry(discontinCourses.Last()).State = EntityState.Modified;
+            db.SaveChanges();
         }
 
         protected override void Dispose(bool disposing)

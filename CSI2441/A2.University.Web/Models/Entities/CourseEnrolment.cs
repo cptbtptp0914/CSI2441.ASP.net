@@ -17,6 +17,7 @@ namespace A2.University.Web.Models.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public CourseEnrolment()
         {
+            this.course_status = "ENROLLED";
             this.UnitEnrolments = new HashSet<UnitEnrolment>();
         }
     
