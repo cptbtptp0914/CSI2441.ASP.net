@@ -23,8 +23,29 @@ namespace A2.University.Web.Controllers
         public ActionResult Index()
         {
             StudentIndexViewModel studentViewModel = new StudentIndexViewModel();
-            studentViewModel.Students = db.Students.ToList();
+            var studentsEntity = db.Students.ToList();
 
+            // transfer entity list to viewmodel list
+            foreach (Student student in studentsEntity)
+            {
+                studentViewModel.Students.Add(new StudentIndexViewModel
+                {
+                    student_id = student.student_id,
+                    firstname = student.firstname,
+                    lastname = student.lastname,
+                    dob = student.dob,
+                    gender = student.gender,
+                    email = student.email,
+                    ph_landline = student.ph_landline,
+                    ph_mobile = student.ph_mobile,
+                    adrs = student.adrs,
+                    adrs_city = student.adrs_city,
+                    adrs_state = student.adrs_state,
+                    adrs_postcode = student.adrs_postcode.ToString()
+                });
+            }
+
+            // render view using viewmodel list
             return View(studentViewModel.Students);
         }
 

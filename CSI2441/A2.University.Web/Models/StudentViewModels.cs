@@ -9,11 +9,6 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
-    public class StudentIndexViewModel
-    {
-        public List<Student> Students { get; set; } 
-    }
-
     [Validator(typeof(StudentBaseViewModelValidator))]
     public class StudentBaseViewModel
     {
@@ -57,6 +52,11 @@ namespace A2.University.Web.Models
         // cast to int when updating db
         [Display(Name = "Postcode")]
         public string adrs_postcode { get; set; }
+    }
+
+    public class StudentIndexViewModel : StudentBaseViewModel
+    {
+        public List<StudentIndexViewModel> Students = new List<StudentIndexViewModel>();
     }
 
     public class StudentDropDownListViewModel : StudentBaseViewModel
