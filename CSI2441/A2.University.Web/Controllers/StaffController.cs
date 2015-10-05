@@ -23,9 +23,22 @@ namespace A2.University.Web.Controllers
         public ActionResult Index()
         {
             StaffIndexViewModel staffViewModel = new StaffIndexViewModel();
-            staffViewModel.StaffList = db.Staff.ToList();
+            var staffEntity = db.Staff.ToList();
 
-            return View(staffViewModel.StaffList);
+            // transfer entity list to viewmodel list
+            foreach (Staff staff in staffEntity)
+            {
+                staffViewModel.Staff.Add(new StaffIndexViewModel
+                {
+                    staff_id = staff.staff_id,
+                    firstname = staff.firstname,
+                    surname = staff.surname,
+                    email = staff.email,
+                    fullname = staff.firstname + " " + staff.surname
+                });
+            }
+
+            return View(staffViewModel.Staff);
         }
 
         // GET: Staff/Details/5

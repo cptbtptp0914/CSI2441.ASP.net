@@ -3,16 +3,10 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
-using A2.University.Web.Models.Entities;
 using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
-    public class StaffIndexViewModel
-    {
-        public List<Staff> StaffList { get; set; }
-    }
-
     [Validator(typeof(StaffBaseViewModelValidator))]
     public class StaffBaseViewModel
     {
@@ -30,10 +24,12 @@ namespace A2.University.Web.Models
 
         // return full name for dropdownlist
         [Display(Name = "Coordinator")]
-        public string fullname
-        {
-            get { return firstname + " " + surname; }
-        }
+        public string fullname { get; set; }
+    }
+
+    public class StaffIndexViewModel : StaffBaseViewModel
+    {
+        public List<StaffIndexViewModel> Staff = new List<StaffIndexViewModel>();
     }
 
     public class StaffDetailsViewModel : StaffBaseViewModel
