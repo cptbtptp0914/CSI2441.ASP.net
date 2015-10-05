@@ -261,7 +261,7 @@ namespace A2.University.Web.Controllers
                 // get list of student's course in ENROLLED status
                 var enrolledCourses = (from ce in db.CourseEnrolments
                                        where ce.student_id == studentId &&
-                                       ce.course_status == courseRules.CourseStates["Enrolled"]
+                                       ce.course_status == state
                                        select ce).ToList();
 
                 // set each course status to DISCONTIN
