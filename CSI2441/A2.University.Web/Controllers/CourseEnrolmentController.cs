@@ -38,6 +38,7 @@ namespace A2.University.Web.Controllers
                 });
             }
 
+            // render view using viewmodel list
             return View(courseEnrolmentViewModel.CourseEnrolments);
         }
 
@@ -53,7 +54,7 @@ namespace A2.University.Web.Controllers
             CourseEnrolment courseEnrolmentEntityModel = db.CourseEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseEnrolmentDetailsViewModel courseEnrolmentViewModel = new CourseEnrolmentDetailsViewModel();
-            SetCourseEnrolmentViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
+            PopulateViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
             if (courseEnrolmentEntityModel == null)
             {
@@ -67,8 +68,7 @@ namespace A2.University.Web.Controllers
         {
             // create viewmodel
             CourseEnrolmentCreateViewModel courseEnrolmentViewModel = new CourseEnrolmentCreateViewModel();
-            courseEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            courseEnrolmentViewModel.CourseDropDownList = new SelectList(db.Courses.OrderBy(c => c.course_id), "course_id", "course_id_title");
+            PopulateDropDownLists(courseEnrolmentViewModel);
 
             return View(courseEnrolmentViewModel);
         }
@@ -85,7 +85,7 @@ namespace A2.University.Web.Controllers
             {
                 // create entitymodel, pass values from viewmodel
                 CourseEnrolment courseEnrolmentEntityModel = new CourseEnrolment();
-                SetCourseEnrolmentEntityModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
+                PopulateEntityModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
                 // TODO: add logic to check if student ENROLLED in another course, if so, make previous course DISCONTIN
                 // create static class in Business.BusinessRulesModels
@@ -98,8 +98,7 @@ namespace A2.University.Web.Controllers
             }
 
             // populate dropdownlists
-            courseEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            courseEnrolmentViewModel.CourseDropDownList = new SelectList(db.Courses.OrderBy(c => c.course_id), "course_id", "course_id_title");
+            PopulateDropDownLists(courseEnrolmentViewModel);
 
             return View(courseEnrolmentViewModel);
         }
@@ -116,11 +115,10 @@ namespace A2.University.Web.Controllers
             CourseEnrolment courseEnrolmentEntityModel = db.CourseEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseEnrolmentEditViewModel courseEnrolmentViewModel = new CourseEnrolmentEditViewModel();
-            SetCourseEnrolmentViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
+            PopulateViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
             // populate dropdownlists
-            courseEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            courseEnrolmentViewModel.CourseDropDownList = new SelectList(db.Courses.OrderBy(c => c.course_id), "course_id", "course_id_title");
+            PopulateDropDownLists(courseEnrolmentViewModel);
 
             if (courseEnrolmentEntityModel == null)
             {
@@ -145,8 +143,7 @@ namespace A2.University.Web.Controllers
             }
 
             // populate dropdownlists
-            courseEnrolmentViewModel.StudentDropDownList = new SelectList(db.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
-            courseEnrolmentViewModel.CourseDropDownList = new SelectList(db.Courses.OrderBy(c => c.course_id), "course_id", "course_id_title");
+            PopulateDropDownLists(courseEnrolmentViewModel);
 
             return View(courseEnrolmentViewModel);
         }
@@ -163,7 +160,7 @@ namespace A2.University.Web.Controllers
             CourseEnrolment courseEnrolmentEntityModel = db.CourseEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseEnrolmentDeleteViewModel courseEnrolmentViewModel = new CourseEnrolmentDeleteViewModel();
-            SetCourseEnrolmentViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
+            PopulateViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
             if (courseEnrolmentEntityModel == null)
             {
@@ -184,11 +181,47 @@ namespace A2.University.Web.Controllers
         }
 
         /// <summary>
+        /// Populates dropdownlists for unit enrolment view.
+        /// </summary>
+        /// <param name="viewModel">UnitEnrolmentDropDownListViewModel</param>
+        private void PopulateDropDownLists(CourseEnrolmentDropDownListViewModel viewModel)
+        {
+            // get list of students/units from db
+            var studentsEntity = (from student in db.Students
+                                  select student).ToList();
+            var coursesEntity = (from course in db.Courses
+                               select course).ToList();
+
+            // transfer relevant elements to viewmodel list
+            foreach (Student student in studentsEntity)
+            {
+                viewModel.Students.Add(new CourseEnrolmentDropDownListViewModel
+                {
+                    student_id = student.student_id,
+                    student_id_fullname = student.student_id + " " + student.firstname + " " + student.lastname
+                });
+            }
+
+            foreach (Course course in coursesEntity)
+            {
+                viewModel.Courses.Add(new CourseEnrolmentDropDownListViewModel
+                {
+                    course_id = course.course_id,
+                    course_id_title = course.course_id + " " + course.title
+                });
+            }
+
+            // populate dropdownlist from viewmodel list
+            viewModel.StudentDropDownList = new SelectList(viewModel.Students.OrderBy(s => s.student_id), "student_id", "student_id_fullname");
+            viewModel.CourseDropDownList = new SelectList(viewModel.Courses.OrderBy(u => u.course_id), "course_id", "course_id_title");
+        }
+
+        /// <summary>
         /// Passes data from the view model to the entity model.
         /// </summary>
         /// <param name="viewModel">UnitBaseViewModel</param>
         /// <param name="entityModel">Unit</param>
-        private void SetCourseEnrolmentEntityModel(CourseEnrolmentBaseViewModel viewModel, CourseEnrolment entityModel)
+        private void PopulateEntityModel(CourseEnrolmentBaseViewModel viewModel, CourseEnrolment entityModel)
         {
             entityModel.course_enrolment_id = viewModel.course_enrolment_id;
             entityModel.student_id = viewModel.student_id;
@@ -202,7 +235,7 @@ namespace A2.University.Web.Controllers
         /// </summary>
         /// <param name="viewModel">UnitBaseViewModel</param>
         /// <param name="entityModel">Unit</param>
-        private void SetCourseEnrolmentViewModel(CourseEnrolmentBaseViewModel viewModel, CourseEnrolment entityModel)
+        private void PopulateViewModel(CourseEnrolmentBaseViewModel viewModel, CourseEnrolment entityModel)
         {
             viewModel.course_enrolment_id = entityModel.course_enrolment_id;
             viewModel.student_id = entityModel.student_id;
@@ -225,7 +258,7 @@ namespace A2.University.Web.Controllers
                 // get list of student's course in ENROLLED status
                 var enrolledCourses = (from ce in db.CourseEnrolments
                                        where ce.student_id == studentId &&
-                                       ce.course_status == courseRules.CourseStates["Enrolled"] // TODO: make dictionary for states
+                                       ce.course_status == courseRules.CourseStates["Enrolled"]
                                        select ce).ToList();
 
                 // set each course status to DISCONTIN
