@@ -87,8 +87,7 @@ namespace A2.University.Web.Controllers
                 CourseEnrolment courseEnrolmentEntityModel = new CourseEnrolment();
                 PopulateEntityModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
-                // TODO: add logic to check if student ENROLLED in another course, if so, make previous course DISCONTIN
-                // create static class in Business.BusinessRulesModels
+                // discontinue previous enrolled courses
                 DiscontinuePrevEnrolments(courseEnrolmentEntityModel.student_id);
 
                 // update db using entitymodel
@@ -230,8 +229,11 @@ namespace A2.University.Web.Controllers
             entityModel.course_enrolment_id = viewModel.CourseEnrolmentId;
             entityModel.student_id = viewModel.StudentId;
             entityModel.course_id = viewModel.CourseId;
-            // entityModel.CourseStatus = "ENROLLED" is default
-            // create and edit calls function to set CourseStatus
+
+            if (viewModel.CourseStatus != null)
+            {
+                entityModel.course_status = viewModel.CourseStatus;
+            }
         }
 
         /// <summary>
@@ -291,10 +293,13 @@ namespace A2.University.Web.Controllers
                       ce.course_status == state
                 select ce).ToList();
 
-            // set last DISCONTIN (most recent) course to ENROLLED
-            discontinCourses.Last().course_status = courseRules.CourseStates["Enrolled"];
-            db.Entry(discontinCourses.Last()).State = EntityState.Modified;
-            db.SaveChanges();
+            if (discontinCourses.Count > 0)
+            {
+                // set last DISCONTIN (most recent) course to ENROLLED
+                discontinCourses.Last().course_status = courseRules.CourseStates["Enrolled"];
+                db.Entry(discontinCourses.Last()).State = EntityState.Modified;
+                db.SaveChanges();
+            }
         }
 
         protected override void Dispose(bool disposing)

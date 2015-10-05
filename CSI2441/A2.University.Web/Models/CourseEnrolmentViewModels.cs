@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using A2.University.Web.Models.Business;
 using A2.University.Web.Models.Entities;
 using FluentValidation.Attributes;
 
@@ -54,17 +55,16 @@ namespace A2.University.Web.Models
         public IEnumerable<SelectListItem> StudentDropDownList { get; set; }
         public IEnumerable<SelectListItem> CourseDropDownList { get; set; }
 
+        private static readonly CourseRules CourseRules = new CourseRules();
+
         // course status dropdownlist, TODO: may not allow user to edit state, to be deprecated
         public IEnumerable<SelectListItem> CourseStatusDropDownList = new List<SelectListItem>
         {
-            new SelectListItem { Value = "COMPLETED", Text = "COMPLETED" },
-            new SelectListItem { Value = "DISCONTIN", Text = "DISCONTIN" }, // make DISCONTIN when student enrols into new course but current course is ENROLLED
-            new SelectListItem { Value = "ENROLLED", Text = "ENROLLED" }, // default value in db
-            new SelectListItem { Value = "INACTIVE", Text = "INACTIVE" },
-            new SelectListItem { Value = "INTERMIT", Text = "INTERMIT" },
-            new SelectListItem { Value = "LAPSED", Text = "LAPSED" },
-            new SelectListItem { Value = "UNCONFIRMED", Text = "UNCONFIRMED" }
-        }; 
+            new SelectListItem { Value = CourseRules.CourseStates["Completed"], Text = CourseRules.CourseStates["Completed"] },
+            new SelectListItem { Value = CourseRules.CourseStates["Enrolled"], Text = CourseRules.CourseStates["Enrolled"] }, // default value in db
+            new SelectListItem { Value = CourseRules.CourseStates["Discontinued"], Text = CourseRules.CourseStates["Discontinued"] }, // make DISCONTIN when student enrols into new course but current course is ENROLLED
+            new SelectListItem { Value = CourseRules.CourseStates["Excluded"], Text = CourseRules.CourseStates["Excluded"] }
+        };
     }
 
     public class CourseEnrolmentDetailsViewModel : CourseEnrolmentBaseViewModel

@@ -106,8 +106,10 @@ namespace A2.University.Web.Models.Business
 
             CourseStates = new Dictionary<string, string>
             {
-                {"Enrolled", "ENROLLED"},
-                { "Discontinued", "DISCONTIN"}
+                { "Completed", "COMPLETED" },
+                { "Enrolled", "ENROLLED"},
+                { "Discontinued", "DISCONTIN"},
+                { "Excluded", "EXCLUDED" }
             };
         }
 
