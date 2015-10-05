@@ -1,4 +1,4 @@
-﻿@model IEnumerable<A2.University.Web.Models.Entities.Unit>
+﻿@model IEnumerable<A2.University.Web.Models.UnitIndexViewModel>
 @using GridMvc.Html
 
 @{
@@ -46,7 +46,7 @@
         .Filterable(true)
         .SetFilterWidgetType("System.String");
     // coordinator
-    columns.Add(data => data.Staff.fullname)
+    columns.Add(data => data.coordinator_name)
         .Titled("Coordinator")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
@@ -55,7 +55,7 @@
         .Titled("CP").Filterable(true)
         .SetFilterWidgetType("System.Int32");
     // unit type
-    columns.Add(data => data.UnitType.title)
+    columns.Add(data => data.unit_type_title)
         .Titled("Unit Type")
         .Filterable(true)
         .SetFilterWidgetType("System.String");

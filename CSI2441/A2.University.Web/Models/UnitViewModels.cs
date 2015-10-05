@@ -9,11 +9,6 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
-    public class UnitIndexViewModel
-    {
-        public List<Unit> Units { get; set; }
-    }
-
     [Validator(typeof(UnitBaseViewModelValidator))]
     public class UnitBaseViewModel
     {
@@ -38,6 +33,11 @@ namespace A2.University.Web.Models
 
         [Display(Name = "Unit Type")]
         public string unit_type_title { get; set; }
+    }
+
+    public class UnitIndexViewModel : UnitBaseViewModel
+    {
+        public List<UnitIndexViewModel> Units = new List<UnitIndexViewModel>();
     }
 
     public class UnitDropDownListViewModel : UnitBaseViewModel

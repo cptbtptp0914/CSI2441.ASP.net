@@ -20,8 +20,26 @@ namespace A2.University.Web.Controllers
         public ActionResult Index()
         {          
             UnitIndexViewModel unitViewModel = new UnitIndexViewModel();
-            unitViewModel.Units = db.Units.Include(u => u.Staff).Include(u => u.UnitType).ToList();
+            var unitsEntity = db.Units.Include(u => u.Staff).Include(u => u.UnitType).ToList();
 
+            // transfer entity list to viewmodel list
+            foreach (Unit unit in unitsEntity)
+            {
+                unitViewModel.Units.Add(new UnitIndexViewModel
+                {
+                    // core fields
+                    unit_id = unit.unit_id,
+                    title = unit.title,
+                    coordinator_id = unit.coordinator_id,
+                    credit_points = unit.credit_points,
+                    unit_type_id = unit.unit_type_id,
+                    // derived fields
+                    coordinator_name = unit.Staff.firstname + " " + unit.Staff.surname,
+                    unit_type_title = unit.UnitType.title
+                });
+            }
+
+            // render view using viewmodel list
             return View(unitViewModel.Units);
         }
 
