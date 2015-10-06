@@ -69,6 +69,11 @@
         .Titled("Grade")
         .Filterable(true)
         .SetFilterWidgetType("System.String");
+    // Course
+    columns.Add(data => data.CourseId)
+        .Titled("Course ID")
+        .Filterable(true)
+        .SetFilterWidgetType("System.String");
     // view
     columns.Add()
         .Encoded(false)

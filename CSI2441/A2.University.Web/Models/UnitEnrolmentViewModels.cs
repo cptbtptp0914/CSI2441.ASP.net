@@ -42,6 +42,9 @@ namespace A2.University.Web.Models
         [Display(Name = "Grade")]
         public string Grade { get; set; }
 
+        // course
+        public string CourseId { get; set; }
+
         // student
         public string StudentFirstName { get; set; }
         public string StudentLastName { get; set; }

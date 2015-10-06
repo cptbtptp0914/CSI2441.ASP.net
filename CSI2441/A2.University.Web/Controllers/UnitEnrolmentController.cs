@@ -20,7 +20,7 @@ namespace A2.University.Web.Controllers
         public ActionResult Index()
         {
             UnitEnrolmentIndexViewModel unitEnrolmentViewModel = new UnitEnrolmentIndexViewModel();
-            var unitEnrolmentsEntity = db.UnitEnrolments.Include(u => u.Student).Include(u => u.Unit).ToList();
+            var unitEnrolmentsEntity = db.UnitEnrolments.Include(u => u.Student).Include(u => u.Unit).Include(u => u.CourseEnrolment).ToList();
 
             // transfer entity list to viewmodel list
             foreach (UnitEnrolment unitEnrolment in unitEnrolmentsEntity)
@@ -35,7 +35,8 @@ namespace A2.University.Web.Controllers
                     Title = unitEnrolment.Unit.title,
                     YearSem = unitEnrolment.year_sem.ToString(),
                     Mark = unitEnrolment.mark.ToString(),
-                    Grade = GradeRules.GetGrade(unitEnrolment.mark)
+                    Grade = GradeRules.GetGrade(unitEnrolment.mark),
+                    CourseId = unitEnrolment.CourseEnrolment.course_id
                 });
             }
 
