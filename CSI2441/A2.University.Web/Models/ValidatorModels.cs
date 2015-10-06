@@ -339,7 +339,7 @@ namespace A2.University.Web.Models
             // unit pass uniqueness
             Custom(field =>
             {
-                if (unitRules.IsNotUniquePassCreate(field.StudentId, field.UnitId, int.Parse(field.Mark)))
+                if (unitRules.IsNotUniquePassedUnit(field.UnitEnrolmentId, field.StudentId, field.UnitId, int.Parse(field.Mark)))
                 {
                     return new ValidationFailure("UnitId", "* Student has already passed this Unit");
                 }
@@ -349,84 +349,7 @@ namespace A2.University.Web.Models
             // unit uniqueness per semester
             Custom(field =>
             {
-                if (unitRules.IsNotUniqueInSemCreate(field.StudentId, field.UnitId, int.Parse(field.YearSem)))
-                {
-                    return new ValidationFailure("UnitId", "* Enrolment already exists in Semester");
-                }
-                return null;
-            });
-
-            // unit max attempts
-            Custom(field =>
-            {
-                if (unitRules.IsMaxAttempts(field.StudentId, field.UnitId))
-                {
-                    return new ValidationFailure("UnitId", "* Student has reached max attempts for Unit");
-                }
-                return null;
-            });
-        }
-    }
-
-    /// <summary>
-    /// Validator for UnitEnrolmentEditViewModelValidator.
-    /// Should have inherited base class above to avoid duplication, but would have to override the constructor anyway.
-    /// This class uses different rules for validating UnitId, allowing user to edit year/sem and mark,
-    /// but also ensures passed unit uniqueness and same semester uniqueness.
-    /// TODO: If there's time, try to define base class as generic to allow for inheritance.
-    /// </summary>
-    public class UnitEnrolmentEditViewModelValidator : AbstractValidator<UnitEnrolmentEditViewModel>
-    {
-        public UnitEnrolmentEditViewModelValidator()
-        {
-            // create instance of db context to serverside validation
-            UniversityEntities db = new UniversityEntities();
-            // create instance of unit rules model
-            UnitRules unitRules = new UnitRules();
-
-            // student
-            RuleFor(field => field.StudentId)
-                .NotEmpty().WithMessage("* Required");
-            // unit
-            RuleFor(field => field.UnitId)
-                .NotEmpty().WithMessage("* Required");
-            // year/sem
-            RuleFor(field => field.YearSem)
-                .NotEmpty().WithMessage("* Required")
-                .Matches(@"[0-9]{2}[1|2]").WithMessage("* Must be a valid Year/Sem");
-            // mark, required
-            RuleFor(field => field.Mark)
-                .NotEmpty().WithMessage("* Required");
-
-            /**************************
-             * SERVER SIDE VALIDATION *
-             **************************/
-
-            // mark, range
-            Custom(field =>
-            {
-                int result = int.Parse(field.Mark);
-                if (result < 0 || result > 100)
-                {
-                    return new ValidationFailure("Mark", "* Must be within valid range");
-                }
-                return null;
-            });
-
-            // unit pass uniqueness
-            Custom(field =>
-            {
-                if (unitRules.IsNotUniquePassEdit(field.UnitEnrolmentId, field.StudentId, field.UnitId, int.Parse(field.Mark)))
-                {
-                    return new ValidationFailure("UnitId", "* Student has already passed this Unit");
-                }
-                return null;
-            });
-
-            // unit uniqueness per semester
-            Custom(field =>
-            {
-                if (unitRules.IsNotUniqueInSemEdit(field.UnitEnrolmentId, field.StudentId, field.UnitId, int.Parse(field.YearSem)))
+                if (unitRules.IsNotUniqueUnitInSem(field.UnitEnrolmentId, field.StudentId, field.UnitId, int.Parse(field.YearSem)))
                 {
                     return new ValidationFailure("UnitId", "* Enrolment already exists in Semester");
                 }

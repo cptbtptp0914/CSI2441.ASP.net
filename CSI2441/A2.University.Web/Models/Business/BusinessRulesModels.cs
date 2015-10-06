@@ -45,14 +45,17 @@ namespace A2.University.Web.Models.Business
         /// <summary>
         /// Checks passed unit uniqueness for Create view.
         /// </summary>
+        /// <param name="unitEnrolmentId">long</param>
         /// <param name="studentId">long</param>
         /// <param name="unitId">string</param>
         /// <param name="mark">int</param>
         /// <returns>bool</returns>
-        public bool IsNotUniquePassCreate(long studentId, string unitId, int mark)
+        public bool IsNotUniquePassedUnit(long unitEnrolmentId, long studentId, string unitId, int mark)
         {
             var passes = db.UnitEnrolments.FirstOrDefault(
-                ue => ue.student_id == studentId && 
+                // ignore own id in query
+                ue => ue.unit_enrolment_id != unitEnrolmentId &&
+                ue.student_id == studentId && 
                 ue.unit_id == unitId &&
                 ue.mark >= Pass);
 
@@ -83,16 +86,19 @@ namespace A2.University.Web.Models.Business
         /// <summary>
         /// Checks unit uniqueness per semester for Create view.
         /// </summary>
+        /// <param name="unitEnrolmentId">long</param>
         /// <param name="studentId">long</param>
         /// <param name="unitId">string</param>
         /// <param name="yearSem">int</param>
         /// <returns>bool</returns>
-        public bool IsNotUniqueInSemCreate(long studentId, string unitId, int yearSem)
+        public bool IsNotUniqueUnitInSem(long unitEnrolmentId, long studentId, string unitId, int yearSem)
         {
             var unit = db.UnitEnrolments.FirstOrDefault(
-                    ue => ue.student_id == studentId && 
-                    ue.unit_id == unitId && 
-                    ue.year_sem == yearSem);
+                // ignore own id in query
+                ue => ue.unit_enrolment_id != unitEnrolmentId &&
+                ue.student_id == studentId && 
+                ue.unit_id == unitId && 
+                ue.year_sem == yearSem);
 
             return unit != null;
         }
