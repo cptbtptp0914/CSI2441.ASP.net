@@ -43,30 +43,50 @@ namespace A2.University.Web.Models.Business
         }
 
         /// <summary>
-        /// Checks passed unit uniqueness.
+        /// Checks passed unit uniqueness for Create view.
         /// </summary>
         /// <param name="studentId">long</param>
         /// <param name="unitId">string</param>
         /// <param name="mark">int</param>
         /// <returns>bool</returns>
-        public bool IsUniquePass(long studentId, string unitId, int mark)
+        public bool IsNotUniquePassCreate(long studentId, string unitId, int mark)
         {
             var passes = db.UnitEnrolments.FirstOrDefault(
                 ue => ue.student_id == studentId && 
-                ue.unit_id == unitId 
-                && ue.mark >= Pass);
+                ue.unit_id == unitId &&
+                ue.mark >= Pass);
 
             return passes != null;
         }
 
         /// <summary>
-        /// Checks unit uniqueness per semester.
+        /// Checks passed unit uniqueness for Edit view.
+        /// Own match will pass test, but fail when other matches exist.
+        /// </summary>
+        /// <param name="studentId">long</param>
+        /// <param name="unitId">string</param>
+        /// <param name="mark">int</param>
+        /// <returns>bool</returns>
+        public bool IsNotUniquePassEdit(long studentId, string unitId, int mark)
+        {
+            var query = (
+                from ue in db.UnitEnrolments
+                where ue.student_id == studentId &&
+                      ue.unit_id == unitId &&
+                      ue.mark >= Pass
+                select ue).ToList().Count;
+
+            return query > 1;
+        }
+
+        /// <summary>
+        /// Checks unit uniqueness per semester for Create view.
         /// </summary>
         /// <param name="studentId">long</param>
         /// <param name="unitId">string</param>
         /// <param name="yearSem">int</param>
         /// <returns>bool</returns>
-        public bool IsUniqueInSem(long studentId, string unitId, int yearSem)
+        public bool IsNotUniqueInSemCreate(long studentId, string unitId, int yearSem)
         {
             var unit = db.UnitEnrolments.FirstOrDefault(
                     ue => ue.student_id == studentId && 
@@ -74,6 +94,26 @@ namespace A2.University.Web.Models.Business
                     ue.year_sem == yearSem);
 
             return unit != null;
+        }
+
+        /// <summary>
+        /// Checks unit uniqueness per semester for Edit view.
+        /// Own match will pass test, but fail when other matches exist.
+        /// </summary>
+        /// <param name="studentId">long</param>
+        /// <param name="unitId">string</param>
+        /// <param name="yearSem">int</param>
+        /// <returns></returns>
+        public bool IsNotUniqueInSemEdit(long studentId, string unitId, int yearSem)
+        {
+            var query = (
+                from ue in db.UnitEnrolments
+                where ue.student_id == studentId &&
+                      ue.unit_id == unitId &&
+                      ue.year_sem == yearSem
+                select ue).ToList().Count;
+
+            return query > 1;
         }
         
         /// <summary>

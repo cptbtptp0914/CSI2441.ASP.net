@@ -81,6 +81,7 @@ namespace A2.University.Web.Models
         // Inherits UnitEnrolmentDropDownListViewModel, no custom fields required
     }
 
+    [Validator(typeof(UnitEnrolmentEditViewModelValidator))]
     public class UnitEnrolmentEditViewModel : UnitEnrolmentDropDownListViewModel
     {
         // Inherits UnitEnrolmentDropDownListViewModel, no custom fields required
