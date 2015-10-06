@@ -34,7 +34,10 @@ namespace A2.University.Web.Controllers
                     CreditPoints = unit.credit_points,
                     UnitTypeId = unit.unit_type_id,
                     // derived fields
-                    StaffFullName = unit.Staff.firstname + " " + unit.Staff.surname,
+                    StaffFullName = 
+                        $"{unit.Staff.firstname} " + 
+                        $"{unit.Staff.surname}",
+
                     UnitTypeTitle = unit.UnitType.title
                 });
             }
@@ -194,10 +197,8 @@ namespace A2.University.Web.Controllers
         private void PopulateDropDownLists(UnitDropDownListViewModel viewModel)
         {
             // get list of students/units from db
-            var staffEntity = (from staff in db.Staff
-                                  select staff).ToList();
-            var unitTypesEntity = (from unitType in db.UnitTypes
-                               select unitType).ToList();
+            var staffEntity = db.Staff.ToList();
+            var unitTypesEntity = db.UnitTypes.ToList();
 
             // transfer relevant elements to viewmodel list
             foreach (Staff staff in staffEntity)
@@ -205,7 +206,10 @@ namespace A2.University.Web.Controllers
                 viewModel.Coordinators.Add(new UnitDropDownListViewModel
                 {
                     CoordinatorId = staff.staff_id,
-                    StaffIdFullName = staff.staff_id + " " + staff.firstname + " " + staff.surname
+                    StaffIdFullName = 
+                        $"{staff.staff_id} " +
+                        $"{staff.firstname} " +
+                        $"{staff.surname}"
                 });
             }
 
@@ -251,7 +255,10 @@ namespace A2.University.Web.Controllers
             viewModel.CreditPoints = entityModel.credit_points;
             viewModel.UnitTypeId = entityModel.unit_type_id;
 
-            viewModel.StaffFullName = entityModel.Staff.firstname + " " + entityModel.Staff.surname;
+            viewModel.StaffFullName =
+                $"{entityModel.Staff.firstname} " +
+                $"{entityModel.Staff.surname}";
+
             viewModel.UnitTypeTitle = entityModel.UnitType.title;
         }
 

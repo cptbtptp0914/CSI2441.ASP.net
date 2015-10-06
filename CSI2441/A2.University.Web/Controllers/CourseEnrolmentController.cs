@@ -14,14 +14,14 @@ namespace A2.University.Web.Controllers
 {
     public class CourseEnrolmentController : Controller
     {
-        private UniversityEntities db = new UniversityEntities();
-        private CourseRules courseRules = new CourseRules();
+        private readonly UniversityEntities _db = new UniversityEntities();
+        private readonly CourseRules _courseRules = new CourseRules();
 
         // GET: CourseEnrolment
         public ActionResult Index()
         {
             CourseEnrolmentIndexViewModel courseEnrolmentViewModel = new CourseEnrolmentIndexViewModel();
-            var courseEnrolmentsEntity = db.CourseEnrolments.Include(c => c.Course).Include(c => c.Student).ToList();
+            var courseEnrolmentsEntity = _db.CourseEnrolments.Include(c => c.Course).Include(c => c.Student).ToList();
             
             // transfer entity list to viewmodel list
             foreach (CourseEnrolment courseEnrolment in courseEnrolmentsEntity)
@@ -51,7 +51,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            CourseEnrolment courseEnrolmentEntityModel = db.CourseEnrolments.Find(id);
+            CourseEnrolment courseEnrolmentEntityModel = _db.CourseEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseEnrolmentDetailsViewModel courseEnrolmentViewModel = new CourseEnrolmentDetailsViewModel();
             PopulateViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
@@ -91,8 +91,8 @@ namespace A2.University.Web.Controllers
                 DiscontinuePrevEnrolments(courseEnrolmentEntityModel.student_id);
 
                 // update db using entitymodel
-                db.CourseEnrolments.Add(courseEnrolmentEntityModel);
-                db.SaveChanges();
+                _db.CourseEnrolments.Add(courseEnrolmentEntityModel);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -111,7 +111,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            CourseEnrolment courseEnrolmentEntityModel = db.CourseEnrolments.Find(id);
+            CourseEnrolment courseEnrolmentEntityModel = _db.CourseEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseEnrolmentEditViewModel courseEnrolmentViewModel = new CourseEnrolmentEditViewModel
             {
@@ -148,8 +148,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
                 // update db using entitymodel
-                db.Entry(courseEnrolmentEntityModel).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(courseEnrolmentEntityModel).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -168,7 +168,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            CourseEnrolment courseEnrolmentEntityModel = db.CourseEnrolments.Find(id);
+            CourseEnrolment courseEnrolmentEntityModel = _db.CourseEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseEnrolmentDeleteViewModel courseEnrolmentViewModel = new CourseEnrolmentDeleteViewModel();
             PopulateViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
@@ -185,13 +185,13 @@ namespace A2.University.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            CourseEnrolment courseEnrolment = db.CourseEnrolments.Find(id);
-            db.CourseEnrolments.Remove(courseEnrolment);
+            CourseEnrolment courseEnrolment = _db.CourseEnrolments.Find(id);
+            _db.CourseEnrolments.Remove(courseEnrolment);
 
             // re-enrol last course
             ReEnrolLastCourse(courseEnrolment.student_id);
 
-            db.SaveChanges();
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -202,10 +202,8 @@ namespace A2.University.Web.Controllers
         private void PopulateDropDownLists(CourseEnrolmentDropDownListViewModel viewModel)
         {
             // get list of students/units from db
-            var studentsEntity = (from student in db.Students
-                                  select student).ToList();
-            var coursesEntity = (from course in db.Courses
-                               select course).ToList();
+            var studentsEntity = _db.Students.ToList();
+            var coursesEntity = _db.Courses.ToList();
 
             // transfer relevant elements to viewmodel list
             foreach (Student student in studentsEntity)
@@ -213,7 +211,10 @@ namespace A2.University.Web.Controllers
                 viewModel.Students.Add(new CourseEnrolmentDropDownListViewModel
                 {
                     StudentId = student.student_id,
-                    StudentIdFullName = student.student_id + " " + student.firstname + " " + student.lastname
+                    StudentIdFullName =
+                        $"{student.student_id} " + 
+                        $"{student.firstname} " +
+                        $"{student.lastname}"
                 });
             }
 
@@ -222,7 +223,9 @@ namespace A2.University.Web.Controllers
                 viewModel.Courses.Add(new CourseEnrolmentDropDownListViewModel
                 {
                     CourseId = course.course_id,
-                    CourseIdTitle = course.course_id + " " + course.title
+                    CourseIdTitle =
+                        $"{course.course_id} " +
+                        $"{course.title}"
                 });
             }
 
@@ -260,7 +263,10 @@ namespace A2.University.Web.Controllers
             viewModel.CourseId = entityModel.course_id;
             viewModel.CourseStatus = entityModel.course_status;
 
-            viewModel.StudentFullName = entityModel.Student.firstname + " " + entityModel.Student.lastname;
+            viewModel.StudentFullName = 
+                $"{entityModel.Student.firstname} " +
+                $"{entityModel.Student.lastname}";
+
             viewModel.Title = entityModel.Course.title;
         }
 
@@ -271,24 +277,24 @@ namespace A2.University.Web.Controllers
         private void DiscontinuePrevEnrolments (long studentId)
         {
             // if enrolled course for student not unique,
-            if (courseRules.IsNotUniqueEnrolled(studentId))
+            if (_courseRules.IsNotUniqueEnrolled(studentId))
             {
                 // can't use dict in linq, substitute with string
                 string state = new CourseRules().CourseStates["Enrolled"];
 
                 // get list of student's courses in ENROLLED status
-                var enrolledCourses = (
-                    from ce in db.CourseEnrolments
-                    where ce.student_id == studentId &&
-                        ce.course_status == state
-                    select ce).ToList();
+                var enrolledCourses = _db.CourseEnrolments
+                    .Where(ce =>
+                        ce.student_id == studentId &&
+                        ce.course_status == state)
+                    .ToList();
 
                 // set each course status to DISCONTIN
                 foreach (var enrolled in enrolledCourses)
                 {
-                    enrolled.course_status = courseRules.CourseStates["Discontinued"];
-                    db.Entry(enrolled).State = EntityState.Modified;
-                    db.SaveChanges();
+                    enrolled.course_status = _courseRules.CourseStates["Discontinued"];
+                    _db.Entry(enrolled).State = EntityState.Modified;
+                    _db.SaveChanges();
                 }
             }
         }
@@ -304,18 +310,18 @@ namespace A2.University.Web.Controllers
             string state = new CourseRules().CourseStates["Discontinued"];
 
             // get list of student's courses in DISCONTIN status
-            var discontinCourses = (
-                from ce in db.CourseEnrolments
-                where ce.student_id == studentId &&
-                      ce.course_status == state
-                select ce).ToList();
+            var discontinCourses = _db.CourseEnrolments
+                .Where(ce => 
+                    ce.student_id == studentId &&
+                    ce.course_status == state)
+                .ToList();
 
             if (discontinCourses.Count > 0)
             {
                 // set last DISCONTIN (most recent) course to ENROLLED
-                discontinCourses.Last().course_status = courseRules.CourseStates["Enrolled"];
-                db.Entry(discontinCourses.Last()).State = EntityState.Modified;
-                db.SaveChanges();
+                discontinCourses.Last().course_status = _courseRules.CourseStates["Enrolled"];
+                _db.Entry(discontinCourses.Last()).State = EntityState.Modified;
+                _db.SaveChanges();
             }
         }
 
@@ -323,7 +329,7 @@ namespace A2.University.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

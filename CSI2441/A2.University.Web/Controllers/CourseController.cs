@@ -33,7 +33,10 @@ namespace A2.University.Web.Controllers
                     CoordinatorId = course.coordinator_id,
                     CourseTypeId = course.course_type_id,
                     // derived fields
-                    StaffFullName = course.Staff.firstname + " " + course.Staff.surname,
+                    StaffFullName = 
+                        $"{course.Staff.firstname} " +
+                        $"{course.Staff.surname}",
+
                     CourseTypeTitle = course.CourseType.title,
                     CreditPoints = course.CourseType.credit_points,
                     Duration = course.CourseType.duration
@@ -194,10 +197,8 @@ namespace A2.University.Web.Controllers
         private void PopulateDropDownLists(CourseDropDownListViewModel viewModel)
         {
             // get list of students/units from db
-            var staffEntity = (from staff in db.Staff
-                               select staff).ToList();
-            var courseTypesEntity = (from courseType in db.CourseTypes
-                                   select courseType).ToList();
+            var staffEntity = db.Staff.ToList();
+            var courseTypesEntity = db.CourseTypes.ToList();
 
             // transfer relevant elements to viewmodel list
             foreach (Staff staff in staffEntity)
@@ -205,7 +206,10 @@ namespace A2.University.Web.Controllers
                 viewModel.Coordinators.Add(new CourseDropDownListViewModel
                 {
                     CoordinatorId = staff.staff_id,
-                    StaffIdFullName = staff.staff_id + " " + staff.firstname + " " + staff.surname
+                    StaffIdFullName = 
+                        $"{staff.staff_id} " +
+                        $"{staff.firstname} " + 
+                        $"{staff.surname}"
                 });
             }
 
@@ -248,7 +252,10 @@ namespace A2.University.Web.Controllers
             viewModel.CoordinatorId = entityModel.coordinator_id;
             viewModel.CourseTypeId = entityModel.course_type_id;
 
-            viewModel.StaffFullName = entityModel.Staff.firstname + " " + entityModel.Staff.surname;
+            viewModel.StaffFullName = 
+                $"{entityModel.Staff.firstname} " + 
+                $"{entityModel.Staff.surname}";
+
             viewModel.CourseTypeTitle = entityModel.CourseType.title;
             viewModel.CreditPoints = entityModel.CourseType.credit_points;
             viewModel.Duration = entityModel.CourseType.duration;

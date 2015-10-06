@@ -14,13 +14,20 @@ namespace A2.University.Web.Controllers
 {
     public class UnitEnrolmentController : Controller
     {
-        private UniversityEntities db = new UniversityEntities();
+        private readonly UniversityEntities _db = new UniversityEntities();
 
         // GET: UnitEnrolments
         public ActionResult Index()
         {
             UnitEnrolmentIndexViewModel unitEnrolmentViewModel = new UnitEnrolmentIndexViewModel();
-            var unitEnrolmentsEntity = db.UnitEnrolments.Include(u => u.Student).Include(u => u.Unit).Include(u => u.CourseEnrolment).ToList();
+            var unitEnrolmentsEntity = _db.UnitEnrolments
+                .Include(u => 
+                    u.Student)
+                .Include(u => 
+                    u.Unit)
+                .Include(u => 
+                    u.CourseEnrolment)
+                .ToList();
 
             // transfer entity list to viewmodel list
             foreach (UnitEnrolment unitEnrolment in unitEnrolmentsEntity)
@@ -53,7 +60,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
+            UnitEnrolment unitEnrolmentEntityModel = _db.UnitEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitEnrolmentDetailsViewModel unitEnrolmentViewModel = new UnitEnrolmentDetailsViewModel
             {
@@ -99,8 +106,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
                 // update db using entitymodel
-                db.UnitEnrolments.Add(unitEnrolmentEntityModel);
-                db.SaveChanges();
+                _db.UnitEnrolments.Add(unitEnrolmentEntityModel);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -119,7 +126,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
+            UnitEnrolment unitEnrolmentEntityModel = _db.UnitEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitEnrolmentEditViewModel unitEnrolmentViewModel = new UnitEnrolmentEditViewModel
             {
@@ -157,8 +164,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
                 // update db using entitymodel
-                db.Entry(unitEnrolmentEntityModel).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(unitEnrolmentEntityModel).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -177,7 +184,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
+            UnitEnrolment unitEnrolmentEntityModel = _db.UnitEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitEnrolmentDeleteViewModel unitEnrolmentViewModel = new UnitEnrolmentDeleteViewModel();
             PopulateViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
@@ -194,9 +201,9 @@ namespace A2.University.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            UnitEnrolment unitEnrolment = db.UnitEnrolments.Find(id);
-            db.UnitEnrolments.Remove(unitEnrolment);
-            db.SaveChanges();
+            UnitEnrolment unitEnrolment = _db.UnitEnrolments.Find(id);
+            _db.UnitEnrolments.Remove(unitEnrolment);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -209,16 +216,15 @@ namespace A2.University.Web.Controllers
             string state = new CourseRules().CourseStates["Enrolled"];
 
             // get list of students ENROLLED in a course
-            var courseEnrolmentsEntity = (
-                from courseEnrolment in db.CourseEnrolments
-                where courseEnrolment.course_status == state
-                select courseEnrolment)
-                .Include(s => s.Student) // join Student table
+            var courseEnrolmentsEntity = _db.CourseEnrolments
+                .Where(ce =>
+                    ce.course_status == state)
+                .Include(s =>
+                    s.Student)
                 .ToList();
 
             // get list of units
-            var unitsEntity = (from units in db.Units
-                select units).ToList();
+            var unitsEntity = _db.Units.ToList();
 
             // transfer relevant elements to viewmodel list
             foreach (CourseEnrolment enrolment in courseEnrolmentsEntity)
@@ -264,14 +270,16 @@ namespace A2.University.Web.Controllers
             string state = new CourseRules().CourseStates["Enrolled"];
 
             // select course_enrolment_id where StudentId is match, and is ENROLLED
-            var query = 
-                (from ce in db.CourseEnrolments
-                where ce.student_id == viewModel.StudentId &&
-                      ce.course_status == state
-                select new { ce.course_enrolment_id }).Single();
+            var enrolment = _db.CourseEnrolments
+                .Where(ce =>
+                    ce.student_id == viewModel.StudentId &&
+                    ce.course_status == state)
+                .Select(ce =>
+                    new { ce.course_enrolment_id })
+                .Single();
 
             // pass value to viewModel, might need it
-            viewModel.CourseEnrolmentId = query.course_enrolment_id;
+            viewModel.CourseEnrolmentId = enrolment.course_enrolment_id;
 
             // pass value to entitymodel
             entityModel.course_enrolment_id = viewModel.CourseEnrolmentId;
@@ -303,7 +311,7 @@ namespace A2.University.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
