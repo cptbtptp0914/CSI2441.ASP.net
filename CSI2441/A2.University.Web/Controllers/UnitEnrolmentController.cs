@@ -291,7 +291,10 @@ namespace A2.University.Web.Controllers
             viewModel.YearSem = entityModel.year_sem.ToString();
             viewModel.Mark = entityModel.mark.ToString();
 
-            viewModel.StudentFullName = entityModel.Student.firstname + " " + entityModel.Student.lastname;
+            viewModel.StudentFullName =
+                $"{entityModel.Student.firstname} " +
+                $"{ entityModel.Student.lastname}";
+
             viewModel.Title = entityModel.Unit.title;
             viewModel.Grade = GradeRules.GetGrade(entityModel.mark);
         }
