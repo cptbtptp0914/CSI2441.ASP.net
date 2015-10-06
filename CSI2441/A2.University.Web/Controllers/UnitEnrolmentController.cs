@@ -193,19 +193,30 @@ namespace A2.University.Web.Controllers
         /// <param name="viewModel">UnitEnrolmentDropDownListViewModel</param>
         private void PopulateDropDownLists(UnitEnrolmentDropDownListViewModel viewModel)
         {
-            // get list of students/units from db
-            var studentsEntity = (from student in db.Students
-                select student).ToList();
+            string state = new CourseRules().CourseStates["Enrolled"];
+
+            // get list of students ENROLLED in a course
+            var courseEnrolmentsEntity = (
+                from courseEnrolment in db.CourseEnrolments
+                where courseEnrolment.course_status == state
+                select courseEnrolment)
+                .Include(s => s.Student) // join Student table
+                .ToList();
+
+            // get list of units
             var unitsEntity = (from units in db.Units
                 select units).ToList();
 
             // transfer relevant elements to viewmodel list
-            foreach (Student student in studentsEntity)
+            foreach (CourseEnrolment enrolment in courseEnrolmentsEntity)
             {
                 viewModel.Students.Add(new UnitEnrolmentDropDownListViewModel
                 {
-                    StudentId = student.student_id,
-                    StudentIdFullName = student.student_id + " "  + student.firstname + " " + student.lastname
+                    StudentId = enrolment.student_id,
+                    StudentIdFullName = 
+                        $"{enrolment.student_id} " +
+                        $"{enrolment.Student.firstname} " +
+                        $"{enrolment.Student.lastname}"
                 });
             }
 
@@ -214,7 +225,7 @@ namespace A2.University.Web.Controllers
                 viewModel.Units.Add(new UnitEnrolmentDropDownListViewModel
                 {
                     UnitId = unit.unit_id,
-                    UnitIdTitle = unit.unit_id + " " + unit.title
+                    UnitIdTitle = $"{unit.unit_id} {unit.title}"
                 });
             }
 

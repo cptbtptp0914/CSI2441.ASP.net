@@ -320,6 +320,7 @@ namespace A2.University.Web.Models
             });
 
             // student enrolled to course
+            // DEPRECATED: Student Dropdownlist now only shows Students ENROLLED in a course
             Custom(field =>
             {
                 if (!courseRules.IsStudentCourseEnrolled(field.StudentId))
