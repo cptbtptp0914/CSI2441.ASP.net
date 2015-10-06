@@ -14,13 +14,19 @@ namespace A2.University.Web.Controllers
 {
     public class CourseController : Controller
     {
-        private UniversityEntities db = new UniversityEntities();
+        private readonly UniversityEntities _db = new UniversityEntities();
 
         // GET: Course
         public ActionResult Index()
         {
             CourseIndexViewModel courseViewModel = new CourseIndexViewModel();
-            var coursesEntity = db.Courses.Include(c => c.CourseType).Include(c => c.Staff).ToList();
+
+            var coursesEntity = _db.Courses
+                .Include(c => 
+                    c.CourseType)
+                .Include(c => 
+                    c.Staff)
+                .ToList();
 
             // transfer entity list to viewmodel list
             foreach (Course course in coursesEntity)
@@ -55,7 +61,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Course courseEntityModel = db.Courses.Find(id);
+            Course courseEntityModel = _db.Courses.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseDetailsViewModel courseViewModel = new CourseDetailsViewModel();
             PopulateViewModel(courseViewModel, courseEntityModel);
@@ -95,8 +101,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(courseViewModel, courseEntityModel);
 
                 // update db using entitymodel
-                db.Courses.Add(courseEntityModel);
-                db.SaveChanges();
+                _db.Courses.Add(courseEntityModel);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -116,7 +122,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Course courseEntityModel = db.Courses.Find(id);
+            Course courseEntityModel = _db.Courses.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseEditViewModel courseViewModel =  new CourseEditViewModel();
             PopulateViewModel(courseViewModel, courseEntityModel);
@@ -146,8 +152,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(courseViewModel, courseEntityModel);
 
                 // update db using entitymodel
-                db.Entry(courseEntityModel).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(courseEntityModel).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -167,7 +173,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Course courseEntityModel = db.Courses.Find(id);
+            Course courseEntityModel = _db.Courses.Find(id);
             // create viewmodel, pass values from entitymodel
             CourseDeleteViewModel courseViewModel = new CourseDeleteViewModel();
             PopulateViewModel(courseViewModel, courseEntityModel);
@@ -184,9 +190,9 @@ namespace A2.University.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Course course = db.Courses.Find(id);
-            db.Courses.Remove(course);
-            db.SaveChanges();
+            Course course = _db.Courses.Find(id);
+            _db.Courses.Remove(course);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -197,8 +203,8 @@ namespace A2.University.Web.Controllers
         private void PopulateDropDownLists(CourseDropDownListViewModel viewModel)
         {
             // get list of students/units from db
-            var staffEntity = db.Staff.ToList();
-            var courseTypesEntity = db.CourseTypes.ToList();
+            var staffEntity = _db.Staff.ToList();
+            var courseTypesEntity = _db.CourseTypes.ToList();
 
             // transfer relevant elements to viewmodel list
             foreach (Staff staff in staffEntity)
@@ -265,7 +271,7 @@ namespace A2.University.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

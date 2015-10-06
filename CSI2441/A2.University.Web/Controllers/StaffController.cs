@@ -14,7 +14,7 @@ namespace A2.University.Web.Controllers
 {
     public class StaffController : Controller
     {
-        private UniversityEntities db = new UniversityEntities();
+        private readonly UniversityEntities _db = new UniversityEntities();
         private int _emailMatchTally;
         private string _email;
         private string _tempEmail;
@@ -23,7 +23,7 @@ namespace A2.University.Web.Controllers
         public ActionResult Index()
         {
             StaffIndexViewModel staffViewModel = new StaffIndexViewModel();
-            var staffEntity = db.Staff.ToList();
+            var staffEntity = _db.Staff.ToList();
 
             // transfer entity list to viewmodel list
             foreach (Staff staff in staffEntity)
@@ -50,7 +50,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Staff staffEntityModel = db.Staff.Find(id);
+            Staff staffEntityModel = _db.Staff.Find(id);
             // create viewmodel, pass values from entitymodel
             StaffDetailsViewModel staffViewModel = new StaffDetailsViewModel();
             PopulateViewModel(staffViewModel, staffEntityModel);
@@ -86,8 +86,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(staffViewModel, staffEntityModel);
 
                 // update db using entitymodel
-                db.Staff.Add(staffEntityModel);
-                db.SaveChanges();
+                _db.Staff.Add(staffEntityModel);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -103,7 +103,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Staff staffEntityModel = db.Staff.Find(id);
+            Staff staffEntityModel = _db.Staff.Find(id);
             // create viewmodel, pass values from entity model
             StaffEditViewModel staffViewModel = new StaffEditViewModel();
             PopulateViewModel(staffViewModel, staffEntityModel);
@@ -130,8 +130,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(staffViewModel, staffEntityModel);
 
                 // update db using entitymodel
-                db.Entry(staffEntityModel).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(staffEntityModel).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(staffViewModel);
@@ -146,7 +146,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entity model, match id
-            Staff staffEntityModel = db.Staff.Find(id);
+            Staff staffEntityModel = _db.Staff.Find(id);
             // create viewmodel, pass values from entitymodel
             StaffDeleteViewModel staffViewModel = new StaffDeleteViewModel();
             PopulateViewModel(staffViewModel, staffEntityModel);
@@ -165,9 +165,9 @@ namespace A2.University.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Staff staff = db.Staff.Find(id);
-            db.Staff.Remove(staff);
-            db.SaveChanges();
+            Staff staff = _db.Staff.Find(id);
+            _db.Staff.Remove(staff);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -256,14 +256,14 @@ namespace A2.University.Web.Controllers
         /// <returns>bool</returns>
         private bool SearchEmail(string target)
         {
-            return db.Staff.Any(e => e.email == target);
+            return _db.Staff.Any(e => e.email == target);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

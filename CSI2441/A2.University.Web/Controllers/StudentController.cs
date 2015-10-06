@@ -14,7 +14,7 @@ namespace A2.University.Web.Controllers
 {
     public class StudentController : Controller
     {
-        private UniversityEntities db = new UniversityEntities();
+        private readonly UniversityEntities _db = new UniversityEntities();
         private int _emailMatchTally;
         private string _email;
         private string _tempEmail;
@@ -25,7 +25,7 @@ namespace A2.University.Web.Controllers
             // create viewmodel
             StudentIndexViewModel studentViewModel = new StudentIndexViewModel();
             // generate list from entity
-            var studentsEntity = db.Students.ToList();
+            var studentsEntity = _db.Students.ToList();
 
             // transfer entity list to viewmodel list
             foreach (Student student in studentsEntity)
@@ -60,7 +60,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Student studentEntityModel = db.Students.Find(id);
+            Student studentEntityModel = _db.Students.Find(id);
             // create viewmodel, pass values from entitymodel
             StudentDetailsViewModel studentViewModel = new StudentDetailsViewModel();
             PopulateViewModel(studentViewModel, studentEntityModel);
@@ -96,8 +96,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(studentViewModel, studentEntityModel);
 
                 // update db using entitymodel
-                db.Students.Add(studentEntityModel);
-                db.SaveChanges();
+                _db.Students.Add(studentEntityModel);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -113,7 +113,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Student studentEntityModel = db.Students.Find(id);
+            Student studentEntityModel = _db.Students.Find(id);
             // create viewmodel, pass values from entitymodel
             StudentEditViewModel studentViewModel = new StudentEditViewModel();
             PopulateViewModel(studentViewModel, studentEntityModel);
@@ -140,8 +140,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(studentViewModel, studentEntityModel);
 
                 // update db using entitymodel
-                db.Entry(studentEntityModel).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(studentEntityModel).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
             return View(studentViewModel);
@@ -156,7 +156,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entity model, match id
-            Student studentEntityModel = db.Students.Find(id);
+            Student studentEntityModel = _db.Students.Find(id);
             // create viewmodel, pass values from entitymodel
             StudentDeleteViewModel studentViewModel = new StudentDeleteViewModel();
             PopulateViewModel(studentViewModel, studentEntityModel);
@@ -175,9 +175,9 @@ namespace A2.University.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
         {
-            Student student = db.Students.Find(id);
-            db.Students.Remove(student);
-            db.SaveChanges();
+            Student student = _db.Students.Find(id);
+            _db.Students.Remove(student);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -286,14 +286,14 @@ namespace A2.University.Web.Controllers
         /// <returns>bool</returns>
         private bool SearchEmail(string target)
         {
-            return db.Students.Any(e => e.email == target);
+            return _db.Students.Any(e => e.email == target);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }

@@ -14,13 +14,19 @@ namespace A2.University.Web.Controllers
 {
     public class UnitController : Controller
     {
-        private UniversityEntities db = new UniversityEntities();
+        private readonly UniversityEntities _db = new UniversityEntities();
 
         // GET: Unit
         public ActionResult Index()
         {          
             UnitIndexViewModel unitViewModel = new UnitIndexViewModel();
-            var unitsEntity = db.Units.Include(u => u.Staff).Include(u => u.UnitType).ToList();
+
+            var unitsEntity = _db.Units
+                .Include(u => 
+                    u.Staff)
+                .Include(u => 
+                    u.UnitType)
+                .ToList();
 
             // transfer entity list to viewmodel list
             foreach (Unit unit in unitsEntity)
@@ -55,7 +61,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Unit unitEntityModel = db.Units.Find(id);
+            Unit unitEntityModel = _db.Units.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitDetailsViewModel unitViewModel = new UnitDetailsViewModel();
             PopulateViewModel(unitViewModel, unitEntityModel);
@@ -96,8 +102,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(unitViewModel, unitEntityModel);
 
                 // update db using entitymodel
-                db.Units.Add(unitEntityModel);
-                db.SaveChanges();
+                _db.Units.Add(unitEntityModel);
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -117,7 +123,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Unit unitEntityModel = db.Units.Find(id);
+            Unit unitEntityModel = _db.Units.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitEditViewModel unitViewModel = new UnitEditViewModel();
             PopulateViewModel(unitViewModel, unitEntityModel);
@@ -147,8 +153,8 @@ namespace A2.University.Web.Controllers
                 PopulateEntityModel(unitViewModel, unitEntityModel);
 
                 // update db using entitymodel
-                db.Entry(unitEntityModel).State = EntityState.Modified;
-                db.SaveChanges();
+                _db.Entry(unitEntityModel).State = EntityState.Modified;
+                _db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -167,7 +173,7 @@ namespace A2.University.Web.Controllers
             }
 
             // create entitymodel, match id
-            Unit unitEntityModel = db.Units.Find(id);
+            Unit unitEntityModel = _db.Units.Find(id);
             // create viewmodel, pass values from entitymodel
             UnitDeleteViewModel unitViewModel = new UnitDeleteViewModel();
             PopulateViewModel(unitViewModel, unitEntityModel);
@@ -184,9 +190,9 @@ namespace A2.University.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)
         {
-            Unit unit = db.Units.Find(id);
-            db.Units.Remove(unit);
-            db.SaveChanges();
+            Unit unit = _db.Units.Find(id);
+            _db.Units.Remove(unit);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -197,8 +203,8 @@ namespace A2.University.Web.Controllers
         private void PopulateDropDownLists(UnitDropDownListViewModel viewModel)
         {
             // get list of students/units from db
-            var staffEntity = db.Staff.ToList();
-            var unitTypesEntity = db.UnitTypes.ToList();
+            var staffEntity = _db.Staff.ToList();
+            var unitTypesEntity = _db.UnitTypes.ToList();
 
             // transfer relevant elements to viewmodel list
             foreach (Staff staff in staffEntity)
@@ -271,7 +277,7 @@ namespace A2.University.Web.Controllers
         private string GetCoordinatorFullName(long staff_id)
         {
             var query = (
-                from c in db.Staff
+                from c in _db.Staff
                 where c.staff_id == staff_id
                 select c.firstname + " " + c.surname
             ).FirstOrDefault();
@@ -283,7 +289,7 @@ namespace A2.University.Web.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                _db.Dispose();
             }
             base.Dispose(disposing);
         }
