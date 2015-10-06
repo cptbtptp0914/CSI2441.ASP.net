@@ -147,6 +147,7 @@ namespace A2.University.Web.Controllers
                 // populate the entitymodel
                 PopulateEntityModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
+                // update db using entitymodel
                 db.Entry(courseEnrolmentEntityModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
