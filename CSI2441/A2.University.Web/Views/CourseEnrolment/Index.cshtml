@@ -29,8 +29,7 @@
 
 @*
     Grid.Mvc package generates the grid.
-    Provides filtering/sorting functions.
-    20 items per page.
+    Provides filtering/sorting/pagination.
 *@
 
 @Html.Grid(Model).Columns(columns =>
@@ -78,4 +77,4 @@
         .Sanitized(false)
         .SetWidth(30)
         .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.CourseEnrolmentId }));
-}).WithPaging(20).Sortable(true)
+}).WithPaging(15).Sortable(true)
