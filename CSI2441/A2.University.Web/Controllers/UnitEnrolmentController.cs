@@ -145,10 +145,15 @@ namespace A2.University.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                // populate entitymodel
+                PopulateEntityModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
+
+                // update db using entitymodel
                 db.Entry(unitEnrolmentEntityModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             // populate dropdownlists
             PopulateDropDownLists(unitEnrolmentViewModel);
 

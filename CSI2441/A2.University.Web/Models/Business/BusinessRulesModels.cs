@@ -61,22 +61,23 @@ namespace A2.University.Web.Models.Business
 
         /// <summary>
         /// Checks passed unit uniqueness for Edit view.
-        /// Own match will pass test, but fail when other matches exist.
+        /// Allows user to edit but not set unit to one that is already passed.
         /// </summary>
+        /// <param name="unitEnrolmentId">long</param>
         /// <param name="studentId">long</param>
         /// <param name="unitId">string</param>
         /// <param name="mark">int</param>
         /// <returns>bool</returns>
-        public bool IsNotUniquePassEdit(long studentId, string unitId, int mark)
+        public bool IsNotUniquePassEdit(long unitEnrolmentId, long studentId, string unitId, int mark)
         {
-            var query = (
-                from ue in db.UnitEnrolments
-                where ue.student_id == studentId &&
-                      ue.unit_id == unitId &&
-                      ue.mark >= Pass
-                select ue).ToList().Count;
+            var passes = db.UnitEnrolments.FirstOrDefault(
+                // ignore own id in query
+                ue => ue.unit_enrolment_id != unitEnrolmentId &&
+                ue.student_id == studentId &&
+                ue.unit_id == unitId &&
+                ue.mark >= Pass);
 
-            return query > 1;
+            return passes != null;
         }
 
         /// <summary>
@@ -100,20 +101,21 @@ namespace A2.University.Web.Models.Business
         /// Checks unit uniqueness per semester for Edit view.
         /// Own match will pass test, but fail when other matches exist.
         /// </summary>
+        /// <param name="unitEnrolmentId">long</param>
         /// <param name="studentId">long</param>
         /// <param name="unitId">string</param>
         /// <param name="yearSem">int</param>
         /// <returns></returns>
-        public bool IsNotUniqueInSemEdit(long studentId, string unitId, int yearSem)
+        public bool IsNotUniqueInSemEdit(long unitEnrolmentId, long studentId, string unitId, int yearSem)
         {
-            var query = (
-                from ue in db.UnitEnrolments
-                where ue.student_id == studentId &&
-                      ue.unit_id == unitId &&
-                      ue.year_sem == yearSem
-                select ue).ToList().Count;
+            var unit = db.UnitEnrolments.FirstOrDefault(
+                // ignore own id in query
+                ue => ue.unit_enrolment_id != unitEnrolmentId &&
+                ue.student_id == studentId &&
+                ue.unit_id == unitId &&
+                ue.year_sem == yearSem);
 
-            return query > 1;
+            return unit != null;
         }
         
         /// <summary>

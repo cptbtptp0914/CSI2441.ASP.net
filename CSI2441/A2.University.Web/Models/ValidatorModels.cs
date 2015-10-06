@@ -231,7 +231,13 @@ namespace A2.University.Web.Models
             });
         }
     }
-
+    
+    /// <summary>
+    /// Validator for CourseEditViewModelValidator.
+    /// Should have inherited base class above to avoid duplication, but would have to override the constructor anyway.
+    /// This class does not set CourseId to required.
+    /// TODO: If there's time, try to define base class as generic to allow for inheritance.
+    /// </summary>
     public class CourseEditViewModelValidator : AbstractValidator<CourseEditViewModel>
     {
         public CourseEditViewModelValidator()
@@ -362,11 +368,20 @@ namespace A2.University.Web.Models
         }
     }
 
+    /// <summary>
+    /// Validator for UnitEnrolmentEditViewModelValidator.
+    /// Should have inherited base class above to avoid duplication, but would have to override the constructor anyway.
+    /// This class uses different rules for validating UnitId, allowing user to edit year/sem and mark,
+    /// but also ensures passed unit uniqueness and same semester uniqueness.
+    /// TODO: If there's time, try to define base class as generic to allow for inheritance.
+    /// </summary>
     public class UnitEnrolmentEditViewModelValidator : AbstractValidator<UnitEnrolmentEditViewModel>
     {
         public UnitEnrolmentEditViewModelValidator()
         {
-            // create instance of unit/course rules model
+            // create instance of db context to serverside validation
+            UniversityEntities db = new UniversityEntities();
+            // create instance of unit rules model
             UnitRules unitRules = new UnitRules();
 
             // student
@@ -401,7 +416,7 @@ namespace A2.University.Web.Models
             // unit pass uniqueness
             Custom(field =>
             {
-                if (unitRules.IsNotUniquePassEdit(field.StudentId, field.UnitId, int.Parse(field.Mark)))
+                if (unitRules.IsNotUniquePassEdit(field.UnitEnrolmentId, field.StudentId, field.UnitId, int.Parse(field.Mark)))
                 {
                     return new ValidationFailure("UnitId", "* Student has already passed this Unit");
                 }
@@ -411,7 +426,7 @@ namespace A2.University.Web.Models
             // unit uniqueness per semester
             Custom(field =>
             {
-                if (unitRules.IsNotUniqueInSemEdit(field.StudentId, field.UnitId, int.Parse(field.YearSem)))
+                if (unitRules.IsNotUniqueInSemEdit(field.UnitEnrolmentId, field.StudentId, field.UnitId, int.Parse(field.YearSem)))
                 {
                     return new ValidationFailure("UnitId", "* Enrolment already exists in Semester");
                 }
