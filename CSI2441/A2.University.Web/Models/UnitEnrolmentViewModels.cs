@@ -33,7 +33,7 @@ namespace A2.University.Web.Models
 
         // derived fields
 
-        [Display(Name = "Unit Title")]
+        [Display(Name = "Unit title")]
         public string Title { get; set; }
 
         [Display(Name = "Student name")]
