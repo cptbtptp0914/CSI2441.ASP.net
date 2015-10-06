@@ -139,6 +139,10 @@ namespace A2.University.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                // populate entitymodel
+                PopulateEntityModel(courseViewModel, courseEntityModel);
+
+                // update db using entitymodel
                 db.Entry(courseEntityModel).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
