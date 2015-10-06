@@ -22,7 +22,9 @@ namespace A2.University.Web.Controllers
         // GET: Student
         public ActionResult Index()
         {
+            // create viewmodel
             StudentIndexViewModel studentViewModel = new StudentIndexViewModel();
+            // generate list from entity
             var studentsEntity = db.Students.ToList();
 
             // transfer entity list to viewmodel list
@@ -89,9 +91,6 @@ namespace A2.University.Web.Controllers
             // if input passed validation
             if (ModelState.IsValid)
             {
-                // generate Email
-                StartEmailRecursiveSearch(studentViewModel);
-
                 // create entitymodel, pass values from viewmodel
                 Student studentEntityModel = new Student();
                 PopulateEntityModel(studentViewModel, studentEntityModel);
@@ -139,10 +138,6 @@ namespace A2.University.Web.Controllers
             {
                 // populate the entitymodel
                 PopulateEntityModel(studentViewModel, studentEntityModel);
-
-                // generate new Email
-                StartEmailRecursiveSearch(studentViewModel);
-                studentEntityModel.email = _email;
 
                 // update db using entitymodel
                 db.Entry(studentEntityModel).State = EntityState.Modified;
@@ -199,8 +194,6 @@ namespace A2.University.Web.Controllers
             entityModel.lastname = viewModel.LastName;
             entityModel.dob = viewModel.Dob;
             entityModel.gender = viewModel.Gender;
-            // use system generated email
-            entityModel.email = _email;
             entityModel.ph_landline = viewModel.LandLine;
             entityModel.ph_mobile = viewModel.Mobile;
             entityModel.adrs = viewModel.Adrs;
@@ -208,6 +201,12 @@ namespace A2.University.Web.Controllers
             entityModel.adrs_state = viewModel.AdrsState;
             // cast postcode string to int
             entityModel.adrs_postcode = int.Parse(viewModel.AdrsPostcode);
+
+            // generate email
+            StartEmailRecursiveSearch(viewModel);
+            // could pass directly to entity, but may need in view
+            viewModel.Email = _email;
+            entityModel.email = viewModel.Email;
         }
 
 
@@ -268,8 +267,8 @@ namespace A2.University.Web.Controllers
                     "student",
                     _emailMatchTally,
                     student.FirstName.ToLower(),
-                    student.LastName.ToLower()
-                    );
+                    student.LastName.ToLower());
+
                 // recursive call to search new version of generated Email
                 EmailRecursiveSearch(student, _tempEmail);
             }
