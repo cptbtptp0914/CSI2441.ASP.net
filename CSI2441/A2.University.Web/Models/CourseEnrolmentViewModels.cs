@@ -48,7 +48,7 @@ namespace A2.University.Web.Models
         public List<CourseEnrolmentDropDownListViewModel> Students = new List<CourseEnrolmentDropDownListViewModel>();
         public List<CourseEnrolmentDropDownListViewModel> Courses = new List<CourseEnrolmentDropDownListViewModel>();
         // store derived items for dropdownlist
-        public string StudentIdFullname { get; set; }
+        public string StudentIdFullName { get; set; }
         public string CourseIdTitle { get; set; }
 
         // to be populated by controller
@@ -83,7 +83,8 @@ namespace A2.University.Web.Models
 
     public class CourseEnrolmentEditViewModel : CourseEnrolmentDropDownListViewModel
     {
-        // Inherits CourseEnrolmentDropDownListViewModel, no custom fields required
+        [Display(Name = "Student ID")]
+        new public string StudentIdFullName { get; set; }
     }
 
     public class CourseEnrolmentDeleteViewModel : CourseEnrolmentBaseViewModel

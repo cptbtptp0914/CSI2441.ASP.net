@@ -113,7 +113,15 @@ namespace A2.University.Web.Controllers
             // create entitymodel, match id
             CourseEnrolment courseEnrolmentEntityModel = db.CourseEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
-            CourseEnrolmentEditViewModel courseEnrolmentViewModel = new CourseEnrolmentEditViewModel();
+            CourseEnrolmentEditViewModel courseEnrolmentViewModel = new CourseEnrolmentEditViewModel
+            {
+                // read only field in view
+                StudentIdFullName =
+                    $"{courseEnrolmentEntityModel.Student.student_id} " +
+                    $"{courseEnrolmentEntityModel.Student.firstname} " +
+                    $"{courseEnrolmentEntityModel.Student.lastname}"
+            };
+
             PopulateViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
             // populate dropdownlists
@@ -204,7 +212,7 @@ namespace A2.University.Web.Controllers
                 viewModel.Students.Add(new CourseEnrolmentDropDownListViewModel
                 {
                     StudentId = student.student_id,
-                    StudentIdFullname = student.student_id + " " + student.firstname + " " + student.lastname
+                    StudentIdFullName = student.student_id + " " + student.firstname + " " + student.lastname
                 });
             }
 
