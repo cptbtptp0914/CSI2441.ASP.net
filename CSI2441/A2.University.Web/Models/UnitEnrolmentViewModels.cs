@@ -72,7 +72,8 @@ namespace A2.University.Web.Models
 
     public class UnitEnrolmentDetailsViewModel : UnitEnrolmentBaseViewModel
     {
-        // No custom fields required
+        [Display(Name = "Course")]
+        public string CourseIdTitle { get; set; }
     }
 
     public class UnitEnrolmentCreateViewModel : UnitEnrolmentDropDownListViewModel

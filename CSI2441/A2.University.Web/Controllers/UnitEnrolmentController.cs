@@ -55,7 +55,15 @@ namespace A2.University.Web.Controllers
             // create entitymodel, match id
             UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
-            UnitEnrolmentDetailsViewModel unitEnrolmentViewModel = new UnitEnrolmentDetailsViewModel();
+            UnitEnrolmentDetailsViewModel unitEnrolmentViewModel = new UnitEnrolmentDetailsViewModel
+            {
+                // derived field
+                CourseIdTitle = 
+                    $"{unitEnrolmentEntityModel.CourseEnrolment.course_id} " +
+                    $"{unitEnrolmentEntityModel.CourseEnrolment.Course.title}"
+
+            };
+
             PopulateViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
             if (unitEnrolmentEntityModel == null)

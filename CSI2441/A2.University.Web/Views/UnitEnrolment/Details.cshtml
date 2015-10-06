@@ -16,7 +16,7 @@
         @*Student ID*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StudentId, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.StudentId, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 <p class="form-display">@Html.DisplayFor(model => model.StudentId)</p>
             </div>
@@ -25,7 +25,7 @@
         @*Student full name*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StudentFullName, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.StudentFullName, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 <p class="form-display">@Html.DisplayFor(model => model.StudentFullName)</p>
             </div>
@@ -34,7 +34,7 @@
         @*Unit ID*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UnitId, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.UnitId, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 <p class="form-display">@Html.DisplayFor(model => model.UnitId)</p>
             </div>
@@ -43,7 +43,7 @@
         @*Unit Title*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Title, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 <p class="form-display">@Html.DisplayFor(model => model.Title)</p>
             </div>
@@ -52,7 +52,7 @@
         @*Year/sem*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.YearSem, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.YearSem, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 <p class="form-display">@Html.DisplayFor(model => model.YearSem)</p>
             </div>
@@ -61,7 +61,7 @@
         @*Mark*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Mark, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Mark, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 <p class="form-display">@Html.DisplayFor(model => model.Mark)</p>
             </div>
@@ -70,9 +70,18 @@
         @*Grade*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Grade, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Grade, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 <p class="form-display">@Html.DisplayFor(model => model.Grade)</p>
+            </div>
+        </div>
+
+        @*Course*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseIdTitle, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.CourseIdTitle)</p>
             </div>
         </div>
 
