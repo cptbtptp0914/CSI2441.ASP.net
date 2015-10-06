@@ -121,7 +121,15 @@ namespace A2.University.Web.Controllers
             // create entitymodel, match id
             UnitEnrolment unitEnrolmentEntityModel = db.UnitEnrolments.Find(id);
             // create viewmodel, pass values from entitymodel
-            UnitEnrolmentEditViewModel unitEnrolmentViewModel = new UnitEnrolmentEditViewModel();
+            UnitEnrolmentEditViewModel unitEnrolmentViewModel = new UnitEnrolmentEditViewModel
+            {
+                // readonly field in view
+                StudentIdFullName = 
+                    $"{unitEnrolmentEntityModel.Student.student_id} " +
+                    $"{unitEnrolmentEntityModel.Student.firstname} " +
+                    $"{unitEnrolmentEntityModel.Student.lastname}"
+            };
+
             PopulateViewModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
             // populate dropdownlists

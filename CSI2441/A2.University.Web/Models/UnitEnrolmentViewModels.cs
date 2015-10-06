@@ -84,7 +84,8 @@ namespace A2.University.Web.Models
     [Validator(typeof(UnitEnrolmentEditViewModelValidator))]
     public class UnitEnrolmentEditViewModel : UnitEnrolmentDropDownListViewModel
     {
-        // Inherits UnitEnrolmentDropDownListViewModel, no custom fields required
+        [Display(Name = "Student ID")]
+        new public string StudentIdFullName { get; set; }
     }
 
     public class UnitEnrolmentDeleteViewModel : UnitEnrolmentBaseViewModel
