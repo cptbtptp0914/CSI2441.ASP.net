@@ -99,8 +99,7 @@ namespace A2.University.Web.Models
     {
         public UnitBaseViewModelValidator()
         {
-            // create instance of db context to perform serverside validation
-            UniversityEntities db = new UniversityEntities();
+            UnitRules unitRules = new UnitRules();
 
             // unit id, pre post
             RuleFor(field => field.UnitId)
@@ -143,11 +142,10 @@ namespace A2.University.Web.Models
              * SERVER SIDE VALIDATION *
              **************************/
 
-            // validate unit id uniqueness
+            // unit id uniqueness
             Custom(field =>
             {
-                var unitId = db.Units.FirstOrDefault(u => u.unit_id == field.UnitId);
-                if (unitId != null)
+                if (unitRules.IsNotUniqueUnitId(field.UnitId))
                 {
                     return new ValidationFailure("UnitId", "* Unit ID already exists");
                 }

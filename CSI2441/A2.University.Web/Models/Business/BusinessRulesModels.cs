@@ -42,6 +42,14 @@ namespace A2.University.Web.Models.Business
             db = new UniversityEntities();
         }
 
+        public bool IsNotUniqueUnitId(string unitId)
+        {
+            var units = db.Units.FirstOrDefault(
+                u => u.unit_id == unitId);
+
+            return units != null;
+        }
+
         /// <summary>
         /// Checks passed unit uniqueness for Create view.
         /// </summary>
@@ -63,27 +71,6 @@ namespace A2.University.Web.Models.Business
         }
 
         /// <summary>
-        /// Checks passed unit uniqueness for Edit view.
-        /// Allows user to edit but not set unit to one that is already passed.
-        /// </summary>
-        /// <param name="unitEnrolmentId">long</param>
-        /// <param name="studentId">long</param>
-        /// <param name="unitId">string</param>
-        /// <param name="mark">int</param>
-        /// <returns>bool</returns>
-        public bool IsNotUniquePassEdit(long unitEnrolmentId, long studentId, string unitId, int mark)
-        {
-            var passes = db.UnitEnrolments.FirstOrDefault(
-                // ignore own id in query
-                ue => ue.unit_enrolment_id != unitEnrolmentId &&
-                ue.student_id == studentId &&
-                ue.unit_id == unitId &&
-                ue.mark >= Pass);
-
-            return passes != null;
-        }
-
-        /// <summary>
         /// Checks unit uniqueness per semester for Create view.
         /// </summary>
         /// <param name="unitEnrolmentId">long</param>
@@ -98,27 +85,6 @@ namespace A2.University.Web.Models.Business
                 ue => ue.unit_enrolment_id != unitEnrolmentId &&
                 ue.student_id == studentId && 
                 ue.unit_id == unitId && 
-                ue.year_sem == yearSem);
-
-            return unit != null;
-        }
-
-        /// <summary>
-        /// Checks unit uniqueness per semester for Edit view.
-        /// Own match will pass test, but fail when other matches exist.
-        /// </summary>
-        /// <param name="unitEnrolmentId">long</param>
-        /// <param name="studentId">long</param>
-        /// <param name="unitId">string</param>
-        /// <param name="yearSem">int</param>
-        /// <returns></returns>
-        public bool IsNotUniqueInSemEdit(long unitEnrolmentId, long studentId, string unitId, int yearSem)
-        {
-            var unit = db.UnitEnrolments.FirstOrDefault(
-                // ignore own id in query
-                ue => ue.unit_enrolment_id != unitEnrolmentId &&
-                ue.student_id == studentId &&
-                ue.unit_id == unitId &&
                 ue.year_sem == yearSem);
 
             return unit != null;
