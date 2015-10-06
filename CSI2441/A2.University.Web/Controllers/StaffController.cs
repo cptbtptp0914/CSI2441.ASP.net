@@ -217,7 +217,7 @@ namespace A2.University.Web.Controllers
 
             // generate initial standard Email
             string target = staff.FirstName[0] + "." + staff.LastName + EmailGenerator.StaffEmailSuffix;
-            // us Email as target for search
+            // use email as target for search
             EmailRecursiveSearch(staff, target.ToLower());
         }
         
