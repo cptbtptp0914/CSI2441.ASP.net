@@ -49,12 +49,12 @@ namespace A2.University.Web.Models
             // Adrs
             RuleFor(field => field.Adrs)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[-a-zA-Z0-9.\\/#]+(\s+[-a-zA-Z0-9.\\/#]+)*$").WithMessage("* Must be a valid address")
+                .Matches(@"^[-a-zA-Z0-9.\\/#']+(\s+[-a-zA-Z0-9.\\/#']+)*$").WithMessage("* Must be a valid address")
                 .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // city
             RuleFor(field => field.AdrsCity)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-zA-Z]+(\s+[a-zA-Z]+)*$").WithMessage("* Must be a valid city")
+                .Matches(@"^[a-zA-Z',]+(\s+[a-zA-Z',]+)*$").WithMessage("* Must be a valid city")
                 .Length(2, 100).WithMessage("* Must be between 2 and 100 characters");
             // state
             RuleFor(field => field.AdrsState)
