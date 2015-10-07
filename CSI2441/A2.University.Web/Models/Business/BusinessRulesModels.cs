@@ -88,12 +88,13 @@ namespace A2.University.Web.Models.Business
         /// <returns>bool</returns>
         public bool IsNotUniqueUnitInSem(long unitEnrolmentId, long studentId, string unitId, int yearSem)
         {
-            var unit = _db.UnitEnrolments.FirstOrDefault(
-                // ignore own id in query
-                ue => ue.unit_enrolment_id != unitEnrolmentId &&
-                ue.student_id == studentId && 
-                ue.unit_id == unitId && 
-                ue.year_sem == yearSem);
+            var unit = _db.UnitEnrolments
+                .FirstOrDefault(ue =>
+                    // ignore own id in query
+                    ue.unit_enrolment_id != unitEnrolmentId &&
+                    ue.student_id == studentId && 
+                    ue.unit_id == unitId && 
+                    ue.year_sem == yearSem);
 
             return unit != null;
         }
@@ -101,16 +102,17 @@ namespace A2.University.Web.Models.Business
         /// <summary>
         /// Checks max unit attempts.
         /// </summary>
+        /// <param name="unitEnrolmentId">long</param>
         /// <param name="studentId">long</param>
         /// <param name="unitId">string</param>
         /// <returns>bool</returns>
-        public bool IsMaxAttempts(long studentId, string unitId)
+        public bool IsMaxAttempts(long unitEnrolmentId, long studentId, string unitId)
         {
-            var query =
-                (from ue in _db.UnitEnrolments
-                    where ue.student_id == studentId &&
-                    ue.unit_id == unitId
-                    select ue).Count();
+            var query = _db.UnitEnrolments
+                .Count(ue => 
+                    // ignore own id in query
+                    ue.unit_enrolment_id != unitEnrolmentId &&
+                    ue.unit_id == unitId);
 
             return query >= MaxAttempts;
         }

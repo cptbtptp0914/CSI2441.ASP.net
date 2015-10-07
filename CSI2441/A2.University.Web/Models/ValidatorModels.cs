@@ -357,7 +357,7 @@ namespace A2.University.Web.Models
             // unit max attempts
             Custom(field =>
             {
-                if (unitRules.IsMaxAttempts(field.StudentId, field.UnitId))
+                if (unitRules.IsMaxAttempts(field.UnitEnrolmentId, field.StudentId, field.UnitId))
                 {
                     return new ValidationFailure("UnitId", "* Student has reached max attempts for Unit");
                 }
