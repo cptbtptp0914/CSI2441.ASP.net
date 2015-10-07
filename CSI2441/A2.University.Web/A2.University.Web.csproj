@@ -199,6 +199,7 @@
     <Compile Include="Controllers\CourseEnrolmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
@@ -252,6 +253,7 @@
     </Compile>
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\ResultsViewModels.cs" />
     <Compile Include="Models\StaffViewModels.cs" />
     <Compile Include="Models\StudentViewModels.cs" />
     <Compile Include="Models\UnitEnrolmentViewModels.cs" />
@@ -403,6 +405,7 @@
     <Content Include="Views\CourseEnrolment\Details.cshtml" />
     <Content Include="Views\CourseEnrolment\Edit.cshtml" />
     <Content Include="Views\CourseEnrolment\Index.cshtml" />
+    <Content Include="Views\Results\Index.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

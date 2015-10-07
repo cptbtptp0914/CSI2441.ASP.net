@@ -1,11 +1,19 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using A2.University.Web.Models.Entities;
+using Microsoft.Ajax.Utilities;
 
 namespace A2.University.Web.Models.Business
 {
     public static class GradeRules
     {
+
+        /// <summary>
+        /// Returns the grade of a mark.
+        /// </summary>
+        /// <param name="mark">int</param>
+        /// <returns></returns>
         public static string GetGrade(int mark)
         {
             if (mark >= 80)
@@ -176,6 +184,45 @@ namespace A2.University.Web.Models.Business
                     ce.course_id == courseId);
 
             return course != null;
+        }
+    }
+
+    public static class ProgressRules
+    {
+        private static readonly UniversityEntities Db = new UniversityEntities();
+
+        // fields to display in view
+        private static int CpAchieved { get; set; }
+        private static int CpRemaining { get; set; }
+        private static string CourseState { get; set; }
+        private static int UnitsAttempted { get; set; }
+        private static UnitEnrolment HighestMark { get; set; }
+        private static UnitEnrolment LowestMark { get; set; }
+
+        /// <summary>
+        /// Returns course average of marks.
+        /// </summary>
+        /// <param name="studentId">long</param>
+        /// <param name="courseId">string</param>
+        /// <returns></returns>
+        public static double GetCourseAverage(long studentId, string courseId)
+        {
+            // get list of results
+            var unitResults = Db.UnitEnrolments
+                .Where(ue =>
+                    ue.student_id == studentId &&
+                    ue.CourseEnrolment.course_id == courseId)
+                .ToList();
+
+            // get sum of results
+            var sum = unitResults
+                .Sum(result => 
+                    result.mark);
+
+            double average = sum / unitResults.Count;
+
+            // return average
+            return Math.Round(average, 2);
         }
     }
 }
