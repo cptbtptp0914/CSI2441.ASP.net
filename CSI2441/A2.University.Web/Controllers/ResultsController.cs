@@ -65,7 +65,7 @@ namespace A2.University.Web.Controllers
                     ue.CourseEnrolment)
                 .ToList();
 
-            // create viewmodel
+            // create viewmodels
             ProgressViewModel progressViewModel = new ProgressViewModel
             {
                 // populate summary
@@ -89,23 +89,22 @@ namespace A2.University.Web.Controllers
                 CpRemaining = progressRules.GetCpRemaining(),
                 CourseStatus = progressRules.GetCourseStatus(),
                 UnitsAttempted = progressRules.GetUnitsAttempted(),
-
                 HighestMark = progressRules.GetHighestMark(),
                 LowestMark = progressRules.GetLowestMark()
             };
 
-            // populate list of results for student
-            foreach (UnitEnrolment unitEnrolment in unitEnrolmentsEntity)
+            progressViewModel.TranscriptView = new TranscriptViewModel();
+            foreach (UnitEnrolment result in unitEnrolmentsEntity)
             {
-                // each row of results table
-                progressViewModel.UnitResults.Add(new ProgressViewModel
+                progressViewModel.TranscriptView.Transcript.Add(new ProgressViewModel
                 {
-                    UnitEnrolmentId = unitEnrolment.unit_enrolment_id,
-                    CourseEnrolmentId = unitEnrolment.course_enrolment_id,
-                    UnitId = unitEnrolment.unit_id,
-                    UnitTitle = unitEnrolment.Unit.title,
-                    Mark = unitEnrolment.mark,
-                    Grade = GradeRules.GetGrade(unitEnrolment.mark)
+                    UnitEnrolmentId = result.unit_enrolment_id,
+                    CourseEnrolmentId = result.course_enrolment_id,
+                    UnitId = result.unit_id,
+                    UnitTitle = result.Unit.title,
+                    YearSem = result.year_sem,
+                    Mark = result.mark,
+                    Grade = GradeRules.GetGrade(result.mark)
                 });
             }
 

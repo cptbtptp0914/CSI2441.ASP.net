@@ -1,0 +1,38 @@
+﻿@using GridMvc.Html
+@model IEnumerable<A2.University.Web.Models.ProgressViewModel>
+
+@{
+    ViewBag.Title = "Transcript";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr/>
+
+@*
+    Grid.Mvc package generates the grid.
+    Provides filtering/sorting/pagination.
+*@
+
+@Html.Grid(Model).Columns(columns =>
+{
+    // unit id
+    columns.Add(data => data.UnitId)
+        .Titled("Unit ID")
+        .SetFilterWidgetType("System.String");
+    // unit title
+    columns.Add(data => data.UnitTitle)
+        .Titled("Unit title")
+        .SetFilterWidgetType("System.String");
+    // year/sem
+    columns.Add(data => data.YearSem)
+        .Titled("Year/Sem")
+        .SetFilterWidgetType("System.Int32");
+    // mark
+    columns.Add(data => data.Mark)
+        .Titled("Mark")
+        .SetFilterWidgetType("System.Int32");
+    // grade
+    columns.Add(data => data.Grade)
+        .Titled("Grade")
+        .SetFilterWidgetType("System.String");
+}).Sortable(true).Filterable(true)

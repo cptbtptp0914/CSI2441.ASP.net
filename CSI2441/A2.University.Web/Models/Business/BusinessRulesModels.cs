@@ -288,39 +288,25 @@ namespace A2.University.Web.Models.Business
         }
 
         /// <summary>
-        /// Returns list of highest mark/s.
+        /// Returns highest mark.
         /// </summary>
         /// <returns></returns>
-        public List<UnitEnrolment> GetHighestMark()
+        public int GetHighestMark()
         {
-            // get the highest mark
-            var highest = _unitResults
+            return _unitResults
                 .Max(results =>
                     results.mark);
-
-            // return result/s with highest mark
-            return _unitResults
-                .Where(result =>
-                    result.mark == highest)
-                .ToList();
         }
 
         /// <summary>
-        /// Returns list of lowest mark/s.
+        /// Returns lowest mark.
         /// </summary>
         /// <returns></returns>
-        public List<UnitEnrolment> GetLowestMark()
+        public int GetLowestMark()
         {
-            // get the lowest mark
-            var lowest = _unitResults
+            return _unitResults
                 .Min(result =>
                     result.mark);
-
-            // return result/s with lowest mark
-            return _unitResults
-                .Where(result =>
-                    result.mark == lowest)
-                .ToList();
         } 
     }
 }

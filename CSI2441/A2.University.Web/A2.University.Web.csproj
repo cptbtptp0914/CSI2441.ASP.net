@@ -407,6 +407,9 @@
     <Content Include="Views\CourseEnrolment\Index.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
     <Content Include="Views\Results\Progress.cshtml" />
+    <Content Include="Views\Results\_Transcript.cshtml" />
+    <Content Include="Views\Results\_HighestMark.cshtml" />
+    <Content Include="Views\Results\_LowestMark.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

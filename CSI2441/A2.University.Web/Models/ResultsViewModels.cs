@@ -25,10 +25,10 @@ namespace A2.University.Web.Models
         public int UnitsAttempted { get; set; }
 
         [Display(Name = "Highest mark")]
-        public List<UnitEnrolment> HighestMark { get; set; }
+        public int HighestMark { get; set; }
 
         [Display(Name = "Lowest mark")]
-        public List<UnitEnrolment> LowestMark { get; set; }
+        public int LowestMark { get; set; }
     }
 
     public class ResultsIndexViewModel : ResultsBaseViewModel
@@ -46,8 +46,6 @@ namespace A2.University.Web.Models
 
     public class ProgressViewModel : ResultsBaseViewModel
     {
-        public List<ProgressViewModel> UnitResults = new List<ProgressViewModel>(); 
-
         // pk
         public long UnitEnrolmentId { get; set; }
         // fk
@@ -69,7 +67,15 @@ namespace A2.University.Web.Models
         // displayed as grid
         public string UnitId { get; set; }
         public string UnitTitle { get; set; }
+        public int YearSem { get; set; }
         public int Mark { get; set; }
         public string Grade { get; set; }
+
+        public TranscriptViewModel TranscriptView { get; set; }
+    }
+
+    public class TranscriptViewModel : ProgressViewModel
+    {
+        public List<ProgressViewModel> Transcript = new List<ProgressViewModel>();
     }
 }
