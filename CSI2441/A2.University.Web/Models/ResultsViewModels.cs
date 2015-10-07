@@ -9,7 +9,7 @@ namespace A2.University.Web.Models
 {
     public class ResultsBaseViewModel
     {
-        [Display(Name = "Course average")]
+        [Display(Name = "Course average mark")]
         public double CourseAverage { get; set; }
 
         [Display(Name = "Credit points achieved")]
@@ -53,9 +53,22 @@ namespace A2.University.Web.Models
         // fk
         public long CourseEnrolmentId { get; set; }
 
+        // displayed as static
+        [Display(Name = "Student ID")]
+        public long StudentId { get; set; }
+
+        [Display(Name = "Name")]
+        public string StudentFullName { get; set; }
+
+        [Display(Name = "Course ID")]
+        public string CourseId { get; set; }
+
+        [Display(Name = "Course title")]
+        public string CourseTitle { get; set; }
+
+        // displayed as grid
         public string UnitId { get; set; }
         public string UnitTitle { get; set; }
-
         public int Mark { get; set; }
         public string Grade { get; set; }
     }

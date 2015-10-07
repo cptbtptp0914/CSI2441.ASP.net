@@ -20,10 +20,10 @@ namespace A2.University.Web.Controllers
         {
             ResultsIndexViewModel resultsIndexViewModel = new ResultsIndexViewModel();
             var courseEnrolmentsEntity = _db.CourseEnrolments
-                .Include(c => 
-                    c.Course)
-                .Include(c => 
-                    c.Student)
+                .Include(ce => 
+                    ce.Course)
+                .Include(ce => 
+                    ce.Student)
                 .ToList();
 
             // transfer entity list to viewmodel list
@@ -62,12 +62,28 @@ namespace A2.University.Web.Controllers
                 .Include(ue => 
                     ue.Student)
                 .Include(ue => 
-                    ue.CourseEnrolment);
+                    ue.CourseEnrolment)
+                .ToList();
 
             // create viewmodel
             ProgressViewModel progressViewModel = new ProgressViewModel
             {
                 // populate summary
+                StudentId = (long) studentId,
+                StudentFullName =
+                    $"{unitEnrolmentsEntity.Select(ue => ue.Student.firstname).FirstOrDefault()} " +
+                    $"{unitEnrolmentsEntity.Select(ue => ue.Student.lastname).FirstOrDefault()}",
+
+                CourseId = unitEnrolmentsEntity
+                    .Select(ue =>
+                        ue.unit_id)
+                    .FirstOrDefault(),
+
+                CourseTitle = unitEnrolmentsEntity
+                    .Select(ue =>
+                        ue.CourseEnrolment.Course.title)
+                    .FirstOrDefault(),
+
                 CourseAverage = progressRules.GetCourseAverage(),
                 CpAchieved = progressRules.GetCpAchieved(),
                 CpRemaining = progressRules.GetCpRemaining(),
@@ -77,6 +93,7 @@ namespace A2.University.Web.Controllers
                 HighestMark = progressRules.GetHighestMark(),
                 LowestMark = progressRules.GetLowestMark()
             };
+
             // populate list of results for student
             foreach (UnitEnrolment unitEnrolment in unitEnrolmentsEntity)
             {

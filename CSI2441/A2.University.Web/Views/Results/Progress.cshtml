@@ -1,7 +1,97 @@
-﻿
+﻿@model A2.University.Web.Models.ProgressViewModel
+
 @{
-    ViewBag.Title = "Progress";
+    ViewBag.Title = "Student progress";
 }
 
-<h2>Progress</h2>
+<h2>@ViewBag.Title</h2>
 
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr/>
+
+        @*Student ID*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentId, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.StudentId)</p>
+            </div>
+        </div>
+
+        @*Student full name*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.StudentFullName, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.StudentFullName)</p>
+            </div>
+        </div>
+
+        @*Course ID*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseId, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.CourseId)</p>
+            </div>
+        </div>
+
+        @*Course Title*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseTitle, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.CourseTitle)</p>
+            </div>
+        </div>
+
+        @*Status*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseStatus, new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.CourseStatus)</p>
+            </div>
+        </div>
+
+        @*Course average*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CourseAverage, new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.CourseAverage)</p>
+            </div>
+        </div>
+
+        @*CP achieved*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CpAchieved, new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.CpAchieved)</p>
+            </div>
+        </div>
+
+        @*CP remaining*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CpRemaining, new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.CpRemaining)</p>
+            </div>
+        </div>
+
+        @*Units attempted*@
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.UnitsAttempted, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
+                <p class="form-display">@Html.DisplayFor(model => model.UnitsAttempted)</p>
+            </div>
+        </div>
+    </div>
+}

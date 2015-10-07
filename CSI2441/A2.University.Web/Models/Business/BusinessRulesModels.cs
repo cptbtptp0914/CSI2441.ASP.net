@@ -210,13 +210,13 @@ namespace A2.University.Web.Models.Business
             _cpRequired = _unitResults
                 .Select(ue =>
                     ue.CourseEnrolment.Course.CourseType.credit_points)
-                .Single();
+                .FirstOrDefault();
 
             // set duration
             _duration = _unitResults
                 .Select(ue =>
                     ue.CourseEnrolment.Course.CourseType.duration)
-                .Single();
+                .FirstOrDefault();
         }
 
         /// <summary>
@@ -226,7 +226,7 @@ namespace A2.University.Web.Models.Business
         public double GetCourseAverage()
         {
             // get sum of results
-            var sum = _unitResults
+            var sum = (double) _unitResults
                 .Sum(result => 
                     result.mark);
 
@@ -275,7 +275,7 @@ namespace A2.University.Web.Models.Business
             return _unitResults
                 .Select(result =>
                     result.CourseEnrolment.course_status)
-                .Single();
+                .FirstOrDefault();
         }
 
         /// <summary>
