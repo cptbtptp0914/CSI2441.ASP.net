@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>University Manager</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/gridmvc")
     @Scripts.Render("~/bundles/modernizr")
@@ -38,7 +38,13 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year Martin Ponce | Built with <a href="http://getbootstrap.com/" target=":blank">Bootstrap</a> | Icons by <a href="http://www.freepik.com" title="Freepik" target=":blank">Freepik</a> <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0" target=":blank"><img src="@Url.Content("~/Content/img/icons/cc.png")" /></a></p>
+            <p>
+                &copy; @DateTime.Now.Year Martin Ponce |
+                Built with <a href="http://getbootstrap.com/" target=":blank">Bootstrap</a>, 
+                <a href="https://gridmvc.codeplex.com/" target=":blank">Grid.Mvc</a>, 
+                <a href="https://github.com/JeremySkinner/FluentValidation" target=":blank">FluentValidation</a>, and 
+                <a href="http://www.flaticon.com/" target=":blank">Flaticon</a>
+            </p>
         </footer>
     </div>
 
