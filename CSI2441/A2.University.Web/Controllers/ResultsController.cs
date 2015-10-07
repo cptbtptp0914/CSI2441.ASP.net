@@ -94,7 +94,7 @@ namespace A2.University.Web.Controllers
             };
 
             progressViewModel.TranscriptView = new TranscriptViewModel();
-            foreach (UnitEnrolment result in unitEnrolmentsEntity)
+            foreach (UnitEnrolment result in unitEnrolmentsEntity.OrderBy(ue => ue.year_sem))
             {
                 progressViewModel.TranscriptView.Transcript.Add(new ProgressViewModel
                 {
