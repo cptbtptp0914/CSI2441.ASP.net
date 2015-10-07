@@ -309,13 +309,17 @@ namespace A2.University.Web.Controllers
             entityModel.mark = int.Parse(viewModel.Mark);
 
             // can't use dict in linq, substitute with string
-            string state = new CourseRules().CourseStates["Enrolled"];
+            CourseRules courseRules = new CourseRules();
+            string enrolled = courseRules.CourseStates["Enrolled"];
+            // check for excluded too, user may edit mark for unit in excluded course, resulting in enrolled unit
+            string excluded = courseRules.CourseStates["Excluded"];
 
             // select course_enrolment_id where StudentId is match, and is ENROLLED
             var enrolment = _db.CourseEnrolments
                 .Where(ce =>
                     ce.student_id == viewModel.StudentId &&
-                    ce.course_status == state)
+                    ce.course_status == enrolled ||
+                    ce.course_status == excluded)
                 .Select(ce =>
                     new { ce.course_enrolment_id })
                 .Single();
