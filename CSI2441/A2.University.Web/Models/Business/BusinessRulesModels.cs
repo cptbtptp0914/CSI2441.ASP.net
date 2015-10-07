@@ -219,6 +219,71 @@ namespace A2.University.Web.Models.Business
                 .FirstOrDefault();
         }
 
+        public ProgressRules(long courseEnrolmentId)
+        {
+            UniversityEntities db = new UniversityEntities();
+
+            // get list of unit enrolments for this course
+            _unitResults = db.UnitEnrolments
+                .Where(ue =>
+                    ue.course_enrolment_id == courseEnrolmentId)
+                .ToList();
+
+            // set cp required
+            _cpRequired = _unitResults
+                .Select(ue =>
+                    ue.CourseEnrolment.Course.CourseType.credit_points)
+                .FirstOrDefault();
+
+            // set duration
+            _duration = _unitResults
+                .Select(ue =>
+                    ue.CourseEnrolment.Course.CourseType.duration)
+                .FirstOrDefault();
+        }
+
+        /// <summary>
+        /// Checks if student has earned required credit points for course.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsCourseComplete()
+        {
+            int cpRemaining = GetCpRemaining();
+            return cpRemaining >= _cpRequired;
+        }
+
+        /// <summary>
+        /// Checks if student has failed same unit 3 times.
+        /// </summary>
+        /// <returns></returns>
+        public bool IsCourseExcluded()
+        {
+            // get collection of failed units
+            var failedUnits = _unitResults
+                .Where(ue =>
+                    ue.mark < Pass)
+                .ToList();
+
+            // group by unit id, each group is own element
+            // adapted from http://stackoverflow.com/questions/454601/how-to-count-duplicates-in-list-with-linq
+            var query = failedUnits
+                .GroupBy(x => x.unit_id)
+                .Select(g => new {Value = g.Key, Count = g.Count()})
+                .OrderByDescending(x => x.Count);
+
+            bool strikeThree = false;
+
+            // for each group in query, if group has x3 fails, return true
+            foreach (var x in query)
+            {
+                if (x.Count > 2)
+                {
+                    strikeThree = true;
+                }
+            }
+            return strikeThree;
+        }
+
         /// <summary>
         /// Returns course average of marks.
         /// </summary>

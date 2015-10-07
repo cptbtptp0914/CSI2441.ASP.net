@@ -108,6 +108,10 @@ namespace A2.University.Web.Controllers
                 // update db using entitymodel
                 _db.UnitEnrolments.Add(unitEnrolmentEntityModel);
                 _db.SaveChanges();
+
+                // populate course status after db update
+                PopulateCourseStatus(unitEnrolmentEntityModel);
+
                 return RedirectToAction("Index");
             }
 
@@ -166,6 +170,10 @@ namespace A2.University.Web.Controllers
                 // update db using entitymodel
                 _db.Entry(unitEnrolmentEntityModel).State = EntityState.Modified;
                 _db.SaveChanges();
+
+                // populate course status after db update
+                PopulateCourseStatus(unitEnrolmentEntityModel);
+
                 return RedirectToAction("Index");
             }
 
@@ -204,7 +212,41 @@ namespace A2.University.Web.Controllers
             UnitEnrolment unitEnrolment = _db.UnitEnrolments.Find(id);
             _db.UnitEnrolments.Remove(unitEnrolment);
             _db.SaveChanges();
+
+            // populate course status after db update
+            PopulateCourseStatus(unitEnrolment);
+
             return RedirectToAction("Index");
+        }
+
+        private void PopulateCourseStatus(UnitEnrolment unitEnrolmentEntityModel)
+        {
+            ProgressRules progressRules = new ProgressRules(unitEnrolmentEntityModel.course_enrolment_id);
+            CourseRules courseRules = new CourseRules();
+
+            var courseEnrolment = _db.CourseEnrolments
+                .FirstOrDefault(ce =>
+                    ce.course_enrolment_id == unitEnrolmentEntityModel.course_enrolment_id);
+
+            if (courseEnrolment != null)
+            {
+                // if completed
+                if (progressRules.IsCourseComplete())
+                {
+                    courseEnrolment.course_status = courseRules.CourseStates["Completed"];
+                }
+                // if excluded
+                else if (progressRules.IsCourseExcluded())
+                {
+                    courseEnrolment.course_status = courseRules.CourseStates["Excluded"];
+                }
+                // else roll back to ENROLLED for edit/deletes resulting in course no longer completed/excluded
+                else
+                {
+                    courseEnrolment.course_status = courseRules.CourseStates["Enrolled"];
+                }
+                _db.SaveChanges();
+            }
         }
 
         /// <summary>
