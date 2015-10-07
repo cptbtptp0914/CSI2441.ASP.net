@@ -219,6 +219,11 @@ namespace A2.University.Web.Controllers
             return RedirectToAction("Index");
         }
 
+        /// <summary>
+        /// Checks if course should be completed/excluded.
+        /// Defaults to enrolled if neither.
+        /// </summary>
+        /// <param name="unitEnrolmentEntityModel"></param>
         private void PopulateCourseStatus(UnitEnrolment unitEnrolmentEntityModel)
         {
             ProgressRules progressRules = new ProgressRules(unitEnrolmentEntityModel.course_enrolment_id);
