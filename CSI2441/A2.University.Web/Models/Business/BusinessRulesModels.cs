@@ -33,18 +33,18 @@ namespace A2.University.Web.Models.Business
 
     public class UnitRules
     {
-        private readonly UniversityEntities db;
+        private readonly UniversityEntities _db;
         private const int Pass = 50;
         private const int MaxAttempts = 3;
 
         public UnitRules()
         {
-            db = new UniversityEntities();
+            _db = new UniversityEntities();
         }
 
         public bool IsNotUniqueUnitId(string unitId)
         {
-            var units = db.Units.FirstOrDefault(
+            var units = _db.Units.FirstOrDefault(
                 u => u.unit_id == unitId);
 
             return units != null;
@@ -60,7 +60,7 @@ namespace A2.University.Web.Models.Business
         /// <returns>bool</returns>
         public bool IsNotUniquePassedUnit(long unitEnrolmentId, long studentId, string unitId, int mark)
         {
-            var passes = db.UnitEnrolments.FirstOrDefault(
+            var passes = _db.UnitEnrolments.FirstOrDefault(
                 // ignore own id in query
                 ue => ue.unit_enrolment_id != unitEnrolmentId &&
                 ue.student_id == studentId && 
@@ -80,7 +80,7 @@ namespace A2.University.Web.Models.Business
         /// <returns>bool</returns>
         public bool IsNotUniqueUnitInSem(long unitEnrolmentId, long studentId, string unitId, int yearSem)
         {
-            var unit = db.UnitEnrolments.FirstOrDefault(
+            var unit = _db.UnitEnrolments.FirstOrDefault(
                 // ignore own id in query
                 ue => ue.unit_enrolment_id != unitEnrolmentId &&
                 ue.student_id == studentId && 
@@ -99,7 +99,7 @@ namespace A2.University.Web.Models.Business
         public bool IsMaxAttempts(long studentId, string unitId)
         {
             var query =
-                (from ue in db.UnitEnrolments
+                (from ue in _db.UnitEnrolments
                     where ue.student_id == studentId &&
                     ue.unit_id == unitId
                     select ue).Count();
@@ -110,13 +110,13 @@ namespace A2.University.Web.Models.Business
 
     public class CourseRules
     {
-        private readonly UniversityEntities db;
+        private readonly UniversityEntities _db;
 
         public Dictionary<string, string> CourseStates;
 
         public CourseRules()
         {
-            db = new UniversityEntities();
+            _db = new UniversityEntities();
 
             CourseStates = new Dictionary<string, string>
             {
@@ -137,7 +137,7 @@ namespace A2.University.Web.Models.Business
             // can't use dict in linq, substitute with string
             string state = CourseStates["Enrolled"];
 
-            var course = db.CourseEnrolments.FirstOrDefault(
+            var course = _db.CourseEnrolments.FirstOrDefault(
                 ce => ce.student_id == studentId &&
                       ce.course_status == state);
 
@@ -156,7 +156,7 @@ namespace A2.University.Web.Models.Business
             string state = CourseStates["Enrolled"];
 
             var courseEnrolment =
-                db.CourseEnrolments.FirstOrDefault(
+                _db.CourseEnrolments.FirstOrDefault(
                     ce => ce.student_id == studentId &&
                           ce.course_status == state);
 
@@ -171,7 +171,7 @@ namespace A2.University.Web.Models.Business
         /// <returns></returns>
         public bool IsNotUniqueCourse(long studentId, string courseId)
         {
-            var course = db.CourseEnrolments.FirstOrDefault(
+            var course = _db.CourseEnrolments.FirstOrDefault(
                     ce => ce.student_id == studentId &&
                     ce.course_id == courseId);
 
