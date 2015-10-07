@@ -77,12 +77,21 @@
             @*Right column*@
             <div class="col-md-6">
 
-                @*Course average*@
+                @*Course average mark*@
 
                 <div class="form-group">
-                    @Html.LabelFor(model => model.CourseAverage, new {@class = "control-label col-md-4"})
+                    @Html.LabelFor(model => model.CourseAverageMark, new {@class = "control-label col-md-4"})
                     <div class="col-md-6">
-                        <p class="form-display">@Html.DisplayFor(model => model.CourseAverage)</p>
+                        <p class="form-display">@Html.DisplayFor(model => model.CourseAverageMark)</p>
+                    </div>
+                </div>
+
+                @*Course average grade*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.CourseAverageGrade, new { @class = "control-label col-md-4" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.CourseAverageGrade)</p>
                     </div>
                 </div>
 

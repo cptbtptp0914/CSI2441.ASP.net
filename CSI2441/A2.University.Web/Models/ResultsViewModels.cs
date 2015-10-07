@@ -10,7 +10,10 @@ namespace A2.University.Web.Models
     public class ResultsBaseViewModel
     {
         [Display(Name = "Course average mark")]
-        public double CourseAverage { get; set; }
+        public double CourseAverageMark { get; set; }
+
+        [Display(Name = "Course average grade")]
+        public string CourseAverageGrade { get; set; }
 
         [Display(Name = "Credit points achieved")]
         public int CpAchieved { get; set; }

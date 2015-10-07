@@ -84,7 +84,8 @@ namespace A2.University.Web.Controllers
                         ue.CourseEnrolment.Course.title)
                     .FirstOrDefault(),
 
-                CourseAverage = progressRules.GetCourseAverage(),
+                CourseAverageMark = progressRules.GetCourseAverage(),
+                CourseAverageGrade = GradeRules.GetGrade((int) progressRules.GetCourseAverage()),
                 CpAchieved = progressRules.GetCpAchieved(),
                 CpRemaining = progressRules.GetCpRemaining(),
                 CourseStatus = progressRules.GetCourseStatus(),
