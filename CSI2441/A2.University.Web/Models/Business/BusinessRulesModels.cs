@@ -187,42 +187,140 @@ namespace A2.University.Web.Models.Business
         }
     }
 
-    public static class ProgressRules
+    public class ProgressRules
     {
-        private static readonly UniversityEntities Db = new UniversityEntities();
+        private const int Pass = 50;
 
-        // fields to display in view
-        private static int CpAchieved { get; set; }
-        private static int CpRemaining { get; set; }
-        private static string CourseState { get; set; }
-        private static int UnitsAttempted { get; set; }
-        private static UnitEnrolment HighestMark { get; set; }
-        private static UnitEnrolment LowestMark { get; set; }
+        private readonly List<UnitEnrolment> _unitResults;
+        private readonly int _cpRequired;
+        private readonly int _duration;
 
-        /// <summary>
-        /// Returns course average of marks.
-        /// </summary>
-        /// <param name="studentId">long</param>
-        /// <param name="courseId">string</param>
-        /// <returns></returns>
-        public static double GetCourseAverage(long studentId, string courseId)
+        public ProgressRules(long? studentId, string courseId)
         {
-            // get list of results
-            var unitResults = Db.UnitEnrolments
+            UniversityEntities db = new UniversityEntities();
+
+            // get list of unit enrolments for this course
+            _unitResults = db.UnitEnrolments
                 .Where(ue =>
                     ue.student_id == studentId &&
                     ue.CourseEnrolment.course_id == courseId)
                 .ToList();
 
+            // set cp required
+            _cpRequired = _unitResults
+                .Select(ue =>
+                    ue.CourseEnrolment.Course.CourseType.credit_points)
+                .Single();
+
+            // set duration
+            _duration = _unitResults
+                .Select(ue =>
+                    ue.CourseEnrolment.Course.CourseType.duration)
+                .Single();
+        }
+
+        /// <summary>
+        /// Returns course average of marks.
+        /// </summary>
+        /// <returns></returns>
+        public double GetCourseAverage()
+        {
             // get sum of results
-            var sum = unitResults
+            var sum = _unitResults
                 .Sum(result => 
                     result.mark);
 
-            double average = sum / unitResults.Count;
+            double average = sum / _unitResults.Count;
 
             // return average
             return Math.Round(average, 2);
         }
+
+
+        /// <summary>
+        /// Returns CP achieved.
+        /// </summary>
+        /// <returns></returns>
+        public int GetCpAchieved()
+        {
+            // return cp sum where mark is pass
+            return _unitResults
+                .Where(result =>
+                    result.mark >= Pass)
+                .Sum(result => 
+                    result.Unit.credit_points);
+        }
+
+        /// <summary>
+        /// Returns CP remaining.
+        /// </summary>
+        /// <returns></returns>
+        public int GetCpRemaining()
+        {
+            var sum = _unitResults
+                .Where(result =>
+                    result.mark >= Pass)
+                .Sum(result =>
+                    result.Unit.credit_points);
+
+            return _cpRequired - sum;
+        }
+        
+        /// <summary>
+        /// Returns course status.
+        /// </summary>
+        /// <returns></returns>
+        public string GetCourseStatus()
+        {
+            return _unitResults
+                .Select(result =>
+                    result.CourseEnrolment.course_status)
+                .Single();
+        }
+
+        /// <summary>
+        /// Returns count of units attempted.
+        /// </summary>
+        /// <returns></returns>
+        public int GetUnitsAttempted()
+        {
+            return _unitResults.Count;
+        }
+
+        /// <summary>
+        /// Returns list of highest mark/s.
+        /// </summary>
+        /// <returns></returns>
+        public List<UnitEnrolment> GetHighestMark()
+        {
+            // get the highest mark
+            var highest = _unitResults
+                .Max(results =>
+                    results.mark);
+
+            // return result/s with highest mark
+            return _unitResults
+                .Where(result =>
+                    result.mark == highest)
+                .ToList();
+        }
+
+        /// <summary>
+        /// Returns list of lowest mark/s.
+        /// </summary>
+        /// <returns></returns>
+        public List<UnitEnrolment> GetLowestMark()
+        {
+            // get the lowest mark
+            var lowest = _unitResults
+                .Min(result =>
+                    result.mark);
+
+            // return result/s with lowest mark
+            return _unitResults
+                .Where(result =>
+                    result.mark == lowest)
+                .ToList();
+        } 
     }
 }

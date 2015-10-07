@@ -25,10 +25,10 @@ namespace A2.University.Web.Models
         public int UnitsAttempted { get; set; }
 
         [Display(Name = "Highest mark")]
-        public UnitEnrolment HighestMark { get; set; }
+        public List<UnitEnrolment> HighestMark { get; set; }
 
         [Display(Name = "Lowest mark")]
-        public UnitEnrolment LowestMark { get; set; }
+        public List<UnitEnrolment> LowestMark { get; set; }
     }
 
     public class ResultsIndexViewModel : ResultsBaseViewModel

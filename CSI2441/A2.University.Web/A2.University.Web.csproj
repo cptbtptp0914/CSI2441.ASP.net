@@ -406,6 +406,7 @@
     <Content Include="Views\CourseEnrolment\Edit.cshtml" />
     <Content Include="Views\CourseEnrolment\Index.cshtml" />
     <Content Include="Views\Results\Index.cshtml" />
+    <Content Include="Views\Results\Progress.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

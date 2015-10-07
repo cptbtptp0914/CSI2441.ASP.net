@@ -45,12 +45,14 @@ namespace A2.University.Web.Controllers
         }
 
         // GET: Results/Details/5
-        public ActionResult Progress(long studentId, string courseId)
+        public ActionResult Progress(long? studentId, string courseId)
         {
             if (studentId == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
+            ProgressRules progressRules = new ProgressRules(studentId, courseId);
 
             // create entitymodel, match id
             var unitEnrolmentsEntity = _db.UnitEnrolments
@@ -66,7 +68,14 @@ namespace A2.University.Web.Controllers
             ProgressViewModel progressViewModel = new ProgressViewModel
             {
                 // populate summary
-                CourseAverage = ProgressRules.GetCourseAverage(studentId, courseId)
+                CourseAverage = progressRules.GetCourseAverage(),
+                CpAchieved = progressRules.GetCpAchieved(),
+                CpRemaining = progressRules.GetCpRemaining(),
+                CourseStatus = progressRules.GetCourseStatus(),
+                UnitsAttempted = progressRules.GetUnitsAttempted(),
+
+                HighestMark = progressRules.GetHighestMark(),
+                LowestMark = progressRules.GetLowestMark()
             };
             // populate list of results for student
             foreach (UnitEnrolment unitEnrolment in unitEnrolmentsEntity)
@@ -83,7 +92,7 @@ namespace A2.University.Web.Controllers
                 });
             }
 
-            return View();
+            return View(progressViewModel);
         }
 
         // GET: Results/Create
