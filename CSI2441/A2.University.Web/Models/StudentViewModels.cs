@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -24,7 +25,7 @@ namespace A2.University.Web.Models
 
         [Display(Name = "DOB")]
         [DisplayFormat(DataFormatString = "{0:DD/MM/YYYY}", ApplyFormatInEditMode = true)]
-        public DateTime Dob { get; set; }
+        public string Dob { get; set; }
 
         [Display(Name = "Gender")]
         public string Gender { get; set; }
@@ -91,8 +92,8 @@ namespace A2.University.Web.Models
     public class StudentCreateViewModel : StudentDropDownListViewModel
     {
         // default date shown at create view, today - 18 years
-        [DisplayFormat(DataFormatString = "{0:DD/MM/YYYY}", ApplyFormatInEditMode = true)]
-        public DateTime DefaultDob = DateTime.Today.AddYears(-18);
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public string DefaultDob = DateTime.Today.AddYears(-18).ToString(CultureInfo.CurrentCulture);
     }
 
     public class StudentEditViewModel : StudentDropDownListViewModel
