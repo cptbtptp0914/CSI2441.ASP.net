@@ -23,7 +23,8 @@ namespace A2.University.Web.Models
         public string LastName { get; set; }
 
         [Display(Name = "DOB")]
-        public System.DateTime Dob { get; set; }
+        [DisplayFormat(DataFormatString = "{0:DD/MM/YYYY}", ApplyFormatInEditMode = true)]
+        public DateTime Dob { get; set; }
 
         [Display(Name = "Gender")]
         public string Gender { get; set; }
@@ -89,7 +90,9 @@ namespace A2.University.Web.Models
 
     public class StudentCreateViewModel : StudentDropDownListViewModel
     {
-        // Inherits StudentDropDownListViewModel, no custom fields required
+        // default date shown at create view, today - 18 years
+        [DisplayFormat(DataFormatString = "{0:DD/MM/YYYY}", ApplyFormatInEditMode = true)]
+        public DateTime DefaultDob = DateTime.Today.AddYears(-18);
     }
 
     public class StudentEditViewModel : StudentDropDownListViewModel

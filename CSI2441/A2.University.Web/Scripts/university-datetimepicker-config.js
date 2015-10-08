@@ -1,6 +1,6 @@
 ﻿$(function() {
     $("#Dob").datetimepicker({
-        format: "L",
+        format: "DD/MM/YYYY",
         showClose: true,
         showClear: true,
         toolbarPlacement: "top",
