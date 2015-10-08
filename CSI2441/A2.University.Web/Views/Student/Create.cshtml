@@ -47,8 +47,8 @@
             <div class="col-md-4">
                 @Html.EditorFor(model => model.Dob, new { htmlAttributes =  new 
                 {
-                    @Value = Model.DefaultDob,
-                    @class = "form-control"
+                    @class = "form-control",
+                    @placeholder = "dd/mm/yyyy"
                 }})
             </div>
             <div class="col-md-6">

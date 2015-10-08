@@ -23,9 +23,14 @@ namespace A2.University.Web.Models
         [Display(Name = "Surname")]
         public string LastName { get; set; }
 
+        // cast to DateTime when updating db
+        // datepicker maxAge = 100 yrs old, see ~/Scripts/university-datetimepicker-config.js
         [Display(Name = "DOB")]
-        [DisplayFormat(DataFormatString = "{0:DD/MM/YYYY}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public string Dob { get; set; }
+
+        // used for validation, min age = 16 yrs old
+        public string MinAge = DateTime.Today.AddYears(-16).Date.ToString(CultureInfo.CurrentCulture);
 
         [Display(Name = "Gender")]
         public string Gender { get; set; }
@@ -96,7 +101,7 @@ namespace A2.University.Web.Models
         public string DefaultDob = DateTime.Today.AddYears(-18).ToString(CultureInfo.CurrentCulture);
     }
 
-    public class StudentEditViewModel : StudentDropDownListViewModel
+    public class StudentEditViewModel : StudentCreateViewModel
     {
         // Inherits StudentDropDownListViewModel, no custom fields required
     }

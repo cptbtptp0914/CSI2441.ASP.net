@@ -25,11 +25,10 @@ namespace A2.University.Web.Models
                 .NotEmpty().WithMessage("* Required")
                 .Matches(@"^[a-zA-Z]+$").WithMessage("* Must be a valid name")
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
-            // Dob
+            // Dob, min age
             RuleFor(field => field.Dob)
-                .NotEmpty().WithMessage("* Required");
-            // TODO: Resolve this with proper datepicker instead, do not just rely on Chrome datepicker
-            //.Must(IsValidDate).WithMessage("* Must be a valid date");
+                .NotEmpty().WithMessage("* Required")
+                .GreaterThanOrEqualTo(field => field.MinAge).WithMessage("* Must be at least 16 years old");
             // Gender
             RuleFor(field => field.Gender)
                 .NotEmpty().WithMessage("* Required")
