@@ -23,8 +23,6 @@ namespace A2.University.Web.Models
         public string LastName { get; set; }
 
         [Display(Name = "DOB")]
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public System.DateTime Dob { get; set; }
 
         [Display(Name = "Gender")]
