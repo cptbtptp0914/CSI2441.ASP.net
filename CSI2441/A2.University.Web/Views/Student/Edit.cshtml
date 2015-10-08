@@ -54,19 +54,20 @@
         @*DOB*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Dob, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.Dob, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @*Trying to get the Dob from model here, so user doesn't have to input manually again. Works fine in IE, Chrome always omits date because it renders datepicker*@
-                @*TODO: Need to fix, this doesn't work*@
                 @Html.EditorFor(model => model.Dob, new
                 {
-                    @type = "date",
-                    @Value = Model.Dob.ToString("d"),
-                    htmlAttributes = new {@class = "form-control"}
+                    htmlAttributes = new
+                    {
+                        @selectedDate = Model.Dob,
+                        @Value = Model.Dob.ToString("dd/MM/yyyy"),
+                        @class = "form-control"
+                    }
                 })
             </div>
             <div class="col-md-6">
-                @Html.ValidationMessageFor(model => model.Dob, "", new {@class = "text-danger"})
+                @Html.ValidationMessageFor(model => model.Dob, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -176,4 +177,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/datetimeConfig")
 }

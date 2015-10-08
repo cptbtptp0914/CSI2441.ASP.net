@@ -36,12 +36,14 @@ namespace A2.University.Web
                 "~/Content/Gridmvc.datepicker*"));
 
             // Bootstrap.v3.Datetimepicker.CSS
-            bundles.Add(new ScriptBundle("~/bundles/datetime").Include(
+            bundles.Add(new ScriptBundle("~/bundles/datetimeScript").Include(
                     "~/Scripts/moment*",
-                    "~/Scripts/bootstrap-datetimepicker*",
-                    "~/Scripts/university-datetimepicker-config.js"));
-            bundles.Add(new StyleBundle("~/bundles/datetime").Include(
+                    "~/Scripts/bootstrap-datetimepicker*"));
+            bundles.Add(new StyleBundle("~/bundles/datetimeStyle").Include(
                     "~/Content/bootstrap-datetimepicker*"));
+            // config
+            bundles.Add(new ScriptBundle("~/bundles/datetimeConfig").Include(
+                    "~/Scripts/university-datetimepicker-config.js"));
         }
     }
 }
