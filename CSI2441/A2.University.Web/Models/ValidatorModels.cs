@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Web;
 using A2.University.Web.Models.Business;
 using A2.University.Web.Models.Entities;
+using A2.University.Web.Models.StaffPortal;
 using FluentValidation;
 using FluentValidation.Results;
 

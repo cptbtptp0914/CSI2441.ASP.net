@@ -2,10 +2,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using A2.University.Web.Models.Business;
-using A2.University.Web.Models.Entities;
 using FluentValidation.Attributes;
 
-namespace A2.University.Web.Models
+namespace A2.University.Web.Models.StaffPortal
 {
     [Validator(typeof(CourseEnrolmentBaseViewModelValidator))]
     public class CourseEnrolmentBaseViewModel

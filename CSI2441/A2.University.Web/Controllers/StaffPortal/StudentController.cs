@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using A2.University.Web.Models;
 using A2.University.Web.Models.Business.Services;
 using A2.University.Web.Models.Entities;
+using A2.University.Web.Models.StaffPortal;
 
 namespace A2.University.Web.Controllers.StaffPortal
 {
