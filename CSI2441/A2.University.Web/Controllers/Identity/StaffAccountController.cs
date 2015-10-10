@@ -31,7 +31,7 @@ namespace A2.University.Web.Controllers.Identity
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToLocal(returnUrl);
+                return View(model);
             }
 
             // This doesn't count login failures towards account lockout
