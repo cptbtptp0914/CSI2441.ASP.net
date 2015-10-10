@@ -1,0 +1,93 @@
+﻿@using System.Web.Configuration
+@{
+    ViewBag.Title = "Staff Portal";
+    ViewBag.ManageStudents = "Students";
+    ViewBag.ManageStaff = "Staff";
+    ViewBag.ManageUnits = "Units";
+    ViewBag.ManageCourses = "Courses";
+    ViewBag.UnitEnrolment = "Unit Enrolments";
+    ViewBag.CourseEnroment = "Course Enrolments";
+    ViewBag.Results = "Results";
+    ViewBag.Author = "Martin Ponce, ID 10371381";
+}
+
+@*Blurb*@
+
+<div class="jumbotron">
+    <h1>@ViewBag.Title</h1>
+    <p class="lead">
+        This web application allows a user to manage university student, unit, and course records. It also allows the user to manage and monitor student results and progress.
+        Information is stored in a local <a href="@Url.Action("About", "Home")">SQLite</a> database which is manipulated by the application.
+    </p>
+    <p class="lead">
+        Written in C# ASP.NET MVC5 using Visual Studio 2015.
+    </p>
+
+    <h5>
+        @ViewBag.Author
+    </h5>
+</div>
+
+@*Icon links*@
+
+<div class="row vert-gap">
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Student")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/student.png")"/>
+        </a>
+        <h3 class="text-center">
+            @ViewBag.ManageStudents
+        </h3>
+    </div>
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Staff")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/staff.png")"/>
+        </a>
+        <h3 class="text-center">
+            @ViewBag.ManageStaff
+        </h3>
+    </div>
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Course")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/course.png")" />
+        </a>
+        <h3 class="text-center">
+            @ViewBag.ManageCourses
+        </h3>
+    </div>
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Unit")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/unit.png")"/>
+        </a>
+        <h3 class="text-center">
+            @ViewBag.ManageUnits
+        </h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "CourseEnrolment")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/courseEnrol.png")" />
+        </a>
+        <h3 class="text-center">
+            @ViewBag.CourseEnroment
+        </h3>
+    </div>
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "UnitEnrolment")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/unitEnrol.png")"/>
+        </a>
+        <h3 class="text-center">
+            @ViewBag.UnitEnrolment
+        </h3>
+    </div>
+    <div class="col-md-3">
+        <a href="@Url.Action("Index", "Results")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/results.png")"/>
+        </a>
+        <h3 class="text-center">
+            @ViewBag.Results
+        </h3>
+    </div>
+</div>

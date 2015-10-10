@@ -194,6 +194,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Identity\AccountController.cs" />
     <Compile Include="Controllers\Identity\ManageController.cs" />
     <Compile Include="Controllers\Identity\StaffAccountController.cs" />
@@ -201,7 +202,6 @@
     <Compile Include="Controllers\StaffPortalController.cs" />
     <Compile Include="Controllers\StaffPortal\CourseController.cs" />
     <Compile Include="Controllers\StaffPortal\CourseEnrolmentController.cs" />
-    <Compile Include="Controllers\StaffPortal\HomeController.cs" />
     <Compile Include="Controllers\StaffPortal\ResultsController.cs" />
     <Compile Include="Controllers\StaffPortal\StaffController.cs" />
     <Compile Include="Controllers\StaffPortal\StudentController.cs" />
@@ -425,6 +425,7 @@
     <Content Include="Views\Results\Index.cshtml" />
     <Content Include="Views\Results\Progress.cshtml" />
     <Content Include="Views\Results\_Transcript.cshtml" />
+    <Content Include="Views\StaffPortal\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\StudentPortal\" />
