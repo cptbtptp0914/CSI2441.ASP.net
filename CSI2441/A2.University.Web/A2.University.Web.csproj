@@ -436,6 +436,7 @@
     <Content Include="Views\StaffAccount\Login.cshtml" />
     <Content Include="Views\StaffPortal\Index.cshtml" />
     <Content Include="Views\StaffAccount\_LoginPartial.cshtml" />
+    <Content Include="Views\StudentAccount\_LoginPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\StudentPortal\" />

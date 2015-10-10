@@ -1,10 +1,10 @@
-﻿@model A2.University.Web.Models.StaffLoginViewModel
+﻿@model A2.University.Web.Models.StudentLoginViewModel
 
 @{
-    ViewBag.Title = "Staff Portal Login";
+    ViewBag.Title = "Student Portal Login";
 }
 
-@using (Html.BeginForm("Login", "StaffAccount", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Login", "StudentAccount", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
 
@@ -48,7 +48,10 @@
         <div class="form-group">
             <div class="col-md-offset-4 col-md-6">
                 <input type="submit" value="Log in" class="btn btn-default" />
-                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Register", "StaffAccount")">Register</a>
+                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Register", "StudentAccount")">Register</a>
+            </div>
+            <div class="col-md-offset-4 col-md-6">
+
             </div>
         </div>
     </div>
