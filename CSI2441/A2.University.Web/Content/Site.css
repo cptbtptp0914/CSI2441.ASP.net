@@ -71,3 +71,7 @@ table.grid-table .grid-filter {
     padding-top: 7px;
     margin-bottom: 0px !important;
 }
+
+.vert-rule-left {
+    border-left: 1px solid #eee;
+}
