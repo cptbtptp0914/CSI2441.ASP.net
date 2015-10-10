@@ -38,17 +38,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
-            <p>
-                &copy; @DateTime.Now.Year Martin Ponce |
-                Built with 
-                <a href="http://getbootstrap.com/" target=":blank">Bootstrap</a>, 
-                <a href="https://gridmvc.codeplex.com/" target=":blank">Grid.Mvc</a>,
-                <a href="https://github.com/JeremySkinner/FluentValidation" target=":blank">FluentValidation</a>,
-                <a href="https://github.com/Eonasdan/bootstrap-datetimepicker">bootstrap-datetimepicker</a> and 
-                <a href="http://www.flaticon.com/" target=":blank">Flaticon</a>
-            </p>
-        </footer>
+        @Html.Partial("_LayoutFooter")
     </div>
 
     @Scripts.Render("~/bundles/jquery")
