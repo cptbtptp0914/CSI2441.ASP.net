@@ -85,3 +85,5 @@
         .SetWidth(30)
         .RenderValueAs(data => Html.ActionLink("Delete", "Delete", new { id = data.StudentId }));
 }).WithPaging(15).Sortable(true)
+
+<a class="btn btn-default button-top-gap" href="@Url.Action("Index", "StaffPortal")">Back</a>
