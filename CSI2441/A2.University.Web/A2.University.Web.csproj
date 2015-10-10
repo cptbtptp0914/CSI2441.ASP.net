@@ -430,6 +430,7 @@
     <Content Include="Views\StaffPortal\Index.cshtml" />
     <Content Include="Views\Shared\_LayoutPublic.cshtml" />
     <Content Include="Views\Shared\_LayoutFooter.cshtml" />
+    <Content Include="Views\StaffPortal\_StaffLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\StudentPortal\" />
