@@ -5,19 +5,17 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using A2.University.Web.Models;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace A2.University.Web.Controllers.Identity
 {
     [Authorize]
-    public class StudentAccountController : AccountController
+    public class StaffAccountController : AccountController
     {
         //
         // POST: /Account/Register
         /// <summary>
         /// Overriding AccountController's Register POST method.
-        /// Adds user and role to UserRole table, STUDENT in this case.
+        /// Adds user and role to UserRole table, STAFF in this case.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>
@@ -33,8 +31,8 @@ namespace A2.University.Web.Controllers.Identity
 
                 if (result.Succeeded)
                 {
-                    // give student role to user
-                    var userRole = await UserManager.AddToRoleAsync(user.Id, "STUDENT");
+                    // give staff role to user
+                    var userRole = await UserManager.AddToRoleAsync(user.Id, "STAFF");
 
                     if (userRole.Succeeded)
                     {
