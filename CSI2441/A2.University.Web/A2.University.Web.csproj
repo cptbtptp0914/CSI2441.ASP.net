@@ -263,6 +263,12 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\Identity.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="App_Data\Identity_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Content\bootstrap-datetimepicker.css" />
     <Content Include="Content\bootstrap-datetimepicker.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
