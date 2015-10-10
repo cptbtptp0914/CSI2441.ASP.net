@@ -12,15 +12,6 @@ namespace A2.University.Web.Controllers.Identity
     [Authorize]
     public class StaffAccountController : AccountController
     {
-        //
-        // GET: /Account/Login
-        [HttpGet]
-        [AllowAnonymous]
-        public new ActionResult Login(string returnUrl)
-        {
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
-        }
 
         //
         // POST: /Account/Login
