@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.EnterpriseServices;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -381,6 +382,57 @@ namespace A2.University.Web.Models
                 if (courseRules.IsNotUniqueCourse(field.StudentId, field.CourseId))
                 {
                     return new ValidationFailure("CourseId", "* Enrolment already exists for Student");
+                }
+                return null;
+            });
+        }
+    }
+
+    public class StaffRegisterViewModelValidator : AbstractValidator<StaffRegisterViewModel>
+    {
+        public StaffRegisterViewModelValidator()
+        {
+            // create instance of db context to perform serverside validation
+            UniversityEntities dbUni = new UniversityEntities();
+            ApplicationDbContext dbUser = new ApplicationDbContext();
+
+            // email
+            RuleFor(field => field.Email)
+                .NotEmpty().WithMessage("* Required")
+                .EmailAddress().WithMessage("* Must be a valid email");
+            // password
+            RuleFor(field => field.Password)
+                .NotEmpty().WithMessage("* Required")
+                .Length(8, 256).WithMessage("* Must be at least 8 characters")
+                .Matches(@"^(?=.*?[0-9].*?[0-9])^(?=.*?[A-Z].*?[A-Z])[0-9a-zA-Z!@#$%\\/|\-_^<>{}[\]\?.,0-9]{8,}$")
+                    .WithMessage("* Must contain at least: two UPPERCASE, two numbers, eight characters");
+            // confirm password
+            RuleFor(field => field.ConfirmPassword)
+                .NotEmpty().WithMessage("* Required")
+                .Equal(field => field.Password).WithMessage("* Must match password");
+
+            /**************************
+             * SERVER SIDE VALIDATION *
+             **************************/
+            
+            // staff exists in staff table
+            Custom(field =>
+            {
+                var existingStaff = dbUni.Staff.FirstOrDefault(s => s.email == field.Email);
+                if (existingStaff == null)
+                {
+                    return new ValidationFailure("Email", "* Staff email does not exist");
+                }
+                return null;
+            });
+
+            // user uniqueness
+            Custom(field =>
+            {
+                var existingUser = dbUser.Users.FirstOrDefault(u => u.Email == field.Email);
+                if (existingUser != null)
+                {
+                    return new ValidationFailure("Email", "* User already exists");
                 }
                 return null;
             });

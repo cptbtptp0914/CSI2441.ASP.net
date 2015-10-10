@@ -11,7 +11,7 @@
         <div class="col-md-10">
             <h2>@ViewBag.Title</h2>
             <p class="lead">
-                Staff must exist in database before registering
+                Staff member must exist in Staff table before registering
             </p>
         </div>
     </div>
@@ -66,9 +66,9 @@
                 <input type="submit" class="btn btn-default" value="Register"/>
                 <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Home")">Cancel</a>
             </div>
-            <div class="col-md-6">
-                @Html.ValidationSummary("", new { @class = "text-danger" })
-            </div>
+@*            <div class="col-md-6">*@
+@*                @Html.ValidationSummary("", new { @class = "text-danger" })*@
+@*            </div>*@
         </div>
 
     </div>

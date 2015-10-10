@@ -39,7 +39,7 @@ namespace A2.University.Web.Controllers.Identity
                 case SignInStatus.Failure:
                 default:
                     ModelState.AddModelError("", "Invalid login attempt.");
-                    return View(model);
+                    return RedirectToLocal(returnUrl);
             }
         }
 
