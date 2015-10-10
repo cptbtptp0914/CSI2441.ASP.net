@@ -194,11 +194,13 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CourseController.cs" />
     <Compile Include="Controllers\CourseEnrolmentController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\Identity\AccountController.cs" />
+    <Compile Include="Controllers\Identity\ManageController.cs" />
+    <Compile Include="Controllers\Identity\StaffAccountController.cs" />
+    <Compile Include="Controllers\Identity\StudentAccountController.cs" />
     <Compile Include="Controllers\ResultsController.cs" />
     <Compile Include="Controllers\StaffController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
