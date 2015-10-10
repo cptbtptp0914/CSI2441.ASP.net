@@ -26,7 +26,7 @@ namespace A2.University.Web.Controllers.Identity
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public new async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(StaffLoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -62,7 +62,7 @@ namespace A2.University.Web.Controllers.Identity
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public new async Task<ActionResult> Register(RegisterViewModel model)
+        public async Task<ActionResult> Register(StaffRegisterViewModel model)
         {
             if (ModelState.IsValid)
             {
