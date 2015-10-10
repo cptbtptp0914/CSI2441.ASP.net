@@ -207,6 +207,7 @@
     <Compile Include="Controllers\StaffPortal\StudentController.cs" />
     <Compile Include="Controllers\StaffPortal\UnitController.cs" />
     <Compile Include="Controllers\StaffPortal\UnitEnrolmentController.cs" />
+    <Compile Include="Controllers\StudentPortalController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -431,6 +432,9 @@
     <Content Include="Views\Shared\_LayoutPublic.cshtml" />
     <Content Include="Views\Shared\_LayoutFooter.cshtml" />
     <Content Include="Views\StaffPortal\StaffLogin.cshtml" />
+    <Content Include="Views\Shared\_LayoutStudentPortal.cshtml" />
+    <Content Include="Views\StudentPortal\Index.cshtml" />
+    <Content Include="Views\StudentPortal\StudentLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\StudentPortal\" />
