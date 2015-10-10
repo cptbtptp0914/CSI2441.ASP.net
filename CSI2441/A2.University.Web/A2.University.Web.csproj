@@ -198,6 +198,7 @@
     <Compile Include="Controllers\Identity\AccountController.cs" />
     <Compile Include="Controllers\Identity\ManageController.cs" />
     <Compile Include="Controllers\Identity\StaffAccountController.cs" />
+    <Compile Include="Controllers\Identity\StaffManageController.cs" />
     <Compile Include="Controllers\Identity\StudentAccountController.cs" />
     <Compile Include="Controllers\StaffPortalController.cs" />
     <Compile Include="Controllers\StaffPortal\CourseController.cs" />
@@ -256,6 +257,7 @@
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\StaffAccountViewModels.cs" />
+    <Compile Include="Models\StaffManageViewModels.cs" />
     <Compile Include="Models\StaffPortal\CourseEnrolmentViewModels.cs" />
     <Compile Include="Models\StaffPortal\CourseViewModels.cs" />
     <Compile Include="Models\StaffPortal\ResultsViewModels.cs" />
@@ -438,6 +440,9 @@
     <Content Include="Views\StaffAccount\Register.cshtml" />
     <Content Include="Views\Shared\_StaffLoginPartial.cshtml" />
     <Content Include="Views\Shared\_StudentLoginPartial.cshtml" />
+    <Content Include="Views\StaffManage\Index.cshtml" />
+    <Content Include="Views\Shared\_StaffUserPartial.cshtml" />
+    <Content Include="Views\StaffManage\ChangePassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\StudentPortal\" />
