@@ -31,7 +31,7 @@ namespace A2.University.Web.Controllers.Identity
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
+            protected set 
             { 
                 _signInManager = value; 
             }
@@ -43,7 +43,7 @@ namespace A2.University.Web.Controllers.Identity
             {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
             }
-            private set
+            protected set
             {
                 _userManager = value;
             }
@@ -422,9 +422,9 @@ namespace A2.University.Web.Controllers.Identity
 
         #region Helpers
         // Used for XSRF protection when adding external logins
-        private const string XsrfKey = "XsrfId";
+        protected const string XsrfKey = "XsrfId";
 
-        private IAuthenticationManager AuthenticationManager
+        protected IAuthenticationManager AuthenticationManager
         {
             get
             {
@@ -432,7 +432,7 @@ namespace A2.University.Web.Controllers.Identity
             }
         }
 
-        private void AddErrors(IdentityResult result)
+        protected void AddErrors(IdentityResult result)
         {
             foreach (var error in result.Errors)
             {
@@ -440,7 +440,7 @@ namespace A2.University.Web.Controllers.Identity
             }
         }
 
-        private ActionResult RedirectToLocal(string returnUrl)
+        protected ActionResult RedirectToLocal(string returnUrl)
         {
             if (Url.IsLocalUrl(returnUrl))
             {
