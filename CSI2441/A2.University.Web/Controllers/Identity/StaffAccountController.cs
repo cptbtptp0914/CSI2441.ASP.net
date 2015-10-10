@@ -14,6 +14,7 @@ namespace A2.University.Web.Controllers.Identity
     {
         //
         // GET: /Account/Login
+        [HttpGet]
         [AllowAnonymous]
         public new ActionResult Login(string returnUrl)
         {

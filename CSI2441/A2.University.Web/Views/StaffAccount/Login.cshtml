@@ -4,11 +4,23 @@
     ViewBag.Title = "Staff Portal Login";
 }
 
+<div class="jumbotron">
+    <div class="row">
+        <div class="col-md-2">
+            <img src="@Url.Content("~/Content/img/icons/staff.png")" />
+        </div>
+        <div class="col-md-10">
+            <h2>@ViewBag.Title</h2>
+            <p class="lead">
+                Authorized staff only
+            </p>
+        </div>
+    </div>
+</div>
+
 @using (Html.BeginForm("Login", "StaffAccount", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form"}))
 {
     @Html.AntiForgeryToken()
-
-    <h2 class="col-md-offset-2 vert-gap">@ViewBag.Title</h2>
 
     <div class="form-horizontal">
         
@@ -17,9 +29,11 @@
         @*Email*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-4"})
-            <div class="col-md-6">
+            @Html.LabelFor(model => model.Email, new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.Email, new {htmlAttributes = new {@class = "form-control", placeholder = "Required"}})
+            </div>
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -27,9 +41,11 @@
         @*Password*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Password, new {@class = "control-label col-md-4"})
-            <div class="col-md-6">
+            @Html.LabelFor(model => model.Password, new {@class = "control-label col-md-2"})
+            <div class="col-md-4">
                 @Html.EditorFor(model => model.Password, new {htmlAttributes = new {@class = "form-control", placeholder = "Required"}})
+            </div>
+            <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -37,8 +53,8 @@
         @*Remember me*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.RememberMe, new { @class = "control-label col-md-4" })
-            <div class="col-md-6">
+            @Html.LabelFor(model => model.RememberMe, new { @class = "control-label col-md-2" })
+            <div class="col-md-4">
                 @Html.CheckBoxFor(model => model.RememberMe, new { htmlAttributes = new { @class = "form-control", placeholder = "Required" } })
             </div>
         </div>
@@ -46,13 +62,14 @@
         @*Buttons*@
 
         <div class="form-group">
-            <div class="col-md-offset-4 col-md-6">
+            <div class="col-md-offset-2 col-md-6">
                 <input type="submit" value="Log in" class="btn btn-default"/>
                 <a class="btn btn-default span-btn-cancel" href="@Url.Action("Register", "StaffAccount")">Register</a>
             </div>
-            <div class="col-md-offset-4 col-md-6">
-                
-            </div>
         </div>
     </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 }

@@ -1,13 +1,8 @@
 ﻿@using System.Web.Configuration
 @{
     ViewBag.Title = "University Manager";
-    ViewBag.ManageStudents = "Students";
-    ViewBag.ManageStaff = "Staff";
-    ViewBag.ManageUnits = "Units";
-    ViewBag.ManageCourses = "Courses";
-    ViewBag.UnitEnrolment = "Unit Enrolments";
-    ViewBag.CourseEnroment = "Course Enrolments";
-    ViewBag.Results = "Results";
+    ViewBag.Staff = "Staff users";
+    ViewBag.Student = "Student users";
     ViewBag.Author = "Martin Ponce, ID 10371381";
 }
 
@@ -32,21 +27,25 @@
     </h5>
 </div>
 
-<hr/>
-
 @*Staff/Student login*@
 
-<div class="row">
+<div class="row vert-gap">
     <div class="col-md-6">
-        @*Staff login partial*@
-        @Html.Partial("~/Views/StaffAccount/Login.cshtml")
+        @*Staff login*@
+        <a href="@Url.Action("Login", "StaffAccount")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/staff.png")"/>
+        </a>
+        <h3 class="text-center">
+            @ViewBag.Staff
+        </h3>
     </div>
-    <div class="col-md-6 vert-rule-left">
-        @*Student login partial*@
-        @Html.Partial("~/Views/StudentAccount/Login.cshtml")
+    <div class="col-md-6">
+        @*Student login*@
+        <a href="@Url.Action("Login", "StudentAccount")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/student.png")" />
+        </a>
+        <h3 class="text-center">
+            @ViewBag.Student
+        </h3>
     </div>
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
