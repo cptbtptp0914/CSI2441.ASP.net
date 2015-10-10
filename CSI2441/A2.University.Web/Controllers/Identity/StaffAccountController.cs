@@ -37,8 +37,10 @@ namespace A2.University.Web.Controllers.Identity
                 case SignInStatus.RequiresVerification:
                     return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
                 case SignInStatus.Failure:
+                    ModelState.AddModelError("Email", "* Invalid login attempt");
+                    return View(model);
                 default:
-                    ModelState.AddModelError("", "Invalid login attempt.");
+                    ModelState.AddModelError("Email", "* Invalid login attempt");
                     return RedirectToLocal(returnUrl);
             }
         }

@@ -33,6 +33,7 @@ namespace A2.University.Web.Models
         
     }
 
+    [Validator(typeof(StaffLoginViewModelValidator))]
     public class StaffLoginViewModel : LoginViewModel
     {
         

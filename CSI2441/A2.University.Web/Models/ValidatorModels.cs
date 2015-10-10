@@ -388,6 +388,20 @@ namespace A2.University.Web.Models
         }
     }
 
+    public class StaffLoginViewModelValidator : AbstractValidator<StaffLoginViewModel>
+    {
+        public StaffLoginViewModelValidator()
+        {
+            // email
+            RuleFor(field => field.Email)
+                .NotEmpty().WithMessage("* Required")
+                .EmailAddress().WithMessage("* Must be a valid email");
+            // password
+            RuleFor(field => field.Password)
+                .NotEmpty().WithMessage("* Required");
+        }
+    }
+
     public class StaffRegisterViewModelValidator : AbstractValidator<StaffRegisterViewModel>
     {
         public StaffRegisterViewModelValidator()
@@ -403,13 +417,13 @@ namespace A2.University.Web.Models
             // password
             RuleFor(field => field.Password)
                 .NotEmpty().WithMessage("* Required")
-                .Length(8, 256).WithMessage("* Must be at least 8 characters")
+                .Length(8, 50).WithMessage("* Must be between 8 and 50 characters")
                 .Matches(@"^(?=.*?[0-9].*?[0-9])^(?=.*?[A-Z].*?[A-Z])[0-9a-zA-Z!@#$%\\/|\-_^<>{}[\]\?.,0-9]{8,}$")
                     .WithMessage("* Must contain at least: two UPPERCASE, two numbers, eight characters");
             // confirm password
             RuleFor(field => field.ConfirmPassword)
                 .NotEmpty().WithMessage("* Required")
-                .Equal(field => field.Password).WithMessage("* Must match password");
+                .Equal(field => field.ConfirmPassword).WithMessage("* Must match password");
 
             /**************************
              * SERVER SIDE VALIDATION *
@@ -436,6 +450,23 @@ namespace A2.University.Web.Models
                 }
                 return null;
             });
+        }
+    }
+
+    public class StaffChangePasswordViewModelValidator : AbstractValidator<StaffChangePasswordViewModel>
+    {
+        public StaffChangePasswordViewModelValidator()
+        {
+            // new password
+            RuleFor(field => field.NewPassword)
+                .NotEmpty().WithMessage("* Required")
+                .Length(8, 50).WithMessage("* Must be between 8 and 50 characters")
+                .Matches(@"^(?=.*?[0-9].*?[0-9])^(?=.*?[A-Z].*?[A-Z])[0-9a-zA-Z!@#$%\\/|\-_^<>{}[\]\?.,0-9]{8,}$")
+                .WithMessage("* Must contain at least: two UPPERCASE, two numbers, eight characters");
+            // confirm password
+            RuleFor(field => field.ConfirmPassword)
+                .NotEmpty().WithMessage("* Required")
+                .Equal(field => field.ConfirmPassword).WithMessage("* Must match password");
         }
     }
 }

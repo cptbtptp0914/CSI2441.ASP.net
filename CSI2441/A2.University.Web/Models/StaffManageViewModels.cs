@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
@@ -27,6 +28,7 @@ namespace A2.University.Web.Models
         
     }
 
+    [Validator(typeof(StaffChangePasswordViewModelValidator))]
     public class StaffChangePasswordViewModel : ChangePasswordViewModel
     {
         

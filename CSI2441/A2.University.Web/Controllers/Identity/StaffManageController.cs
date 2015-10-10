@@ -60,7 +60,7 @@ namespace A2.University.Web.Controllers.Identity
                 }
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
-            AddErrors(result);
+            ModelState.AddModelError("OldPassword", "* Incorrect password");
             return View(model);
         }
     }
