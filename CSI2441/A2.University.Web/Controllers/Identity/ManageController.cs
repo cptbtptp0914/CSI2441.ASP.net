@@ -1,14 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using A2.University.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using A2.University.Web.Models;
 
-namespace A2.University.Web.Controllers
+namespace A2.University.Web.Controllers.Identity
 {
     [Authorize]
     public class ManageController : Controller
