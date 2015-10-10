@@ -194,18 +194,19 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Controllers\CourseController.cs" />
-    <Compile Include="Controllers\CourseEnrolmentController.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Identity\AccountController.cs" />
     <Compile Include="Controllers\Identity\ManageController.cs" />
     <Compile Include="Controllers\Identity\StaffAccountController.cs" />
     <Compile Include="Controllers\Identity\StudentAccountController.cs" />
-    <Compile Include="Controllers\ResultsController.cs" />
-    <Compile Include="Controllers\StaffController.cs" />
-    <Compile Include="Controllers\StudentController.cs" />
-    <Compile Include="Controllers\UnitController.cs" />
-    <Compile Include="Controllers\UnitEnrolmentController.cs" />
+    <Compile Include="Controllers\StaffPortalController.cs" />
+    <Compile Include="Controllers\StaffPortal\CourseController.cs" />
+    <Compile Include="Controllers\StaffPortal\CourseEnrolmentController.cs" />
+    <Compile Include="Controllers\StaffPortal\HomeController.cs" />
+    <Compile Include="Controllers\StaffPortal\ResultsController.cs" />
+    <Compile Include="Controllers\StaffPortal\StaffController.cs" />
+    <Compile Include="Controllers\StaffPortal\StudentController.cs" />
+    <Compile Include="Controllers\StaffPortal\UnitController.cs" />
+    <Compile Include="Controllers\StaffPortal\UnitEnrolmentController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -425,7 +426,9 @@
     <Content Include="Views\Results\Progress.cshtml" />
     <Content Include="Views\Results\_Transcript.cshtml" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Controllers\StudentPortal\" />
+  </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

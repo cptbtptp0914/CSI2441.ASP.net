@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Entity;
+﻿using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using A2.University.Web.Models;
 using A2.University.Web.Models.Business;
 using A2.University.Web.Models.Entities;
 
-namespace A2.University.Web.Controllers
+namespace A2.University.Web.Controllers.StaffPortal
 {
     public class ResultsController : Controller
     {

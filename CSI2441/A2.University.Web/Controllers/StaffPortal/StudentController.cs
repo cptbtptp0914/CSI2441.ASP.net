@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Net;
@@ -11,7 +8,7 @@ using A2.University.Web.Models;
 using A2.University.Web.Models.Business.Services;
 using A2.University.Web.Models.Entities;
 
-namespace A2.University.Web.Controllers
+namespace A2.University.Web.Controllers.StaffPortal
 {
     public class StudentController : Controller
     {
