@@ -16,8 +16,12 @@
 <div class="jumbotron">
     <h1>@ViewBag.Title</h1>
     <p class="lead">
-        This web application allows a user to manage university student, unit, and course records. It also allows the user to manage and monitor student results and progress.
-        Information is stored in a local <a href="@Url.Action("About", "Home")">SQLite</a> database which is manipulated by the application.
+        This web application provides a Staff Portal where staff can log in and manage students, units, courses and enrolments. 
+        The Student Portal allows students to log in to view their results and course progress.
+        University data is stored in a local <a href="@Url.Action("About", "Home")">SQLite</a> database,
+        and user login data is stored in a
+        <a href="http://blogs.msdn.com/b/sqlexpress/archive/2011/07/12/introducing-localdb-a-better-sql-express.aspx" target=":blank">LocalDB</a> database, 
+        both managed by this application.
     </p>
     <p class="lead">
         Written in C# ASP.NET MVC5 using Visual Studio 2015.
@@ -28,66 +32,13 @@
     </h5>
 </div>
 
-@*Icon links*@
-
-<div class="row vert-gap">
-    <div class="col-md-3">
-        <a href="@Url.Action("Index", "Student")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/student.png")"/>
-        </a>
-        <h3 class="text-center">
-            @ViewBag.ManageStudents
-        </h3>
-    </div>
-    <div class="col-md-3">
-        <a href="@Url.Action("Index", "Staff")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/staff.png")"/>
-        </a>
-        <h3 class="text-center">
-            @ViewBag.ManageStaff
-        </h3>
-    </div>
-    <div class="col-md-3">
-        <a href="@Url.Action("Index", "Course")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/course.png")" />
-        </a>
-        <h3 class="text-center">
-            @ViewBag.ManageCourses
-        </h3>
-    </div>
-    <div class="col-md-3">
-        <a href="@Url.Action("Index", "Unit")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/unit.png")"/>
-        </a>
-        <h3 class="text-center">
-            @ViewBag.ManageUnits
-        </h3>
-    </div>
-</div>
+@*Staff/Student login*@
 
 <div class="row">
-    <div class="col-md-3">
-        <a href="@Url.Action("Index", "CourseEnrolment")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/courseEnrol.png")" />
-        </a>
-        <h3 class="text-center">
-            @ViewBag.CourseEnroment
-        </h3>
+    <div class="col-md-6">
+        @*Staff login partial*@
     </div>
-    <div class="col-md-3">
-        <a href="@Url.Action("Index", "UnitEnrolment")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/unitEnrol.png")"/>
-        </a>
-        <h3 class="text-center">
-            @ViewBag.UnitEnrolment
-        </h3>
-    </div>
-    <div class="col-md-3">
-        <a href="@Url.Action("Index", "Results")">
-            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/results.png")"/>
-        </a>
-        <h3 class="text-center">
-            @ViewBag.Results
-        </h3>
+    <div class="col-md-6">
+        @*Student login partial*@
     </div>
 </div>
