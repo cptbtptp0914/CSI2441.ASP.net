@@ -22,5 +22,10 @@ namespace A2.University.Web.Controllers
 
             return View();
         }
+
+        public ActionResult Register()
+        {
+            return View();
+        }
     }
 }

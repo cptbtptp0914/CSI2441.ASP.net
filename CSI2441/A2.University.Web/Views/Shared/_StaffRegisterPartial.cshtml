@@ -1,0 +1,55 @@
+﻿@model A2.University.Web.Models.StaffRegisterViewModel
+
+@{
+    ViewBag.Title = "Register Staff User";
+}
+
+@using (Html.BeginForm("Register", "StaffAccount", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+
+    <h2 class="col-md-offset-4 vert-gap">@ViewBag.Title</h2>
+
+    <div class="form-horizontal">
+
+        @*Email*@
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label" })
+            <div class="col-md-6">
+                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", placeholder = "Required" })
+                @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*Password*@
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label" })
+            <div class="col-md-6">
+                @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Required" })
+                @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*Confirm password*@
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-4 control-label" })
+            <div class="col-md-6">
+                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", placeholder = "Required" })
+                @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        @*Buttons*@
+
+        <div class="form-group">
+            <div class="col-md-offset-4 col-md-6">
+                <input type="submit" class="btn btn-default" value="Register" />
+                <a class="btn btn-default span-btn-cancel" href="@Url.Action("Index", "Home")">Cancel</a>
+            </div>
+        </div>
+
+    </div>
+}

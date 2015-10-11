@@ -453,6 +453,9 @@
     <Content Include="Views\StudentManage\Index.cshtml" />
     <Content Include="Views\Shared\_StudentUserPartial.cshtml" />
     <Content Include="Views\StudentManage\ChangePassword.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Shared\_StaffRegisterPartial.cshtml" />
+    <Content Include="Views\Shared\_StudentRegisterPartial.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
