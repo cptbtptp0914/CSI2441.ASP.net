@@ -219,7 +219,7 @@ namespace A2.University.Web.Controllers.StaffPortal
             viewModel.StudentId = entityModel.student_id;
             viewModel.FirstName = entityModel.firstname;
             viewModel.LastName = entityModel.lastname;
-            viewModel.Dob = entityModel.dob;
+            viewModel.Dob = entityModel.dob.Date;
             viewModel.Gender = entityModel.gender;
             viewModel.Email = entityModel.email;
             viewModel.LandLine = entityModel.ph_landline;
