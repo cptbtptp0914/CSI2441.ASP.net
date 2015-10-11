@@ -28,8 +28,8 @@ namespace A2.University.Web.Controllers.Identity
 
             // find user first before signing in, verify role
             var user = await UserManager.FindAsync(model.Email, model.Password);
-            // if user not valid role, don't log in
-            if (!UserManager.IsInRole(user.Id, "STUDENT"))
+            // if user not valid role, deny access
+            if (user != null && !UserManager.IsInRole(user.Id, "STUDENT"))
             {
                 ModelState.AddModelError("Email", "* Invalid login attempt");
                 return View(model);
