@@ -19,18 +19,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("University Manager", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Student Portal", "Index", "StudentPortal", new { email = Model.Email }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                @*Add student navbar*@
+                @*Add student navbar here if required*@
 @*                    <li>@Html.ActionLink("Students", "Index", "Student")</li>*@
-@*                    <li>@Html.ActionLink("Staff", "Index", "Staff")</li>*@
-@*                    <li>@Html.ActionLink("Courses", "Index", "Course")</li>*@
-@*                    <li>@Html.ActionLink("Units", "Index", "Unit")</li>*@
-@*                    <li>@Html.ActionLink("Course Enrolments", "Index", "CourseEnrolment")</li>*@
-@*                    <li>@Html.ActionLink("Unit Enrolments", "Index", "UnitEnrolment")</li>*@
-@*                    <li>@Html.ActionLink("Results", "Index", "Results")</li>*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
