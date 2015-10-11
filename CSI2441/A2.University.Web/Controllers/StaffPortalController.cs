@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace A2.University.Web.Controllers
 {
+    [Authorize(Roles = "STAFF")]
     public class StaffPortalController : Controller
     {
         // GET: StaffPortal

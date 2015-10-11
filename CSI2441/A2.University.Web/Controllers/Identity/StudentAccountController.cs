@@ -26,6 +26,15 @@ namespace A2.University.Web.Controllers.Identity
                 return View(model);
             }
 
+            // find user first before signing in, verify role
+            var user = await UserManager.FindAsync(model.Email, model.Password);
+            // if user not valid role, don't log in
+            if (!UserManager.IsInRole(user.Id, "STUDENT"))
+            {
+                ModelState.AddModelError("Email", "* Invalid login attempt");
+                return View(model);
+            }
+
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using A2.University.Web.Models;
+using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 
 namespace A2.University.Web.Controllers.Identity
@@ -22,6 +23,15 @@ namespace A2.University.Web.Controllers.Identity
         {
             if (!ModelState.IsValid)
             {
+                return View(model);
+            }
+
+            // find user first before signing in, verify role
+            var user = await UserManager.FindAsync(model.Email, model.Password);
+            // if user not valid role, don't log in
+            if (!UserManager.IsInRole(user.Id, "STAFF"))
+            {
+                ModelState.AddModelError("Email", "* Invalid login attempt");
                 return View(model);
             }
 
