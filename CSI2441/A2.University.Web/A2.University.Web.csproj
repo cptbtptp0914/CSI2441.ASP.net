@@ -269,6 +269,7 @@
     <Compile Include="Models\StudentAccountViewModels.cs" />
     <Compile Include="Models\StudentManageViewModels.cs" />
     <Compile Include="Models\StudentPortal\StudentPortalViewModels.cs" />
+    <Compile Include="Models\UniAuthorize.cs" />
     <Compile Include="Models\ValidatorModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
