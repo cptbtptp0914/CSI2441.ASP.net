@@ -18,6 +18,8 @@ namespace A2.University.Web.Controllers.StaffPortal
         {
             ResultsIndexViewModel resultsIndexViewModel = new ResultsIndexViewModel();
             var courseEnrolmentsEntity = _db.CourseEnrolments
+                .OrderByDescending(ce =>
+                    ce.student_id)
                 .Include(ce => 
                     ce.Course)
                 .Include(ce => 

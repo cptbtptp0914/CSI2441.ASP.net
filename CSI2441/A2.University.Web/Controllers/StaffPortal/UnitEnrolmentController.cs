@@ -18,6 +18,10 @@ namespace A2.University.Web.Controllers.StaffPortal
         {
             UnitEnrolmentIndexViewModel unitEnrolmentViewModel = new UnitEnrolmentIndexViewModel();
             var unitEnrolmentsEntity = _db.UnitEnrolments
+                .OrderByDescending(u =>
+                    u.student_id)
+                .ThenBy(u =>
+                    u.year_sem)
                 .Include(u => 
                     u.Student)
                 .Include(u => 

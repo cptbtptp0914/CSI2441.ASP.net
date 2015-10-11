@@ -24,7 +24,7 @@ namespace A2.University.Web.Controllers.StaffPortal
             // create viewmodel
             StudentIndexViewModel studentViewModel = new StudentIndexViewModel();
             // generate list from entity
-            var studentsEntity = _db.Students.ToList();
+            var studentsEntity = _db.Students.OrderByDescending(s => s.student_id).ToList();
 
             // transfer entity list to viewmodel list
             foreach (Student student in studentsEntity)

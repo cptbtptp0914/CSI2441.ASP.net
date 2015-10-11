@@ -18,7 +18,11 @@ namespace A2.University.Web.Controllers.StaffPortal
         public ActionResult Index()
         {
             CourseEnrolmentIndexViewModel courseEnrolmentViewModel = new CourseEnrolmentIndexViewModel();
-            var courseEnrolmentsEntity = _db.CourseEnrolments.Include(c => c.Course).Include(c => c.Student).ToList();
+            var courseEnrolmentsEntity = _db.CourseEnrolments
+                .OrderByDescending(c => c.course_enrolment_id)
+                .Include(c => c.Course)
+                .Include(c => c.Student)
+                .ToList();
             
             // transfer entity list to viewmodel list
             foreach (CourseEnrolment courseEnrolment in courseEnrolmentsEntity)

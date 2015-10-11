@@ -20,7 +20,7 @@ namespace A2.University.Web.Controllers.StaffPortal
         public ActionResult Index()
         {
             StaffIndexViewModel staffViewModel = new StaffIndexViewModel();
-            var staffEntity = _db.Staff.ToList();
+            var staffEntity = _db.Staff.OrderByDescending(s => s.staff_id).ToList();
 
             // transfer entity list to viewmodel list
             foreach (Staff staff in staffEntity)
