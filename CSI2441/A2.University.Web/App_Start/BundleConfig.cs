@@ -43,7 +43,8 @@ namespace A2.University.Web
                     "~/Content/bootstrap-datetimepicker*"));
             // config
             bundles.Add(new ScriptBundle("~/bundles/datetimeConfig").Include(
-                    "~/Scripts/university-datetimepicker-config.js"));
+                    "~/Scripts/university.datetimepicker.config.js",
+                    "~/Scripts/university.custom.datetime.jquery.validate.unobtrusive.js"));
         }
     }
 }
