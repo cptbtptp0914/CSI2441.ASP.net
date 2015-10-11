@@ -399,6 +399,7 @@ namespace A2.University.Web.Models
             // password
             RuleFor(field => field.Password)
                 .NotEmpty().WithMessage("* Required");
+            // TODO: either add serverside validation to check if email exists in staff list, or tag controller classes with roles
         }
     }
 
@@ -467,6 +468,21 @@ namespace A2.University.Web.Models
             RuleFor(field => field.ConfirmPassword)
                 .NotEmpty().WithMessage("* Required")
                 .Equal(field => field.ConfirmPassword).WithMessage("* Must match password");
+        }
+    }
+
+    public class StudentLoginViewModelValidator : AbstractValidator<StudentLoginViewModel>
+    {
+        public StudentLoginViewModelValidator()
+        {
+            // email
+            RuleFor(field => field.Email)
+                .NotEmpty().WithMessage("* Required")
+                .EmailAddress().WithMessage("* Must be a valid email");
+            // password
+            RuleFor(field => field.Password)
+                .NotEmpty().WithMessage("* Required");
+            // TODO: either add serverside validation to check if email exists in staff list, or tag controller classes with roles
         }
     }
 }

@@ -7,12 +7,45 @@ using System.Web.Mvc;
 using A2.University.Web.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace A2.University.Web.Controllers.Identity
 {
     [Authorize]
     public class StudentAccountController : AccountController
     {
+        //
+        // POST: /Account/Login
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Login(StudentLoginViewModel model, string returnUrl)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            switch (result)
+            {
+                case SignInStatus.Success:
+                    return RedirectToAction("Index", "StaffPortal");
+                case SignInStatus.LockedOut:
+                    return View("Lockout");
+                case SignInStatus.RequiresVerification:
+                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = model.RememberMe });
+                case SignInStatus.Failure:
+                    ModelState.AddModelError("Email", "* Invalid login attempt");
+                    return View(model);
+                default:
+                    ModelState.AddModelError("Email", "* Invalid login attempt");
+                    return RedirectToLocal(returnUrl);
+            }
+        }
+
         //
         // POST: /Account/Register
         /// <summary>
