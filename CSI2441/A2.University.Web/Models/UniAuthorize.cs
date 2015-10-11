@@ -6,6 +6,10 @@ using System.Web.Mvc;
 
 namespace A2.University.Web.Models
 {
+
+    /// <summary>
+    /// Custom Authorize attrbute, redirects unauth user to Home Index.
+    /// </summary>
     public class UniAuthorize : AuthorizeAttribute
     {
         

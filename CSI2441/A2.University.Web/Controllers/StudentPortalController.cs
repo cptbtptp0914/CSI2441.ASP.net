@@ -12,6 +12,7 @@ using A2.University.Web.Models.StudentPortal;
 
 namespace A2.University.Web.Controllers
 {
+    [UniAuthorize(Roles = "STUDENT")]
     public class StudentPortalController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
