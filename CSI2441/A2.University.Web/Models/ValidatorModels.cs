@@ -30,7 +30,7 @@ namespace A2.University.Web.Models
             // Dob, min age
             RuleFor(field => field.Dob)
                 .NotEmpty().WithMessage("* Required")
-                .GreaterThanOrEqualTo(field => field.MinAge).WithMessage("* Must be at least 16 years old");
+                .LessThanOrEqualTo(field => field.MinAge).WithMessage("* Must be at least 16 years old");
             // Gender
             RuleFor(field => field.Gender)
                 .NotEmpty().WithMessage("* Required")

@@ -24,10 +24,10 @@ namespace A2.University.Web.Models.StaffPortal
         // datepicker maxAge = 100 yrs old, see ~/Scripts/university-datetimepicker-config.js
         [Display(Name = "DOB")]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
-        public string Dob { get; set; }
+        public DateTime Dob { get; set; }
 
         // used for validation, min age = 16 yrs old
-        public string MinAge = DateTime.Today.AddYears(-16).Date.ToString(CultureInfo.CurrentCulture);
+        public DateTime MinAge = DateTime.Today.AddYears(-16).Date;
 
         [Display(Name = "Gender")]
         public string Gender { get; set; }

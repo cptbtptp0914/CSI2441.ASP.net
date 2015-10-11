@@ -34,7 +34,7 @@ namespace A2.University.Web.Controllers.StaffPortal
                     StudentId = student.student_id,
                     FirstName = student.firstname,
                     LastName = student.lastname,
-                    Dob = student.dob.ToString("dd/MM/yyyy"),
+                    Dob = student.dob,
                     Gender = student.gender,
                     Email = student.email,
                     LandLine = student.ph_landline,
@@ -191,7 +191,7 @@ namespace A2.University.Web.Controllers.StaffPortal
             entityModel.student_id = viewModel.StudentId;
             entityModel.firstname = viewModel.FirstName;
             entityModel.lastname = viewModel.LastName;
-            entityModel.dob = Convert.ToDateTime(viewModel.Dob, CultureInfo.CurrentCulture).Date;
+            entityModel.dob = viewModel.Dob;
             entityModel.gender = viewModel.Gender;
             entityModel.ph_landline = viewModel.LandLine;
             entityModel.ph_mobile = viewModel.Mobile;
@@ -219,7 +219,7 @@ namespace A2.University.Web.Controllers.StaffPortal
             viewModel.StudentId = entityModel.student_id;
             viewModel.FirstName = entityModel.firstname;
             viewModel.LastName = entityModel.lastname;
-            viewModel.Dob = entityModel.dob.ToString("dd/MM/yyyy");
+            viewModel.Dob = entityModel.dob;
             viewModel.Gender = entityModel.gender;
             viewModel.Email = entityModel.email;
             viewModel.LandLine = entityModel.ph_landline;
