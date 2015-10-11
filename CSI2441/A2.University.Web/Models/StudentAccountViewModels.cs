@@ -39,6 +39,7 @@ namespace A2.University.Web.Models
 
     }
 
+    [Validator(typeof(StudentRegisterViewModelValidator))]
     public class StudentRegisterViewModel : RegisterViewModel
     {
 

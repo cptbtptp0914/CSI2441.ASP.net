@@ -485,4 +485,55 @@ namespace A2.University.Web.Models
             // TODO: either add serverside validation to check if email exists in staff list, or tag controller classes with roles
         }
     }
+
+    public class StudentRegisterViewModelValidator : AbstractValidator<StudentRegisterViewModel>
+    {
+        public StudentRegisterViewModelValidator()
+        {
+            // create instance of db context to perform serverside validation
+            UniversityEntities dbUni = new UniversityEntities();
+            ApplicationDbContext dbUser = new ApplicationDbContext();
+
+            // email
+            RuleFor(field => field.Email)
+                .NotEmpty().WithMessage("* Required")
+                .EmailAddress().WithMessage("* Must be a valid email");
+            // password
+            RuleFor(field => field.Password)
+                .NotEmpty().WithMessage("* Required")
+                .Length(8, 50).WithMessage("* Must be between 8 and 50 characters")
+                .Matches(@"^(?=.*?[0-9].*?[0-9])^(?=.*?[A-Z].*?[A-Z])[0-9a-zA-Z!@#$%\\/|\-_^<>{}[\]\?.,0-9]{8,}$")
+                    .WithMessage("* Must contain at least: two UPPERCASE, two numbers, eight characters");
+            // confirm password
+            RuleFor(field => field.ConfirmPassword)
+                .NotEmpty().WithMessage("* Required")
+                .Equal(field => field.ConfirmPassword).WithMessage("* Must match password");
+
+            /**************************
+             * SERVER SIDE VALIDATION *
+             **************************/
+
+            // staff exists in staff table
+            Custom(field =>
+            {
+                var existingStudent = dbUni.Students.FirstOrDefault(s => s.email == field.Email);
+                if (existingStudent == null)
+                {
+                    return new ValidationFailure("Email", "* Student email does not exist");
+                }
+                return null;
+            });
+
+            // user uniqueness
+            Custom(field =>
+            {
+                var existingUser = dbUser.Users.FirstOrDefault(u => u.Email == field.Email);
+                if (existingUser != null)
+                {
+                    return new ValidationFailure("Email", "* User already exists");
+                }
+                return null;
+            });
+        }
+    }
 }

@@ -433,7 +433,6 @@
     <Content Include="Views\Shared\_LayoutPublic.cshtml" />
     <Content Include="Views\Shared\_LayoutFooter.cshtml" />
     <Content Include="Views\Shared\_LayoutStudentPortal.cshtml" />
-    <Content Include="Views\StudentAccount\Index.cshtml" />
     <Content Include="Views\StudentAccount\Login.cshtml" />
     <Content Include="Views\StaffAccount\Login.cshtml" />
     <Content Include="Views\StaffPortal\Index.cshtml" />
@@ -443,6 +442,7 @@
     <Content Include="Views\StaffManage\Index.cshtml" />
     <Content Include="Views\Shared\_StaffUserPartial.cshtml" />
     <Content Include="Views\StaffManage\ChangePassword.cshtml" />
+    <Content Include="Views\StudentAccount\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Controllers\StudentPortal\" />
