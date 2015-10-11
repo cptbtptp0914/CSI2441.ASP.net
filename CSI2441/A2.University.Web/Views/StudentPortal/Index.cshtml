@@ -1,0 +1,140 @@
+﻿@model A2.University.Web.Models.StudentPortal.StudentCoursesViewModel
+@{
+    ViewBag.Title = "Student Details";
+    Layout = "~/Views/Shared/_LayoutStudentPortal.cshtml";
+}
+
+<h2>@ViewBag.Title</h2>
+
+@using (Html.BeginForm())
+{
+
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <hr />
+
+        <div class="row">
+            @*Left column*@
+            <div class="col-md-6">
+
+                @*Student ID*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentId, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.StudentId)</p>
+                    </div>
+                </div>
+
+                @*First name*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentFirstName, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.StudentFirstName)</p>
+                    </div>
+                </div>
+
+                @*Surname*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.StudentLastName, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.StudentLastName)</p>
+                    </div>
+                </div>
+
+                @*Dob*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Dob, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.Dob)</p>
+                    </div>
+                </div>
+
+                @*Gender*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Gender, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.Gender)</p>
+                    </div>
+                </div>
+
+                @*Email*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.Email)</p>
+                    </div>
+                </div>
+            </div>
+
+            @*Right column*@
+            <div class="col-md-6">
+
+                @*Landline*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Landline, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.Landline)</p>
+                    </div>
+                </div>
+
+                @*Mobile*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Mobile, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.Mobile)</p>
+                    </div>
+                </div>
+
+                @*Address*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Address, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.Address)</p>
+                    </div>
+                </div>
+
+                @*City*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.City, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.City)</p>
+                    </div>
+                </div>
+
+                @*State*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.State, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.State)</p>
+                    </div>
+                </div>
+
+                @*Postcode*@
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Postcode, new { @class = "control-label col-md-6" })
+                    <div class="col-md-6">
+                        <p class="form-display">@Html.DisplayFor(model => model.Postcode)</p>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+}
+
+@*Show list of enrolled courses as grid*@
+@Html.Partial("_CourseEnrolments", Model.CoursesList.StudentCourseEnrolments)

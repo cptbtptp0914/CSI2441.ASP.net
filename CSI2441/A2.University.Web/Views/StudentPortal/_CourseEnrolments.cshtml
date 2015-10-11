@@ -1,0 +1,40 @@
+﻿@using GridMvc.Html
+@model IEnumerable<A2.University.Web.Models.StudentPortal.StudentCourseEnrolmentListViewModel>
+
+@{
+    ViewBag.Title = "Courses";
+}
+
+<h2>@ViewBag.Title</h2>
+<hr/>
+
+@*
+    Grid.Mvc package generates the grid.
+    Provides filtering/sorting/pagination.
+*@
+
+@Html.Grid(Model).Columns(columns =>
+{
+    // course id
+    columns.Add(data => data.CourseId)
+        .Titled("Course ID")
+        .SetFilterWidgetType("System.String");
+    // course title
+    columns.Add(data => data.CourseTitle)
+        .Titled("Title")
+        .SetFilterWidgetType("System.String");
+    // course status
+    columns.Add(data => data.CourseStatus)
+        .Titled("Status")
+        .SetFilterWidgetType("System.String");
+    // progress button
+    columns.Add()
+        .Encoded(false)
+        .Sanitized(false)
+        .SetWidth(30)
+        .RenderValueAs(data => Html.ActionLink("Progress", "Progress", new
+        {
+            studentId = data.StudentId,
+            courseId = data.CourseId
+        }));
+}).Sortable(true).Filterable(true)

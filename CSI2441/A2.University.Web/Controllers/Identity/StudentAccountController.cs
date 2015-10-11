@@ -32,7 +32,7 @@ namespace A2.University.Web.Controllers.Identity
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToAction("Index", "StaffPortal");
+                    return RedirectToAction("Index", "StudentPortal", new { email = model.Email });
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
