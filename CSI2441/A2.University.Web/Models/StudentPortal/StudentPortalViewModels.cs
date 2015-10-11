@@ -105,9 +105,6 @@ namespace A2.University.Web.Models.StudentPortal
         public string Grade { get; set; }
 
         public StudentTranscriptViewModel TranscriptView { get; set; }
-
-        // hidden
-        public string Email { get; set; }
     }
 
     public class StudentTranscriptViewModel : StudentProgressViewModel

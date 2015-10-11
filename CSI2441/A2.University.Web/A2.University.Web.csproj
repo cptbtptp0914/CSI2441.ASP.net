@@ -200,6 +200,7 @@
     <Compile Include="Controllers\Identity\StaffAccountController.cs" />
     <Compile Include="Controllers\Identity\StaffManageController.cs" />
     <Compile Include="Controllers\Identity\StudentAccountController.cs" />
+    <Compile Include="Controllers\Identity\StudentManageController.cs" />
     <Compile Include="Controllers\StaffPortalController.cs" />
     <Compile Include="Controllers\StaffPortal\CourseController.cs" />
     <Compile Include="Controllers\StaffPortal\CourseEnrolmentController.cs" />
@@ -266,6 +267,7 @@
     <Compile Include="Models\StaffPortal\UnitEnrolmentViewModels.cs" />
     <Compile Include="Models\StaffPortal\UnitViewModels.cs" />
     <Compile Include="Models\StudentAccountViewModels.cs" />
+    <Compile Include="Models\StudentManageViewModels.cs" />
     <Compile Include="Models\StudentPortal\StudentPortalViewModels.cs" />
     <Compile Include="Models\ValidatorModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -448,11 +450,11 @@
     <Content Include="Views\StudentPortal\_CourseEnrolments.cshtml" />
     <Content Include="Views\StudentPortal\Progress.cshtml" />
     <Content Include="Views\StudentPortal\_Transcript.cshtml" />
+    <Content Include="Views\StudentManage\Index.cshtml" />
+    <Content Include="Views\Shared\_StudentUserPartial.cshtml" />
+    <Content Include="Views\StudentManage\ChangePassword.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\StudentPortal\" />
-    <Folder Include="Views\StudentCourseEnrolment\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

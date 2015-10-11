@@ -458,6 +458,9 @@ namespace A2.University.Web.Models
     {
         public StaffChangePasswordViewModelValidator()
         {
+            // current password
+            RuleFor(field => field.OldPassword)
+                .NotEmpty().WithMessage("* Required");
             // new password
             RuleFor(field => field.NewPassword)
                 .NotEmpty().WithMessage("* Required")
@@ -534,6 +537,26 @@ namespace A2.University.Web.Models
                 }
                 return null;
             });
+        }
+    }
+
+    public class StudentChangePasswordViewModelValidator : AbstractValidator<StudentChangePasswordViewModel>
+    {
+        public StudentChangePasswordViewModelValidator()
+        {
+            // current password
+            RuleFor(field => field.OldPassword)
+                .NotEmpty().WithMessage("* Required");
+            // new password
+            RuleFor(field => field.NewPassword)
+                .NotEmpty().WithMessage("* Required")
+                .Length(8, 50).WithMessage("* Must be between 8 and 50 characters")
+                .Matches(@"^(?=.*?[0-9].*?[0-9])^(?=.*?[A-Z].*?[A-Z])[0-9a-zA-Z!@#$%\\/|\-_^<>{}[\]\?.,0-9]{8,}$")
+                .WithMessage("* Must contain at least: two UPPERCASE, two numbers, eight characters");
+            // confirm password
+            RuleFor(field => field.ConfirmPassword)
+                .NotEmpty().WithMessage("* Required")
+                .Equal(field => field.ConfirmPassword).WithMessage("* Must match password");
         }
     }
 }

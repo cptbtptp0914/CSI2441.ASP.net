@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNet.Identity
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -19,14 +20,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Student Portal", "Index", "StudentPortal", new { email = Model.Email }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Student Portal", "Index", "StudentPortal", new { email = User.Identity.GetUserName() }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                 @*Add student navbar here if required*@
 @*                    <li>@Html.ActionLink("Students", "Index", "Student")</li>*@
                 </ul>
-                @Html.Partial("_LoginPartial")
+                @Html.Partial("_StudentUserPartial")
             </div>
         </div>
     </div>
