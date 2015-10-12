@@ -12,46 +12,30 @@ using A2.University.Web.Models.StudentPortal;
 
 namespace A2.University.Web.Controllers
 {
-    [UniAuthorize(Roles = "STUDENT")]
+//    [UniAuthorize(Roles = "STUDENT")]
     public class StudentPortalController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
 
-        // GET: StudentPortal
+        /// <summary>
+        /// GET: StudentPortal
+        /// Displays StudentPortal home page.
+        /// Must provide email on login, else will return user to login page.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public ActionResult Index(string email)
         {
-            // get current student by matching login viewmodel's email with student's email in database
-            var currentStudent = _db.Students
-                .FirstOrDefault(s => s.email == email);
-
-            if (currentStudent != null)
+            if (email != null)
             {
-                // populate info for student
-                StudentCoursesViewModel studentPortalViewModel = new StudentCoursesViewModel
-                {
-                    StudentId = currentStudent.student_id,
-                    StudentFirstName = currentStudent.firstname,
-                    StudentLastName = currentStudent.lastname,
-                    StudentFullName =
-                        $"{currentStudent.firstname} " +
-                        $"{currentStudent.lastname}",
+                // get current student by matching login viewmodel's email with student's email in database
+                var currentStudent = _db.Students
+                    .FirstOrDefault(s => s.email == email);
 
-                    Dob = currentStudent.dob.ToString("dd/MM/yyyy"),
-                    Gender = currentStudent.gender,
-                    Email = currentStudent.email,
-                    Landline = currentStudent.ph_landline,
-                    Mobile = currentStudent.ph_mobile,
-                    Address = currentStudent.adrs,
-                    City = currentStudent.adrs_city,
-                    State = currentStudent.adrs_state,
-                    Postcode = currentStudent.adrs_postcode
-                };
-
-                // transfer list to viewmodel list
-                studentPortalViewModel.CoursesList = new StudentCourseEnrolmentListViewModel();
-                foreach (CourseEnrolment courseEnrolment in currentStudent.CourseEnrolments.OrderByDescending(c => c.course_enrolment_id))
+                if (currentStudent != null)
                 {
-                    studentPortalViewModel.CoursesList.StudentCourseEnrolments.Add(new StudentCourseEnrolmentListViewModel
+                    // populate info for student
+                    StudentCoursesViewModel studentPortalViewModel = new StudentCoursesViewModel
                     {
                         StudentId = currentStudent.student_id,
                         StudentFirstName = currentStudent.firstname,
@@ -60,18 +44,44 @@ namespace A2.University.Web.Controllers
                             $"{currentStudent.firstname} " +
                             $"{currentStudent.lastname}",
 
-                        CourseEnrolmentId = courseEnrolment.course_enrolment_id,
-                        CourseId = courseEnrolment.course_id,
-                        CourseTitle = courseEnrolment.Course.title,
-                        CourseStatus = courseEnrolment.course_status
-                    });
+                        Dob = currentStudent.dob.ToString("dd/MM/yyyy"),
+                        Gender = currentStudent.gender,
+                        Email = currentStudent.email,
+                        Landline = currentStudent.ph_landline,
+                        Mobile = currentStudent.ph_mobile,
+                        Address = currentStudent.adrs,
+                        City = currentStudent.adrs_city,
+                        State = currentStudent.adrs_state,
+                        Postcode = currentStudent.adrs_postcode
+                    };
+
+                    // transfer list to viewmodel list
+                    studentPortalViewModel.CoursesList = new StudentCourseEnrolmentListViewModel();
+                    foreach (CourseEnrolment courseEnrolment in currentStudent.CourseEnrolments.OrderByDescending(c => c.course_enrolment_id))
+                    {
+                        studentPortalViewModel.CoursesList.StudentCourseEnrolments.Add(new StudentCourseEnrolmentListViewModel
+                        {
+                            StudentId = currentStudent.student_id,
+                            StudentFirstName = currentStudent.firstname,
+                            StudentLastName = currentStudent.lastname,
+                            StudentFullName =
+                                $"{currentStudent.firstname} " +
+                                $"{currentStudent.lastname}",
+
+                            CourseEnrolmentId = courseEnrolment.course_enrolment_id,
+                            CourseId = courseEnrolment.course_id,
+                            CourseTitle = courseEnrolment.Course.title,
+                            CourseStatus = courseEnrolment.course_status
+                        });
+                    }
+
+                    return View(studentPortalViewModel);
                 }
-
-                return View(studentPortalViewModel);
             }
-
-            // if we get here, student email was not found in db
-            return View();
+            
+            // if we get here, incorrect email or email not provided,
+            // send user back to login page
+            return RedirectToAction("Login", "StudentAccount");
         }
 
         public ActionResult Progress(long? studentId, string courseId)
