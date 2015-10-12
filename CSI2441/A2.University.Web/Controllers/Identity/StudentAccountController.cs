@@ -57,11 +57,11 @@ namespace A2.University.Web.Controllers.Identity
             return View();
         }
 
-        //
-        // POST: /StudentAccount/Register
         /// <summary>
-        /// Overriding AccountController's Register POST method.
-        /// Adds user and role to UserRole table, STUDENT in this case.
+        /// POST: /StudentAccount/Register
+        /// Student registration dealt with here.
+        /// If passes validation, a new entity model is created and values from view model passed to it,
+        /// then saved to StudentUser table in db. Student is then redirected to StudentPortal Index.
         /// </summary>
         /// <param name="model"></param>
         /// <returns></returns>

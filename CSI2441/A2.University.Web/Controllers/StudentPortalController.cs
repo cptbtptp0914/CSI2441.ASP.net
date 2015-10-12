@@ -12,6 +12,7 @@ using A2.University.Web.Models.StudentPortal;
 
 namespace A2.University.Web.Controllers
 {
+    // No longer using Identity EntityFramework, AuthorizeAttribute not valid.
 //    [UniAuthorize(Roles = "STUDENT")]
     public class StudentPortalController : Controller
     {
