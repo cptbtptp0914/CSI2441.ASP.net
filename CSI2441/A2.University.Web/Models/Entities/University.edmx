@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="UniversityModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=|DataDirectory|\University.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="UniversityModel.Store" Provider="System.Data.SQLite.EF6" ProviderManifestToken="data source=E:\Documents\git\CSI2441.ASP.net\CSI2441\A2.University.Web\App_Data\University.db" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Course">
           <Key>
             <PropertyRef Name="course_id" />
@@ -57,6 +57,16 @@
           <Property Name="adrs_city" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="adrs_state" Type="nvarchar" MaxLength="3" Nullable="false" />
           <Property Name="adrs_postcode" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="StudentUser">
+          <Key>
+            <PropertyRef Name="student_user_id" />
+          </Key>
+          <Property Name="student_user_id" Type="integer" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="student_id" Type="integer" Nullable="false" />
+          <Property Name="email" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="password" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
+          <Property Name="role" Type="nvarchar" MaxLength="2147483647" Nullable="false" />
         </EntityType>
         <EntityType Name="Unit">
           <Key>
@@ -134,6 +144,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StudentUser_0_0">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentUser" Type="Self.StudentUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="StudentUser">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Unit_0_0">
           <End Role="UnitType" Type="Self.UnitType" Multiplicity="1" />
           <End Role="Unit" Type="Self.Unit" Multiplicity="*" />
@@ -200,6 +222,7 @@
           <EntitySet Name="CourseType" EntityType="Self.CourseType" store:Type="Tables" />
           <EntitySet Name="Staff" EntityType="Self.Staff" store:Type="Tables" />
           <EntitySet Name="Student" EntityType="Self.Student" store:Type="Tables" />
+          <EntitySet Name="StudentUser" EntityType="Self.StudentUser" store:Type="Tables" />
           <EntitySet Name="Unit" EntityType="Self.Unit" store:Type="Tables" />
           <EntitySet Name="UnitEnrolment" EntityType="Self.UnitEnrolment" store:Type="Tables" />
           <EntitySet Name="UnitType" EntityType="Self.UnitType" store:Type="Tables" />
@@ -218,6 +241,10 @@
           <AssociationSet Name="FK_CourseEnrolment_1_0" Association="Self.FK_CourseEnrolment_1_0">
             <End Role="Student" EntitySet="Student" />
             <End Role="CourseEnrolment" EntitySet="CourseEnrolment" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentUser_0_0" Association="Self.FK_StudentUser_0_0">
+            <End Role="Student" EntitySet="Student" />
+            <End Role="StudentUser" EntitySet="StudentUser" />
           </AssociationSet>
           <AssociationSet Name="FK_Unit_0_0" Association="Self.FK_Unit_0_0">
             <End Role="UnitType" EntitySet="UnitType" />
@@ -307,7 +334,19 @@
           <Property Name="adrs_state" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="adrs_postcode" Type="Int32" Nullable="false" />
           <NavigationProperty Name="CourseEnrolments" Relationship="Self.FK_CourseEnrolment_1_0" FromRole="Student" ToRole="CourseEnrolment" />
+          <NavigationProperty Name="StudentUsers" Relationship="Self.FK_StudentUser_0_0" FromRole="Student" ToRole="StudentUser" />
           <NavigationProperty Name="UnitEnrolments" Relationship="Self.FK_UnitEnrolment_1_0" FromRole="Student" ToRole="UnitEnrolment" />
+        </EntityType>
+        <EntityType Name="StudentUser">
+          <Key>
+            <PropertyRef Name="student_user_id" />
+          </Key>
+          <Property Name="student_user_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="student_id" Type="Int64" Nullable="false" />
+          <Property Name="email" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="password" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="role" Type="String" MaxLength="2147483647" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Student" Relationship="Self.FK_StudentUser_0_0" FromRole="StudentUser" ToRole="Student" />
         </EntityType>
         <EntityType Name="Unit">
           <Key>
@@ -416,6 +455,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_StudentUser_0_0">
+          <End Role="Student" Type="Self.Student" Multiplicity="1" />
+          <End Role="StudentUser" Type="Self.StudentUser" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Student">
+              <PropertyRef Name="student_id" />
+            </Principal>
+            <Dependent Role="StudentUser">
+              <PropertyRef Name="student_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UnitEnrolment_1_0">
           <End Role="Student" Type="Self.Student" Multiplicity="1" />
           <End Role="UnitEnrolment" Type="Self.UnitEnrolment" Multiplicity="*" />
@@ -458,6 +509,7 @@
           <EntitySet Name="CourseTypes" EntityType="Self.CourseType" />
           <EntitySet Name="Staff" EntityType="Self.Staff" />
           <EntitySet Name="Students" EntityType="Self.Student" />
+          <EntitySet Name="StudentUsers" EntityType="Self.StudentUser" />
           <EntitySet Name="Units" EntityType="Self.Unit" />
           <EntitySet Name="UnitEnrolments" EntityType="Self.UnitEnrolment" />
           <EntitySet Name="UnitTypes" EntityType="Self.UnitType" />
@@ -484,6 +536,10 @@
           <AssociationSet Name="FK_Unit_1_0" Association="Self.FK_Unit_1_0">
             <End Role="Staff" EntitySet="Staff" />
             <End Role="Unit" EntitySet="Units" />
+          </AssociationSet>
+          <AssociationSet Name="FK_StudentUser_0_0" Association="Self.FK_StudentUser_0_0">
+            <End Role="Student" EntitySet="Students" />
+            <End Role="StudentUser" EntitySet="StudentUsers" />
           </AssociationSet>
           <AssociationSet Name="FK_UnitEnrolment_1_0" Association="Self.FK_UnitEnrolment_1_0">
             <End Role="Student" EntitySet="Students" />
@@ -559,6 +615,17 @@
                 <ScalarProperty Name="adrs_city" ColumnName="adrs_city" />
                 <ScalarProperty Name="adrs_state" ColumnName="adrs_state" />
                 <ScalarProperty Name="adrs_postcode" ColumnName="adrs_postcode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="StudentUsers">
+            <EntityTypeMapping TypeName="UniversityModel.StudentUser">
+              <MappingFragment StoreEntitySet="StudentUser">
+                <ScalarProperty Name="student_user_id" ColumnName="student_user_id" />
+                <ScalarProperty Name="student_id" ColumnName="student_id" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="password" ColumnName="password" />
+                <ScalarProperty Name="role" ColumnName="role" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -232,6 +232,9 @@
     <Compile Include="Models\Entities\Student.cs">
       <DependentUpon>University.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Entities\StudentUser.cs">
+      <DependentUpon>University.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Entities\Unit.cs">
       <DependentUpon>University.tt</DependentUpon>
     </Compile>

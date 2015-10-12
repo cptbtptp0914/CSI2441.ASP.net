@@ -4,21 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="ee92e67bbe274f9fa4cf676874837a73" Name="Diagram1">
-        <EntityTypeShape EntityType="UniversityModel.Course" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="UniversityModel.CourseEnrolment" Width="1.5" PointX="8.25" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="UniversityModel.CourseType" Width="1.5" PointX="0.75" PointY="2.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="UniversityModel.Staff" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="UniversityModel.Student" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="UniversityModel.Unit" Width="1.5" PointX="6" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="UniversityModel.UnitEnrolment" Width="1.5" PointX="10.5" PointY="5.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="UniversityModel.UnitType" Width="1.5" PointX="3.75" PointY="2.75" IsExpanded="true" />
+      <Diagram DiagramId="cbed5c2e42794b32b866dac3267f4819" Name="Diagram1" ZoomLevel="83">
+        <EntityTypeShape EntityType="UniversityModel.Course" Width="1.5" PointX="10.25" PointY="2.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.CourseEnrolment" Width="1.5" PointX="9.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.CourseType" Width="1.5" PointX="12.875" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Staff" Width="1.5" PointX="5.5" PointY="0.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Student" Width="1.5" PointX="5.625" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.StudentUser" Width="1.5" PointX="8.125" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.Unit" Width="1.5" PointX="3.25" PointY="2.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.UnitEnrolment" Width="1.5" PointX="3" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="UniversityModel.UnitType" Width="1.5" PointX="0.5" PointY="3" IsExpanded="true" />
         <AssociationConnector Association="UniversityModel.FK_Course_0_0" ManuallyRouted="false" />
         <AssociationConnector Association="UniversityModel.FK_Course_1_0" ManuallyRouted="false" />
         <AssociationConnector Association="UniversityModel.FK_CourseEnrolment_0_0" ManuallyRouted="false" />
         <AssociationConnector Association="UniversityModel.FK_CourseEnrolment_1_0" ManuallyRouted="false" />
         <AssociationConnector Association="UniversityModel.FK_UnitEnrolment_2_0" ManuallyRouted="false" />
         <AssociationConnector Association="UniversityModel.FK_Unit_1_0" ManuallyRouted="false" />
+        <AssociationConnector Association="UniversityModel.FK_StudentUser_0_0" ManuallyRouted="false" />
         <AssociationConnector Association="UniversityModel.FK_UnitEnrolment_1_0" ManuallyRouted="false" />
         <AssociationConnector Association="UniversityModel.FK_Unit_0_0" ManuallyRouted="false" />
         <AssociationConnector Association="UniversityModel.FK_UnitEnrolment_0_0" ManuallyRouted="false" />

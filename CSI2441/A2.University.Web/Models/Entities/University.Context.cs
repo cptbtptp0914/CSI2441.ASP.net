@@ -30,6 +30,7 @@ namespace A2.University.Web.Models.Entities
         public virtual DbSet<CourseType> CourseTypes { get; set; }
         public virtual DbSet<Staff> Staff { get; set; }
         public virtual DbSet<Student> Students { get; set; }
+        public virtual DbSet<StudentUser> StudentUsers { get; set; }
         public virtual DbSet<Unit> Units { get; set; }
         public virtual DbSet<UnitEnrolment> UnitEnrolments { get; set; }
         public virtual DbSet<UnitType> UnitTypes { get; set; }
