@@ -191,16 +191,9 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\Identity\AccountController.cs" />
-    <Compile Include="Controllers\Identity\ManageController.cs" />
-    <Compile Include="Controllers\Identity\StaffAccountController.cs" />
-    <Compile Include="Controllers\Identity\StaffManageController.cs" />
     <Compile Include="Controllers\Identity\StudentAccountController.cs" />
-    <Compile Include="Controllers\Identity\StudentManageController.cs" />
     <Compile Include="Controllers\StaffPortalController.cs" />
     <Compile Include="Controllers\StaffPortal\CourseController.cs" />
     <Compile Include="Controllers\StaffPortal\CourseEnrolmentController.cs" />
@@ -259,10 +252,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>University.edmx</DependentUpon>
     </Compile>
-    <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\StaffAccountViewModels.cs" />
-    <Compile Include="Models\StaffManageViewModels.cs" />
     <Compile Include="Models\StaffPortal\CourseEnrolmentViewModels.cs" />
     <Compile Include="Models\StaffPortal\CourseViewModels.cs" />
     <Compile Include="Models\StaffPortal\ResultsViewModels.cs" />
