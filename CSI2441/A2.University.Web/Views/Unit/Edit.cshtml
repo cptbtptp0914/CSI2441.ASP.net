@@ -21,7 +21,7 @@
         @*Is PK, read only*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UnitId, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.UnitId, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 @Html.EditorFor(model => model.UnitId, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             </div>
@@ -30,7 +30,7 @@
         @*Title*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Title, new { @class = "control-label col-md-2" })
             <div class="col-md-4">
                 @Html.EditorFor(model => model.Title, new { htmlAttributes = new { @class = "form-control" } })
             </div>
@@ -42,9 +42,9 @@
         @*Coordinator*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CoordinatorId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CoordinatorId, new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.CoordinatorId, Model.CoordinatorDropDownList, "Select Coordinator", htmlAttributes: new { @class = "form-control" })
+                @Html.DropDownListFor(model => model.CoordinatorId, Model.CoordinatorDropDownList, "Select Coordinator", new { @class = "form-control" })
             </div>
             <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.CoordinatorId, "", new { @class = "text-danger" })
@@ -54,7 +54,7 @@
         @*Credit points*@
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CreditPoints, htmlAttributes: new {@class = "control-label col-md-2"})
+            @Html.LabelFor(model => model.CreditPoints, new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 @Html.DropDownListFor(model => model.CreditPoints, Model.CreditPointsDropDownList, "Select Credit Points", new {@class = "form-control"})
             </div>
@@ -64,11 +64,11 @@
         </div>
 
         @*Unit type*@
-
+        @*Readonly, ensures data integrity. Stops user from changing to inappropriate unit type while UnitId is readonly.*@
         <div class="form-group">
-            @Html.LabelFor(model => model.UnitTypeId, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UnitTypeId, new { @class = "control-label col-md-2" })
             <div class="col-md-4">
-                @Html.DropDownListFor(model => model.UnitTypeId, Model.UnitTypeTitleDropDownList, "Select Unit Type", htmlAttributes: new { @class = "form-control" })
+                @Html.EditorFor(model => model.UnitTypeTitle, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
             </div>
             <div class="col-md-6">
                 @Html.ValidationMessageFor(model => model.UnitTypeId, "", new { @class = "text-danger" })
