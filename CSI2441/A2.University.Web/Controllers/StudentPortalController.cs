@@ -13,7 +13,11 @@ using A2.University.Web.Models.StudentPortal;
 namespace A2.University.Web.Controllers
 {
     // No longer using Identity EntityFramework, AuthorizeAttribute not valid.
-//    [UniAuthorize(Roles = "STUDENT")]
+    // [UniAuthorize(Roles = "STUDENT")]
+
+    /// <summary>
+    /// Controller class for StudentPortal.
+    /// </summary>
     public class StudentPortalController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
@@ -85,6 +89,13 @@ namespace A2.University.Web.Controllers
             return RedirectToAction("Login", "StudentAccount");
         }
 
+
+        /// <summary>
+        /// Displays student progress for selected course.
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
         public ActionResult Progress(long? studentId, string courseId)
         {
             if (studentId == null || courseId == null)

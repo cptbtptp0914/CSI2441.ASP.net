@@ -8,11 +8,18 @@ using A2.University.Web.Models.StaffPortal;
 
 namespace A2.University.Web.Controllers.StaffPortal
 {
+
+    /// <summary>
+    /// Course controller for StaffPortal
+    /// </summary>
     public class CourseController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
 
-        // GET: Course
+        /// <summary>
+        /// GET: Course
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             CourseIndexViewModel courseViewModel = new CourseIndexViewModel();
@@ -48,7 +55,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseViewModel.Courses);
         }
 
-        // GET: Course/Details/5
+        /// <summary>
+        /// GET: Course/Details/5
+        /// Displays details for a course, must pass CourseId
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -71,7 +83,11 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseViewModel);
         }
 
-        // GET: Course/Create
+
+        /// <summary>
+        /// GET: Course/Create
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             // crate viewmodel
@@ -82,9 +98,16 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseViewModel);
         }
 
-        // POST: Course/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: Course/Create
+        /// To protect from overposting attacks, please enable the specific properties you want to bind to, for
+        /// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// 
+        /// Course Create method, passes values from viewmodel to entitymodel
+        /// then saves to db.
+        /// </summary>
+        /// <param name="courseViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CourseId,Title,CoordinatorId,CourseTypeId")] CourseCreateViewModel courseViewModel)
@@ -113,7 +136,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseViewModel);
         }
 
-        // GET: Course/Edit/5
+
+        /// <summary>
+        /// GET: Course/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -139,9 +167,17 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseViewModel);
         }
 
-        // POST: Course/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: Course/Edit/5
+        /// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        /// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// 
+        /// Course Edit method. Passes values from viewmodel to entitymodel
+        /// then saves db.
+        /// </summary>
+        /// <param name="courseEntityModel"></param>
+        /// <param name="courseViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CourseId,Title,CoordinatorId,CourseTypeId")] Course courseEntityModel, CourseEditViewModel courseViewModel)

@@ -1,11 +1,14 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 
 namespace A2.University.Web.Controllers
 {
 
     /// <summary>
     /// Custom Authorize attrbute, redirects unauth user to Home Index.
+    /// Deprecated, no longer using Identity Entity Framework.
     /// </summary>
+    [Obsolete]
     public class UniAuthorize : AuthorizeAttribute
     {
         
