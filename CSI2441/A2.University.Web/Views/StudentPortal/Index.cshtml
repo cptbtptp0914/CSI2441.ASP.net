@@ -19,6 +19,9 @@
     </div>
 </div>
 
+@*Feedback notice, only shown if tempdata exists*@
+@Html.Partial("_FeedbackNotice")
+
 <h2>@ViewBag.Details</h2>
 
 @using (Html.BeginForm())
