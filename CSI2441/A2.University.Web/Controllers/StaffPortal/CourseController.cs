@@ -8,7 +8,6 @@ using A2.University.Web.Models.StaffPortal;
 
 namespace A2.University.Web.Controllers.StaffPortal
 {
-    [UniAuthorize(Roles = "STAFF")]
     public class CourseController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
