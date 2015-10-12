@@ -64,7 +64,7 @@ namespace A2.University.Web.Models.StudentPortal
         public List<StudentCourseEnrolmentListViewModel> StudentCourseEnrolments = new List<StudentCourseEnrolmentListViewModel>();
     }
 
-    public class StudentProgressViewModel : StudentPortalBaseViewModel
+    public class StudentProgressViewModel : StudentCoursesViewModel
     {
         // pk
         public long UnitEnrolmentId { get; set; }
