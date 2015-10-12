@@ -101,6 +101,10 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // update db using entitymodel
                 _db.Units.Add(unitEntityModel);
                 _db.SaveChanges();
+
+                // provide feedback to user
+                TempData["notice"] = $"Unit {unitEntityModel.unit_id} {unitEntityModel.title} was successfully created";
+
                 return RedirectToAction("Index");
             }
 
@@ -152,6 +156,10 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // update db using entitymodel
                 _db.Entry(unitEntityModel).State = EntityState.Modified;
                 _db.SaveChanges();
+
+                // provide feedback to user
+                TempData["notice"] = $"Unit {unitEntityModel.unit_id} {unitEntityModel.title} was successfully edited";
+
                 return RedirectToAction("Index");
             }
 
@@ -190,6 +198,10 @@ namespace A2.University.Web.Controllers.StaffPortal
             Unit unit = _db.Units.Find(id);
             _db.Units.Remove(unit);
             _db.SaveChanges();
+
+            // provide feedback to user
+            TempData["notice"] = $"Unit {unit.unit_id} {unit.title} was successfully deleted";
+
             return RedirectToAction("Index");
         }
 
@@ -263,23 +275,6 @@ namespace A2.University.Web.Controllers.StaffPortal
                 $"{entityModel.Staff.surname}";
 
             viewModel.UnitTypeTitle = entityModel.UnitType.title;
-        }
-
-        /// <summary>
-        /// SQL statement returns coordinator's full name.
-        /// Deprecated, leaving as example, may require similar function.
-        /// </summary>
-        /// <param name="staff_id">long</param>
-        /// <returns>string</returns>
-        private string GetCoordinatorFullName(long staff_id)
-        {
-            var query = (
-                from c in _db.Staff
-                where c.staff_id == staff_id
-                select c.firstname + " " + c.surname
-            ).FirstOrDefault();
-
-            return query;
         }
 
         protected override void Dispose(bool disposing)

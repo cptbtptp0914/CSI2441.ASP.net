@@ -98,6 +98,10 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // update db using entitymodel
                 _db.Students.Add(studentEntityModel);
                 _db.SaveChanges();
+
+                // provide feedback to user
+                TempData["notice"] = $"Student {studentEntityModel.student_id} {studentEntityModel.firstname} {studentEntityModel.lastname} was successfully created";
+
                 return RedirectToAction("Index");
             }
 
@@ -142,6 +146,10 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // update db using entitymodel
                 _db.Entry(studentEntityModel).State = EntityState.Modified;
                 _db.SaveChanges();
+
+                // provide feedback to user
+                TempData["notice"] = $"Student {studentEntityModel.student_id} {studentEntityModel.firstname} {studentEntityModel.lastname} was successfully edited";
+
                 return RedirectToAction("Index");
             }
             return View(studentViewModel);
@@ -178,6 +186,10 @@ namespace A2.University.Web.Controllers.StaffPortal
             Student student = _db.Students.Find(id);
             _db.Students.Remove(student);
             _db.SaveChanges();
+
+            // provide feedback to user
+            TempData["notice"] = $"Student {student.student_id} {student.firstname} {student.lastname} was successfully deleted";
+
             return RedirectToAction("Index");
         }
 

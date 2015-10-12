@@ -89,12 +89,25 @@ namespace A2.University.Web.Controllers.StaffPortal
                 CourseEnrolment courseEnrolmentEntityModel = new CourseEnrolment();
                 PopulateEntityModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
+                // get course
+                var course = _db.Courses
+                    .FirstOrDefault(c => 
+                        c.course_id == courseEnrolmentEntityModel.course_id);
+                // get student
+                var student = _db.Students
+                    .FirstOrDefault(s => 
+                        s.student_id == courseEnrolmentEntityModel.student_id);
+
+                // provide feedback to user
+                TempData["notice"] = $"Course Enrolment {courseEnrolmentEntityModel.course_id} {course?.title} for {student?.firstname} {student?.lastname} was successfully created";
+
                 // discontinue previous enrolled courses
                 DiscontinuePrevEnrolments(courseEnrolmentEntityModel.student_id);
 
                 // update db using entitymodel
                 _db.CourseEnrolments.Add(courseEnrolmentEntityModel);
                 _db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 
@@ -152,6 +165,19 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // update db using entitymodel
                 _db.Entry(courseEnrolmentEntityModel).State = EntityState.Modified;
                 _db.SaveChanges();
+
+                // get course
+                var course = _db.Courses
+                    .FirstOrDefault(c =>
+                        c.course_id == courseEnrolmentEntityModel.course_id);
+                // get student
+                var student = _db.Students
+                    .FirstOrDefault(s =>
+                        s.student_id == courseEnrolmentEntityModel.student_id);
+
+                // provide feedback to user
+                TempData["notice"] = $"Course Enrolment {courseEnrolmentEntityModel.course_id} {course?.title} for {student?.firstname} {student?.lastname} was successfully created";
+
                 return RedirectToAction("Index");
             }
 
@@ -188,6 +214,10 @@ namespace A2.University.Web.Controllers.StaffPortal
         public ActionResult DeleteConfirmed(long id)
         {
             CourseEnrolment courseEnrolment = _db.CourseEnrolments.Find(id);
+
+            // provide feedback to user
+            TempData["notice"] = $"Course Enrolment {courseEnrolment.course_id} {courseEnrolment.Course.title} for {courseEnrolment.Student.firstname} {courseEnrolment.Student.lastname} was successfully deleted";
+
             _db.CourseEnrolments.Remove(courseEnrolment);
 
             // re-enrol last course

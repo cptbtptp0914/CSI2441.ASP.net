@@ -9,7 +9,7 @@
 <div class="jumbotron">
     <div class="row">
         <div class="col-md-2">
-            <img src="@Url.Content("~/Content/img/icons/courseEnrol.png")" />
+            <img src="@Url.Content("~/Content/img/icons/courseEnrol.png")"/>
         </div>
         <div class="col-md-10">
             <h2>@ViewBag.Title</h2>
@@ -19,6 +19,9 @@
         </div>
     </div>
 </div>
+
+@*Feedback notice, only shown if tempdata exists*@
+@Html.Partial("_FeedbackNotice")
 
 <div class="row vert-gap">
     <div class="col-md-12">

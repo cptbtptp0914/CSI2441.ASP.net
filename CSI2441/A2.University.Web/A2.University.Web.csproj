@@ -460,6 +460,7 @@
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Shared\_StaffRegisterPartial.cshtml" />
     <Content Include="Views\Shared\_StudentRegisterPartial.cshtml" />
+    <Content Include="Views\Shared\_FeedbackNotice.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

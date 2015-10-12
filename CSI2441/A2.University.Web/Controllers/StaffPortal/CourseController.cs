@@ -100,6 +100,10 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // update db using entitymodel
                 _db.Courses.Add(courseEntityModel);
                 _db.SaveChanges();
+
+                // provide feedback to user
+                TempData["notice"] = $"Course {courseEntityModel.course_id} {courseEntityModel.title} was successfully created";
+
                 return RedirectToAction("Index");
             }
 
@@ -151,6 +155,10 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // update db using entitymodel
                 _db.Entry(courseEntityModel).State = EntityState.Modified;
                 _db.SaveChanges();
+
+                // provide feedback to user
+                TempData["notice"] = $"Course {courseEntityModel.course_id} {courseEntityModel.title} was successfully edited";
+
                 return RedirectToAction("Index");
             }
 
@@ -190,6 +198,10 @@ namespace A2.University.Web.Controllers.StaffPortal
             Course course = _db.Courses.Find(id);
             _db.Courses.Remove(course);
             _db.SaveChanges();
+
+            // provide feedback to user
+            TempData["notice"] = $"Course {course.course_id} {course.title} was successfully deleted";
+
             return RedirectToAction("Index");
         }
 

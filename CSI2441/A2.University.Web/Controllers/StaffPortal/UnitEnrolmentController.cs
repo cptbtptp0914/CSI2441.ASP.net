@@ -114,6 +114,18 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // populate course status after db update
                 PopulateCourseStatus(unitEnrolmentEntityModel);
 
+                // get unit
+                var unit = _db.Units
+                    .FirstOrDefault(u =>
+                        u.unit_id == unitEnrolmentEntityModel.unit_id);
+                // get student
+                var student = _db.Students
+                    .FirstOrDefault(s =>
+                        s.student_id == unitEnrolmentEntityModel.student_id);
+
+                // provide feedback to user
+                TempData["notice"] = $"Unit Enrolment {unitEnrolmentEntityModel.unit_id} {unit?.title} for {student?.firstname} {student?.lastname} was successfully created";
+
                 return RedirectToAction("Index");
             }
 
@@ -176,6 +188,18 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // populate course status after db update
                 PopulateCourseStatus(unitEnrolmentEntityModel);
 
+                // get unit
+                var unit = _db.Units
+                    .FirstOrDefault(u =>
+                        u.unit_id == unitEnrolmentEntityModel.unit_id);
+                // get student
+                var student = _db.Students
+                    .FirstOrDefault(s =>
+                        s.student_id == unitEnrolmentEntityModel.student_id);
+
+                // provide feedback to user
+                TempData["notice"] = $"Unit Enrolment {unitEnrolmentEntityModel.unit_id} {unit?.title} for {student?.firstname} {student?.lastname} was successfully edited";
+
                 return RedirectToAction("Index");
             }
 
@@ -212,6 +236,10 @@ namespace A2.University.Web.Controllers.StaffPortal
         public ActionResult DeleteConfirmed(long id)
         {
             UnitEnrolment unitEnrolment = _db.UnitEnrolments.Find(id);
+
+            // provide feedback to user
+            TempData["notice"] = $"Unit Enrolment {unitEnrolment.unit_id} {unitEnrolment.Unit.title} for {unitEnrolment.Student.firstname} {unitEnrolment.Student.lastname} was successfully deleted";
+
             _db.UnitEnrolments.Remove(unitEnrolment);
             _db.SaveChanges();
 
