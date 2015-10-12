@@ -31,7 +31,9 @@
                     <li>@Html.ActionLink("Unit Enrolments", "Index", "UnitEnrolment")</li>
                     <li>@Html.ActionLink("Results", "Index", "Results")</li>
                 </ul>
-                @Html.Partial("_StaffUserPartial")
+                <ul class="nav navbar-nav navbar-right">
+                    <li>@Html.ActionLink("Exit", "Index", "Home")</li>
+                </ul>
             </div>
         </div>
     </div>
