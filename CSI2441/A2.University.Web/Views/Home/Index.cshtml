@@ -1,8 +1,8 @@
 ﻿@using System.Web.Configuration
 @{
     ViewBag.Title = "University Manager";
-    ViewBag.Staff = "Staff users";
-    ViewBag.Student = "Student users";
+    ViewBag.Staff = "Staff Portal";
+    ViewBag.Student = "Student Portal";
     ViewBag.Author = "Martin Ponce, ID 10371381";
 }
 
@@ -34,18 +34,37 @@
     </div>
 </div>
 
-<hr/>
+@*<hr/>*@
 
 @*Staff/Student login*@
 
+@*<div class="row vert-gap">*@
+@*    <div class="col-md-6">*@
+@*        $1$Staff login#1#*@
+@*        @Html.Partial("~/Views/Shared/_StaffLoginPartial.cshtml")*@
+@*    </div>*@
+@*    <div class="col-md-6 vert-rule-left">*@
+@*        $1$Student login#1#*@
+@*        @Html.Partial("~/Views/Shared/_StudentLoginPartial.cshtml")*@
+@*    </div>*@
+@*</div>*@
+
 <div class="row vert-gap">
     <div class="col-md-6">
-        @*Staff login*@
-        @Html.Partial("~/Views/Shared/_StaffLoginPartial.cshtml")
+        <a href="@Url.Action("Index", "StaffPortal")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/staff.png")"/>
+        </a>
+        <h3 class="text-center">
+            @ViewBag.Staff
+        </h3>
     </div>
-    <div class="col-md-6 vert-rule-left">
-        @*Student login*@
-        @Html.Partial("~/Views/Shared/_StudentLoginPartial.cshtml")
+    <div class="col-md-6">
+        <a href="@Url.Action("Login", "StudentAccount")">
+            <img class="btn btn-default center" src="@Url.Content("~/Content/img/icons/student.png")"/>
+        </a>
+        <h3 class="text-center">
+            @ViewBag.Student
+        </h3>
     </div>
 </div>
 

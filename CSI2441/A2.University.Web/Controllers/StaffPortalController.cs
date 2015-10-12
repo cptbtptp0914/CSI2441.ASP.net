@@ -7,7 +7,6 @@ using A2.University.Web.Models;
 
 namespace A2.University.Web.Controllers
 {
-    [UniAuthorize(Roles = "STAFF")]
     public class StaffPortalController : Controller
     {
         // GET: StaffPortal
