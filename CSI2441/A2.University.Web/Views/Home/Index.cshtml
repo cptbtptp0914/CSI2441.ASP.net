@@ -9,22 +9,29 @@
 @*Blurb*@
 
 <div class="jumbotron">
-    <h1>@ViewBag.Title</h1>
-    <p class="lead">
-        This web application provides a Staff Portal where staff can log in and manage students, units, courses and enrolments.
-        The Student Portal allows students to log in to view their results and course progress.
-        University data is stored in a local <a href="@Url.Action("About", "Home")">SQLite</a> database,
-        and user data is stored in a
-        <a href="http://blogs.msdn.com/b/sqlexpress/archive/2011/07/12/introducing-localdb-a-better-sql-express.aspx" target=":blank">LocalDB</a> database,
-        both managed by this application.
-    </p>
-    <p class="lead">
-        Written in C# ASP.NET MVC5 using Visual Studio 2015.
-    </p>
+    <div class="row">
+        <div class="col-md-2">
+            <img src="@Url.Content("~/Content/img/icons/uni.png")" />
+        </div>
+        <div class="col-md-10">
+            <h1>@ViewBag.Title</h1>
+            <p class="lead">
+                This web application provides a Staff Portal where staff can log in and manage students, units, courses and enrolments.
+                The Student Portal allows students to log in to view their results and course progress.
+                University data is stored in a local <a href="@Url.Action("About", "Home")">SQLite</a> database,
+                and user data is stored in a
+                <a href="http://blogs.msdn.com/b/sqlexpress/archive/2011/07/12/introducing-localdb-a-better-sql-express.aspx" target=":blank">LocalDB</a> database,
+                both managed by this application.
+            </p>
+            <p class="lead">
+                Written in C# ASP.NET MVC5 using Visual Studio 2015.
+            </p>
 
-    <h5>
-        @ViewBag.Author
-    </h5>
+            <h5>
+                @ViewBag.Author
+            </h5>
+        </div>
+    </div>
 </div>
 
 <hr/>
