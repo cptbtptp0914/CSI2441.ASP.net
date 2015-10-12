@@ -96,9 +96,8 @@ namespace A2.University.Web.Controllers.Identity
                     // provide feedback to user
                     TempData["notice"] = $"User {studentUserEntityModel.email} successfully created an account";
 
-                    ViewBag.Email = model.Email;
                     // successful registration, send user to portal
-                    return RedirectToAction("Index", "StudentPortal", model.Email);
+                    return RedirectToAction("Index", "StudentPortal", new {email = model.Email});
                 }
             }
 
