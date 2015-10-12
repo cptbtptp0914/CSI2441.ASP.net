@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 
-namespace A2.University.Web.Models
+namespace A2.University.Web.Controllers
 {
 
     /// <summary>
@@ -28,7 +24,7 @@ namespace A2.University.Web.Models
             else
             {
                 // custom redirect
-                filterContext.Result = new RedirectResult("~/Home/Index");
+                filterContext.Result = new RedirectResult("~/StudentAccount/Login");
             }
         }
     }
