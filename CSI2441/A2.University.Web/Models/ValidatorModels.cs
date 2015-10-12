@@ -13,6 +13,9 @@ using FluentValidation.Results;
 
 namespace A2.University.Web.Models
 {
+    /// <summary>
+    /// Validation for StaffPortal Student input.
+    /// </summary>
     public class StudentBaseViewModelValidator : AbstractValidator<StudentBaseViewModel>
     {
         public StudentBaseViewModelValidator()
@@ -65,20 +68,11 @@ namespace A2.University.Web.Models
                 .NotEmpty().WithMessage("* Required")
                 .Matches(@"^[0-9]{4}$").WithMessage("* Must be a valid postcode");
         }
-
-        // see comment for Dob above, to be deprecated
-        private bool IsValidDate(DateTime date)
-        {
-            Regex regex = new Regex(@"(^(((0[1-9]|[12][0-8])[\/](0[1-9]|1[012]))|((29|30|31)[\/](0[13578]|1[02]))|((29|30)[\/](0[4,6,9]|11)))[\/](19|[2-9][0-9])\d\d$)|(^29[\/]02[\/](19|[2-9][0-9])(00|04|08|12|16|20|24|28|32|36|40|44|48|52|56|60|64|68|72|76|80|84|88|92|96)$)");
-
-            if (regex.IsMatch(date.ToString()))
-            {
-                return true;
-            }
-            return false;
-        }
     }
 
+    /// <summary>
+    /// Validation for StaffPortal Staff input.
+    /// </summary>
     public class StaffBaseViewModelValidator : AbstractValidator<StaffBaseViewModel>
     {
         public StaffBaseViewModelValidator()
@@ -96,6 +90,9 @@ namespace A2.University.Web.Models
         }
     }
 
+    /// <summary>
+    /// Validation for StaffPortal Unit Create input.
+    /// </summary>
     public class UnitBaseViewModelValidator : AbstractValidator<UnitBaseViewModel>
     {
         public UnitBaseViewModelValidator()
@@ -155,6 +152,9 @@ namespace A2.University.Web.Models
         }
     }
 
+    /// <summary>
+    /// Validation for StaffPortal Unit Edit input.
+    /// </summary>
     public class UnitEditViewModelValidator : AbstractValidator<UnitEditViewModel>
     {
         public UnitEditViewModelValidator()
@@ -179,6 +179,9 @@ namespace A2.University.Web.Models
         }
     }
 
+    /// <summary>
+    /// Validation for StaffPortal Course Create input.
+    /// </summary>
     public class CourseBaseViewModelValidator : AbstractValidator<CourseBaseViewModel>
     {
         public CourseBaseViewModelValidator()
@@ -230,12 +233,9 @@ namespace A2.University.Web.Models
             });
         }
     }
-    
+
     /// <summary>
-    /// Validator for CourseEditViewModelValidator.
-    /// Should have inherited base class above to avoid duplication, but would have to override the constructor anyway.
-    /// This class does not set CourseId to required.
-    /// TODO: If there's time, try to define base class as generic to allow for inheritance.
+    /// Validation for StaffPortal Course Edit input.
     /// </summary>
     public class CourseEditViewModelValidator : AbstractValidator<CourseEditViewModel>
     {
@@ -285,6 +285,9 @@ namespace A2.University.Web.Models
         }    
     }
 
+    /// <summary>
+    /// Validation for StaffPortal UnitEnrolment input.
+    /// </summary>
     public class UnitEnrolmentBaseViewModelValidator : AbstractValidator<UnitEnrolmentBaseViewModel>
     {
         public UnitEnrolmentBaseViewModelValidator()
@@ -356,6 +359,9 @@ namespace A2.University.Web.Models
         }
     }
 
+    /// <summary>
+    /// Validation for StaffPortal CourseEnrolment input.
+    /// </summary>
     public class CourseEnrolmentBaseViewModelValidator : AbstractValidator<CourseEnrolmentBaseViewModel>
     {
         public CourseEnrolmentBaseViewModelValidator()
@@ -388,6 +394,9 @@ namespace A2.University.Web.Models
         }
     }
 
+    /// <summary>
+    /// Validation for StaffLogin input.
+    /// </summary>
     public class StaffLoginViewModelValidator : AbstractValidator<StaffLoginViewModel>
     {
         public StaffLoginViewModelValidator()
@@ -403,6 +412,9 @@ namespace A2.University.Web.Models
         }
     }
 
+    /// <summary>
+    /// Validation for StaffRegister input.
+    /// </summary>
     public class StaffRegisterViewModelValidator : AbstractValidator<StaffRegisterViewModel>
     {
         public StaffRegisterViewModelValidator()
@@ -454,6 +466,9 @@ namespace A2.University.Web.Models
         }
     }
 
+    /// <summary>
+    /// Validation for StaffChangePassword input.
+    /// </summary>
     public class StaffChangePasswordViewModelValidator : AbstractValidator<StaffChangePasswordViewModel>
     {
         public StaffChangePasswordViewModelValidator()
@@ -470,10 +485,13 @@ namespace A2.University.Web.Models
             // confirm password
             RuleFor(field => field.ConfirmPassword)
                 .NotEmpty().WithMessage("* Required")
-                .Equal(field => field.ConfirmPassword).WithMessage("* Must match password");
+                .Equal(field => field.NewPassword).WithMessage("* Must match password");
         }
     }
 
+    /// <summary>
+    /// Validation for StudentLogin input.
+    /// </summary>
     public class StudentLoginViewModelValidator : AbstractValidator<StudentLoginViewModel>
     {
         public StudentLoginViewModelValidator()
@@ -485,10 +503,12 @@ namespace A2.University.Web.Models
             // password
             RuleFor(field => field.Password)
                 .NotEmpty().WithMessage("* Required");
-            // TODO: either add serverside validation to check if email exists in staff list, or tag controller classes with roles
         }
     }
 
+    /// <summary>
+    /// Validation for StudentRegister input.
+    /// </summary>
     public class StudentRegisterViewModelValidator : AbstractValidator<StudentRegisterViewModel>
     {
         public StudentRegisterViewModelValidator()
@@ -540,6 +560,9 @@ namespace A2.University.Web.Models
         }
     }
 
+    /// <summary>
+    /// Validation for StudentChangePassword input.
+    /// </summary>
     public class StudentChangePasswordViewModelValidator : AbstractValidator<StudentChangePasswordViewModel>
     {
         public StudentChangePasswordViewModelValidator()
@@ -556,7 +579,7 @@ namespace A2.University.Web.Models
             // confirm password
             RuleFor(field => field.ConfirmPassword)
                 .NotEmpty().WithMessage("* Required")
-                .Equal(field => field.ConfirmPassword).WithMessage("* Must match password");
+                .Equal(field => field.NewPassword).WithMessage("* Must match password");
         }
     }
 }
