@@ -1,4 +1,4 @@
-﻿@using Microsoft.AspNet.Identity
+﻿@model A2.University.Web.Models.StudentAccountBaseViewModel
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Student Portal", "Index", "StudentPortal", new { email = User.Identity.GetUserName() }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Student Portal", "Index", "StudentPortal", new { email = Model.Email }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">

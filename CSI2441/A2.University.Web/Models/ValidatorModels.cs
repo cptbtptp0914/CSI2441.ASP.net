@@ -496,6 +496,9 @@ namespace A2.University.Web.Models
     {
         public StudentLoginViewModelValidator()
         {
+            // create instance of db context to perform serverside validation
+            UniversityEntities db = new UniversityEntities();
+
             // email
             RuleFor(field => field.Email)
                 .NotEmpty().WithMessage("* Required")
@@ -503,6 +506,21 @@ namespace A2.University.Web.Models
             // password
             RuleFor(field => field.Password)
                 .NotEmpty().WithMessage("* Required");
+
+            /**************************
+             * SERVER SIDE VALIDATION *
+             **************************/
+
+            // validate password correctness
+            Custom(field =>
+            {
+                var user = db.StudentUsers.FirstOrDefault(u => u.email == field.Email);
+                if (user == null || user.password != field.Password)
+                {
+                    return new ValidationFailure("Email", "* Invalid login attempt");
+                }
+                return null;
+            });
         }
     }
 
@@ -514,8 +532,7 @@ namespace A2.University.Web.Models
         public StudentRegisterViewModelValidator()
         {
             // create instance of db context to perform serverside validation
-            UniversityEntities dbUni = new UniversityEntities();
-            ApplicationDbContext dbUser = new ApplicationDbContext();
+            UniversityEntities db = new UniversityEntities();
 
             // email
             RuleFor(field => field.Email)
@@ -539,7 +556,7 @@ namespace A2.University.Web.Models
             // staff exists in staff table
             Custom(field =>
             {
-                var existingStudent = dbUni.Students.FirstOrDefault(s => s.email == field.Email);
+                var existingStudent = db.Students.FirstOrDefault(s => s.email == field.Email);
                 if (existingStudent == null)
                 {
                     return new ValidationFailure("Email", "* Student email does not exist");
@@ -550,7 +567,7 @@ namespace A2.University.Web.Models
             // user uniqueness
             Custom(field =>
             {
-                var existingUser = dbUser.Users.FirstOrDefault(u => u.Email == field.Email);
+                var existingUser = db.StudentUsers.FirstOrDefault(su => su.email == field.Email);
                 if (existingUser != null)
                 {
                     return new ValidationFailure("Email", "* User already exists");

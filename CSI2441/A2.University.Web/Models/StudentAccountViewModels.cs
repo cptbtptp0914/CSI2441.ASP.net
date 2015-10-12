@@ -19,10 +19,15 @@ namespace A2.University.Web.Models
         public string Email { get; set; }
 
         [Display(Name = "Password")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
 
         [Display(Name = "Confirm password")]
+        [DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Remember")]
+        public bool RememberMe { get; set; }
 
         // default = STUDENT, hidden from user
         public string Role { get; set; }
