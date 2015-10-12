@@ -49,7 +49,7 @@ namespace A2.University.Web.Controllers
 
                 // transfer list to viewmodel list
                 studentPortalViewModel.CoursesList = new StudentCourseEnrolmentListViewModel();
-                foreach (CourseEnrolment courseEnrolment in currentStudent.CourseEnrolments)
+                foreach (CourseEnrolment courseEnrolment in currentStudent.CourseEnrolments.OrderByDescending(c => c.course_enrolment_id))
                 {
                     studentPortalViewModel.CoursesList.StudentCourseEnrolments.Add(new StudentCourseEnrolmentListViewModel
                     {

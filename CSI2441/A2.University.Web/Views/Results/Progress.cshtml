@@ -133,14 +133,9 @@
                 </div>
             </div>
         </div>
-
-        @*Show transcript as grid*@
-        @Html.Partial("_Transcript", Model.TranscriptView.Transcript)
-
-        <div class="form-group">
-            <div class="col-md-12">
-                <a class="btn btn-default button-top-gap" href="@Url.Action("Index", "Results")">Back</a>
-            </div>
-        </div>
     </div>
 }
+
+@*Show transcript as grid*@
+@Html.Partial("_Transcript", Model.TranscriptView.Transcript)
+<a class="btn btn-default button-top-gap" href="@Url.Action("Index", "Results")">Back</a>
