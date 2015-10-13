@@ -5,9 +5,8 @@ namespace A2.University.Web.Controllers
 {
 
     /// <summary>
-    /// Deprecated, Staff Login no longer used.
+    /// Shows index of StaffPortal
     /// </summary>
-    [Obsolete]
     public class StaffPortalController : Controller
     {
         // GET: StaffPortal
