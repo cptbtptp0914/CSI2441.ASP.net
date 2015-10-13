@@ -18,12 +18,10 @@ namespace A2.University.Web.Controllers.StaffPortal
         {
             ResultsIndexViewModel resultsIndexViewModel = new ResultsIndexViewModel();
             var courseEnrolmentsEntity = _db.CourseEnrolments
-                .OrderByDescending(ce =>
-                    ce.student_id)
-                .Include(ce => 
-                    ce.Course)
-                .Include(ce => 
-                    ce.Student)
+                .OrderByDescending(ce => ce.course_enrolment_id)
+                .ThenByDescending(ce => ce.student_id)
+                .Include(ce => ce.Course)
+                .Include(ce => ce.Student)
                 .ToList();
 
             // transfer entity list to viewmodel list
@@ -59,10 +57,8 @@ namespace A2.University.Web.Controllers.StaffPortal
                 .Where(ue =>
                     ue.student_id == studentId &&
                     ue.CourseEnrolment.course_id == courseId)
-                .Include(ue => 
-                    ue.Student)
-                .Include(ue => 
-                    ue.CourseEnrolment)
+                .Include(ue => ue.Student)
+                .Include(ue => ue.CourseEnrolment)
                 .ToList();
 
             // create viewmodels
