@@ -52,8 +52,9 @@ namespace A2.University.Web.Models.Business
 
         public bool IsNotUniqueUnitId(string unitId)
         {
-            var units = _db.Units.FirstOrDefault(
-                u => u.unit_id == unitId);
+            var units = _db.Units
+                .FirstOrDefault(u => 
+                    u.unit_id == unitId);
 
             return units != null;
         }
@@ -68,12 +69,13 @@ namespace A2.University.Web.Models.Business
         /// <returns>bool</returns>
         public bool IsNotUniquePassedUnit(long unitEnrolmentId, long studentId, string unitId, int mark)
         {
-            var passes = _db.UnitEnrolments.FirstOrDefault(
-                // ignore own id in query
-                ue => ue.unit_enrolment_id != unitEnrolmentId &&
-                ue.student_id == studentId && 
-                ue.unit_id == unitId &&
-                ue.mark >= Pass);
+            var passes = _db.UnitEnrolments
+                .FirstOrDefault(ue =>
+                    // ignore own id in query
+                    ue.unit_enrolment_id != unitEnrolmentId &&
+                    ue.student_id == studentId && 
+                    ue.unit_id == unitId &&
+                    ue.mark >= Pass);
 
             return passes != null;
         }
@@ -147,9 +149,10 @@ namespace A2.University.Web.Models.Business
             // can't use dict in linq, substitute with string
             string state = CourseStates["Enrolled"];
 
-            var course = _db.CourseEnrolments.FirstOrDefault(
-                ce => ce.student_id == studentId &&
-                      ce.course_status == state);
+            var course = _db.CourseEnrolments
+                .FirstOrDefault(ce => 
+                    ce.student_id == studentId &&
+                    ce.course_status == state);
 
             return course != null;
         }
@@ -165,10 +168,10 @@ namespace A2.University.Web.Models.Business
             // can't use dict in linq, substitute with string
             string state = CourseStates["Enrolled"];
 
-            var courseEnrolment =
-                _db.CourseEnrolments.FirstOrDefault(
-                    ce => ce.student_id == studentId &&
-                          ce.course_status == state);
+            var courseEnrolment = _db.CourseEnrolments
+                .FirstOrDefault(ce => 
+                    ce.student_id == studentId &&
+                    ce.course_status == state);
 
             return courseEnrolment != null;
         }
@@ -181,8 +184,9 @@ namespace A2.University.Web.Models.Business
         /// <returns></returns>
         public bool IsNotUniqueCourse(long studentId, string courseId)
         {
-            var course = _db.CourseEnrolments.FirstOrDefault(
-                    ce => ce.student_id == studentId &&
+            var course = _db.CourseEnrolments
+                .FirstOrDefault(ce => 
+                    ce.student_id == studentId &&
                     ce.course_id == courseId);
 
             return course != null;
