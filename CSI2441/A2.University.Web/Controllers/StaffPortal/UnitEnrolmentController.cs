@@ -17,17 +17,17 @@ namespace A2.University.Web.Controllers.StaffPortal
         public ActionResult Index()
         {
             UnitEnrolmentIndexViewModel unitEnrolmentViewModel = new UnitEnrolmentIndexViewModel();
+
+            // get list of all unit enrolments from db
             var unitEnrolmentsEntity = _db.UnitEnrolments
-                .OrderByDescending(u =>
-                    u.student_id)
-                .ThenBy(u =>
-                    u.year_sem)
-                .Include(u => 
-                    u.Student)
-                .Include(u => 
-                    u.Unit)
-                .Include(u => 
-                    u.CourseEnrolment)
+                // order by student id descending
+                .OrderByDescending(u => u.student_id)
+                // then by year/sem descending
+                .ThenByDescending(u => u.year_sem)
+                // joins
+                .Include(u => u.Student)
+                .Include(u => u.Unit)
+                .Include(u => u.CourseEnrolment)
                 .ToList();
 
             // transfer entity list to viewmodel list
