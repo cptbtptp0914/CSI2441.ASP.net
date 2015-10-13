@@ -103,8 +103,6 @@ namespace A2.University.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            ProgressRules progressRules = new ProgressRules(studentId, courseId);
-
             // create entity model, match id
             var unitResultEntity = _db.UnitEnrolments
                 .Where(ue =>
@@ -116,55 +114,73 @@ namespace A2.University.Web.Controllers
                     ue.CourseEnrolment)
                 .ToList();
 
-            // create viewmodels
-
-            // populate summary
-            StudentProgressViewModel progressViewModel = new StudentProgressViewModel
+            // create summary if student has any unit enrolments
+            if (unitResultEntity.Any())
             {
-                StudentId = (long) studentId,
-                StudentFullName =
-                    $"{unitResultEntity.Select(ue => ue.Student.firstname).FirstOrDefault()} " +
-                    $"{unitResultEntity.Select(ue => ue.Student.lastname).FirstOrDefault()}",
+                ProgressRules progressRules = new ProgressRules(studentId, courseId);
 
-                CourseId = unitResultEntity
-                    .Select(ue =>
-                        ue.CourseEnrolment.course_id)
-                    .FirstOrDefault(),
+                // create viewmodels
 
-                CourseTitle = unitResultEntity
-                    .Select(ue =>
-                        ue.CourseEnrolment.Course.title)
-                    .FirstOrDefault(),
-
-                CourseAverageMark = progressRules.GetCourseAverage(),
-                CourseAverageGrade = GradeRules.GetGrade((int) progressRules.GetCourseAverage()),
-                CpAchieved = progressRules.GetCpAchieved(),
-                CpRemaining = progressRules.GetCpRemaining(),
-                CourseStatus = progressRules.GetCourseStatus(),
-                UnitsAttempted = progressRules.GetUnitsAttempted(),
-                HighestMark = progressRules.GetHighestMark(),
-                LowestMark = progressRules.GetLowestMark(),
-
-                Email = unitResultEntity.Select(ur => ur.Student.email).FirstOrDefault()
-            };
-
-            // populate transcript
-            progressViewModel.TranscriptView = new StudentTranscriptViewModel();
-            foreach (UnitEnrolment result in unitResultEntity)
-            {
-                progressViewModel.TranscriptView.Transcript.Add(new StudentProgressViewModel
+                // populate summary
+                StudentProgressViewModel progressViewModel = new StudentProgressViewModel
                 {
-                    UnitEnrolmentId = result.unit_enrolment_id,
-                    CourseEnrolmentId = result.course_enrolment_id,
-                    UnitId = result.unit_id,
-                    UnitTitle = result.Unit.title,
-                    YearSem = result.year_sem,
-                    Mark = result.mark,
-                    Grade = GradeRules.GetGrade(result.mark)
-                });
+                    StudentId = (long)studentId,
+                    StudentFullName =
+                        $"{unitResultEntity.Select(ue => ue.Student.firstname).FirstOrDefault()} " +
+                        $"{unitResultEntity.Select(ue => ue.Student.lastname).FirstOrDefault()}",
+
+                    CourseId = unitResultEntity
+                        .Select(ue =>
+                            ue.CourseEnrolment.course_id)
+                        .FirstOrDefault(),
+
+                    CourseTitle = unitResultEntity
+                        .Select(ue =>
+                            ue.CourseEnrolment.Course.title)
+                        .FirstOrDefault(),
+
+                    CourseAverageMark = progressRules.GetCourseAverage(),
+                    CourseAverageGrade = GradeRules.GetGrade((int)progressRules.GetCourseAverage()),
+                    CpAchieved = progressRules.GetCpAchieved(),
+                    CpRemaining = progressRules.GetCpRemaining(),
+                    CourseStatus = progressRules.GetCourseStatus(),
+                    UnitsAttempted = progressRules.GetUnitsAttempted(),
+                    HighestMark = progressRules.GetHighestMark(),
+                    LowestMark = progressRules.GetLowestMark(),
+
+                    Email = unitResultEntity.Select(ur => ur.Student.email).FirstOrDefault()
+                };
+
+                // populate transcript
+                progressViewModel.TranscriptView = new StudentTranscriptViewModel();
+                foreach (UnitEnrolment result in unitResultEntity)
+                {
+                    progressViewModel.TranscriptView.Transcript.Add(new StudentProgressViewModel
+                    {
+                        UnitEnrolmentId = result.unit_enrolment_id,
+                        CourseEnrolmentId = result.course_enrolment_id,
+                        UnitId = result.unit_id,
+                        UnitTitle = result.Unit.title,
+                        YearSem = result.year_sem,
+                        Mark = result.mark,
+                        Grade = GradeRules.GetGrade(result.mark)
+                    });
+                }
+                return View(progressViewModel);
             }
 
-            return View(progressViewModel);
+            // else student is not enrolled a unit, get minimum details for viewmodel
+            // IMPORTANT: need at least email in viewmodel otherwise will cause nullpointer exception at layout,
+            // and back button will send user back to login screen without passing email back to Progress()
+            var student = _db.Students.FirstOrDefault(s => s.student_id == studentId);
+            StudentProgressViewModel errorViewModel = new StudentProgressViewModel
+            {
+                Email = student?.email
+            };
+
+            // show user error message instead
+            TempData["notice"] = "Sorry, you not are enrolled in any units. Please return after enrolling in some units.";
+            return View(errorViewModel);
         }
     }
 }
