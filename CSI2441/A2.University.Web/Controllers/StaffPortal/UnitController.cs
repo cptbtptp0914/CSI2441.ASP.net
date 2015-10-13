@@ -17,11 +17,13 @@ namespace A2.University.Web.Controllers.StaffPortal
         {          
             UnitIndexViewModel unitViewModel = new UnitIndexViewModel();
 
+            // get list of units from db
             var unitsEntity = _db.Units
-                .Include(u => 
-                    u.Staff)
-                .Include(u => 
-                    u.UnitType)
+                // order by unit id
+                .OrderBy(u => u.unit_id)
+                // joins
+                .Include(u => u.Staff)
+                .Include(u => u.UnitType)
                 .ToList();
 
             // transfer entity list to viewmodel list
