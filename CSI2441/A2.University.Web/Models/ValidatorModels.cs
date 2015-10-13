@@ -53,7 +53,7 @@ namespace A2.University.Web.Models
             // Adrs
             RuleFor(field => field.Adrs)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[-a-zA-Z0-9.\\/#']+(\s+[-a-zA-Z0-9.\\/#']+)*$").WithMessage("* Must be a valid address")
+                .Matches(@"^[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,:;'""*&\+\(\)]+(\s+[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,.,:;'""*&\+\(\)]+)*$").WithMessage("* Must be a valid address")
                 .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // city
             RuleFor(field => field.AdrsCity)
@@ -124,7 +124,7 @@ namespace A2.University.Web.Models
             RuleFor(field => field.Title)
                 .NotEmpty().WithMessage("* Required")
                 // fwd/back slash causes crash in Title, removed from regex
-                .Matches(@"^[-a-zA-Z0-9.#]+(\s+[-a-zA-Z0-9.#]+)*$").WithMessage("* Must be a valid Title")
+                .Matches(@"^[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,:;'""*&\+\(\)]+(\s+[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,.,:;'""*&\+\(\)]+)*$").WithMessage("* Must be a valid Title")
                 .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // coordinator
             RuleFor(field => field.CoordinatorId)
@@ -165,7 +165,7 @@ namespace A2.University.Web.Models
             RuleFor(field => field.Title)
                 .NotEmpty().WithMessage("* Required")
                 // fwd/back slash causes crash in Title, removed from regex
-                .Matches(@"^[-a-zA-Z0-9.#]+(\s+[-a-zA-Z0-9.#]+)*$").WithMessage("* Must be a valid Title")
+                .Matches(@"^[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,:;'""*&\+\(\)]+(\s+[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,.,:;'""*&\+\(\)]+)*$").WithMessage("* Must be a valid Title")
                 .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // coordinator
             RuleFor(field => field.CoordinatorId)
@@ -197,7 +197,7 @@ namespace A2.University.Web.Models
             RuleFor(field => field.Title)
                 .NotEmpty().WithMessage("* Required")
                 // fwd/back slash causes crash in Title, removed from regex
-                .Matches(@"^[-a-zA-Z0-9.,#\(\)]+(\s+[-a-zA-Z0-9.,#\(\)]+)*$").WithMessage("* Must be a valid Title")
+                .Matches(@"^[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,:;'""*&\+\(\)]+(\s+[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,.,:;'""*&\+\(\)]+)*$").WithMessage("* Must be a valid Title")
                 .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // coordinator
             RuleFor(field => field.CoordinatorId)
@@ -250,7 +250,7 @@ namespace A2.University.Web.Models
             RuleFor(field => field.Title)
                 .NotEmpty().WithMessage("* Required")
                 // fwd/back slash causes crash in Title, removed from regex
-                .Matches(@"^[-a-zA-Z0-9.,#\(\)]+(\s+[-a-zA-Z0-9.,#\(\)]+)*$").WithMessage("* Must be a valid Title")
+                .Matches(@"^[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,:;'""*&\+\(\)]+(\s+[-a-zA-Z0-9!@#$%\\/|\-_^<>{}[\]\?.,.,:;'""*&\+\(\)]+)*$").WithMessage("* Must be a valid Title")
                 .Length(5, 100).WithMessage("* Must be between 5 and 100 characters");
             // coordinator
             RuleFor(field => field.CoordinatorId)
@@ -447,7 +447,7 @@ namespace A2.University.Web.Models
             RuleFor(field => field.Password)
                 .NotEmpty().WithMessage("* Required")
                 .Length(8, 50).WithMessage("* Must be between 8 and 50 characters")
-                .Matches(@"^(?=.*?[0-9].*?[0-9])^(?=.*?[A-Z].*?[A-Z])[0-9a-zA-Z!@#$%\\/|\-_^<>{}[\]\?.,0-9]{8,}$")
+                .Matches(@"^(?=.*?[0-9].*?[0-9])^(?=.*?[A-Z].*?[A-Z])[0-9a-zA-Z\(\)\+\=\*&!@#$%\\/|\-_^<>{}[\]\?.,:;'""*0-9]{8,}$")
                     .WithMessage("* Must contain at least: two UPPERCASE, two numbers, eight characters");
             // confirm password
             RuleFor(field => field.ConfirmPassword)
