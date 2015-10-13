@@ -251,7 +251,7 @@ namespace A2.University.Web.Models.Business
         public bool IsCourseComplete()
         {
             int cpRemaining = GetCpRemaining();
-            return cpRemaining >= _cpRequired;
+            return cpRemaining <= 0;
         }
 
         /// <summary>
@@ -330,7 +330,8 @@ namespace A2.University.Web.Models.Business
                 .Sum(result =>
                     result.Unit.credit_points);
 
-            return _cpRequired - sum;
+            // limit result to 0, do not show negative int
+            return Math.Max(0, _cpRequired - sum);
         }
         
         /// <summary>
