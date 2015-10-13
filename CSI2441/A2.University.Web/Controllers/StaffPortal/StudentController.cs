@@ -133,6 +133,16 @@ namespace A2.University.Web.Controllers.StaffPortal
         // POST: Student/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+
+        /// <summary>
+        /// Defines actions to take when editing student.
+        /// Passes data from viewmodel to entitymodel, then saves db.
+        /// New email is also generated, and StudentUser is kept in sync, if Student has registered.
+        /// TODO: Implement a way to stop new email generation if input name is same as name in db.
+        /// </summary>
+        /// <param name="studentEntityModel"></param>
+        /// <param name="studentViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StudentId,FirstName,LastName,Dob,Gender,Email,LandLine,Mobile,Adrs,AdrsCity,AdrsState,AdrsPostcode")] Student studentEntityModel, StudentEditViewModel studentViewModel)
@@ -145,6 +155,15 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // update db using entitymodel
                 _db.Entry(studentEntityModel).State = EntityState.Modified;
                 _db.SaveChanges();
+
+                // keep StudentUser in sync, update with new email if StudentUser exists
+                var studentUser = _db.StudentUsers.FirstOrDefault(su => su.student_id == studentEntityModel.student_id);
+                if (studentUser != null)
+                {
+                    studentUser.email = studentEntityModel.email;
+                    _db.Entry(studentUser).State = EntityState.Modified;
+                    _db.SaveChanges();
+                }
 
                 // provide feedback to user
                 TempData["notice"] = $"Student {studentEntityModel.student_id} {studentEntityModel.firstname} {studentEntityModel.lastname} was successfully edited";
