@@ -10,7 +10,7 @@ namespace A2.University.Web.Controllers.StaffPortal
 {
 
     /// <summary>
-    /// Course controller for StaffPortal
+    /// Controller for Course
     /// </summary>
     public class CourseController : Controller
     {
@@ -18,6 +18,7 @@ namespace A2.University.Web.Controllers.StaffPortal
 
         /// <summary>
         /// GET: Course
+        /// Displays Course/Index CRUD grid of all Courses in database.
         /// </summary>
         /// <returns></returns>
         public ActionResult Index()
@@ -57,7 +58,7 @@ namespace A2.University.Web.Controllers.StaffPortal
 
         /// <summary>
         /// GET: Course/Details/5
-        /// Displays details for a course, must pass CourseId
+        /// Shows details of Course when "View" link clicked.
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -100,11 +101,8 @@ namespace A2.University.Web.Controllers.StaffPortal
 
         /// <summary>
         /// POST: Course/Create
-        /// To protect from overposting attacks, please enable the specific properties you want to bind to, for
-        /// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /// 
-        /// Course Create method, passes values from viewmodel to entitymodel
-        /// then saves to db.
+        /// Stores new Course in database if passes validation, defined by CourseBaseViewModelValidator.
+        /// Shows feedback to user when successfully creates new Course.
         /// </summary>
         /// <param name="courseViewModel"></param>
         /// <returns></returns>
@@ -169,11 +167,8 @@ namespace A2.University.Web.Controllers.StaffPortal
 
         /// <summary>
         /// POST: Course/Edit/5
-        /// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        /// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        /// 
-        /// Course Edit method. Passes values from viewmodel to entitymodel
-        /// then saves db.
+        /// Stores edited data if viewmodel passes validation.
+        /// Shows feedback to user when successfully edits data.
         /// </summary>
         /// <param name="courseEntityModel"></param>
         /// <param name="courseViewModel"></param>
@@ -204,7 +199,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseViewModel);
         }
 
-        // GET: Course/Delete/5
+        /// <summary>
+        /// GET: Course/Delete/5
+        /// Displays "Are you sure you want to delete" view.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -225,7 +225,13 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseViewModel);
         }
 
-        // POST: Course/Delete/5
+        /// <summary>
+        /// POST: Course/Delete/5
+        /// Deletes row from database.
+        /// Shows feedback to user when successfully deletes.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

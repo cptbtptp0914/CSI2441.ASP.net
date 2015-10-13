@@ -23,9 +23,9 @@ namespace A2.University.Web.Controllers
         private readonly UniversityEntities _db = new UniversityEntities();
 
         /// <summary>
-        /// GET: StudentPortal
-        /// Displays StudentPortal home page.
-        /// Must provide email on login, else will return user to login page.
+        /// GET: StudentPortal/Index
+        /// Displays StudentPortal home page, showing Student details and list of enrolled courses.
+        /// Must provide email param, else will return user to login page.
         /// </summary>
         /// <param name="email"></param>
         /// <returns></returns>
@@ -91,7 +91,9 @@ namespace A2.University.Web.Controllers
 
 
         /// <summary>
+        /// GET: StudentPortal/Progress
         /// Displays student progress for selected course.
+        /// If not enrolled in any units, displays error message.
         /// </summary>
         /// <param name="studentId"></param>
         /// <param name="courseId"></param>

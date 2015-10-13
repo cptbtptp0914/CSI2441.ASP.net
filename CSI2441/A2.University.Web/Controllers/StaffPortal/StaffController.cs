@@ -9,6 +9,10 @@ using A2.University.Web.Models.StaffPortal;
 
 namespace A2.University.Web.Controllers.StaffPortal
 {
+
+    /// <summary>
+    /// Controller for Staff
+    /// </summary>
     public class StaffController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
@@ -16,7 +20,11 @@ namespace A2.University.Web.Controllers.StaffPortal
         private string _email;
         private string _tempEmail;
 
-        // GET: Staff
+        /// <summary>
+        /// GET: Staff
+        /// Displays Staff/Index CRUD grid of all staff members in database.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             StaffIndexViewModel staffViewModel = new StaffIndexViewModel();
@@ -38,7 +46,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(staffViewModel.Staff);
         }
 
-        // GET: Staff/Details/5
+        /// <summary>
+        /// GET: Staff/Details/5
+        /// Shows details of Staff when "View" link clicked.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -61,16 +74,23 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(staffViewModel);
         }
 
-        // GET: Staff/Create
+        /// <summary>
+        /// GET: Staff/Create
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             // render view using viewmodel
             return View(new StaffCreateViewModel());
         }
 
-        // POST: Staff/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: Staff/Create
+        /// Stores new Staff in database if passes validation, defined by StaffBaseViewModelValidator.
+        /// Shows feedback to user when successfully creates a new staff member.
+        /// </summary>
+        /// <param name="staffViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StaffId,FirstName,LastName,Email")] StaffCreateViewModel staffViewModel)
@@ -95,7 +115,11 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(staffViewModel);
         }
 
-        // GET: Staff/Edit/5
+        /// <summary>
+        /// GET: Staff/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -118,9 +142,15 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(staffViewModel);
         }
 
-        // POST: Staff/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: Staff/Edit/5
+        /// Stores edited data if viewmodel passes validation.
+        /// Generates new email on edit.
+        /// Shows feedback to user when successfully edits data.
+        /// </summary>
+        /// <param name="staffEntityModel"></param>
+        /// <param name="staffViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StaffId,FirstName,LastName,Email")] Staff staffEntityModel, StaffEditViewModel staffViewModel)
@@ -142,7 +172,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(staffViewModel);
         }
 
-        // GET: Staff/Delete/5
+        /// <summary>
+        /// GET: Student/Delete/5
+        /// Displays "Are you sure you want to delete" view.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -165,7 +200,13 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(staffViewModel);
         }
 
-        // POST: Staff/Delete/5
+        /// <summary>
+        /// POST: Staff/Delete/5
+        /// Deletes row from database.
+        /// Shows feedback to user when successfully deletes.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)

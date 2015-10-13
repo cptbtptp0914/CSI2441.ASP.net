@@ -9,11 +9,19 @@ using A2.University.Web.Models.StaffPortal;
 
 namespace A2.University.Web.Controllers.StaffPortal
 {
+
+    /// <summary>
+    /// Controller for Results
+    /// </summary>
     public class ResultsController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
 
-        // GET: Results
+        /// <summary>
+        /// GET: Results
+        /// Displays grid of CourseEnrolments with link to view Progress
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             ResultsIndexViewModel resultsIndexViewModel = new ResultsIndexViewModel();
@@ -42,7 +50,15 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(resultsIndexViewModel.ResultsByCourse);
         }
 
-        // GET: Results/Details/5
+        /// <summary>
+        /// GET: Results/Details/5
+        /// Displays a Student's progress for a particular Course.
+        /// Shows transcript of unit results for the course as partial view.
+        /// If Student is not enrolled in any units, error message is shown.
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <param name="courseId"></param>
+        /// <returns></returns>
         public ActionResult Progress(long? studentId, string courseId)
         {
             if (studentId == null)
@@ -92,6 +108,7 @@ namespace A2.University.Web.Controllers.StaffPortal
                     LowestMark = progressRules.GetLowestMark()
                 };
 
+                // create/populate transcript
                 progressViewModel.TranscriptView = new TranscriptViewModel();
                 foreach (UnitEnrolment result in unitEnrolmentsEntity.OrderBy(ue => ue.year_sem))
                 {

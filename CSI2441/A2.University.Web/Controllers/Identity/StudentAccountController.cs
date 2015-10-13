@@ -14,7 +14,7 @@ namespace A2.University.Web.Controllers.Identity
 {
 
     /// <summary>
-    /// Controller class for StudentAccount.
+    /// Controller for StudentAccount.
     /// </summary>
     [Authorize]
     public class StudentAccountController : Controller
@@ -32,7 +32,7 @@ namespace A2.University.Web.Controllers.Identity
 
         /// <summary>
         /// POST: /StudentAccount/Login
-        /// User validation occurs in ValidatorModels.StudentLoginViewModelValidator class
+        /// User validation defined in StudentLoginViewModelValidator
         /// </summary>
         /// <param name="model"></param>
         /// <param name="returnUrl"></param>

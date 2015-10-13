@@ -8,11 +8,19 @@ using A2.University.Web.Models.StaffPortal;
 
 namespace A2.University.Web.Controllers.StaffPortal
 {
+
+    /// <summary>
+    /// Controller for Unit
+    /// </summary>
     public class UnitController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
 
-        // GET: Unit
+        /// <summary>
+        /// GET: Unit
+        /// Displays Unit/Index CRUD grid of all Units in database.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {          
             UnitIndexViewModel unitViewModel = new UnitIndexViewModel();
@@ -50,7 +58,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(unitViewModel.Units);
         }
 
-        // GET: Unit/Details/5
+        /// <summary>
+        /// GET: Unit/Details/5
+        /// Shows details of Unit when "View" link clicked.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(string id)
         {
             if (id == null)
@@ -73,7 +86,10 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(unitViewModel);
         }
 
-        // GET: Unit/Create
+        /// <summary>
+        /// GET: Unit/Create
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {   
             // create viewmodel
@@ -84,9 +100,13 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(unitViewModel);
         }
 
-        // POST: Unit/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: Unit/Create
+        /// Stores new Unit in database if passes validation, defined by UnitBaseViewModelValidator.
+        /// Shows feedback to user when successfully creates new unit.
+        /// </summary>
+        /// <param name="unitViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "UnitId,Title,CoordinatorId,CreditPoints,UnitTypeId")] UnitCreateViewModel unitViewModel)
@@ -116,7 +136,11 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(unitViewModel);
         }
 
-        // GET: Unit/Edit/5
+        /// <summary>
+        /// GET: Unit/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(string id)
         {
             if (id == null)
@@ -142,9 +166,14 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(unitViewModel);
         }
 
-        // POST: Unit/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: Unit/Edit/5
+        /// Stores edited data if viewmodel passes validation.
+        /// Shows feedback to user when successfully edits data.
+        /// </summary>
+        /// <param name="unitEntityModel"></param>
+        /// <param name="unitViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "UnitId,Title,CoordinatorId,CreditPoints,UnitTypeId")] Unit unitEntityModel, UnitEditViewModel unitViewModel)
@@ -170,7 +199,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(unitViewModel);
         }
 
-        // GET: Unit/Delete/5
+        /// <summary>
+        /// GET: Unit/Delete/5
+        /// Displays "Are you sure you want to delete" view.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(string id)
         {
             if (id == null)
@@ -191,7 +225,13 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(unitViewModel);
         }
 
-        // POST: Unit/Delete/5
+        /// <summary>
+        /// POST: Unit/Delete/5
+        /// Deletes row from database.
+        /// Shows feedback to user when successfully deletes.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(string id)

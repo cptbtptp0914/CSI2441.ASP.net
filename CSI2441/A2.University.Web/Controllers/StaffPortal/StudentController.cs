@@ -11,6 +11,10 @@ using A2.University.Web.Models.StaffPortal;
 
 namespace A2.University.Web.Controllers.StaffPortal
 {
+
+    /// <summary>
+    /// Controller for Student
+    /// </summary>
     public class StudentController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
@@ -18,7 +22,11 @@ namespace A2.University.Web.Controllers.StaffPortal
         private string _email;
         private string _tempEmail;
 
-        // GET: Student
+        /// <summary>
+        /// GET: Student
+        /// Displays Student/Index CRUD grid of all students in database.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             // create viewmodel
@@ -50,7 +58,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(studentViewModel.Students);
         }
 
-        // GET: Student/Details/5
+        /// <summary>
+        /// GET: Student/Details/5
+        /// Shows details of Student when "View" link clicked.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -73,16 +86,23 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(studentViewModel);
         }
 
-        // GET: Student/Create
+        /// <summary>
+        /// GET: Student/Create
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             // create new viewmodel
             return View(new StudentCreateViewModel());
         }
 
-        // POST: Student/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: Student/Create
+        /// Stores new Student in database if passes validation, defined by StudentBaseViewModelValidator.
+        /// Shows feedback to user when successfully creates new student.
+        /// </summary>
+        /// <param name="studentViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "StudentId,FirstName,LastName,Dob,Gender,Email,LandLine,Mobile,Adrs,AdrsCity,AdrsState,AdrsPostcode")] StudentCreateViewModel studentViewModel)
@@ -107,7 +127,11 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(studentViewModel);
         }
 
-        // GET: Student/Edit/5
+        /// <summary>
+        /// GET: Student/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -130,13 +154,10 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(studentViewModel);
         }
 
-        // POST: Student/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
         /// <summary>
-        /// Defines actions to take when editing student.
-        /// Passes data from viewmodel to entitymodel, then saves db.
+        /// POST: Student/Edit/5
+        /// Stores edited data if viewmodel passes validation.
+        /// Shows feedback to user when successfully edits data.
         /// New email is also generated, and StudentUser is kept in sync, if Student has registered.
         /// TODO: Implement a way to stop new email generation if input name is same as name in db.
         /// </summary>
@@ -173,7 +194,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(studentViewModel);
         }
 
-        // GET: Student/Delete/5
+        /// <summary>
+        /// GET: Student/Delete/5
+        /// Displays "Are you sure you want to delete" view.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -196,7 +222,13 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(studentViewModel);
         }
 
-        // POST: Student/Delete/5
+        /// <summary>
+        /// POST: Student/Delete/5
+        /// Deletes row from database.
+        /// Shows feedback to user when successfully deletes.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
@@ -264,7 +296,7 @@ namespace A2.University.Web.Controllers.StaffPortal
 
         /// <summary>
         /// Function initiates recursive search of generated emails to ensure no duplicates exist.
-        /// Begins by reseting tallies and current Email fields, generates first version of Email, then passes to EmailRecursiveSearch.
+        /// Begins by reseting tallies and current email fields, generates first version of Email, then passes to EmailRecursiveSearch.
         /// </summary>
         /// <param name="student">Student</param>
         private void StartEmailRecursiveSearch([Bind(Include = "StudentId,FirstName,LastName,Dob,Gender,Email,LandLine,Mobile,Adrs,AdrsCity,AdrsState,AdrsPostcode")] StudentBaseViewModel student)
@@ -281,7 +313,7 @@ namespace A2.University.Web.Controllers.StaffPortal
 
 
         /// <summary>
-        /// Recursive function to search each version of generated Email against existing emails to ensure no duplicates exist.
+        /// Recursive function to search each version of generated email against existing emails to ensure no duplicates exist.
         /// </summary>
         /// <param name="student">Student</param>
         /// <param name="target">string</param>
@@ -299,10 +331,10 @@ namespace A2.University.Web.Controllers.StaffPortal
                     student.FirstName.ToLower(),
                     student.LastName.ToLower());
 
-                // recursive call to search new version of generated Email
+                // recursive call to search new version of generated email
                 EmailRecursiveSearch(student, _tempEmail);
             }
-            // exit case, generated Email does not exist! let's use it
+            // exit case, generated email does not exist! let's use it
             else
             {
                 _email = target;
@@ -310,7 +342,7 @@ namespace A2.University.Web.Controllers.StaffPortal
         }
 
         /// <summary>
-        /// Function searches generated Email against existing emails in database.
+        /// Function searches generated email against existing emails in database.
         /// </summary>
         /// <param name="target">string</param>
         /// <returns>bool</returns>

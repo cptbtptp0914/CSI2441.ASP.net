@@ -9,15 +9,25 @@ using A2.University.Web.Models.StaffPortal;
 
 namespace A2.University.Web.Controllers.StaffPortal
 {
+
+    /// <summary>
+    /// Controller for Course
+    /// </summary>
     public class CourseEnrolmentController : Controller
     {
         private readonly UniversityEntities _db = new UniversityEntities();
         private readonly CourseRules _courseRules = new CourseRules();
 
-        // GET: CourseEnrolment
+        /// <summary>
+        /// GET: CourseEnrolment
+        /// Displays CourseEnrolment/Index CRUD grid of all CourseEnrolments in database.
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Index()
         {
             CourseEnrolmentIndexViewModel courseEnrolmentViewModel = new CourseEnrolmentIndexViewModel();
+
+            // get list of course enrolments in db
             var courseEnrolmentsEntity = _db.CourseEnrolments
                 .OrderByDescending(c => c.course_enrolment_id)
                 .Include(c => c.Course)
@@ -43,7 +53,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseEnrolmentViewModel.CourseEnrolments);
         }
 
-        // GET: CourseEnrolment/Details/5
+        /// <summary>
+        /// GET: CourseEnrolment/Details/5
+        /// Shows details of CourseEnrolment when "View" link clicked.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Details(long? id)
         {
             if (id == null)
@@ -64,7 +79,10 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseEnrolmentViewModel);
         }
 
-        // GET: CourseEnrolment/Create
+        /// <summary>
+        /// GET: CourseEnrolment/Create
+        /// </summary>
+        /// <returns></returns>
         public ActionResult Create()
         {
             // create viewmodel
@@ -74,9 +92,13 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseEnrolmentViewModel);
         }
 
-        // POST: CourseEnrolment/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: CourseEnrolment/Create
+        /// Stores new CourseEnrolment in database if passes validation, defined by CourseEnrolmentBaseViewModelValidator.
+        /// Shows feedback to user when successfully creates new CourseEnrolment.
+        /// </summary>
+        /// <param name="courseEnrolmentViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "CourseEnrolmentId,StudentId,CourseId,CourseStatus")] CourseEnrolmentCreateViewModel courseEnrolmentViewModel)
@@ -116,7 +138,11 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseEnrolmentViewModel);
         }
 
-        // GET: CourseEnrolment/Edit/5
+        /// <summary>
+        /// GET: CourseEnrolment/Edit/5
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Edit(long? id)
         {
             if (id == null)
@@ -149,9 +175,14 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseEnrolmentViewModel);
         }
 
-        // POST: CourseEnrolment/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// POST: CourseEnrolment/Edit/5
+        /// Stores edited data if viewmodel passes validation.
+        /// Shows feedback to user when successfully edits data.
+        /// </summary>
+        /// <param name="courseEnrolmentEntityModel"></param>
+        /// <param name="courseEnrolmentViewModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "CourseEnrolmentId,StudentId,CourseId,CourseStatus")] CourseEnrolment courseEnrolmentEntityModel, CourseEnrolmentEditViewModel courseEnrolmentViewModel)
@@ -186,7 +217,12 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseEnrolmentViewModel);
         }
 
-        // GET: CourseEnrolment/Delete/5
+        /// <summary>
+        /// GET: CourseEnrolment/Delete/5
+        /// Displays "Are you sure you want to delete" view.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public ActionResult Delete(long? id)
         {
             if (id == null)
@@ -207,7 +243,13 @@ namespace A2.University.Web.Controllers.StaffPortal
             return View(courseEnrolmentViewModel);
         }
 
-        // POST: CourseEnrolment/Delete/5
+        /// <summary>
+        /// POST: CourseEnrolment/Delete/5
+        /// Deletes row from database.
+        /// Shows feedback to user when successfully deletes.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(long id)
@@ -229,7 +271,7 @@ namespace A2.University.Web.Controllers.StaffPortal
         /// <summary>
         /// Populates dropdownlists for unit enrolment view.
         /// </summary>
-        /// <param name="viewModel">UnitEnrolmentDropDownListViewModel</param>
+        /// <param name="viewModel"></param>
         private void PopulateDropDownLists(CourseEnrolmentDropDownListViewModel viewModel)
         {
             // get list of students/units from db
