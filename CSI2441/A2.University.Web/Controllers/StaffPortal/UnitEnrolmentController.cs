@@ -24,6 +24,8 @@ namespace A2.University.Web.Controllers.StaffPortal
                 .OrderByDescending(u => u.student_id)
                 // then by year/sem descending
                 .ThenByDescending(u => u.year_sem)
+                // then by unit title
+                .ThenBy(u => u.Unit.title)
                 // joins
                 .Include(u => u.Student)
                 .Include(u => u.Unit)
