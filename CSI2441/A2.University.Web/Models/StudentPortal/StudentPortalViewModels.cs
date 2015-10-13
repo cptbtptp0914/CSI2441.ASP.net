@@ -8,6 +8,10 @@ using A2.University.Web.Models.StaffPortal;
 
 namespace A2.University.Web.Models.StudentPortal
 {
+
+    /// <summary>
+    /// StudentPortal Base view model.
+    /// </summary>
     public class StudentPortalBaseViewModel
     {
         // core fields
@@ -53,17 +57,26 @@ namespace A2.University.Web.Models.StudentPortal
         public int Postcode { get; set; }
     }
 
+    /// <summary>
+    /// StudentCourses view model. Displays a list of Courses that Student has been enrolled in as grid.
+    /// </summary>
     public class StudentCoursesViewModel : StudentPortalBaseViewModel
     {
         public StudentCourseEnrolmentListViewModel CoursesList { get; set; }
     }
 
+    /// <summary>
+    /// StudentCourseEnrolmentsList view model. Displayed as grid in partial view.
+    /// </summary>
     public class StudentCourseEnrolmentListViewModel : StudentCoursesViewModel
     {
         // list of student's course enrolments
         public List<StudentCourseEnrolmentListViewModel> StudentCourseEnrolments = new List<StudentCourseEnrolmentListViewModel>();
     }
 
+    /// <summary>
+    /// StudentProgress view model. Displays Student's progress.
+    /// </summary>
     public class StudentProgressViewModel : StudentCoursesViewModel
     {
         // pk
@@ -107,6 +120,9 @@ namespace A2.University.Web.Models.StudentPortal
         public StudentTranscriptViewModel TranscriptView { get; set; }
     }
 
+    /// <summary>
+    /// StudentTranscript view model. Displayed as grid in partial view.
+    /// </summary>
     public class StudentTranscriptViewModel : StudentProgressViewModel
     {
         public List<StudentProgressViewModel> Transcript = new List<StudentProgressViewModel>();

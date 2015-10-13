@@ -5,6 +5,9 @@ using Microsoft.Owin.Security;
 
 namespace A2.University.Web.Models
 {
+    /// <summary>
+    /// Default MVC template classes.
+    /// </summary>
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }

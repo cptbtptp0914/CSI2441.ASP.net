@@ -6,6 +6,10 @@ using Microsoft.Ajax.Utilities;
 
 namespace A2.University.Web.Models.Business
 {
+
+    /// <summary>
+    /// Defines business rule/s for Grades.
+    /// </summary>
     public static class GradeRules
     {
 
@@ -39,6 +43,9 @@ namespace A2.University.Web.Models.Business
         }
     }
 
+    /// <summary>
+    /// Defines business rules for Units.
+    /// </summary>
     public class UnitRules
     {
         private readonly UniversityEntities _db;
@@ -121,6 +128,9 @@ namespace A2.University.Web.Models.Business
         }
     }
 
+    /// <summary>
+    /// Defines business rules for Courses.
+    /// </summary>
     public class CourseRules
     {
         private readonly UniversityEntities _db;
@@ -194,6 +204,9 @@ namespace A2.University.Web.Models.Business
         }
     }
 
+    /// <summary>
+    /// Defines business rules for Student progress.
+    /// </summary>
     public class ProgressRules
     {
         private const int Pass = 50;
@@ -226,6 +239,10 @@ namespace A2.University.Web.Models.Business
                 .FirstOrDefault();
         }
 
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="courseEnrolmentId"></param>
         public ProgressRules(long courseEnrolmentId)
         {
             UniversityEntities db = new UniversityEntities();

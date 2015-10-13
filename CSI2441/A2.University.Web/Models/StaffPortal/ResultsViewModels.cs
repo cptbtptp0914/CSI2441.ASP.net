@@ -3,6 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace A2.University.Web.Models.StaffPortal
 {
+
+    /// <summary>
+    /// Results Base view model.
+    /// </summary>
     public class ResultsBaseViewModel
     {
         [Display(Name = "Course average mark")]
@@ -30,6 +34,9 @@ namespace A2.University.Web.Models.StaffPortal
         public int LowestMark { get; set; }
     }
 
+    /// <summary>
+    /// Results Index view model. Includes list of Courses with Students displayed as grid.
+    /// </summary>
     public class ResultsIndexViewModel : ResultsBaseViewModel
     {
         // display grid of course enrolments, replace View/Edit/Delete buttons with Results button
@@ -43,6 +50,9 @@ namespace A2.University.Web.Models.StaffPortal
         public string Title { get; set; }
     }
 
+    /// <summary>
+    /// Progress view model.
+    /// </summary>
     public class ProgressViewModel : ResultsBaseViewModel
     {
         // pk
@@ -70,9 +80,13 @@ namespace A2.University.Web.Models.StaffPortal
         public int Mark { get; set; }
         public string Grade { get; set; }
 
+        // list of enrolled Units for Course
         public TranscriptViewModel TranscriptView { get; set; }
     }
 
+    /// <summary>
+    /// Transcript view model. Displays list of Units for Course as grid.
+    /// </summary>
     public class TranscriptViewModel : ProgressViewModel
     {
         public List<ProgressViewModel> Transcript = new List<ProgressViewModel>();

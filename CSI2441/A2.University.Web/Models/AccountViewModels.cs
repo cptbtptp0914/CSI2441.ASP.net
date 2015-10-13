@@ -3,6 +3,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace A2.University.Web.Models
 {
+    /// <summary>
+    /// Default MVC template classes.
+    /// </summary>
     public class ExternalLoginConfirmationViewModel
     {
         [Required]

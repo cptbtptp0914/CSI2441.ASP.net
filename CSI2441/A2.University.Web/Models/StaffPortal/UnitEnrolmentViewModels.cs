@@ -5,6 +5,10 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models.StaffPortal
 {
+
+    /// <summary>
+    /// UnitEnrolment Base view model.
+    /// </summary>
     [Validator(typeof(UnitEnrolmentBaseViewModelValidator))]
     public class UnitEnrolmentBaseViewModel
     {
@@ -45,11 +49,17 @@ namespace A2.University.Web.Models.StaffPortal
         public string StudentLastName { get; set; }
     }
 
+    /// <summary>
+    /// UnitEnrolment Index view model. Includes list of UnitEnrolments displayed as CRUD grid.
+    /// </summary>
     public class UnitEnrolmentIndexViewModel : UnitEnrolmentBaseViewModel
     {
         public List<UnitEnrolmentIndexViewModel> UnitEnrolments = new List<UnitEnrolmentIndexViewModel>();
     }
 
+    /// <summary>
+    /// Dropdownlist view model.
+    /// </summary>
     public class UnitEnrolmentDropDownListViewModel : UnitEnrolmentBaseViewModel
     {
         // store lists of students/units, will extract data for dropdownlists
@@ -65,23 +75,35 @@ namespace A2.University.Web.Models.StaffPortal
         public IEnumerable<SelectListItem> UnitDropDownList { get; set; }
     }
 
+    /// <summary>
+    /// UnitEnrolment Details view model.
+    /// </summary>
     public class UnitEnrolmentDetailsViewModel : UnitEnrolmentBaseViewModel
     {
         [Display(Name = "Course")]
         public string CourseIdTitle { get; set; }
     }
 
+    /// <summary>
+    /// UnitEnrolment Create view model.
+    /// </summary>
     public class UnitEnrolmentCreateViewModel : UnitEnrolmentDropDownListViewModel
     {
         // Inherits UnitEnrolmentDropDownListViewModel, no custom fields required
     }
 
+    /// <summary>
+    /// UnitEnrolment Edit view model.
+    /// </summary>
     public class UnitEnrolmentEditViewModel : UnitEnrolmentDropDownListViewModel
     {
         [Display(Name = "Student ID")]
         new public string StudentIdFullName { get; set; }
     }
 
+    /// <summary>
+    /// UnitEnrolment Delete view model.
+    /// </summary>
     public class UnitEnrolmentDeleteViewModel : UnitEnrolmentBaseViewModel
     {
         // No custom fields required

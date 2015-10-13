@@ -2,6 +2,10 @@
 
 namespace A2.University.Web.Models.Business.Services
 {
+
+    /// <summary>
+    /// Static class generates emails for students and staff.
+    /// </summary>
     public static class EmailGenerator
     {
         public const string StudentEmailSuffix = "@our.ecu.edu.au";

@@ -7,6 +7,10 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models.StaffPortal
 {
+
+    /// <summary>
+    /// Student Base view model.
+    /// </summary>
     [Validator(typeof(StudentBaseViewModelValidator))]
     public class StudentBaseViewModel
     {
@@ -56,11 +60,17 @@ namespace A2.University.Web.Models.StaffPortal
         public string AdrsPostcode { get; set; }
     }
 
+    /// <summary>
+    /// Student Index view model. Includes list of Students displayed as CRUD grid.
+    /// </summary>
     public class StudentIndexViewModel : StudentBaseViewModel
     {
         public List<StudentIndexViewModel> Students = new List<StudentIndexViewModel>();
     }
 
+    /// <summary>
+    /// Dropdownlist view model.
+    /// </summary>
     public class StudentDropDownListViewModel : StudentBaseViewModel
     {
         // Gender dropdownlist
@@ -86,11 +96,17 @@ namespace A2.University.Web.Models.StaffPortal
         };
     }
 
+    /// <summary>
+    /// Student Details view model.
+    /// </summary>
     public class StudentDetailsViewModel : StudentBaseViewModel
     {
         // No custom fields required
     }
 
+    /// <summary>
+    /// Student Create view model.
+    /// </summary>
     public class StudentCreateViewModel : StudentDropDownListViewModel
     {
         // default date shown at create view, today - 18 years
@@ -98,11 +114,17 @@ namespace A2.University.Web.Models.StaffPortal
         public string DefaultDob = DateTime.Today.AddYears(-18).ToString(CultureInfo.CurrentCulture);
     }
 
+    /// <summary>
+    /// Student Edit view model.
+    /// </summary>
     public class StudentEditViewModel : StudentCreateViewModel
     {
         // Inherits StudentDropDownListViewModel, no custom fields required
     }
 
+    /// <summary>
+    /// Student Delete view model.
+    /// </summary>
     public class StudentDeleteViewModel : StudentBaseViewModel
     {
         // No custom fields required

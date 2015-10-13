@@ -5,6 +5,10 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models.StaffPortal
 {
+
+    /// <summary>
+    /// Unit Base view model.
+    /// </summary>
     [Validator(typeof(UnitBaseViewModelValidator))]
     public class UnitBaseViewModel
     {
@@ -31,11 +35,17 @@ namespace A2.University.Web.Models.StaffPortal
         public string UnitTypeTitle { get; set; }
     }
 
+    /// <summary>
+    /// Unit Index view model. Includes list of Units displayed as CRUD grid.
+    /// </summary>
     public class UnitIndexViewModel : UnitBaseViewModel
     {
         public List<UnitIndexViewModel> Units = new List<UnitIndexViewModel>();
     }
 
+    /// <summary>
+    /// Dropdownlist view model.
+    /// </summary>
     public class UnitDropDownListViewModel : UnitBaseViewModel
     {
         // store lists of coordinators/unit types, will extract data for dropdownlists
@@ -57,22 +67,34 @@ namespace A2.University.Web.Models.StaffPortal
         };
     }
 
+    /// <summary>
+    /// Unit Details view model.
+    /// </summary>
     public class UnitDetailsViewModel : UnitBaseViewModel
     {
         // No custom fields required
     }
 
+    /// <summary>
+    /// Unit Create view model.
+    /// </summary>
     public class UnitCreateViewModel : UnitDropDownListViewModel
     {
         // Inherits UnitDropDownListViewModel, no custom fields required
     }
 
+    /// <summary>
+    /// Unit Edit view model.
+    /// </summary>
     [Validator(typeof(UnitEditViewModelValidator))]
     public class UnitEditViewModel : UnitDropDownListViewModel
     {
         // Uses own validator, ignores unit id for validation since user cannot edit
     }
 
+    /// <summary>
+    /// Unit Delete view model.
+    /// </summary>
     public class UnitDeleteViewModel : UnitBaseViewModel
     {
         // No custom fields required

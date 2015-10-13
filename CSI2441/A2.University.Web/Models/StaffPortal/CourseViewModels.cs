@@ -5,6 +5,10 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models.StaffPortal
 {
+
+    /// <summary>
+    /// Course Base view model.
+    /// </summary>
     [Validator(typeof(CourseBaseViewModelValidator))]
     public class CourseBaseViewModel
     {
@@ -33,11 +37,17 @@ namespace A2.University.Web.Models.StaffPortal
         public int Duration { get; set; }
     }
 
+    /// <summary>
+    /// Course Index view model. Includes list of Courses displayed as CRUD grid.
+    /// </summary>
     public class CourseIndexViewModel : CourseBaseViewModel
     {
         public List<CourseIndexViewModel> Courses = new List<CourseIndexViewModel>();
     }
 
+    /// <summary>
+    /// Dropdownlist view model.
+    /// </summary>
     public class CourseDropDownListViewModel : CourseBaseViewModel
     {
         // store lists of coordinators/course types, will extract data for dropdownlists
@@ -51,22 +61,34 @@ namespace A2.University.Web.Models.StaffPortal
         public IEnumerable<SelectListItem> CourseTypeTitleDropDownList { get; set; }
     }
 
+    /// <summary>
+    /// Course Details view model.
+    /// </summary>
     public class CourseDetailsViewModel : CourseBaseViewModel
     {
         // No custom fields required
     }
 
+    /// <summary>
+    /// Course Create view model.
+    /// </summary>
     public class CourseCreateViewModel : CourseDropDownListViewModel
     {
         // Inherits CourseDropDownListViewModel, no custom fields required
     }
 
+    /// <summary>
+    /// Course Edit view model.
+    /// </summary>
     [Validator(typeof(CourseEditViewModelValidator))]
     public class CourseEditViewModel : CourseDropDownListViewModel
     {
         // Uses own validator, ignores course id for validation since user cannot edit
     }
 
+    /// <summary>
+    /// Course Delete view model.
+    /// </summary>
     public class CourseDeleteViewModel : CourseBaseViewModel
     {
         // No custom fields required

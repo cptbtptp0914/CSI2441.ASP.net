@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 using A2.University.Web.Models.Business;
@@ -6,6 +7,10 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models.StaffPortal
 {
+
+    /// <summary>
+    /// CourseEnrolment Base view model.
+    /// </summary>
     [Validator(typeof(CourseEnrolmentBaseViewModelValidator))]
     public class CourseEnrolmentBaseViewModel
     {
@@ -36,11 +41,17 @@ namespace A2.University.Web.Models.StaffPortal
         public string StudentLastName { get; set; }
     }
 
+    /// <summary>
+    /// CourseEnrolment Index view model. Includes list of CourseEnrolments displayed as CRUD grid.
+    /// </summary>
     public class CourseEnrolmentIndexViewModel : CourseEnrolmentBaseViewModel
     {
         public List<CourseEnrolmentIndexViewModel> CourseEnrolments = new List<CourseEnrolmentIndexViewModel>();
     }
 
+    /// <summary>
+    /// Dropdownlist view model.
+    /// </summary>
     public class CourseEnrolmentDropDownListViewModel : CourseEnrolmentBaseViewModel
     {
         // stores lists of students/courses, will extract data for dropdownlists
@@ -56,7 +67,9 @@ namespace A2.University.Web.Models.StaffPortal
 
         private static readonly CourseRules CourseRules = new CourseRules();
 
-        // course status dropdownlist, TODO: may not allow user to edit state, to be deprecated
+        // course status dropdownlist
+        // deprecated, user cannot set course state, automatically set by application
+        [Obsolete] 
         public IEnumerable<SelectListItem> CourseStatusDropDownList = new List<SelectListItem>
         {
             new SelectListItem { Value = CourseRules.CourseStates["Completed"], Text = CourseRules.CourseStates["Completed"] },
@@ -66,11 +79,17 @@ namespace A2.University.Web.Models.StaffPortal
         };
     }
 
+    /// <summary>
+    /// CourseEnrolment Details view model.
+    /// </summary>
     public class CourseEnrolmentDetailsViewModel : CourseEnrolmentBaseViewModel
     {
         // No custom fields required
     }
 
+    /// <summary>
+    /// CourseEnrolment Create view model.
+    /// </summary>
     public class CourseEnrolmentCreateViewModel : CourseEnrolmentDropDownListViewModel
     {
         // default value when creating new course enrolment
@@ -80,12 +99,18 @@ namespace A2.University.Web.Models.StaffPortal
         }
     }
 
+    /// <summary>
+    /// CourseEnrolment Edit view model.
+    /// </summary>
     public class CourseEnrolmentEditViewModel : CourseEnrolmentDropDownListViewModel
     {
         [Display(Name = "Student ID")]
         new public string StudentIdFullName { get; set; }
     }
 
+    /// <summary>
+    /// CourseEnrolment Delete view model.
+    /// </summary>
     public class CourseEnrolmentDeleteViewModel : CourseEnrolmentBaseViewModel
     {
         // No custom fields required

@@ -6,8 +6,11 @@ using FluentValidation.Attributes;
 
 namespace A2.University.Web.Models
 {
-    // inherit template ManageViewModels classes for Student
-
+    /// <summary>
+    /// Defines view models for StudentManage.
+    /// Inherits template ManageViewModels classes.
+    /// All classes here deprecated, no longer using Identity Entity Framework.
+    /// </summary>
     public class StudentManageIndexViewModel : IndexViewModel
     {
         public string Email { get; set; }
