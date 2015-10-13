@@ -17,6 +17,9 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
+        @*Readonly field, still want to pass value to viewmodel*@
+        @Html.HiddenFor(model => model.UnitTypeId)
+
         @*Unit ID*@
         @*Is PK, read only*@
 
