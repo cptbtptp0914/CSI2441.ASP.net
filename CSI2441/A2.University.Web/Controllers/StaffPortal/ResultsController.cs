@@ -68,6 +68,12 @@ namespace A2.University.Web.Controllers.StaffPortal
 
             // create entitymodel, match id
             var unitEnrolmentsEntity = _db.UnitEnrolments
+                // order by student id descending
+                .OrderByDescending(ue => ue.student_id)
+                // then by year/sem descending
+                .ThenBy(ue => ue.year_sem)
+                // then by unit title
+                .ThenBy(ue => ue.Unit.title)
                 .Where(ue =>
                     ue.student_id == studentId &&
                     ue.CourseEnrolment.course_id == courseId)
@@ -110,7 +116,7 @@ namespace A2.University.Web.Controllers.StaffPortal
 
                 // create/populate transcript
                 progressViewModel.TranscriptView = new TranscriptViewModel();
-                foreach (UnitEnrolment result in unitEnrolmentsEntity.OrderBy(ue => ue.year_sem))
+                foreach (UnitEnrolment result in unitEnrolmentsEntity)
                 {
                     progressViewModel.TranscriptView.Transcript.Add(new ProgressViewModel
                     {

@@ -107,6 +107,10 @@ namespace A2.University.Web.Controllers
 
             // create entity model, match id
             var unitResultEntity = _db.UnitEnrolments
+                // order by year/sem
+                .OrderBy(ue => ue.year_sem)
+                // then by unit title
+                .ThenBy(ue => ue.Unit.title)
                 .Where(ue =>
                     ue.student_id == studentId &&
                     ue.CourseEnrolment.course_id == courseId)
