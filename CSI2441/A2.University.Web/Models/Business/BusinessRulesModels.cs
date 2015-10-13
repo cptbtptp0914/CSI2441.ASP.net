@@ -114,6 +114,7 @@ namespace A2.University.Web.Models.Business
                 .Count(ue => 
                     // ignore own id in query
                     ue.unit_enrolment_id != unitEnrolmentId &&
+                    ue.student_id == studentId &&
                     ue.unit_id == unitId);
 
             return query >= MaxAttempts;
