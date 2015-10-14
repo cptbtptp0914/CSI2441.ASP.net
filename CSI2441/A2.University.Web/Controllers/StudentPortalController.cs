@@ -85,6 +85,8 @@ namespace A2.University.Web.Controllers
             }
             
             // if we get here, incorrect email or email not provided,
+            // give user feedback
+            TempData["notice"] = "Please authenticate with valid details";
             // send user back to login page
             return RedirectToAction("Login", "StudentAccount");
         }
