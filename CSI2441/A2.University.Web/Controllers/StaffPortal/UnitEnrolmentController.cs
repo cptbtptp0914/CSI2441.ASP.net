@@ -391,20 +391,20 @@ namespace A2.University.Web.Controllers.StaffPortal
             string excluded = courseRules.CourseStates["Excluded"];
 
             // select course_enrolment_id where StudentId is match, and is ENROLLED
+            // IMPORTANT: only want a single db record here, using SingleOrDefault instead of First/Where
             var enrolment = _db.CourseEnrolments
-                .Where(ce =>
+                .SingleOrDefault(ce =>
                     ce.student_id == viewModel.StudentId &&
-                    ce.course_status == enrolled ||
-                    ce.course_status == excluded)
-                .Select(ce =>
-                    new { ce.course_enrolment_id })
-                .Single();
+                    (ce.course_status == enrolled ||
+                     ce.course_status == excluded));
 
-            // pass value to viewModel, might need it
-            viewModel.CourseEnrolmentId = enrolment.course_enrolment_id;
-
-            // pass value to entitymodel
-            entityModel.course_enrolment_id = viewModel.CourseEnrolmentId;
+            if (enrolment != null)
+            {
+                // pass value to viewModel, might need it
+                viewModel.CourseEnrolmentId = enrolment.course_enrolment_id;
+                // pass value to entitymodel
+                entityModel.course_enrolment_id = viewModel.CourseEnrolmentId;
+            }
         }
 
         /// <summary>
