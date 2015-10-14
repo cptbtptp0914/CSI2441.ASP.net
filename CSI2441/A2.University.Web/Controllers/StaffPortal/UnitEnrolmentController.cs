@@ -28,8 +28,10 @@ namespace A2.University.Web.Controllers.StaffPortal
 
             // get list of all unit enrolments from db
             var unitEnrolmentsEntity = _db.UnitEnrolments
-                // order by student id descending
-                .OrderByDescending(u => u.student_id)
+                // order by unit enrolment id descending
+                .OrderByDescending(u => u.unit_enrolment_id)
+                // then by student id descending
+                .ThenByDescending(u => u.student_id)
                 // then by year/sem descending
                 .ThenByDescending(u => u.year_sem)
                 // then by unit title
