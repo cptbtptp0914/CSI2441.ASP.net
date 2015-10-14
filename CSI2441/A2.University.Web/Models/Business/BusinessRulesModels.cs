@@ -202,6 +202,23 @@ namespace A2.University.Web.Models.Business
 
             return course != null;
         }
+
+        /// <summary>
+        /// Checks Student has already been EXCLUDED.
+        /// </summary>
+        /// <param name="studentId"></param>
+        /// <returns></returns>
+        public bool IsAlreadyExcluded(long studentId)
+        {
+            string state = CourseStates["Excluded"];
+
+            var courses = _db.CourseEnrolments
+                .FirstOrDefault(ce =>
+                    ce.student_id == studentId &&
+                    ce.course_status == state);
+
+            return courses != null;
+        }
     }
 
     /// <summary>

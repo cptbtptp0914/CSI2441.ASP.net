@@ -106,6 +106,25 @@ namespace A2.University.Web.Controllers.StaffPortal
             // if input passes validation
             if (ModelState.IsValid)
             {
+                // ASSUMPTION: Student with existing EXCLUDED course is unable to re-enrol until approved
+                // SEE: UnitEnrolmentController.PopulateEntityModel()
+                // SEE: https://www.ecu.edu.au/__data/assets/pdf_file/0005/378320/Admission-Enrolment-and-Academic-Progress-Rules.pdf, rule 26.7, page 22.
+                // OUT OF SCOPE: Implementation of automated PROBATION status,
+                // CURRENT WORKAROUND: Manually delete Student's EXCLUDED course enrolment to allow future re-enrolment
+
+                CourseRules courseRules = new CourseRules();
+
+                // IMPORTANT: If Student has existing EXCLUDED status, deny enrolment to future courses,
+                // this check is implemented to ensure that UnitEnrolmentController.PopulateEntityModel() does not throw exception.
+                if (courseRules.IsAlreadyExcluded(courseEnrolmentViewModel.StudentId))
+                {
+                    // in lieu of automated PROBATION status (out of scope), show error message to user
+                    ModelState.AddModelError("StudentId", "* Student is EXCLUDED awaiting re-enrolment approval");
+                    // populate dropdownlists
+                    PopulateDropDownLists(courseEnrolmentViewModel);
+                    return View(courseEnrolmentViewModel);
+                }
+
                 // create entitymodel, pass values from viewmodel
                 CourseEnrolment courseEnrolmentEntityModel = new CourseEnrolment();
                 PopulateEntityModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
