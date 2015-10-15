@@ -218,6 +218,14 @@ namespace A2.University.Web.Controllers.StaffPortal
             UnitDeleteViewModel unitViewModel = new UnitDeleteViewModel();
             PopulateViewModel(unitViewModel, unitEntityModel);
 
+            // get number of affected rows
+            int rows = GetNumberOfAffectedRows(id);
+            if (rows > 0)
+            {
+                // tell user how many rows this deletion will affect
+                TempData["delete-notice"] = $"WARNING: Deleting this record will also delete {rows} other record/s in the database!";
+            }
+
             if (unitEntityModel == null)
             {
                 return HttpNotFound();
@@ -237,6 +245,10 @@ namespace A2.University.Web.Controllers.StaffPortal
         public ActionResult DeleteConfirmed(string id)
         {
             Unit unit = _db.Units.Find(id);
+
+            // do own cascade on delete
+            CascadeOnDelete(id);
+
             _db.Units.Remove(unit);
             _db.SaveChanges();
 
@@ -316,6 +328,32 @@ namespace A2.University.Web.Controllers.StaffPortal
                 $"{entityModel.Staff.surname}";
 
             viewModel.UnitTypeTitle = entityModel.UnitType.title;
+        }
+
+        /// <summary>
+        /// Returns number of affected rows.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private int GetNumberOfAffectedRows(string id)
+        {
+            return _db.UnitEnrolments.Count(ue => ue.unit_id == id);
+        }
+
+        /// <summary>
+        /// Implemented own cascade on delete,
+        /// database not performing it on its own.
+        /// </summary>
+        /// <param name="id"></param>
+        private void CascadeOnDelete(string id)
+        {
+            var unitEnrolments = _db.UnitEnrolments
+                .Where(ue => ue.unit_id == id);
+
+            foreach (UnitEnrolment x in unitEnrolments)
+            {
+                _db.UnitEnrolments.Remove(x);
+            }
         }
 
         protected override void Dispose(bool disposing)
