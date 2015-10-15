@@ -218,6 +218,14 @@ namespace A2.University.Web.Controllers.StaffPortal
             CourseDeleteViewModel courseViewModel = new CourseDeleteViewModel();
             PopulateViewModel(courseViewModel, courseEntityModel);
 
+            // get number of affected rows
+            int rows = GetNumberOfAffectedRows(id);
+            if (rows > 0)
+            {
+                // tell user how many rows this deletion will affect
+                TempData["delete-notice"] = $"WARNING: Deleting this record will also delete {rows} other record/s in the database!";
+            }
+
             if (courseEntityModel == null)
             {
                 return HttpNotFound();
@@ -237,6 +245,10 @@ namespace A2.University.Web.Controllers.StaffPortal
         public ActionResult DeleteConfirmed(string id)
         {
             Course course = _db.Courses.Find(id);
+
+            // do own cascade on delete
+            CascadeOnDelete(id);
+
             _db.Courses.Remove(course);
             _db.SaveChanges();
 
@@ -315,6 +327,40 @@ namespace A2.University.Web.Controllers.StaffPortal
             viewModel.CourseTypeTitle = entityModel.CourseType.title;
             viewModel.CreditPoints = entityModel.CourseType.credit_points;
             viewModel.Duration = entityModel.CourseType.duration;
+        }
+
+        /// <summary>
+        /// Returns number of affected rows.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private int GetNumberOfAffectedRows(string id)
+        {
+            return
+                _db.CourseEnrolments.Count(su => su.course_id == id) +
+                _db.UnitEnrolments.Count(ue => ue.CourseEnrolment.course_id == id);
+        }
+
+        /// <summary>
+        /// Implemented own cascade on delete,
+        /// database not performing it on its own.
+        /// </summary>
+        /// <param name="id"></param>
+        private void CascadeOnDelete(string id)
+        {
+            var courseEnrolments = _db.CourseEnrolments
+                .Where(ce => ce.course_id == id);
+            var unitEnrolments = _db.UnitEnrolments
+                .Where(ue => ue.CourseEnrolment.course_id == id);
+
+            foreach (CourseEnrolment x in courseEnrolments)
+            {
+                _db.CourseEnrolments.Remove(x);
+            }
+            foreach (UnitEnrolment x in unitEnrolments)
+            {
+                _db.UnitEnrolments.Remove(x);
+            }
         }
 
         protected override void Dispose(bool disposing)
