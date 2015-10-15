@@ -37,9 +37,21 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Email, htmlAttributes: new {@class = "control-label col-md-2"})
             <div class="col-md-4">
                 <p class="form-display">@Html.DisplayFor(model => model.Email)</p>
+            </div>
+        </div>
+
+        @*Show user how many records will be affected in deletion*@
+        @Html.Partial("_DeleteNotice")
+
+        @*Give user warning about deletes*@
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-6 text-warning">
+                    NOTE: Cascade on delete not the best method here, update to "Deleted Staff" on delete, or similar may be a better approach.
+                    Deletion of any Staff assigned as Coordinator not advised. Staff CRUD was only intended to assist in building the demo database 
+                    and is out of scope in the assignment.
             </div>
         </div>
 

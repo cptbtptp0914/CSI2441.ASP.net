@@ -191,6 +191,15 @@ namespace A2.University.Web.Controllers.StaffPortal
             StaffDeleteViewModel staffViewModel = new StaffDeleteViewModel();
             PopulateViewModel(staffViewModel, staffEntityModel);
 
+            // get number of affected rows
+            int rows = GetNumberOfAffectedRows((long) id);
+            if (rows > 0)
+            {
+                // tell user how many rows this deletion will affect
+                TempData["delete-notice"] =
+                    $"WARNING: Deleting this record will also delete {rows} other record/s in the database!";
+            }
+
             if (staffEntityModel == null)
             {
                 return HttpNotFound();
@@ -212,6 +221,10 @@ namespace A2.University.Web.Controllers.StaffPortal
         public ActionResult DeleteConfirmed(long id)
         {
             Staff staff = _db.Staff.Find(id);
+
+            // do own cascade on delete
+            CascadeOnDelete(id);
+
             _db.Staff.Remove(staff);
             _db.SaveChanges();
 
@@ -251,6 +264,55 @@ namespace A2.University.Web.Controllers.StaffPortal
             viewModel.FirstName = entityModel.firstname;
             viewModel.LastName = entityModel.surname;
             viewModel.Email = entityModel.email;
+        }
+
+        /// <summary>
+        /// Returns number of affected rows.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private int GetNumberOfAffectedRows(long id)
+        {
+            return
+                _db.Courses.Count(su => su.coordinator_id == id) +
+                _db.Units.Count(ue => ue.coordinator_id == id) +
+                _db.CourseEnrolments.Count(ce => ce.Course.coordinator_id == id) +
+                _db.UnitEnrolments.Count(ue => ue.Unit.coordinator_id == id);
+            
+        }
+
+        /// <summary>
+        /// Implemented own cascade on delete,
+        /// database not performing it on its own.
+        /// </summary>
+        /// <param name="id"></param>
+        private void CascadeOnDelete(long id)
+        {
+            var courses = _db.Courses
+                .Where(c => c.coordinator_id == id);
+            var units = _db.Units
+                .Where(u => u.coordinator_id == id);
+            var courseEnrolments = _db.CourseEnrolments
+                .Where(ce => ce.Course.coordinator_id == id);
+            var unitEnrolments = _db.UnitEnrolments
+                .Where(ue => ue.Unit.coordinator_id == id);
+
+            foreach (Course x in courses)
+            {
+                _db.Courses.Remove(x);
+            }
+            foreach (Unit x in units)
+            {
+                _db.Units.Remove(x);
+            }
+            foreach (CourseEnrolment x in courseEnrolments)
+            {
+                _db.CourseEnrolments.Remove(x);
+            }
+            foreach (UnitEnrolment x in unitEnrolments)
+            {
+                _db.UnitEnrolments.Remove(x);
+            }
         }
 
         /// <summary>
