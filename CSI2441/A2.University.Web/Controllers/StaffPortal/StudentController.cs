@@ -213,6 +213,14 @@ namespace A2.University.Web.Controllers.StaffPortal
             StudentDeleteViewModel studentViewModel = new StudentDeleteViewModel();
             PopulateViewModel(studentViewModel, studentEntityModel);
 
+            // get number of affected rows
+            int rows = GetNumberOfAffectedRows((long) id);
+            if (rows > 0)
+            {
+                // tell user how many rows this deletion will affect
+                TempData["delete-notice"] = $"WARNING: Deleting this record will also delete {rows} other record/s in the database!";
+            }
+
             if (studentEntityModel == null)
             {
                 return HttpNotFound();
@@ -234,6 +242,10 @@ namespace A2.University.Web.Controllers.StaffPortal
         public ActionResult DeleteConfirmed(long id)
         {
             Student student = _db.Students.Find(id);
+
+            // do own cascade on delete
+            CascadeOnDelete(id);
+
             _db.Students.Remove(student);
             _db.SaveChanges();
 
@@ -292,6 +304,48 @@ namespace A2.University.Web.Controllers.StaffPortal
             viewModel.AdrsState = entityModel.adrs_state;
             // cast postcode int to string
             viewModel.AdrsPostcode = entityModel.adrs_postcode.ToString();
+        }
+
+        /// <summary>
+        /// Returns number of affected rows.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private int GetNumberOfAffectedRows(long id)
+        {
+            return
+                _db.StudentUsers.Count(su => su.student_id == id) +
+                _db.UnitEnrolments.Count(ue => ue.student_id == id) +
+                _db.CourseEnrolments.Count(ce => ce.student_id == id);
+
+        }
+
+        /// <summary>
+        /// Implemented own cascade on delete,
+        /// database not performing it on its own.
+        /// </summary>
+        /// <param name="id"></param>
+        private void CascadeOnDelete(long id)
+        {
+            var users = _db.StudentUsers
+                .Where(su => su.student_id == id);
+            var unitEnrolments = _db.UnitEnrolments
+                .Where(ue => ue.student_id == id);
+            var courseEnrolments = _db.CourseEnrolments
+                .Where(ce => ce.student_id == id);
+
+            foreach (StudentUser x in users)
+            {
+                _db.StudentUsers.Remove(x);
+            }
+            foreach (UnitEnrolment x in unitEnrolments)
+            {
+                _db.UnitEnrolments.Remove(x);
+            }
+            foreach (CourseEnrolment x in courseEnrolments)
+            {
+                _db.CourseEnrolments.Remove(x);
+            }
         }
 
         /// <summary>

@@ -448,6 +448,7 @@
     <Content Include="Views\Shared\_StaffRegisterPartial.cshtml" />
     <Content Include="Views\Shared\_StudentRegisterPartial.cshtml" />
     <Content Include="Views\Shared\_FeedbackNotice.cshtml" />
+    <Content Include="Views\Shared\_DeleteNotice.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
