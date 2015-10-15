@@ -112,11 +112,9 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // OUT OF SCOPE: Implementation of automated PROBATION status,
                 // CURRENT WORKAROUND: Manually delete Student's EXCLUDED course enrolment to allow future re-enrolment
 
-                CourseRules courseRules = new CourseRules();
-
                 // IMPORTANT: If Student has existing EXCLUDED status, deny enrolment to future courses,
                 // this check is implemented to ensure that UnitEnrolmentController.PopulateEntityModel() does not throw exception.
-                if (courseRules.IsAlreadyExcluded(courseEnrolmentViewModel.StudentId))
+                if (_courseRules.IsAlreadyExcluded(courseEnrolmentViewModel.StudentId))
                 {
                     // in lieu of automated PROBATION status (out of scope), show error message to user
                     ModelState.AddModelError("StudentId", "* Student is EXCLUDED awaiting re-enrolment approval");
@@ -255,6 +253,14 @@ namespace A2.University.Web.Controllers.StaffPortal
             CourseEnrolmentDeleteViewModel courseEnrolmentViewModel = new CourseEnrolmentDeleteViewModel();
             PopulateViewModel(courseEnrolmentViewModel, courseEnrolmentEntityModel);
 
+            // get number of affected rows
+            int rows = GetNumberOfAffectedRows((long) id);
+            if (rows > 0)
+            {
+                // tell user how many rows this deletion will affect
+                TempData["delete-notice"] = $"WARNING: Deleting this record will also delete {rows} other record/s in the database!";
+            }
+
             if (courseEnrolmentEntityModel == null)
             {
                 return HttpNotFound();
@@ -281,7 +287,10 @@ namespace A2.University.Web.Controllers.StaffPortal
             _db.CourseEnrolments.Remove(courseEnrolment);
 
             // re-enrol last course
-            ReEnrolLastCourse(courseEnrolment.student_id);
+            ReEnrolLastCourse(courseEnrolment.student_id, courseEnrolment.course_enrolment_id);
+
+            // do own cascade on delete
+            CascadeOnDelete(id);
 
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -372,7 +381,7 @@ namespace A2.University.Web.Controllers.StaffPortal
             if (_courseRules.IsNotUniqueEnrolled(studentId))
             {
                 // can't use dict in linq, substitute with string
-                string state = new CourseRules().CourseStates["Enrolled"];
+                string state = _courseRules.CourseStates["Enrolled"];
 
                 // get list of student's courses in ENROLLED status
                 var enrolledCourses = _db.CourseEnrolments
@@ -396,10 +405,11 @@ namespace A2.University.Web.Controllers.StaffPortal
         /// Used when ActionResult Delete() called.
         /// </summary>
         /// <param name="studentId">long</param>
-        private void ReEnrolLastCourse(long studentId)
+        /// <param name="courseEnrolmentId"></param>
+        private void ReEnrolLastCourse(long studentId, long courseEnrolmentId)
         {
             // can't use dict in linq, substitute with string
-            string state = new CourseRules().CourseStates["Discontinued"];
+            string state = _courseRules.CourseStates["Discontinued"];
 
             // get list of student's courses in DISCONTIN status
             var discontinCourses = _db.CourseEnrolments
@@ -408,12 +418,40 @@ namespace A2.University.Web.Controllers.StaffPortal
                     ce.course_status == state)
                 .ToList();
 
-            if (discontinCourses.Count > 0)
+            // change status to enrolled if list contains at least one item AND is not current course enrolment
+            if (discontinCourses.Count > 0 && discontinCourses.All(dc => dc.course_enrolment_id != courseEnrolmentId))
             {
                 // set last DISCONTIN (most recent) course to ENROLLED
                 discontinCourses.Last().course_status = _courseRules.CourseStates["Enrolled"];
                 _db.Entry(discontinCourses.Last()).State = EntityState.Modified;
                 _db.SaveChanges();
+            }
+        }
+
+        /// <summary>
+        /// Returns number of affected rows.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        private int GetNumberOfAffectedRows(long id)
+        {
+            return _db.UnitEnrolments.Count(ue => ue.course_enrolment_id == id);
+
+        }
+
+        /// <summary>
+        /// Implemented own cascade on delete,
+        /// database not performing it on its own.
+        /// </summary>
+        /// <param name="id"></param>
+        private void CascadeOnDelete(long id)
+        {
+            var unitEnrolments = _db.UnitEnrolments
+                .Where(ue => ue.course_enrolment_id == id);
+
+            foreach (UnitEnrolment x in unitEnrolments)
+            {
+                _db.UnitEnrolments.Remove(x);
             }
         }
 
