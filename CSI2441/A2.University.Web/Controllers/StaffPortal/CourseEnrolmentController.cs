@@ -169,6 +169,12 @@ namespace A2.University.Web.Controllers.StaffPortal
 
             // create entitymodel, match id
             CourseEnrolment courseEnrolmentEntityModel = _db.CourseEnrolments.Find(id);
+
+            if (courseEnrolmentEntityModel == null)
+            {
+                return HttpNotFound();
+            }
+
             // create viewmodel, pass values from entitymodel
             CourseEnrolmentEditViewModel courseEnrolmentViewModel = new CourseEnrolmentEditViewModel
             {
@@ -183,11 +189,6 @@ namespace A2.University.Web.Controllers.StaffPortal
 
             // populate dropdownlists
             PopulateDropDownLists(courseEnrolmentViewModel);
-
-            if (courseEnrolmentEntityModel == null)
-            {
-                return HttpNotFound();
-            }
 
             return View(courseEnrolmentViewModel);
         }

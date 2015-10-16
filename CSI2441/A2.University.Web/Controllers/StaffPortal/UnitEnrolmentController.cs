@@ -393,7 +393,7 @@ namespace A2.University.Web.Controllers.StaffPortal
             string excluded = courseRules.CourseStates["Excluded"];
 
             // IMPORTANT: Only want a single db record here, using SingleOrDefault instead of First/Where
-            // WARNING: This MUST RETURN A SINGLE VALUE, else will cause error readonly course status ensures this, DO NOT allow user to modify status!
+            // WARNING: This MUST RETURN A SINGLE VALUE, else will cause error, readonly course status ensures this, DO NOT allow user to modify status!
             // ASSUMPTION: Excluded student is not able to re-enroll into another course without approval, see CourseEnrolmentController.Create() POST method
 
             // select course_enrolment_id where StudentId is match, and is (ENROLLED or EXCLUDED)
