@@ -23,12 +23,12 @@ namespace A2.University.Web.Models
             // FirstName
             RuleFor(field => field.FirstName)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-zA-Z]+$").WithMessage("* Must be a valid name")
+                .Matches(@"^[a-zA-Z-]+$").WithMessage("* Must be a valid name")
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // LastName
             RuleFor(field => field.LastName)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-zA-Z]+$").WithMessage("* Must be a valid name")
+                .Matches(@"^[a-zA-Z-]+$").WithMessage("* Must be a valid name")
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // Dob, min age
             RuleFor(field => field.Dob)
@@ -80,12 +80,12 @@ namespace A2.University.Web.Models
             // FirstName
             RuleFor(field => field.FirstName)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-zA-Z]+$").WithMessage("* Must be a valid name")
+                .Matches(@"^[a-zA-Z-]+$").WithMessage("* Must be a valid name")
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
             // LastName
             RuleFor(field => field.LastName)
                 .NotEmpty().WithMessage("* Required")
-                .Matches(@"^[a-zA-Z]+$").WithMessage("* Must be a valid name")
+                .Matches(@"^[a-zA-Z-]+$").WithMessage("* Must be a valid name")
                 .Length(1, 50).WithMessage("* Must be between 1 and 50 characters");
         }
     }
