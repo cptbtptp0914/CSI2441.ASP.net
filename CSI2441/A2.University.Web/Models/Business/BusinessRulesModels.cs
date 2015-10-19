@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data.Entity;
 using System.Linq;
 using A2.University.Web.Models.Entities;
 using Microsoft.Ajax.Utilities;
@@ -268,6 +270,9 @@ namespace A2.University.Web.Models.Business
             _unitResults = db.UnitEnrolments
                 .Where(ue =>
                     ue.course_enrolment_id == courseEnrolmentId)
+                .Include(ue => ue.Student)
+                .Include(ue => ue.Unit)
+                .Include(ue => ue.CourseEnrolment)
                 .ToList();
 
             // set cp required
@@ -398,22 +403,40 @@ namespace A2.University.Web.Models.Business
         /// Returns highest mark.
         /// </summary>
         /// <returns></returns>
-        public int GetHighestMark()
+        public string GetHighestMark()
         {
-            return _unitResults
-                .Max(results =>
-                    results.mark);
+            var highest = _unitResults
+                .Max(ur => ur.mark);
+
+            var result = _unitResults
+                .FirstOrDefault(ur =>
+                    ur.mark == highest);
+
+            if (result != null)
+            {
+                return $"{result.Unit.unit_id} / {result.year_sem} / {result.mark}{GradeRules.GetGrade(result.mark)}";
+            }
+            return null;
         }
 
         /// <summary>
         /// Returns lowest mark.
         /// </summary>
         /// <returns></returns>
-        public int GetLowestMark()
+        public string GetLowestMark()
         {
-            return _unitResults
-                .Min(result =>
-                    result.mark);
-        } 
+            var lowest = _unitResults
+                .Min(ur => ur.mark);
+
+            var result = _unitResults
+                .FirstOrDefault(ur =>
+                    ur.mark == lowest);
+
+            if (result != null)
+            {
+                return $"{result.Unit.unit_id} / {result.year_sem} / {result.mark}{GradeRules.GetGrade(result.mark)}";
+            }
+            return null;
+        }
     }
 }

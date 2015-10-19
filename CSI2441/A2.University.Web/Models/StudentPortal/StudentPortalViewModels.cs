@@ -105,10 +105,10 @@ namespace A2.University.Web.Models.StudentPortal
         public int UnitsAttempted { get; set; }
 
         [Display(Name = "Highest mark")]
-        public int HighestMark { get; set; }
+        public string HighestMark { get; set; }
 
         [Display(Name = "Lowest mark")]
-        public int LowestMark { get; set; }
+        public string LowestMark { get; set; }
 
         // display as grid
         public string UnitId { get; set; }
