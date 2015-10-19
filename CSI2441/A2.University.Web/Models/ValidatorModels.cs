@@ -452,7 +452,7 @@ namespace A2.University.Web.Models
             // confirm password
             RuleFor(field => field.ConfirmPassword)
                 .NotEmpty().WithMessage("* Required")
-                .Equal(field => field.ConfirmPassword).WithMessage("* Must match new password");
+                .Equal(field => field.Password).WithMessage("* Must match password");
 
             /**************************
              * SERVER SIDE VALIDATION *
