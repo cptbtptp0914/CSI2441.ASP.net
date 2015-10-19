@@ -71,7 +71,7 @@ namespace A2.University.Web.Controllers.StaffPortal
                 // order by student id descending
                 .OrderByDescending(ue => ue.student_id)
                 // then by year/sem descending
-                .ThenBy(ue => ue.year_sem)
+                .ThenByDescending(ue => ue.year_sem)
                 // then by unit title
                 .ThenBy(ue => ue.Unit.title)
                 .Where(ue =>
