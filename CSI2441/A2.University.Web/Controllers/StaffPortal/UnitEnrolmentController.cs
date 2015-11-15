@@ -214,6 +214,7 @@ namespace A2.University.Web.Controllers.StaffPortal
                 PopulateEntityModel(unitEnrolmentViewModel, unitEnrolmentEntityModel);
 
                 // update db using entitymodel
+                // *** PROBLEM *** course_enrolment_id is set to 0 when unit enrolment is edited MUST FIX AFTER EXAMS!!
                 _db.Entry(unitEnrolmentEntityModel).State = EntityState.Modified;
                 _db.SaveChanges();
 
